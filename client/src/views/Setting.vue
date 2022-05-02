@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <div id="printMe">
+    <div>
       <quill-editor
         v-model="content"
         ref="myQuillEditor"
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import { quillEditor, Quill } from "vue-quill-editor";
@@ -125,10 +125,9 @@ export default {
   props: {
     msg: String,
   },
-//   created() {
-
-//     this.getsum();
-//   },
+  created() {
+    this.getsum();
+  },
   data() {
     return {
       product: [],
@@ -210,29 +209,29 @@ export default {
   },
   methods: {
 
-    // async getsum() {
-    //   console.log("get-products");
-    //   try {
-    //     const response = await axios.get("http://localhost:5000/summernote");
-    //     this.content = response.data[1].text;
+    async getsum() {
+      console.log("get-products");
+      try {
+        const response = await axios.get("http://localhost:5000/setting");
+        this.content = response.data[1].summernote;
 
-    //     console.log(response.data);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // },
-    // async savesum() {
-    //  alert(this.content)
-    //   console.log(this.content)
-    //   try {
-    //     await axios.post("http://localhost:5000/summernote", {
-    //       text: this.content,
-    //     });
-    //   } catch (err) {
-    //     alert(err);
-    //     console.log(err);
-    //   }
-    // },
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async savesum() {
+     alert(this.content)
+      console.log(this.content)
+      try {
+        await axios.post("http://localhost:5000/setting", {
+          summernote: this.content,
+        });
+      } catch (err) {
+        alert(err);
+        console.log(err);
+      }
+    },
   },
 };
 </script>
