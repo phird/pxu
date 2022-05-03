@@ -13,8 +13,11 @@ import 'vue-step-wizard/dist/vue-step-wizard.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 // import './plugins/click-away'
+import Vuelidate from 'vuelidate'
 
 import './scss/app.scss';
+
+Vue.use(Vuelidate);
 
 Vue.use(VueStepWizard);
 
