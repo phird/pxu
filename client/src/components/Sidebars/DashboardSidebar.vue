@@ -118,6 +118,9 @@
 
 
 <style scoped>
+	#ph{
+		font-family: 'Mitr', sans-serif;
+	}
 	#ph >>> .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item .router-link-active{
 		text-decoration: none !important;
 	}

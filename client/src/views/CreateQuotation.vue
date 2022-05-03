@@ -102,6 +102,7 @@ export default {
 <style scoped>
 
 .whole-site{
+  font-family: 'Mitr', sans-serif;
   width: 100%;
   display: flex;
   flex-direction: row;

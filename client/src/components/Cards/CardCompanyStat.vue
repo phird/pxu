@@ -1,5 +1,5 @@
 <template>
-    <div :bordered="false" class="dashboard-bar-chart card-stat">
+    <div :bordered="false" class="dashboard-bar-chart card-stat" style="font-family: 'Mitr', sans-serif;">
         <!---  Card Title -->
         <div class="card-title">
             <h5>COMPANY STATS</h5>

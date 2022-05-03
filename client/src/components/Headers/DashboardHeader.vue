@@ -1,7 +1,7 @@
 <template>
 	
 	<!-- Main Sidebar -->
-	<component :is="navbarFixed ? 'a-affix' : 'div'" :offset-top="top">
+	<component :is="navbarFixed ? 'a-affix' : 'div'" :offset-top="top" class="whole-website">
 
 		<!-- Layout Header -->
 		<a-layout-header>
@@ -167,3 +167,9 @@
 	})
 
 </script>
+
+<style scoped>
+	.whole-website{
+		font-family: 'Mitr', sans-serif;
+	}
+</style>

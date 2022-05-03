@@ -1,5 +1,5 @@
 <template>
-	<a-card :bordered="false" class="header-solid h-full" :bodyStyle="{padding: 0,}">
+	<a-card :bordered="false" class="header-solid h-full" :bodyStyle="{padding: 0,}" style="font-family: 'Mitr', sans-serif;">
 		<template #title>
 			<a-row type="flex" align="middle">
 				<a-col :span="24" :md="12">

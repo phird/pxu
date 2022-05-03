@@ -43,6 +43,7 @@ export default {};
 
 <style scoped>
     .card-profile{
+      font-family: 'Mitr', sans-serif;
       position: relative;
       width: 100%;
       height: 100%;
