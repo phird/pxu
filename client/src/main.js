@@ -7,13 +7,16 @@ import DashboardLayout from './layouts/Dashboard.vue'
 import DashboardRTLLayout from './layouts/DashboardRTL.vue'
 import router from './router'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-
+import VueStepWizard from 'vue-step-wizard'
+import 'vue-step-wizard/dist/vue-step-wizard.css'
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 // import './plugins/click-away'
 
 import './scss/app.scss';
+
+Vue.use(VueStepWizard);
 
 Vue.use(Antd);
 // Make BootstrapVue available throughout your project
