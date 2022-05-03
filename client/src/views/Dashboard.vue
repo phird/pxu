@@ -27,7 +27,7 @@
 			<a-col :span="24" :lg="14" class="mb-24">
 				
 				<!-- Sales Overview Card -->
-				<CardLineChart></CardLineChart>
+				<CardCompanyStat></CardCompanyStat>
 				<!-- / Sales Overview Card -->
 
 			</a-col>
@@ -86,10 +86,16 @@
 
 	// Information card 2.
 	import CardInfo2 from '../components/Cards/CardInfo2' ;
+	
 	// Card Current User .
 	import CardUser from '../components/Cards/CardUser.vue'
+	
 	// Card crrent Bank
 	import CardBank from '../components/Cards/CardBank.vue'
+
+	// Card Company Stat
+	import CardCompanyStat from '../components/Cards/CardCompanyStat.vue'
+
 
 	// Counter Widgets stats
 	const stats = [
@@ -252,6 +258,7 @@
 			CardInfo2,
 			CardUser,
 			CardBank,
+			CardCompanyStat,
 		},
 		data() {
 			return {
