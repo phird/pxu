@@ -68,7 +68,6 @@ Quill.register("modules/ImageExtend", ImageExtend);
 function getFontName(font) {
   return font.toLowerCase().replace(/\s/g, "-");
 }
-
 // Specify Quill fonts
 const fontList = [
   "Arial",
@@ -84,7 +83,6 @@ const fontNames = fontList.map((font) => getFontName(font));
 const fonts = Quill.import("formats/font");
 fonts.whitelist = fontNames;
 Quill.register(fonts, true);
-
 // Add fonts to CSS style
 let fontStyles = "";
 fontList.forEach(function (font) {
@@ -110,11 +108,9 @@ fontList.forEach(function (font) {
     "', sans-serif;" +
     "}";
 });
-
 const node = document.createElement("style");
 node.innerHTML = fontStyles;
 document.body.appendChild(node);
-
 export default {
   name: "Summernote",
   components: {
@@ -212,7 +208,10 @@ export default {
       try {
         const response = await axios.get("http://localhost:5000/setting");
         this.content = response.data[1].summernote;
+<<<<<<< HEAD
 
+=======
+>>>>>>> be4f5b03b2b537199ce91e664601f54cd36b7de8
         console.log(response.data);
       } catch (err) {
         console.log(err);

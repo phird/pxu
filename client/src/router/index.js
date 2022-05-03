@@ -24,10 +24,16 @@ let routes = [
 		component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
 	},
 	{
-		path: '/quotations',
+		path: '/Quotations',
 		name: 'Quotations',
 		layout: "dashboard",
 		component: () => import('../views/Quotation.vue'),
+	},
+	{
+		path: '/Quotations/CreateQuotation',
+		name: 'CreateQuotations',
+		layout: "dashboard",
+		component: () => import('../views/CreateQuotation.vue'),
 	},
 	{
 		path: '/setting',
