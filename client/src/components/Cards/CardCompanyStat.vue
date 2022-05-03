@@ -2,31 +2,24 @@
     <div :bordered="false" class="dashboard-bar-chart card-stat">
         <!---  Card Title -->
         <div class="card-title">
-            <h6>COMPANY STATS</h6>
+            <h5>COMPANY STATS</h5>
         </div> 
         <!---  /Card Title -->
-
         <!---  Card content -->
         <div class="div-table-content">
             <div class="card-content">
                     <div class="stat">
-                        <div class="icon-stat">
-                            <div>
-                                <a-icon type="smile" theme="outlined" />
-                            </div>
-                            
+                        <div class="icon-stat icon-blue">  <!--  icon-item-box -->
+                            <b-icon icon="people-fill " style="color: #2F8CE8; font-size:24px;"></b-icon>
                         </div>
                         <div class="detail-stat">
                             <h4>200</h4>
                             <span>Customers</span>
                         </div>
                     </div>
-
-                    <div class="stat">
-                        <div class="icon-stat">
-                            <div>
-                                <a-icon type="smile" theme="outlined" />
-                            </div>
+                    <div class="stat">     
+                        <div class="icon-stat icon-yellow">  <!--  icon-item-box -->
+                            <b-icon icon="file-earmark-code-fill" style="color: #F55D5D; font-size:24px;"></b-icon>
                         </div>
                         <div class="detail-stat">
                             <h4>5</h4>
@@ -35,14 +28,13 @@
                     </div>
 
                     <div class="stat">
-                        <div class="icon-stat">
-                            <a-icon type="smile" theme="outlined" />
+                        <div class="icon-stat icon-green">  <!--  icon-item-box -->
+                            <b-icon icon="wallet-fill" style="color: #376303;"></b-icon>
                         </div>
                         <div class="detail-stat">
                             <h4>1,000,000</h4>
                             <span>Revenue</span>
                         </div>
-                        
                     </div>
             </div>
         </div>
@@ -57,58 +49,80 @@ export default {};
 
 <style scoped>
 
-    .card-stat{
+    .card-stat{   /* whole card element  */
         display: flex;
         position: relative;
-        height: 100%;
         width: 100%;
+        height: 100%;
         border-radius: 5px 5px 5px 5px;
         
     }
 
     .card-title{
         margin: 15px;
+        margin-top: 20px;
+        margin-left: 20px;
+        margin-bottom: 0px;
     }
-    .div-table-content{
+    .div-table-content{    /* div that sep the title and body od card  */
         display: flex;
         justify-content: center;
         margin: auto;
+        
     }
-    .card-content{
+    .card-content{  /* div in div-table-content */
         display: flex;
+        width: 100%;
+        height: 100%;
         flex-direction: row;
         justify-content: space-around;
         align-content: center;
     }
 
-    .stat{
+    .stat{  /* each statistic div   - consist ->  2 part |||  1. icon-stat div 2. detail-stat */   
         display: flex;
-        flex-direction: row;
-        justify-content: center;
         margin: 50px;
+        align-items: center;  
     }
-    .icon-stat{
+    .icon-stat{   /* icon section */
         display: flex;
-        background-color: burlywood;
-        width: 20px;
-        height: 20px;
         border-radius: 50%;
         justify-content: center;
-        padding: 20px;
-        margin-right: 5px ;
+        align-items: center;
+        margin-right: 10px ;
+        height: 45px;
+        width: 45px;
+    }
+
+    .icon-stat b-icon{ /* icon-tag */
+        justify-content: center;
+        align-content: center;
+        margin: 0;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .detail-stat{
         display: block;
         flex-direction: column;
-    }
-    
-    .icon-stat{
-        display: flex;
-        justify-content: center;
+
     }
 
+    .icon-blue{
+        background-color: #C3E0F9;
+        
+    }
 
+    .icon-yellow{
+        background-color: #F3CE95;
+        
+    }
+
+    .icon-green{
+        background-color: #C8F395;
+        
+        
+    }
     .card-stat {
         border: none;
         margin-bottom: 2rem;
@@ -121,6 +135,7 @@ export default {};
         transition: all 0.3s ease-in-out, background 0s, color 0s, border-color 0s;
     }
     .card-stat {
+        background-color: white;
         position: relative;
         display: -webkit-box;
         display: -ms-flexbox;
@@ -136,13 +151,17 @@ export default {};
 
     /* mobile screen */
     @media only screen and (max-width: 991px) { 
-            .card-content{
+        .card-content{
         display: flex;
         flex-direction: column;
         width: 100%;
-        justify-content: start;
-        align-content: center;
         margin-right: auto;
+    }
+        .icon-stat{   /* div that contain icon  */
+        display: flex;
+        height: 45px;
+        width: 45px;
+        margin-right: 10px ;
     }
     }
 </style>

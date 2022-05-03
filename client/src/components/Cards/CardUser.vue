@@ -22,10 +22,13 @@
                 <!---  Profile-detail section -->
                 <div class="card-body">
                     <div class="content-card-body">
-                      <div class="center">
-                        <h4 class="font-semibold m-0 center">Mr. Seller</h4>
+                      <div class="m-0 center  font-semibold">
+                        <h4 >Mr. Seller</h4>
                       </div>
+                      <div>
                         <p class="email-text">Dangisdev@mail.com</p>
+                      </div>
+                        
                     </div>
                 </div>
                 <!---/Profile-detail section -->
@@ -71,15 +74,16 @@ export default {};
     .card-body {  /*  whole text-section   */
         display: flex;
         flex-direction: column;
-        font-size: 24px;
         font-weight: bolder;
-        justify-content: end;
+        font-size: 24px;
+        justify-content: center;
         margin-left: auto;
         margin-right: auto;  
     }
     .content-card-body { /*  div in text-section   */
         display: flex;
         flex-direction: column;
+        margin-top: 40px;
     }
 
     .profile-image-wrapper {  /*  floating profile-section  */
@@ -132,14 +136,15 @@ export default {};
       }
       .content-card-body{
         display: flex;
-        line-height: 2em;
   
       }
       .content-card-body .username{
+        display: flex;
         font-size: 18px;
         font-weight: bolder;
       }
       .content-card-body .email-text{
+        
         font-size: 14px;
         font-weight: 500;
         opacity: 60%;
@@ -148,6 +153,7 @@ export default {};
       .card-profile {
         border: none;
         margin-bottom: 2rem;
+        background-color: white;
         -webkit-box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
         box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
       }
