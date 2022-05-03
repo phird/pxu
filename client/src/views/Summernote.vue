@@ -2,7 +2,7 @@
   <div class="hello">
     <div>
       <quill-editor
-        v-model="content"
+        v-model="text"
         ref="myQuillEditor"
         :options="editorOption"
         @blur="onEditorBlur($event)"
@@ -11,7 +11,7 @@
       >
       </quill-editor>
     </div>
-    <button @click="savesum">click</button>
+    <button @click="auth()">click</button>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -118,20 +118,16 @@ node.innerHTML = fontStyles;
 document.body.appendChild(node);
 
 export default {
-  name: "HelloWorld",
+  name: "Summernote",
   components: {
     quillEditor,
   },
-  props: {
-    msg: String,
-  },
-  created() {
-    this.getsum();
-  },
+  props:["text"],
+//   created() {
+//     // this.getsum();
+//   },
   data() {
     return {
-      product: [],
-      content: "",
       editorOption: {
         placeholder: "type something...",
         modules: {
@@ -208,7 +204,9 @@ export default {
     },
   },
   methods: {
-
+      auth(){
+          alert(this.text);
+      },
     async getsum() {
       console.log("get-products");
       try {
