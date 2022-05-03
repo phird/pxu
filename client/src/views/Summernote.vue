@@ -208,10 +208,6 @@ export default {
       try {
         const response = await axios.get("http://localhost:5000/setting");
         this.content = response.data[1].summernote;
-<<<<<<< HEAD
-
-=======
->>>>>>> be4f5b03b2b537199ce91e664601f54cd36b7de8
         console.log(response.data);
       } catch (err) {
         console.log(err);
