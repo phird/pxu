@@ -73,12 +73,13 @@ export default {
 
 .progressbar{
     -webkit-transition:width 1s ease;
-    transition:width 1s ease}
+    transition:width 1s ease;
+    }
 .vue-step-wizard{
     
     /* background-color:#f7f8fc; */
-    background-color:transparent!important;
-    width:100%!important;
+    background-color:transparent !important;
+    width:100% !important;
     margin:auto;
     padding:40px;
     padding-top: 0px;
@@ -88,11 +89,11 @@ export default {
     justify-content: space-between;
 }
 .step-progress{
-    display: none!important;
-    height:1rem;
+    display: none !important;
+    height:1rem ;
     /* background:#fff; */
     border-radius:1rem;
-    margin:1rem 0
+    margin:1rem 0;
 } 
 .bar{
     content:"";
@@ -103,10 +104,10 @@ export default {
     display:-webkit-box;
     display:-ms-flexbox;
     display:flex;
-    /* background-color:#fff; */
+    background-color:transparent !important; 
     -webkit-box-pack:justify;
     -ms-flex-pack:justify;
-    /* justify-content:space-between; */
+    justify-content:none !important; 
     padding:1rem;
     border-radius:1rem;
     /* -webkit-box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important */
@@ -116,11 +117,11 @@ export default {
     border-radius:10px;
     padding:5px 20px;
     list-style-type:none;
-    padding:.5rem 1.5rem
+    padding:.5rem 1.5rem;
     }
 .step-pills .step-item a{
     text-decoration:none;
-    color:#7b7b7b
+    color:#7b7b7b;
     }
 .step-pills .step-item.active{
     /* border:1px solid #4b8aeb */
@@ -130,22 +131,22 @@ export default {
     font-weight: bolder;
 }
 .step-pills .step-item.validated{
-    border:1px solid #008011
+    border:1px solid #008011;
 }
 .step-body{
     /* background-color:#fff; */
     margin-left:auto;
     -webkit-box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;
-    box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important
+    box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;
 }
 .step-body,.step-footer{
     padding:1rem;
-    border-radius:1rem
+    border-radius:1rem;
 }
 .step-footer{
     margin-left:auto;
     margin:1rem 0;
-    text-align:center
+    text-align:center;
 }
 .step-button{
         font-weight:700;
@@ -164,7 +165,8 @@ export default {
         color:#fff;
         outline:none!important;
         -webkit-box-shadow:none!important;
-        box-shadow:none!important}
+        box-shadow:none!important;
+        }
 .step-button-next{
     background-color:#126fde
 }
@@ -183,9 +185,9 @@ export default {
     height:1.5rem;
     margin-right:.5rem;
     line-height:1.5rem;
-    color:#fff;
-    text-align:center;
-    background:rgba(0,0,0,.38);
-    border-radius: 10px;
+    color:#fff !important;
+    text-align:center !important;
+    background:rgba(0,0,0,.38) !important;
+    border-radius: 10px !important;
     }
 </style>
