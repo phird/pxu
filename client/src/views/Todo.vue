@@ -2,7 +2,7 @@
   <div class="container shadow-lg px-5 py-5 rounded-3">
     <h1 class="mb-5">ใบเสนอราคา</h1>
 
-    <!-- <form> -->
+    <!-- <form> -->   <!-- need validation -->
     <div class="d-flex mb-5">
       <input
         v-model="newTodo"
@@ -27,7 +27,7 @@
         class="submit-btn px-3 py-2"
         @click="addTodo(), calc(statusvat)"
       >
-        +
+        + 
       </button>
     </div>
     <!-- </form> -->

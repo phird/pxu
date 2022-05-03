@@ -180,5 +180,6 @@
 
 </script>
 
-<style lang="scss">
+<style scoped>
+	
 </style>
