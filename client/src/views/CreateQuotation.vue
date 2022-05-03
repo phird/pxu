@@ -76,9 +76,7 @@ export default {
     transition:width 1s ease;
     }
 .vue-step-wizard{
-    
-    /* background-color:#f7f8fc; */
-    background-color:transparent !important;
+    background-color:white !important;
     width:100% !important;
     margin:auto;
     padding:40px;
@@ -91,7 +89,7 @@ export default {
 .step-progress{
     display: none !important;
     height:1rem ;
-    /* background:#fff; */
+    background: white; 
     border-radius:1rem;
     margin:1rem 0;
 } 
@@ -113,7 +111,7 @@ export default {
     /* -webkit-box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important */
 }
 .step-pills .step-item{
-    background-color:transparent!important;
+    background-color:transparent !important;
     border-radius:10px;
     padding:5px 20px;
     list-style-type:none;
@@ -124,7 +122,7 @@ export default {
     color:#7b7b7b;
     }
 .step-pills .step-item.active{
-    /* border:1px solid #4b8aeb */
+    border:none !important; 
 }
 .step-pills .step-item.active a{
     color: black;
@@ -134,7 +132,7 @@ export default {
     border:1px solid #008011;
 }
 .step-body{
-    /* background-color:#fff; */
+    background-color:transparent !important; 
     margin-left:auto;
     -webkit-box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;
     box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;
