@@ -24,6 +24,12 @@ let routes = [
 		component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
 	},
 	{
+		path: '/customer',
+		name: 'Createcustomer',
+		layout: "dashboard",
+		component: () => import('../views/CreateCustomer.vue'),
+	},
+	{
 		path: '/Quotations',
 		name: 'Quotations',
 		layout: "dashboard",
@@ -39,7 +45,7 @@ let routes = [
 		path: '/setting',
 		name: 'Setting',
 		layout: "dashboard",
-		component: () => import('../views/Setting.vue'),
+		component: () => import('../views/CreateCustomer.vue'),
 	},
 	{
 		path: '/archive',
