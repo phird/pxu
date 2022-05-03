@@ -1,34 +1,64 @@
 <template>
-  <form-wizard>
-    <tab-content title="ข้อมูลทั่วไป" :selected="true">
-      <div class="form-group">
-        <todo 
-        :todos="todos" 
-        :sumtodo="sumtodo" />
+  <div class="whole-site">
+    <!-- Left layput for website  -->
+      <div class="left-layout">
+        <form-wizard  id="ph">
+          <tab-content title="ข้อมูลทั่วไป" :selected="true">
+            <div class="form-group">
+              <todo 
+              :todos="todos" 
+              :sumtodo="sumtodo" />
+            </div>
+            </tab-content>
+
+
+            <tab-content title="ข้อมูลเพิ่มเติม*">
+              <div class="form-group">
+                <summernote 
+                :sumnote="sumnote" @update-text="update"/>
+              </div>
+            </tab-content>
+
+
+            <tab-content title="เพิ่มขอบเขตงาน">
+              <div class="form-group">
+                <label for="referral">From Where did you hear about us</label>
+                <select class="form-control" v-model="referral">
+                  <option>Newspaper</option>
+                  <option>Online Ad</option>
+                  <option>Friend</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </tab-content>
+        </form-wizard>
       </div>
-    </tab-content>
-
-
-    <tab-content title="ข้อมูลเพิ่มเติม*">
-      <div class="form-group">
-        <summernote 
-        :sumnote="sumnote" @update-text="update"/>
+      <!-- /Left layput for website  -->
+      
+      <!-- Right layput for website  -->
+      <div class="right-layout">
+          <div class="right-layout-panel">
+            <div class="container-panel">
+              <button type="button" class="btn btn-outline-primary " disabled>
+                <!-- <b-icon icon="file-earmark-pdf" style="color: blue; font-size:24px;"></b-icon> -->
+                ดาวน์โหลดเป็น PDF
+              </button>
+              <button type="button" class="btn btn-outline-success" disabled>
+                <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
+                บันทึก
+              </button>
+              <button type="button" class="btn btn-outline-danger">
+                <!-- <b-icon icon="x-square" style="color: red; font-size:24px;"></b-icon> -->
+                ยกเลิก
+              </button>
+            </div>
+          </div>
+        
       </div>
-    </tab-content>
+      <!--/Right layput for website  -->
 
-
-    <tab-content title="เพิ่มขอบเขตงาน">
-      <div class="form-group">
-        <label for="referral">From Where did you hear about us</label>
-        <select class="form-control" v-model="referral">
-          <option>Newspaper</option>
-          <option>Online Ad</option>
-          <option>Friend</option>
-          <option>Other</option>
-        </select>
-      </div>
-    </tab-content>
-  </form-wizard>
+  </div>
+  
 </template>
 
 <script>
@@ -71,82 +101,109 @@ export default {
 
 <style scoped>
 
-.progressbar{
+.whole-site{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.left-layout{
+  width: 70%;
+}
+.right-layout{
+  width: 30%;
+}
+.right-layout-panel{
+  padding: 40px;
+  margin: auto;
+  width: 70%;
+  border-radius: 14px;
+  align-content: center;
+  background-color: white;
+  -webkit-box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;box-shadow:0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+.container-panel{
+  display: flex;
+  flex-direction: column;
+}
+.container-panel button{
+  margin: 10px;
+}
+
+
+
+
+
+/* specific module change  */
+
+#ph >>> .progressbar{
     -webkit-transition:width 1s ease;
     transition:width 1s ease;
     }
-.vue-step-wizard{
-    background-color:white !important;
+#ph >>> .vue-step-wizard{
+    background-color:transparent !important;
     width:100% !important;
-    margin:auto;
-    padding:40px;
-    padding-top: 0px;
 }
 
-.step-header{
-    justify-content: space-between;
-}
-.step-progress{
+#ph >>> .step-progress{
     display: none !important;
-    height:1rem ;
-    background: white; 
-    border-radius:1rem;
-    margin:1rem 0;
 } 
-.bar{
+#ph >>> .bar{
     content:"";
     height:1rem;
     border-radius:1rem;
-    background-color:#4b8aeb}
-.step-pills{
+    background-color:#4b8aeb
+    }
+#ph >>> .step-pills{
     display:-webkit-box;
     display:-ms-flexbox;
     display:flex;
     background-color:transparent !important; 
     -webkit-box-pack:justify;
     -ms-flex-pack:justify;
-    justify-content:none !important; 
+    justify-content:start !important; 
     padding:1rem;
     border-radius:1rem;
-    /* -webkit-box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important */
+    -webkit-box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;box-shadow:0 .5rem 1rem transparent!important ;
 }
-.step-pills .step-item{
+#ph >>> .step-pills .step-item{
     background-color:transparent !important;
     border-radius:10px;
     padding:5px 20px;
     list-style-type:none;
     padding:.5rem 1.5rem;
     }
-.step-pills .step-item a{
+#ph >>> .step-pills .step-item a{
     text-decoration:none;
     color:#7b7b7b;
     }
-.step-pills .step-item.active{
-    border:none !important; 
+#ph >>> .step-pills .step-item.active {
+    border: 0px solid transparent !important;
 }
-.step-pills .step-item.active a{
+#ph >>> .step-pills .step-item.active a{
     color: black;
     font-weight: bolder;
 }
-.step-pills .step-item.validated{
+#ph >>> .step-pills .step-item.validated{
     border:1px solid #008011;
 }
-.step-body{
+#ph >>> .step-body{
     background-color:transparent !important; 
     margin-left:auto;
-    -webkit-box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;
-    box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;
+    -webkit-box-shadow: none !important;
+    box-shadow:0 .5rem 1rem transparent!important;
 }
-.step-body,.step-footer{
+#ph >>> .step-body,.step-footer{
     padding:1rem;
     border-radius:1rem;
 }
-.step-footer{
+#ph >>> .step-footer{
     margin-left:auto;
     margin:1rem 0;
     text-align:center;
+    justify-content: space-between !important;
 }
-.step-button{
+#ph >>> .step-button{
         font-weight:700;
         line-height:1;
         text-transform:uppercase;
@@ -165,19 +222,19 @@ export default {
         -webkit-box-shadow:none!important;
         box-shadow:none!important;
         }
-.step-button-next{
+#ph >>> .step-button-next{
     background-color:#126fde
 }
-.step-button-previous{
+#ph >>> .step-button-previous{
     background-color:#3deaba
 }
-.step-button-submit{
+#ph >>> .step-button-submit{
     background-color:#4fa203
 }
-.step-button-reset{
+#ph >>> .step-button-reset{
     background-color:#037da2
 }
-.tabStatus{
+#ph >>> .tabStatus{
     display:inline-block;
     width:1.5rem;
     height:1.5rem;

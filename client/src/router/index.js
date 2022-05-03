@@ -16,7 +16,7 @@ let routes = [
 	},
 	{
 		path: '/dashboard',
-		name: 'Dashboard',
+		name: 'แดชบอร์ด',
 		layout: "dashboard",
 		// route level code-splitting
 		// this generates a separate chunk (about.[hash].js) for this route
@@ -25,25 +25,31 @@ let routes = [
 	},
 	{
 		path: '/Quotations',
-		name: 'Quotations',
+		name: 'ใบเสนอราคา',
 		layout: "dashboard",
 		component: () => import('../views/Quotation.vue'),
 	},
 	{
 		path: '/Quotations/CreateQuotation',
-		name: 'CreateQuotations',
+		name: 'สร้างใบเสนอราคา',
 		layout: "dashboard",
 		component: () => import('../views/CreateQuotation.vue'),
 	},
 	{
+		path: '/Customers',
+		name: 'ลูกค้า',
+		layout: "dashboard",
+		component: () => import('../views/Customer.vue'),
+	},
+	{
 		path: '/setting',
-		name: 'Setting',
+		name: 'ตั้งค่าเว็บไซต์',
 		layout: "dashboard",
 		component: () => import('../views/Setting.vue'),
 	},
 	{
 		path: '/archive',
-		name: 'Archive',
+		name: 'อื่นๆ',
 		layout: "dashboard",
 		component: () => import('../views/Billing.vue'),
 	},
