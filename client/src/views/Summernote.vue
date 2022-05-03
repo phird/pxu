@@ -2,16 +2,17 @@
   <div class="hello">
     <div>
       <quill-editor
-        v-model="text"
+        v-model="sumnote"
         ref="myQuillEditor"
         :options="editorOption"
+        @change="addtext"
         @blur="onEditorBlur($event)"
         @focus="onEditorFocus($event)"
         @ready="onEditorReady($event)"
       >
       </quill-editor>
     </div>
-    <button @click="auth()">click</button>
+    <button @click="savesum">click</button>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -44,10 +45,10 @@ import axios from "axios";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import { quillEditor, Quill } from "vue-quill-editor";
-import { ImageExtend} from "quill-image-extend-module";
+import { ImageExtend } from "quill-image-extend-module";
 import ImageEdit from "quill-image-edit-module";
 Quill.register("modules/imageEdit", ImageEdit);
-  // import ImageResize from 'quill-image-resize-module';
+// import ImageResize from 'quill-image-resize-module';
 const sizeStyle = Quill.import("attributors/style/size");
 // Quill.register('modules/ImageResize', ImageResize)
 sizeStyle.whitelist = [
@@ -73,9 +74,6 @@ const fontList = [
   "Arial",
   "Courier",
   "Garamond",
-  "Tahoma",
-  "Times New Roman",
-  "Verdana",
   "Brush Script MT",
   "Kanit",
   "Square Peg",
@@ -122,23 +120,24 @@ export default {
   components: {
     quillEditor,
   },
-  props:["text"],
-//   created() {
-//     // this.getsum();
-//   },
+  props:["sumnote"],
+  //   created() {
+  //     // this.getsum();
+  //   },
   data() {
     return {
+      content: "",
       editorOption: {
         placeholder: "type something...",
         modules: {
           imageEdit: {
-            modules: ["Resize", "DisplaySize", "Toolbar", "Delete"],
+            modules: ["Resize", "DisplaySize", "Delete"],
           },
           // see: https://github.com/NextBoy/quill-image-extend-module#quill-image-extend-module-%E7%9A%84%E6%89%80%E6%9C%89%E5%8F%AF%E9%85%8D%E7%BD%AE%E9%A1%B9
           ImageExtend: {
             loading: true,
             name: "img",
-            action: "/uploads", 
+            action: "/uploads",
             // 可选参数 设置请求头部
             headers: (xhr) => {
               xhr.setRequestHeader("withCredentials", true);
@@ -186,9 +185,9 @@ export default {
               [{ font: fonts.whitelist }],
             ],
             handlers: {
-                // image: function() {
-                //   QuillWatch.emit(this.quill.id);
-                // }
+              // image: function() {
+              //   QuillWatch.emit(this.quill.id);
+              // }
             },
           },
         },
@@ -204,14 +203,15 @@ export default {
     },
   },
   methods: {
-      auth(){
-          alert(this.text);
-      },
+    addtext() {
+      let mytext = this.sumnote;
+      this.$emit("update-text", mytext);
+    },
     async getsum() {
       console.log("get-products");
       try {
         const response = await axios.get("http://localhost:5000/setting");
-        this.content = response.data[2].summernote;
+        this.content = response.data[1].summernote;
 
         console.log(response.data);
       } catch (err) {
@@ -219,11 +219,11 @@ export default {
       }
     },
     async savesum() {
-     alert(this.content)
-      console.log(this.content)
+      alert(this.content);
+      console.log(this.content);
       try {
         await axios.post("http://localhost:5000/setting", {
-          summernote: this.content,
+          summernote: this.sumnote,
         });
       } catch (err) {
         alert(err);
