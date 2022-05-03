@@ -12,7 +12,7 @@
                 <!----Query default bank account here --->
                 <div class="content-card-body">
                   <div class="bank-name m-0 center font-semibold">
-                      <h4> KASIKORNTHAI</h4>
+                      <span style="font-size:28px;"> KASIKORNTHAI</span>
                   </div>
                   </div>
                       <p class="default-bank-text"> [default]</p>
@@ -50,7 +50,7 @@ export default {};
   .card-body{ /*  whole text-section   */
       display: flex;
       flex-direction: column;
-      font-weight: bolder;
+      
       width: 100%;
       height: 50%;
       justify-content: center;
@@ -97,7 +97,6 @@ export default {};
   .content-card-body{
     align-content: center;
     font-size: 16px;
-    
     margin-right: auto;
     margin-left: auto;
   }

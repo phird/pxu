@@ -13,7 +13,8 @@
                             <b-icon icon="people-fill " style="color: #2F8CE8; font-size:24px;"></b-icon>
                         </div>
                         <div class="detail-stat">
-                            <h4>200</h4>
+                            <span style="font-size:24px;">200</span>
+                            <br/>
                             <span>Customers</span>
                         </div>
                     </div>
@@ -22,7 +23,8 @@
                             <b-icon icon="file-earmark-code-fill" style="color: #F55D5D; font-size:24px;"></b-icon>
                         </div>
                         <div class="detail-stat">
-                            <h4>5</h4>
+                            <span style="font-size:24px;">5</span>
+                            <br/>
                             <span>Projects</span>
                         </div>
                     </div>
@@ -32,7 +34,8 @@
                             <b-icon icon="wallet-fill" style="color: #376303;"></b-icon>
                         </div>
                         <div class="detail-stat">
-                            <h4>1,000,000</h4>
+                            <span style="font-size:24px;">1,000,000</span>
+                            <br/>
                             <span>Revenue</span>
                         </div>
                     </div>

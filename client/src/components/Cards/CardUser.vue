@@ -22,8 +22,8 @@
                 <!---  Profile-detail section -->
                 <div class="card-body">
                     <div class="content-card-body">
-                      <div class="m-0 center  font-semibold">
-                        <h4 >Mr. Seller</h4>
+                      <div class="m-0 center font-semibold">
+                        <span style="font-size:24px;" >Mr. Seller</span>
                       </div>
                       <div>
                         <p class="email-text">Dangisdev@mail.com</p>
@@ -104,7 +104,7 @@ export default {};
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    font-weight: bolder;
+    
   }
 /* mobile screen */
   @media only screen and (max-width: 991px) { 
@@ -142,7 +142,7 @@ export default {};
       .content-card-body .username{
         display: flex;
         font-size: 18px;
-        font-weight: bolder;
+        
       }
       .content-card-body .email-text{
         
