@@ -4,7 +4,7 @@
 		<template #title>
 			<a-row type="flex" align="middle">
 				<a-col :span="24" :md="12">
-					<h5 class="font-semibold m-0">Customer</h5>
+					<h5 class="font-semibold m-0"> ลูกค้า </h5>
 				</a-col>
 				<a-col :span="24" :md="12" style="display: flex; align-items: center; justify-content: flex-end">
 					<div class="table-upload-btn">
@@ -131,7 +131,7 @@
 						scopedSlots: { customRender: 'idIdx' },
 					},
 					{
-						title: 'Project Name',
+						title: 'Customer Name',
 						dataIndex: 'prjName',
 						scopedSlots: { customRender: 'prjName' },
 					},
@@ -141,19 +141,14 @@
 						scopedSlots: { customRender: 'status' },
 					},
 					{
-						title: 'W-Status',
-						dataIndex: 'wStatus',
-						scopedSlots: { customRender: 'wStatus' },
+						title: 'Contact Person',
+						dataIndex: 'cPerson',
+						scopedSlots: { customRender: 'cPerson' },
 					},
 					{
-						title: 'Value',
-						dataIndex: 'val',
-						scopedSlots: { customRender: 'val' },
-					},
-					{
-						title: 'Action',
-						dataIndex: 'act',
-						scopedSlots: { customRender: 'act' },
+						title: 'Tel',
+						dataIndex: 'tel',
+						scopedSlots: { customRender: 'tel' },
 					},
 				],
 			},
@@ -170,5 +165,7 @@
 
 
 <style scoped>
-    
+    .header-solid{
+        font-family: 'Mitr', sans-serif;
+    }
 </style>

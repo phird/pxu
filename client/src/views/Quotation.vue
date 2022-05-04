@@ -4,7 +4,7 @@
 		<template #title>
 			<a-row type="flex" align="middle">
 				<a-col :span="24" :md="12">
-					<h5 class="font-semibold m-0">Quotation</h5>
+					<h5 class="font-semibold m-0"> ใบเสนอราคา </h5>
 				</a-col>
 				<a-col :span="24" :md="12" style="display: flex; align-items: center; justify-content: flex-end">
 					<div class="table-upload-btn">
@@ -170,5 +170,7 @@
 
 
 <style scoped>
-    
+    .header-solid{
+		font-family: 'Mitr', sans-serif;
+	}
 </style>
