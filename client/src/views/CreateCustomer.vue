@@ -146,7 +146,7 @@ import {
   alpha,
   email,
 } from "vuelidate/lib/validators";
-import moment from "moment";
+import axios from "axios";
 
 export default {
   data() {
@@ -212,16 +212,35 @@ export default {
   },
 
   methods: {
-    submitForm() {
+    async submitForm() {
       this.$v.$touch();
       console.log(this.companyName);
       console.log(this.companyNumber);
-      if (this.$v.$invalid) alert("can't submit");
+      if (this.$v.$invalid) {
+        alert("can't submit");
+      }else{
+         await axios.post("http://localhost:5000/customer", {
+              companyName : this.companyName,
+              companyNumber:this.companyNumber,
+              status:this.status,
+              address:this.Address,
+              subdis:this.subdis,
+              dis:this.dis,
+              province:this.province,
+              postcode:this.postcode,
+              contactName:this.contactName,
+              contactNumber:this.contactNumber,
+              contactEmail:this.contactEmail,
+              taxNumber:this.taxNumber,
+        }).then(function(){
+          alert('ok');
+        });
+      }
     },
     checkcompany(status){
       if(status=='บุคคลธรรมดา'){
-        this.companyName=this.contactName;
-        this.companyNumber=this.contactNumber;
+        this.companyName="test";
+        this.companyNumber="0000000000";
       }else{
         this.companyName=null;
         this.companyNumber=null;
