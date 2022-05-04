@@ -11,14 +11,16 @@
 				<a-col :span="24" :md="6">
 					<!-- Header Breadcrumbs -->
 					<a-breadcrumb>
-						<a-breadcrumb-item><router-link to="/" style="text-decoration:none;">  หน้า </router-link></a-breadcrumb-item>
+						<a-breadcrumb-item>
+							<router-link to="/" style="text-decoration:none; font-size:16px"> หน้า </router-link>
+						</a-breadcrumb-item>
 						<a-breadcrumb-item>{{ this.$route.name }}</a-breadcrumb-item>
 					</a-breadcrumb>
 					<!-- / Header Breadcrumbs -->
 
 					<!-- Header Page Title -->
 					<div class="ant-page-header-heading">
-						<span class="ant-page-header-heading-title">{{ this.$route.name }}</span>
+						<span class="ant-page-header-heading-title" style="font-size:20px">{{ this.$route.name }}</span>
 					</div>
 					<!-- / Header Page Title -->
 
@@ -27,7 +29,8 @@
 
 				<!-- Header Control Column -->
 				<a-col :span="24" :md="18" class="header-control">
-					<!-- Notification -->
+
+					<!--   NOTIFICATION SECTION  --> 
 					<a-dropdown :trigger="['click']" overlayClassName="header-notifications-dropdown" :getPopupContainer="() => wrapper">
 						<a-badge count="!">
 							<a class="ant-dropdown-link" @click="e => e.preventDefault()">
@@ -37,6 +40,8 @@
 								</svg>
 							</a>
 						</a-badge>
+						
+
 						
 						<a-list item-layout="horizontal" class="header-notifications-list" :data-source="notificationsData" slot="overlay">
 							<a-list-item slot="renderItem" slot-scope="item">
@@ -60,6 +65,7 @@
 								</a-list-item-meta>
 							</a-list-item>
 						</a-list>
+						
 					</a-dropdown>
 					<!-- /Notification -->
 

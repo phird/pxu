@@ -2,7 +2,7 @@
     <div :bordered="false" class="dashboard-bar-chart card-stat" style="font-family: 'Mitr', sans-serif;">
         <!---  Card Title -->
         <div class="card-title">
-            <h5>COMPANY STATS</h5>
+            <p>สถิติของบริษัท</p>
         </div> 
         <!---  /Card Title -->
         <!---  Card content -->
@@ -15,7 +15,7 @@
                         <div class="detail-stat">
                             <span style="font-size:24px;">200</span>
                             <br/>
-                            <span>Customers</span>
+                            <span>ลูกค้า</span>
                         </div>
                     </div>
                     <div class="stat">     
@@ -25,7 +25,7 @@
                         <div class="detail-stat">
                             <span style="font-size:24px;">5</span>
                             <br/>
-                            <span>Projects</span>
+                            <span>โปรเจค </span>
                         </div>
                     </div>
 
@@ -36,7 +36,7 @@
                         <div class="detail-stat">
                             <span style="font-size:24px;">1,000,000</span>
                             <br/>
-                            <span>Revenue</span>
+                            <span>รายได้</span>
                         </div>
                     </div>
             </div>
@@ -62,11 +62,14 @@ export default {};
     }
 
     .card-title{
-        margin: 15px;
-        margin-top: 20px;
-        margin-left: 20px;
+        margin: 20px;
         margin-bottom: 0px;
     }
+    .card-title p{
+        font-size: 20px;
+    }
+
+
     .div-table-content{    /* div that sep the title and body od card  */
         display: flex;
         justify-content: center;

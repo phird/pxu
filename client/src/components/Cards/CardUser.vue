@@ -22,8 +22,8 @@
                 <!---  Profile-detail section -->
                 <div class="card-body">
                     <div class="content-card-body">
-                      <div class="m-0 center font-semibold">
-                        <span style="font-size:24px;" >Mr. Seller</span>
+                      <div class="username">
+                        <span style="font-size:20px;" >Mr.Sellefdsfdsfsdfsdfsfdsfsfdr</span>
                       </div>
                       <div>
                         <p class="email-text">Dangisdev@mail.com</p>
@@ -78,13 +78,13 @@ export default {};
         font-weight: bolder;
         font-size: 24px;
         justify-content: center;
-        margin-left: auto;
-        margin-right: auto;  
+
     }
     .content-card-body { /*  div in text-section   */
         display: flex;
         flex-direction: column;
-        margin-top: 40px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .profile-image-wrapper {  /*  floating profile-section  */
@@ -100,6 +100,13 @@ export default {};
         height: 6.5vw;
         width: 6.5vw;
     }
+
+    .content-card-body .username{
+      width: 100%;
+      word-wrap: break-word;
+      overflow: hidden;
+    }
+
     .center{
     text-align: center;
     margin-left: auto;
@@ -136,6 +143,7 @@ export default {};
         display: flex;
       }
       .content-card-body{
+        margin-left: auto;
         display: flex;
   
       }
