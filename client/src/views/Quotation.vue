@@ -20,7 +20,7 @@
 				</a-col>
 			</a-row>
 		</template>
-		<a-table :columns="columns" :data-source="data" :pagination="true">
+		<a-table class="quotation-table"  :columns="columns" :data-source="data" :pagination="true">
 
 			<template slot="name" slot-scope="text">
 				<a>{{ text }}</a>
@@ -64,6 +64,24 @@
 </template>
 
 <script>
+	function myFunction() {
+		var input, filter, table, tr, td, i, txtValue;
+		input = document.getElementById(".header-search");
+		filter = input.value.toUpperCase();
+		table = document.getElementById(".quotation-table");
+		tr = table.getElementsByTagName("tr");
+		for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[0];
+			if (td) {
+				txtValue = td.textContent || td.innerText;
+				if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+				} else {
+					tr[i].style.display = "none";
+				}
+			}       
+		}
+	}
 
 	export default ({
 		props: {
@@ -73,6 +91,30 @@
 					{
 						key: '1',
 						idIdx: 'xxxxx',
+						prjName: 'Project1',
+						status: 1,
+						wStatus:1,
+						val: '100,000',
+					},
+					{
+						key: '1',
+						idIdx: 'uuuuuuuu',
+						prjName: 'Project1',
+						status: 1,
+						wStatus:1,
+						val: '100,000',
+					},
+					{
+						key: '1',
+						idIdx: 'yyyyyyy',
+						prjName: 'Project1',
+						status: 1,
+						wStatus:1,
+						val: '100,000',
+					},
+					{
+						key: '1',
+						idIdx: 'aaaaaa',
 						prjName: 'Project1',
 						status: 1,
 						wStatus:1,
