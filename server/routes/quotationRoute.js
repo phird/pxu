@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
     const companyName = req.body.companyName;
     const estatus = req.body.estatus;
     const summernote = req.body.summernote;
-    const sqlQuotation = "INSERT INTO `quotation`(`quotationID`, `customerID`, `employeeID`, `bankID`, `status-quotation`, `date-quotation`, `note-quotation`, `status-work`, `quantity-installment`, `vat`, `address`, `sub-district`, `district`, `province`, `postcode`, `taxNumber`, `stamp`, `companyName`, `paymentPrice`, `summernote`, `e-status`, `total`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    const sqlQuotation = "INSERT INTO `quotation`(`quotationID`, `customerID`, `employeeID`, `bankID`, `statusquotation`, `datequotation`, `notequotation`, `statuswork`, `quantityinstallment`, `vat`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `stamp`, `companyName`, `paymentPrice`, `summernote`, `estatus`, `total`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     db.query(sqlQuotation, [qID,
         cID,
         eID,
