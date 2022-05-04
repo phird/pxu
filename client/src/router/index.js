@@ -45,6 +45,12 @@ let routes = [
 		path: '/Customers',
 		name: 'ลูกค้า',
 		layout: "dashboard",
+		component: () => import('../views/Customer.vue'),
+	},
+	{
+		path: '/Customers/CreateCustomer',
+		name: 'เพิ่มลูกค้า',
+		layout: "dashboard",
 		component: () => import('../views/CreateCustomer.vue'),
 	},
 	{
