@@ -64,6 +64,8 @@
 </template>
 
 <script>
+	import axios from 'axios'
+
 	function myFunction() {
 		var input, filter, table, tr, td, i, txtValue;
 		input = document.getElementById(".header-search");
@@ -162,8 +164,24 @@
 			return {
 				// Active button for the "Projects" table's card header radio button group.
 				projectHeaderBtns: 'all',
+				quotation:[],
 			}
 		},
+		created(){
+			this.getquotation();
+		},
+		methods:{
+			async getquotation() {
+      console.log("get-quo");
+      try {
+        const response = await axios.get("http://localhost:5000/quotation");
+        this.quotation = response.data;
+        console.log(this.quotation);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+		}
 	})
 
 </script>

@@ -1,262 +1,226 @@
 <template>
-  <div class="hello">
-    <div>
-      <quill-editor
-        v-model="content"
-        ref="myQuillEditor"
-        :options="editorOption"
-        @blur="onEditorBlur($event)"
-        @focus="onEditorFocus($event)"
-        @ready="onEditorReady($event)"
-      >
-      </quill-editor>
-    </div>
-    <button @click="savesum">click</button>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Srisakdi:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Square+Peg&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,600;1,300;1,600&display=swap"
-      rel="stylesheet"
-    />
+  <div class="whole-site">
+    <!-- Left layput for website  -->
+      <div class="left-layout">
+        <form-wizard  id="ph">
+          <tab-content title="ข้อมูลทั่วไป" :selected="true">
+            <div class="form-group">
+    <websetting />
+            </div>
+            </tab-content>
+
+            <tab-content title="ข้อมูลเพิ่มเติม*">
+              <div class="form-group">
+<employee/>
+              </div>
+            </tab-content>
+
+
+            <tab-content title="เพิ่มขอบเขตงาน">
+<!-- <banker/> -->
+            </tab-content>
+        </form-wizard>
+      </div>
+      <!-- /Left layput for website  -->
+      
+      <!-- Right layput for website  -->
+      <div class="right-layout">
+          <div class="right-layout-panel">
+            <div class="container-panel">
+              <button type="button" class="btn btn-outline-primary " disabled>
+                <!-- <b-icon icon="file-earmark-pdf" style="color: blue; font-size:24px;"></b-icon> -->
+                ดาวน์โหลดเป็น PDF
+              </button>
+              <button type="button" class="btn btn-outline-success" disabled>
+                <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
+                บันทึก
+              </button>
+              <button type="button" class="btn btn-outline-danger">
+                <!-- <b-icon icon="x-square" style="color: red; font-size:24px;"></b-icon> -->
+                ยกเลิก
+              </button>
+            </div>
+          </div>
+        
+      </div>
+      <!--/Right layput for website  -->
+
   </div>
+  
 </template>
 
 <script>
-import axios from "axios";
-import "quill/dist/quill.core.css";
-import "quill/dist/quill.snow.css";
-import { quillEditor, Quill } from "vue-quill-editor";
-import { ImageExtend} from "quill-image-extend-module";
-import ImageEdit from "quill-image-edit-module";
-Quill.register("modules/imageEdit", ImageEdit);
-  // import ImageResize from 'quill-image-resize-module';
-const sizeStyle = Quill.import("attributors/style/size");
-// Quill.register('modules/ImageResize', ImageResize)
-sizeStyle.whitelist = [
-  "10px",
-  "12px",
-  "14px",
-  "16px",
-  "18px",
-  "20px",
-  "24px",
-  "30px",
-  "32px",
-  "36px",
-];
-Quill.register(sizeStyle, true);
-Quill.register("modules/ImageExtend", ImageExtend);
-function getFontName(font) {
-  return font.toLowerCase().replace(/\s/g, "-");
-}
-
-// Specify Quill fonts
-const fontList = [
-  "Arial",
-  "Courier",
-  "Garamond",
-  "Tahoma",
-  "Times New Roman",
-  "Verdana",
-  "Brush Script MT",
-  "Kanit",
-  "Square Peg",
-  "Orbitron",
-  "Srisakdi",
-];
-const fontNames = fontList.map((font) => getFontName(font));
-const fonts = Quill.import("formats/font");
-fonts.whitelist = fontNames;
-Quill.register(fonts, true);
-
-// Add fonts to CSS style
-let fontStyles = "";
-fontList.forEach(function (font) {
-  let fontName = getFontName(font);
-  fontStyles +=
-    ".ql-snow .ql-picker.ql-font .ql-picker-label[data-value=" +
-    fontName +
-    "]::before, .ql-snow .ql-picker.ql-font .ql-picker-item[data-value=" +
-    fontName +
-    "]::before {" +
-    "content: '" +
-    font +
-    "';" +
-    "font-family: '" +
-    font +
-    "', sans-serif;" +
-    "}" +
-    ".ql-font-" +
-    fontName +
-    "{" +
-    " font-family: '" +
-    font +
-    "', sans-serif;" +
-    "}";
-});
-
-const node = document.createElement("style");
-node.innerHTML = fontStyles;
-document.body.appendChild(node);
-
+import Employee from './Employee.vue';
+import Websetting from './Websetting.vue';
+import Banker from './Banker.vue';
+import { FormWizard, TabContent } from "vue-step-wizard";
+import "vue-step-wizard/dist/vue-step-wizard.css";
 export default {
-  name: "HelloWorld",
+  //component code
+  name: "Setting",
   components: {
-    quillEditor,
-  },
-  props: {
-    msg: String,
-  },
-  created() {
-    this.getsum();
+    FormWizard,
+    TabContent,
+    Websetting,
+    Employee,
+    Banker
   },
   data() {
-    return {
-      product: [],
-      content: "",
-      editorOption: {
-        placeholder: "type something...",
-        modules: {
-          imageEdit: {
-            modules: ["Resize", "DisplaySize", "Toolbar", "Delete"],
-          },
-          // see: https://github.com/NextBoy/quill-image-extend-module#quill-image-extend-module-%E7%9A%84%E6%89%80%E6%9C%89%E5%8F%AF%E9%85%8D%E7%BD%AE%E9%A1%B9
-          ImageExtend: {
-            loading: true,
-            name: "img",
-            action: "/uploads", 
-            // 可选参数 设置请求头部
-            headers: (xhr) => {
-              xhr.setRequestHeader("withCredentials", true);
-            },
-            response: (res) => {
-              return res.info;
-            },
-          },
-          // see: https://quilljs.com/docs/modules/toolbar/
-          toolbar: {
-            container: [
-              [
-                {
-                  size: [
-                    "10px",
-                    "12px",
-                    "14px",
-                    "16px",
-                    "18px",
-                    "20px",
-                    "24px",
-                    "30px",
-                    "32px",
-                    "36px",
-                  ],
-                },
-                { header: [1, 2, 3, 4, 5, 6, false] },
-              ],
-              [
-                "bold",
-                "italic",
-                "underline",
-                "strike",
-                { color: [] },
-                { background: [] },
-              ],
-              [
-                { list: "ordered" },
-                { list: "bullet" },
-                { indent: "-1" },
-                { indent: "+1" },
-              ],
-              ["link", "image"],
-              ["clean"],
-              [{ font: fonts.whitelist }],
-            ],
-            handlers: {
-                // image: function() {
-                //   QuillWatch.emit(this.quill.id);
-                // }
-            },
-          },
-        },
-      },
-      onEditorBlur() {},
-      onEditorFocus() {},
-      onEditorReady() {},
-    };
-  },
-  computed: {
-    editor() {
-      return this.$refs.myQuillEditor;
-    },
+    return{
+      
+    }
   },
   methods: {
-
-    async getsum() {
-      console.log("get-products");
-      try {
-        const response = await axios.get("http://localhost:5000/setting");
-        this.content = response.data[2].summernote;
-
-        console.log(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    async savesum() {
-     alert(this.content)
-      console.log(this.content)
-      try {
-        await axios.post("http://localhost:5000/setting", {
-          summernote: this.content,
-        });
-      } catch (err) {
-        alert(err);
-        console.log(err);
-      }
-    },
+ 
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
 
-<style>
-.ql-size span.ql-picker-item[data-value]::before,
-.ql-size span.ql-picker-label[data-value]::before {
-  content: attr(data-value) !important;
+.whole-site{
+  font-family: 'Mitr', sans-serif;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }
+
+.left-layout{
+  width: 70%;
+}
+.right-layout{
+  width: 30%;
+}
+.right-layout-panel{
+  padding: 40px;
+  margin: auto;
+  width: 70%;
+  border-radius: 14px;
+  align-content: center;
+  background-color: white;
+  -webkit-box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;box-shadow:0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+.container-panel{
+  display: flex;
+  flex-direction: column;
+}
+.container-panel button{
+  margin: 10px;
+}
+
+
+
+
+
+/* specific module change  */
+
+#ph >>> .progressbar{
+    -webkit-transition:width 1s ease;
+    transition:width 1s ease;
+    }
+#ph >>> .vue-step-wizard{
+    background-color:transparent !important;
+    width:100% !important;
+}
+
+#ph >>> .step-progress{
+    display: none !important;
+} 
+#ph >>> .bar{
+    content:"";
+    height:1rem;
+    border-radius:1rem;
+    background-color:#4b8aeb
+    }
+#ph >>> .step-pills{
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    background-color:transparent !important; 
+    -webkit-box-pack:justify;
+    -ms-flex-pack:justify;
+    justify-content:flex-start !important; 
+    padding:1rem;
+    border-radius:1rem;
+    -webkit-box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;box-shadow:0 .5rem 1rem transparent!important ;
+}
+#ph >>> .step-pills .step-item{
+    background-color:transparent !important;
+    border-radius:10px;
+    padding:5px 20px;
+    list-style-type:none;
+    padding:.5rem 1.5rem;
+    }
+#ph >>> .step-pills .step-item a{
+    text-decoration:none;
+    color:#7b7b7b;
+    }
+#ph >>> .step-pills .step-item.active {
+    border: 0px solid transparent !important;
+}
+#ph >>> .step-pills .step-item.active a{
+    color: black;
+    font-weight: bolder;
+}
+#ph >>> .step-pills .step-item.validated{
+    border:1px solid #008011;
+}
+#ph >>> .step-body{
+    background-color:transparent !important; 
+    margin-left:auto;
+    -webkit-box-shadow: none !important;
+    box-shadow:0 .5rem 1rem transparent!important;
+}
+#ph >>> .step-body,.step-footer{
+    padding:1rem;
+    border-radius:1rem;
+}
+#ph >>> .step-footer{
+    margin-left:auto;
+    margin:1rem 0;
+    text-align:center;
+    justify-content: space-between !important;
+}
+#ph >>> .step-button{
+        font-weight:700;
+        line-height:1;
+        text-transform:uppercase;
+        position:relative;
+        max-width:30rem;
+        text-align:center;
+        border:1px solid;
+        border-radius:12px !important;
+        color:#22292f;
+        color:rgba(34,41,47,var(--text-opacity));
+        padding:.5rem 1.25rem;
+        font-size:.875rem;
+        margin:.5rem;
+        color:#fff;
+        outline:none!important;
+        -webkit-box-shadow:none!important;
+        box-shadow:none!important;
+        }
+#ph >>> .step-button-next{
+    background-color:#126fde
+}
+#ph >>> .step-button-previous{
+    background-color:#3deaba
+}
+#ph >>> .step-button-submit{
+    background-color:#4fa203
+}
+#ph >>> .step-button-reset{
+    background-color:#037da2
+}
+#ph >>> .tabStatus{
+    display:inline-block;
+    width:1.5rem;
+    height:1.5rem;
+    margin-right:.5rem;
+    line-height:1.5rem;
+    color:#fff !important;
+    text-align:center !important;
+    background:rgba(0,0,0,.38) !important;
+    border-radius: 10px !important;
+    }
 </style>

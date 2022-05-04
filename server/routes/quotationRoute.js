@@ -5,9 +5,10 @@ import db from "../config/database.js";
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    const sqlQuotation = "SELECT * FROM quotation ";
+    const sqlQuotation = "SELECT * FROM quotation";
 
     db.query(sqlQuotation, (err, sqlQuotationRe) => {
+        console.log(err);
         if (err) throw err;
         // console.log(sqlQuotationRe);
         res.send(sqlQuotationRe);

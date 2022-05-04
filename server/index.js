@@ -3,12 +3,9 @@ import cors from 'cors';
 const app = express();
 //import routers
 import customerRoute from './routes/customerRoute.js'
-// import dashboardW1Route from './routes/dashbaordW1Route.js'
-// import workRoute from './routes/workRoute.js'
-// import lastworkRoute from './routes/lastworkRoute.js'
-// import detailRoute from './routes/scopeRoute.js'
 import quotationRoute from './routes/quotationRoute.js'
-// import scopeRoute from './routes/scopeRoute.js'
+import employeeRoute from './routes/employeeRoute.js'
+import websiteRoute from './routes/websiteRoute.js'
 
 app.use(cors());
 
@@ -21,9 +18,10 @@ app.use(express.json());
 // app.use("/works", workRoute);
 // app.use("/scope", scopeRoute);
 // app.use("/lastwork", lastworkRoute);
-app.use("/setting", quotationRoute);
+app.use("/quotation", quotationRoute);
 app.use("/customer", customerRoute);
-
+app.use("/employee", employeeRoute);
+app.use("/website", websiteRoute);
 
 app.listen(5000, () =>{
     console.log("Running on port 5000");
