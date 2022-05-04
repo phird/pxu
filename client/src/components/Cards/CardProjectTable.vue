@@ -21,7 +21,7 @@
 				<div class="table-avatar-info">
 					
 					<div class="avatar-info">
-						<h6>{{ prj.pjname }}</h6>
+						<h6>{{ prj.pjName }}</h6>
 						<p>{{ prj.name }}</p>
 					</div>
 				</div>

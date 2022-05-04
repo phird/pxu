@@ -53,7 +53,7 @@
 			<a-col :span="24" :lg="8" class="mb-24">
 
 				<!-- Orders History Timeline Card -->
-				<!-- <CardCustomerAnalytic></CardCustomerAnalytic> -->
+				<CardCustomerAnalytic></CardCustomerAnalytic>
 				<!-- / Orders History Timeline Card -->
 
 			</a-col>
@@ -97,7 +97,6 @@
 	import CardCompanyStat from '../components/Cards/CardCompanyStat.vue'
 
 	// card customer a alytic
-
 	import CardCustomerAnalytic from '../components/Cards/CardCustomerAnalytic.vue'
 
 	// Counter Widgets stats

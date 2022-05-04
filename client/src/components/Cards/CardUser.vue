@@ -36,7 +36,6 @@
                 </div>  <!--/card body section --> 
                 <!---/Profile-detail section -->
             </div>
-            
   </div> 
 </template>
 
@@ -45,12 +44,14 @@ export default {};
 </script>
 
 <style scoped>
+
+
     .card-profile{
       font-family: 'Mitr', sans-serif;
       position: relative;
       width: 100%;
       height: 100%;
-      border-radius: 5px 5px 5px 5px;
+      border-radius: 12px;
     }
 
     .card-profile .card-profile-section{  /* div that contain banner and text-section */

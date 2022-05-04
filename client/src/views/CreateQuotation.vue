@@ -162,7 +162,7 @@ export default {
     background-color:transparent !important; 
     -webkit-box-pack:justify;
     -ms-flex-pack:justify;
-    justify-content:start !important; 
+    justify-content:flex-start !important; 
     padding:1rem;
     border-radius:1rem;
     -webkit-box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;box-shadow:0 .5rem 1rem transparent!important ;

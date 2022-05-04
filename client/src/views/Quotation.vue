@@ -16,7 +16,7 @@
                                 Create Quotation
                             </a-button>
                         </router-link>
-		</div>
+					</div>
 				</a-col>
 			</a-row>
 		</template>
@@ -69,11 +69,51 @@
 		props: {
 			data: {
 				type: Array,
-				default: () => [],
+				default: () => [
+					{
+						key: '1',
+						idIdx: 'xxxxx',
+						prjName: 'Project1',
+						status: 1,
+						wStatus:1,
+						val: '100,000',
+					},
+				],
 			},
 			columns: {
 				type: Array,
-				default: () => [],
+				default: () => [
+					{
+						title: '#ID',
+						dataIndex: 'idIdx',
+						scopedSlots: { customRender: 'idIdx' },
+					},
+					{
+						title: 'Project Name',
+						dataIndex: 'prjName',
+						scopedSlots: { customRender: 'prjName' },
+					},
+					{
+						title: 'STATUS',
+						dataIndex: 'status',
+						scopedSlots: { customRender: 'status' },
+					},
+					{
+						title: 'W-Status',
+						dataIndex: 'wStatus',
+						scopedSlots: { customRender: 'wStatus' },
+					},
+					{
+						title: 'Value',
+						dataIndex: 'val',
+						scopedSlots: { customRender: 'val' },
+					},
+					{
+						title: 'Action',
+						dataIndex: 'act',
+						scopedSlots: { customRender: 'act' },
+					},
+				],
 			},
 		},
 		data() {

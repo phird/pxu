@@ -1,6 +1,7 @@
 <template>
     <div :bordered="false" class="dashboard-bar-chart card-stat" style="font-family: 'Mitr', sans-serif;">
         <!---  Card Title -->
+        
         <div class="card-title">
             <p>สถิติของบริษัท</p>
         </div> 
@@ -13,9 +14,9 @@
                             <b-icon icon="people-fill " style="color: #2F8CE8; font-size:24px;"></b-icon>
                         </div>
                         <div class="detail-stat">
-                            <span style="font-size:24px;">200</span>
+                            <span class="counter-stat" id="statistic-text" style="font-size:24px;" data-target="200">0</span>
                             <br/>
-                            <span>ลูกค้า</span>
+                            <span id="text-stat" >ลูกค้า</span>
                         </div>
                     </div>
                     <div class="stat">     
@@ -23,9 +24,9 @@
                             <b-icon icon="file-earmark-code-fill" style="color: #F55D5D; font-size:24px;"></b-icon>
                         </div>
                         <div class="detail-stat">
-                            <span style="font-size:24px;">5</span>
+                            <span class="counter-stat" id="statistic-text" style="font-size:24px;" data-target="5" >0</span>
                             <br/>
-                            <span>โปรเจค </span>
+                            <span id="text-stat" >โปรเจค </span>
                         </div>
                     </div>
 
@@ -34,9 +35,9 @@
                             <b-icon icon="wallet-fill" style="color: #376303;"></b-icon>
                         </div>
                         <div class="detail-stat">
-                            <span style="font-size:24px;">1,000,000</span>
+                            <span class="counter-stat" id="statistic-text" style="font-size:24px;" data-target="1000000" >0</span>
                             <br/>
-                            <span>รายได้</span>
+                            <span id="text-stat">รายได้</span>
                         </div>
                     </div>
             </div>
@@ -47,7 +48,37 @@
 </template>
 
 <script>
-export default {};
+    export default {
+        mounted(){
+            const counters = document.querySelectorAll('.counter-stat');
+            const speed = 250; // The lower the slower
+
+            counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                // Lower inc to slow and higher to slow
+                const inc =  parseInt(target / speed)<1?1:parseInt(target / speed);
+
+                // console.log(inc);
+                // console.log(count);
+
+                // Check if target is reached
+                if (count < target) {
+                    // Add inc to count and output in counter
+                    counter.innerText = count + inc;
+                    // Call function every ms
+                    setTimeout(updateCount, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+
+            updateCount();
+});
+
+        }
+    }
 </script>
 
 <style scoped>
@@ -57,8 +88,7 @@ export default {};
         position: relative;
         width: 100%;
         height: 100%;
-        border-radius: 5px 5px 5px 5px;
-        
+        border-radius: 12px;
     }
 
     .card-title{
@@ -68,7 +98,6 @@ export default {};
     .card-title p{
         font-size: 20px;
     }
-
 
     .div-table-content{    /* div that sep the title and body od card  */
         display: flex;
@@ -99,6 +128,10 @@ export default {};
         height: 45px;
         width: 45px;
     }
+    
+    #text-stat{
+        font-weight:600;
+    }
 
     .icon-stat b-icon{ /* icon-tag */
         justify-content: center;
@@ -111,23 +144,18 @@ export default {};
     .detail-stat{
         display: block;
         flex-direction: column;
-
     }
 
     .icon-blue{
-        background-color: #C3E0F9;
-        
+        background-color: #C3E0F9;     
     }
 
     .icon-yellow{
         background-color: #F3CE95;
-        
     }
 
     .icon-green{
         background-color: #C8F395;
-        
-        
     }
     .card-stat {
         border: none;
