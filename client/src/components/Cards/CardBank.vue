@@ -8,11 +8,11 @@
                 />
             </div>
             
-            <div class="card-body">
+            <div class="card-body">   <!-- 1 -->
                 <!----Query default bank account here --->
                 <div class="content-card-body">
-                  <div class="bank-name m-0 center font-semibold">
-                      <span style="font-size:28px;"> KASIKORNTHAI</span>
+                  <div class="bank-name m-0 center">
+                      <span style="font-size:24px;"> KASIKORNTHAI</span>
                   </div>
                   </div>
                       <p class="default-bank-text"> [default]</p>
@@ -30,7 +30,7 @@ export default {};
   .card{
       font-family: 'Mitr', sans-serif;
       position: relative;
-      border-radius: 5px 5px 5px 5px;
+      border-radius: 12px;
       width: 100%;
       height: 100%;
   }
@@ -50,7 +50,6 @@ export default {};
   .card-body{ /*  whole text-section   */
       display: flex;
       flex-direction: column;
-      
       width: 100%;
       height: 50%;
       justify-content: center;
@@ -73,7 +72,6 @@ export default {};
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    font-weight: bolder;
   }
 
 

@@ -20,20 +20,22 @@
                 </div>
                 <!--- /Profile-Banner section -->
                 <!---  Profile-detail section -->
-                <div class="card-body">
+                <div class="card-body"><!-- card body section --> <!-- 1 -->
+
                     <div class="content-card-body">
-                      <div class="username">
-                        <span style="font-size:20px;" >Mr.Sellefdsfdsfsdfsdfsfdsfsfdr</span>
-                      </div>
-                      <div>
-                        <p class="email-text">Dangisdev@mail.com</p>
-                      </div>
+                      <div class="content-box">
+                        <div id="username" >
+                          <span style="font-size:20px;" >Mr.Phirachat</span>
+                        </div>
+                        <div id="email">
+                          <span class="email-text" style="font-size:16px; font-weight:300;">Dangisdev@mail.com</span>
+                        </div>
                         
+                      </div>            
                     </div>
-                </div>
+                </div>  <!--/card body section --> 
                 <!---/Profile-detail section -->
             </div>
-            
   </div> 
 </template>
 
@@ -42,12 +44,14 @@ export default {};
 </script>
 
 <style scoped>
+
+
     .card-profile{
       font-family: 'Mitr', sans-serif;
       position: relative;
       width: 100%;
       height: 100%;
-      border-radius: 5px 5px 5px 5px;
+      border-radius: 12px;
     }
 
     .card-profile .card-profile-section{  /* div that contain banner and text-section */
@@ -75,24 +79,25 @@ export default {};
     .card-body {  /*  whole text-section   */
         display: flex;
         flex-direction: column;
-        font-weight: bolder;
         font-size: 24px;
         justify-content: center;
+        align-items: center;
 
     }
     .content-card-body { /*  div in text-section   */
         display: flex;
         flex-direction: column;
-        margin-left: auto;
-        margin-right: auto;
+    }
+
+    .content-card-body span{ /*  div in text-section   */
+        display: flex;
+        align-content: center;
     }
 
     .profile-image-wrapper {  /*  floating profile-section  */
         position: absolute;
         z-index: 10;
         object-fit: cover;
-        height: 100vh;
-        width: 100vw;
         top: 30%;
         left: 32%;
     }
@@ -101,11 +106,14 @@ export default {};
         width: 6.5vw;
     }
 
-    .content-card-body .username{
+    .content-card-body .content-box{
       width: 100%;
+      flex-direction: column;
       word-wrap: break-word;
       overflow: hidden;
     }
+
+
 
     .center{
     text-align: center;
