@@ -54,10 +54,16 @@ let routes = [
 		component: () => import('../views/CreateCustomer.vue'),
 	},
 	{
+		path: '/setting/createemployee',
+		name: 'เพิ่มพนักงาน',
+		layout: "dashboard",
+		component: () => import('../views/CreateEmployee.vue'),
+	},
+	{
 		path: '/setting',
 		name: 'ตั้งค่าเว็บไซต์',
 		layout: "dashboard",
-		component: () => import('../views/Customer.vue'),
+		component: () => import('../views/Setting.vue'),
 	},
 	{
 		path: '/archive',
