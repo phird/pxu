@@ -45,13 +45,13 @@ let routes = [
 		path: '/Customers',
 		name: 'ลูกค้า',
 		layout: "dashboard",
-		component: () => import('../views/Customer.vue'),
+		component: () => import('../views/CreateCustomer.vue'),
 	},
 	{
 		path: '/setting',
 		name: 'ตั้งค่าเว็บไซต์',
 		layout: "dashboard",
-		component: () => import('../views/CreateCustomer.vue'),
+		component: () => import('../views/Customer.vue'),
 	},
 	{
 		path: '/archive',
