@@ -103,6 +103,7 @@
         display: flex;
         justify-content: center;
         margin: auto;
+        flex-shrink: 1;
         
     }
     .card-content{  /* div in div-table-content */
@@ -112,12 +113,16 @@
         flex-direction: row;
         justify-content: space-around;
         align-content: center;
+        flex-grow: 1;
     }
 
     .stat{  /* each statistic div   - consist ->  2 part |||  1. icon-stat div 2. detail-stat */   
         display: flex;
-        margin: 50px;
-        align-items: center;  
+        padding: 0%;
+        margin: 2rem;
+        /* margin: 50px; */
+        align-items: center;
+        flex-shrink: 1;
     }
     .icon-stat{   /* icon section */
         display: flex;
@@ -181,6 +186,26 @@
         min-width: 0;
         word-wrap: break-word;
     }
+
+    /* ipad thing */
+    @media only screen and (max-width: 1260px){
+        .card-content{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-right: auto;
+        }
+        .stat{  /* each statistic div   - consist ->  2 part |||  1. icon-stat div 2. detail-stat */   
+        display: flex;
+        padding: 0%;
+        margin: 1rem;
+        /* margin: 50px; */
+        align-items: center;
+        flex-shrink: 1;
+    }
+    }
+    
+
 
 
     /* mobile screen */
