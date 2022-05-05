@@ -14,7 +14,7 @@
       <!-- ==================================================================== -->
       <div v-if="status == 'นิติบุคคล'">
         <div class="contact-person-section">
-          <p class="icon">  <b-icon icon="person" style="color: #376303;"></b-icon > ข้อมูลผู้ติดต่อ</p>
+          <h6 class="icon">  <b-icon icon="person" style="color: #376303;"></b-icon > ข้อมูลผู้ติดต่อ</h6>
           <!-- Name of company -->
           <div class="field">
             <input id="companyName" type="text" v-model="companyName" placeholder="ชื่อบริษัท/ลูกค้า" style="text-indent:4%"/>
@@ -51,7 +51,7 @@
       <!-- ==================================================================== -->
       <!-- บุคคลธรรมดา -->
       <div v-else>
-        <p class="icon">  <b-icon icon="person" style="color: #376303;"></b-icon > ข้อมูลผู้ติดต่อ</p>
+        <h6 class="icon">  <b-icon icon="person" style="color: #376303;"></b-icon > ข้อมูลผู้ติดต่อ</h6>
         <div class="field">
           <!-- ชื่อผู้ติดต่อ -->
           <div class="field">
@@ -94,68 +94,65 @@
           </div>
         </div>
       </div>
+      <br/>
       <!-- / บุคคลธรรมดา -->
       <div class="address-info ">
-        <p> <b-icon icon="house-door" style="color: #376303;"></b-icon >ที่อยู่ผู้ติดต่อ</p>
+        <h6> <b-icon icon="house-door" style="color: #376303;"></b-icon > ที่อยู่ผู้ติดต่อ</h6>
         <!-- ที่อยู่ -->
-        <div class="field">
-          <label for="Address">ที่อยู่</label>
+        <div class="field" id="addr-detail">
+          <label for="Address">บ้านเลขที่/ที่อยู่</label>
           <input id="Address" type="text" v-model="Address" />
           <div class="error" v-if="$v.Address.$error">
             <template v-if="!$v.Address.$invalid"> </template>
             <template v-else> ต้องใส่ที่อยู่ </template>
           </div>
         </div>
-        <!-- ตำบล -->
-        <div class="field">
-          <label for="subdis">ตำบล</label>
-          <input id="subdis" type="text" v-model="subdis" />
-          <div class="error" v-if="$v.subdis.$error">
-            <template v-if="!$v.subdis.$invalid"> </template>
-            <template v-else> ****</template>
-          </div>
+        <div class="addr-info-section">
+             <!-- ตำบล -->
+              <div class="field" id="addr-box">
+                <label for="subdis">ตำบล</label>
+                <input id="subdis" type="text" v-model="subdis" />
+                <div class="error" v-if="$v.subdis.$error">
+                  <template v-if="!$v.subdis.$invalid"> </template>
+                  <template v-else> ****</template>
+                </div>
+              </div>
+              <!-- อำเภอ -->
+              <div class="field" id="addr-box">
+                <label for="dis">อำเภอ</label>
+                <input id="dis" type="text" v-model="dis" />
+                <div class="error" v-if="$v.dis.$error">
+                  <template v-if="!$v.dis.$invalid"> </template>
+                  <template v-else> ****</template>
+                </div>
+              </div>
+              <!-- จังหวัด -->
+              <div class="field" id="addr-box">
+                <label for="province">จังหวัด</label>
+                <input id="province" type="text" v-model="province" />
+                <div class="error" v-if="$v.province.$error">
+                  <template v-if="!$v.province.$invalid"> </template>
+                  <template v-else> ****</template>
+                </div>
+              </div>
+              <!-- zip code -->
+              <div class="field" id="addr-box">
+                <label for="postcode">รหัสไปรษณีย์</label>
+                <input id="postcode" type="text" v-model="postcode" />
+                <div class="error" v-if="$v.postcode.$error">
+                  <template v-if="!$v.postcode.$invalid"> </template>
+                  <template v-else> รหัสไปรษณีย์ต้องมี5ตัว</template>
+                </div>
+              </div>
+
         </div>
-        <!-- อำเภอ -->
-        <div class="field">
-          <label for="dis">อำเภอ</label>
-          <input id="dis" type="text" v-model="dis" />
-          <div class="error" v-if="$v.dis.$error">
-            <template v-if="!$v.dis.$invalid"> </template>
-            <template v-else> ****</template>
-          </div>
-        </div>
-        <!-- จังหวัด -->
-        <div class="field">
-          <label for="province">จังหวัด</label>
-          <input id="province" type="text" v-model="province" />
-          <div class="error" v-if="$v.province.$error">
-            <template v-if="!$v.province.$invalid"> </template>
-            <template v-else> ****</template>
-          </div>
-        </div>
-      <div class="field">
-        <label for="postcode">รหัสไปรษณีย์</label>
-        <input id="postcode" type="text" v-model="postcode" />
-        <div class="error" v-if="$v.postcode.$error">
-          <template v-if="!$v.postcode.$invalid"> </template>
-          <template v-else> รหัสไปรษณีย์ต้องมี5ตัว</template>
-        </div>
+
       </div>
-
-      </div>
-
-
-
-
+      <br/>
+      <!-- รายละเอียดผู้ติดต่อ -->
       <div v-if="status == 'นิติบุคคล'">
-        <div class="field">
-          <label for="contactNumber"> เบอร์ผู้ติดต่อ</label>
-          <input id="contactNumber" type="text" v-model="contactNumber" />
-          <div class="error" v-if="$v.contactNumber.$error">
-            <template v-if="!$v.contactNumber.$invalid"> </template>
-            <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
-          </div>
-        </div>
+        <h6> <b-icon icon="person" style="color: #376303;"></b-icon >  รายละเอียดผู้ติดต่อ </h6>
+
         <div class="field">
           <label for="contactName"> ชื่อผู้ติดต่อ</label>
           <input id="contactName" type="text" v-model="contactName" />
@@ -164,14 +161,25 @@
             <template v-else> ต้องระบุชื่อ </template>
           </div>
         </div>
+
         <div class="field">
-          <label for="contactEmail"> emailผู้ติดต่อ</label>
+          <label for="contactNumber"> เบอร์โทร </label>
+          <input id="contactNumber" type="text" v-model="contactNumber" />
+          <div class="error" v-if="$v.contactNumber.$error">
+            <template v-if="!$v.contactNumber.$invalid"> </template>
+            <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
+          </div>
+        </div>
+        
+        <div class="field">
+          <label for="contactEmail"> อีเมล </label>
           <input id="contactEmail" type="text" v-model="contactEmail" />
           <div class="error" v-if="$v.contactEmail.$error">
             <template v-if="!$v.contactEmail.$invalid"> </template>
             <template v-else> email error </template>
           </div>
         </div>
+
       </div>
       <div v-else></div>
       <button type="submit">ส่งแบบฟอร์ม</button>
@@ -293,6 +301,7 @@ export default {
 
 <style scoped>
   .form-for-customer{
+    font-family: "Mitr", sans-serif;
     align-content: center;
     width: 60%;
     margin-left: auto;
@@ -333,9 +342,30 @@ export default {
     background-position: 5px 50%;
     width: 100%;
   }
+
+ #addr-detail input{
+   width: 100%;
+ }
+ #addr-box{
+   display: flex;
+   flex-direction: column;
+ }
+
+ .addr-info-section{
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: row;
+   width: 100%;
+   justify-content: space-between;
+   
+ }
+ .addr-info-section div{
+   width: 45%;
+ }
   .form-for-customer input{
     border-radius: 10px;
     border: 0.5 solid rgba(0, 0, 0, 0.473) ;
+    opacity: 0.5;
   } 
 
   .contact-person-section{
