@@ -3,11 +3,11 @@
   <div>
     <form @submit.prevent="submitForm()">
       <div class="field">
-        <label for="companyNumber"> เบอร์บริษัท</label>
-        <input id="companyNumber" type="text" v-model="companyNumber" />
-        <div class="error" v-if="$v.companyNumber.$error">
-          <template v-if="!$v.companyNumber.$invalid"> </template>
-          <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
+        <label for="websiteName">ชื่อเว็ป</label>
+        <input id="websiteName" type="text" v-model="websiteName" />
+        <div class="error" v-if="$v.websiteName.$error">
+          <template v-if="!$v.websiteName.$invalid"> </template>
+          <template v-else> ต้องระบุชื่อ </template>
         </div>
       </div>
       <div class="field">
@@ -85,24 +85,19 @@ import axios from "axios";
 export default {
   data() {
     return {
-      status: "นิติบุคคล",
+      websiteName: "",
       companyName: "",
-      companyNumber: "",
       taxNumber: null,
-      contactEmail: null,
       Address: null,
       subdis: null,
       dis: null,
       province: null,
       postcode: null,
+      setstate:'',
     };
   },
 
   validations: {
-    companyNumber: {
-      required,
-      validFormat: (val) => /^\d{10}$/.test(val),
-    },
     taxNumber: {
       required,
       validFormat: (val) => /^\d{13}$/.test(val),
@@ -110,6 +105,9 @@ export default {
     postcode: {
       required,
       validFormat: (val) => /^\d{5}$/.test(val),
+    },
+    websiteName: {
+      required,
     },
     companyName: {
       required,
@@ -131,17 +129,66 @@ export default {
     //   validDate: (val) => moment(val, "DD.MM.YYYY", true).isValid(),
     // },
   },
-
+  created(){
+    this.getweb();
+  },
   methods: {
     async submitForm() {
       this.$v.$touch();
-      console.log(this.companyName);
-      console.log(this.companyNumber);
       if (this.$v.$invalid) {
         alert("can't submit");
-      } else {
+      } else if(this.setstate=='false'){
+        await axios
+          .post("http://localhost:5000/website", {
+            websiteName: this.websiteName,
+            companyName: this.companyName,
+            taxNumber: this.taxNumber,
+            Address: this.Address,
+            subdis: this.subdis,
+            dis: this.dis,
+            province: this.province,
+            postcode: this.postcode,
+          })
+          .then(function () {
+            alert("push");
+          });
+          window.location.href='/';
+      }else{
+        await axios
+          .put("http://localhost:5000/website", {
+            websiteName: this.websiteName,
+            companyName: this.companyName,
+            taxNumber: this.taxNumber,
+            Address: this.Address,
+            subdis: this.subdis,
+            dis: this.dis,
+            province: this.province,
+            postcode: this.postcode,
+          })
+          .then(function () {
+            alert("update");
+          });
       }
     },
+    async getweb() {
+      console.log("get-web");
+      try {
+        const response = await axios.get("http://localhost:5000/website");
+          this.websiteName=response.data[0].websiteName;
+          this.companyName=response.data[0].companyname;
+          this.taxNumber=response.data[0].taxNumber;
+          this.Address=response.data[0].address;
+          this.subdis=response.data[0].subdistrict;
+          this.dis=response.data[0].district;
+          this.province=response.data[0].province;
+          this.postcode=response.data[0].postcode;
+        console.log(response.data[0]);
+      } catch (err) {
+        this.setstate='false'
+        console.log(err);
+      }
+    },
+
   },
 };
 </script>
@@ -156,4 +203,5 @@ export default {
 }
 
 .error {
-  color: red;}
+  color: red;
+}
