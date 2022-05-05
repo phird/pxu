@@ -261,19 +261,23 @@
             <div class="addr-info-section">
               <!-- ตำบล -->
               <div class="field" id="addr-box">
-                <ThailandAutoComplete v-model="subdis" id='subdis' type="district" @select="select" label="ตำบล"  placeholder="ตำบล..."/>
+                <label for="subdis">ตำบล</label>
+                <ThailandAutoComplete v-model="subdis" id='subdis' type="district" @select="select"  placeholder="ตำบล..."/>
               </div>
               <!-- อำเภอ -->
               <div class="field" id="addr-box">
-                <ThailandAutoComplete v-model="dis" type="amphoe" @select="select" label="อำเภอ"  placeholder="อำเภอ..."/>
+                <label for="dis">อำเภอ</label>
+                <ThailandAutoComplete v-model="dis" type="amphoe" @select="select"  placeholder="อำเภอ..."/>
               </div>
               <!-- จังหวัด -->
               <div class="field" id="addr-box">
-                <ThailandAutoComplete v-model="province" type="province" @select="select" label="จังหวัด"  color="#35495e" placeholder="จังหวัด..."/>
+                <label for="provice">จังหวัด</label>
+                <ThailandAutoComplete v-model="province" type="province" @select="select"   color="#35495e" placeholder="จังหวัด..."/>
               </div>
               <!-- zip code -->
               <div class="field" id="addr-box">
-                <ThailandAutoComplete v-model="postcode" type="zipcode" @select="select" label="รหัสไปรษณีย์"  color="#00a4e4" placeholder="รหัสไปรษณีย์..."/>
+                <label for="postcode">รหัสไปรษณีย์</label>
+                <ThailandAutoComplete v-model="postcode" type="zipcode" @select="select"  color="#00a4e4" placeholder="รหัสไปรษณีย์..."/>
               </div>
             </div>
           </div>
