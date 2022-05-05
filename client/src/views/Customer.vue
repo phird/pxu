@@ -48,8 +48,8 @@
 				<a>{{ text }}</a>
 			</template>
 
-			<a-space slot="customerID" slot-scope="customer" :size="-12" class="avatar-chips">
-				<a>{{ customer.key }}</a>
+			<a-space slot="index" slot-scope="index" :size="-12" class="avatar-chips">
+				<a>{{ index }}</a>
 			</a-space>
 
 			<template slot="status" slot-scope="status">
@@ -366,8 +366,9 @@ export default {
           scopedSlots: { customRender: "companyName" },
         },
         {
-          title: "Customer ID",
-          scopedSlots: { customRender: "customer" },
+          title: "ID",
+          dataIndex: "index",
+          scopedSlots: { customRender: "index" },
         },
         {
           title: "STATUS",
@@ -499,6 +500,9 @@ export default {
       try {
         const response = await axios.get("http://localhost:5000/customer");
         this.customer = response.data;
+        for(let i=0;i<response.data.length;i++){
+             this.customer[i].index=i+1;
+        }
         console.log(this.customer);
       } catch (err) {
         console.log(err);
