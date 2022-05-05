@@ -111,7 +111,7 @@ export default {};
       width: 100%;
       flex-direction: column;
       word-wrap: break-word;
-      overflow:scroll;
+      overflow:auto;
     }
 
     .center{
