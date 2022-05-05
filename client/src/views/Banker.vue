@@ -15,4 +15,19 @@
     </mdb-modal>
   </div> -->
 
+<template>
+  <createbank/>
+</template>
 
+<script>
+import createbank from './Createbank.vue'
+export default {
+components:{
+  createbank
+}
+}
+</script>
+
+<style>
+
+</style>

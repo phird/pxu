@@ -6,7 +6,7 @@ import customerRoute from './routes/customerRoute.js'
 import quotationRoute from './routes/quotationRoute.js'
 import employeeRoute from './routes/employeeRoute.js'
 import websiteRoute from './routes/websiteRoute.js'
-
+import bankRoute from './routes/bankRoute.js'
 app.use(cors());
 
 app.use(express.json({limit: '25mb'}));
@@ -22,6 +22,7 @@ app.use("/quotation", quotationRoute);
 app.use("/customer", customerRoute);
 app.use("/employee", employeeRoute);
 app.use("/website", websiteRoute);
+app.use("/bank", bankRoute);
 
 app.listen(5000, () =>{
     console.log("Running on port 5000");
