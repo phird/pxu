@@ -30,6 +30,7 @@
     "vue-quill-editor": "^3.0.6",
     "vue-router": "3.5.2",
     "vue-step-wizard": "^0.1.17",
+    "vue-thailand-address-autocomplete": "^0.1.1",
     "vuelidate": "^0.7.7"
   },
   "devDependencies": {

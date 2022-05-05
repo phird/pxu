@@ -17,6 +17,10 @@ import Vuelidate from 'vuelidate'
 
 import './scss/app.scss';
 
+import ThailandAutoComplete from 'vue-thailand-address-autocomplete'
+
+Vue.component('ThailandAutoComplete', ThailandAutoComplete)
+
 Vue.use(Vuelidate);
 
 Vue.use(VueStepWizard);
