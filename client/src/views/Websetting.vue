@@ -35,38 +35,30 @@
           <template v-else> ต้องใส่ที่อยู่ </template>
         </div>
       </div>
-      <div class="field">
-        <label for="subdis">ตำบล</label>
-        <input id="subdis" type="text" v-model="subdis" />
-        <div class="error" v-if="$v.subdis.$error">
-          <template v-if="!$v.subdis.$invalid"> </template>
-          <template v-else> ****</template>
-        </div>
-      </div>
-      <div class="field">
-        <label for="dis">อำเภอ</label>
-        <input id="dis" type="text" v-model="dis" />
-        <div class="error" v-if="$v.dis.$error">
-          <template v-if="!$v.dis.$invalid"> </template>
-          <template v-else> ****</template>
-        </div>
-      </div>
-      <div class="field">
-        <label for="province">จังหวัด</label>
-        <input id="province" type="text" v-model="province" />
-        <div class="error" v-if="$v.province.$error">
-          <template v-if="!$v.province.$invalid"> </template>
-          <template v-else> ****</template>
-        </div>
-      </div>
-      <div class="field">
-        <label for="postcode">รหัสไปรษณีย์</label>
-        <input id="postcode" type="text" v-model="postcode" />
-        <div class="error" v-if="$v.postcode.$error">
-          <template v-if="!$v.postcode.$invalid"> </template>
-          <template v-else> รหัสไปรษณีย์ต้องมี5ตัว</template>
-        </div>
-      </div>
+
+              <!-- ตำบล -->
+              <div class="field" id="addr-box">
+                <label for="subdis">ตำบล</label>
+                <ThailandAutoComplete v-model="subdis" id='subdis' type="district" @select="select"  placeholder="ตำบล..."/>
+              </div>
+              <!-- อำเภอ -->
+              <div class="field" id="addr-box">
+                <label for="dis">อำเภอ</label>
+                <ThailandAutoComplete v-model="dis" type="amphoe" @select="select"  placeholder="อำเภอ..."/>
+              </div>
+              <!-- จังหวัด -->
+              <div class="field" id="addr-box">
+                <label for="provice">จังหวัด</label>
+                <ThailandAutoComplete v-model="province" type="province" @select="select"   color="#35495e" placeholder="จังหวัด..."/>
+              </div>
+              <!-- zip code -->
+              <div class="field" id="addr-box">
+                <label for="postcode">รหัสไปรษณีย์</label>
+                <ThailandAutoComplete v-model="postcode" type="zipcode" @select="select"  color="#00a4e4" placeholder="รหัสไปรษณีย์..."/>
+              </div>
+       
+   
+ 
       <button type="submit">ส่งแบบฟอร์ม</button>
     </form>
   </div>
@@ -81,18 +73,21 @@ import {
   email,
 } from "vuelidate/lib/validators";
 import axios from "axios";
-
+import ThailandAutoComplete from "vue-thailand-address-autocomplete";
 export default {
+  components:{
+    ThailandAutoComplete,
+  },
   data() {
     return {
       websiteName: "",
       companyName: "",
       taxNumber: null,
       Address: null,
-      subdis: null,
-      dis: null,
-      province: null,
-      postcode: null,
+      subdis: '',
+      dis: '',
+      province: '',
+      postcode: '',
       setstate:'',
     };
   },
@@ -133,6 +128,12 @@ export default {
     this.getweb();
   },
   methods: {
+    select(address) {
+      this.subdis = address.district;
+      this.dis = address.amphoe;
+      this.province = address.province;
+      this.postcode = address.zipcode;
+    },
     async submitForm() {
       this.$v.$touch();
       if (this.$v.$invalid) {
