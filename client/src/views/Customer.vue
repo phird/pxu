@@ -37,85 +37,48 @@
                   />
                 </svg>
                 Create Customer
-              </a-button>
-            </div>
-          </a-col>
-        </a-row>
-      </template>
-      <a-table
-        class="quotation-table"
-        :columns="columns"
-        :data-source="data"
-        :pagination="true"
-      >
-        <template slot="name" slot-scope="text">
-          <a>{{ text }}</a>
-        </template>
+            </a-button>
+					</div>
+				</a-col>
+			</a-row>
+		</template>
+		<a-table class="quotation-table"  :columns="columns" :data-source="customer" :pagination="true">
 
-        <a-space
-          slot="members"
-          slot-scope="members"
-          :size="-12"
-          class="avatar-chips"
-        >
-          <template v-for="member in members">
-            <a-avatar :key="member" size="small" :src="member" />
-          </template>
-        </a-space>
+			<template slot="companyName" slot-scope="text">
+				<a>{{ text }}</a>
+			</template>
 
-        <template slot="company" slot-scope="company">
-          <h6 class="m-0">
-            <img :src="company.logo" width="25" style="margin-right: 10px" />
-            {{ company.name }}
-          </h6>
-        </template>
+			<a-space slot="customerID" slot-scope="customer" :size="-12" class="avatar-chips">
+				<a>{{ customer.key }}</a>
+			</a-space>
 
-        <template slot="completion" slot-scope="completion">
-          <div class="progress-right">
-            <div class="text-right text-sm font-semibold text-muted pr-15">
-              {{
-                completion.value || completion.value == 0
-                  ? completion.value
-                  : completion
-              }}%
-            </div>
-            <a-progress
-              class="m-0"
-              :percent="
-                completion.value || completion.value == 0
-                  ? completion.value
-                  : completion
-              "
-              :show-info="false"
-              size="small"
-              :status="completion.status ? completion.status : 'normal'"
-            />
-          </div>
-        </template>
+			<template slot="status" slot-scope="status">
+				<h6 class="m-0">
+					{{status}}
+				</h6>
+			</template>
 
-        <template slot="editBtn" slot-scope="row">
-          <a-button type="link" :data-id="row.key">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                class="fill-gray-7"
-                d="M13.5858 3.58579C14.3668 2.80474 15.6332 2.80474 16.4142 3.58579C17.1953 4.36683 17.1953 5.63316 16.4142 6.41421L15.6213 7.20711L12.7929 4.37868L13.5858 3.58579Z"
-              />
-              <path
-                class="fill-gray-7"
-                d="M11.3787 5.79289L3 14.1716V17H5.82842L14.2071 8.62132L11.3787 5.79289Z"
-              />
-            </svg>
-          </a-button>
-        </template>
-      </a-table>
-    </a-card>
-    <!-- / Projects Table Column -->
+			<template slot="contactName" slot-scope="contactName">
+				<p>{{contactName}}</p>
+			</template>
+
+			<template slot="contactNumber" slot-scope="contactNumber">
+				{{contactNumber}}
+			</template>
+
+      <template slot="actionSection" slot-scope="row">
+				<a-button  type="link" :data-id="row.customerID">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+          </svg>
+				</a-button>
+			</template>
+
+		</a-table>	
+	</a-card>
+	<!-- / Projects Table Column -->
+
+
 
     <!-- Modal Start Here -->
     <a-modal
@@ -298,23 +261,19 @@
             <div class="addr-info-section">
               <!-- ตำบล -->
               <div class="field" id="addr-box">
-                <label for="subdis">ตำบล</label>
                 <ThailandAutoComplete v-model="subdis" id='subdis' type="district" @select="select" label="ตำบล"  placeholder="ตำบล..."/>
               </div>
               <!-- อำเภอ -->
               <div class="field" id="addr-box">
-                <label for="dis">อำเภอ</label>
                 <ThailandAutoComplete v-model="dis" type="amphoe" @select="select" label="อำเภอ"  placeholder="อำเภอ..."/>
               </div>
               <!-- จังหวัด -->
               <div class="field" id="addr-box">
-                <label for="province">จังหวัด</label>
                 <ThailandAutoComplete v-model="province" type="province" @select="select" label="จังหวัด"  color="#35495e" placeholder="จังหวัด..."/>
               </div>
               <!-- zip code -->
               <div class="field" id="addr-box">
-                <label for="postcode">รหัสไปรษณีย์</label>
-             <ThailandAutoComplete v-model="postcode" type="zipcode" @select="select" label="รหัสไปรษณีย์"  color="#00a4e4" placeholder="รหัสไปรษณีย์..."/>
+                <ThailandAutoComplete v-model="postcode" type="zipcode" @select="select" label="รหัสไปรษณีย์"  color="#00a4e4" placeholder="รหัสไปรษณีย์..."/>
               </div>
             </div>
           </div>
@@ -394,55 +353,17 @@ function myFunction() {
 
 export default {
   props: {
-    data: {
-      type: Array,
-      default: () => [
-        {
-          key: "1",
-          idIdx: "xxxxx",
-          prjName: "Project1",
-          status: 1,
-          wStatus: 1,
-          val: "100,000",
-        },
-        {
-          key: "1",
-          idIdx: "uuuuuuuu",
-          prjName: "Project1",
-          status: 1,
-          wStatus: 1,
-          val: "100,000",
-        },
-        {
-          key: "1",
-          idIdx: "yyyyyyy",
-          prjName: "Project1",
-          status: 1,
-          wStatus: 1,
-          val: "100,000",
-        },
-        {
-          key: "1",
-          idIdx: "aaaaaa",
-          prjName: "Project1",
-          status: 1,
-          wStatus: 1,
-          val: "100,000",
-        },
-      ],
-    },
     columns: {
       type: Array,
       default: () => [
         {
-          title: "#ID",
-          dataIndex: "idIdx",
-          scopedSlots: { customRender: "idIdx" },
+          title: "Customer Name",
+          dataIndex: "companyName",
+          scopedSlots: { customRender: "companyName" },
         },
         {
-          title: "Customer Name",
-          dataIndex: "prjName",
-          scopedSlots: { customRender: "prjName" },
+          title: "Customer ID",
+          scopedSlots: { customRender: "customer" },
         },
         {
           title: "STATUS",
@@ -451,13 +372,18 @@ export default {
         },
         {
           title: "Contact Person",
-          dataIndex: "cPerson",
-          scopedSlots: { customRender: "cPerson" },
+          dataIndex: "contactName",
+          scopedSlots: { customRender: "contactName" },
         },
         {
           title: "Tel",
-          dataIndex: "tel",
-          scopedSlots: { customRender: "tel" },
+          dataIndex: "contactNumber",
+          scopedSlots: { customRender: "contactNumber" },
+        },
+        {
+          title: "Action",
+          scopedSlots: { customRender: "actionSection" },
+          
         },
       ],
     },
