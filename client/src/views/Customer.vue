@@ -458,8 +458,10 @@ export default {
     },
     async submitForm() {
       this.$v.$touch();
-      console.log(this.companyName);
-      console.log(this.companyNumber);
+      if(this.status=='บุคคลธรรมดา'){
+        this.companyName=this.contactName;
+        this.conpanyNumber=this.contactNumber;
+      }
       if (this.$v.$invalid) {
         alert("can't submit");
       } else {
