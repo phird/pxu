@@ -17,7 +17,7 @@
 
 
             <tab-content title="เพิ่มขอบเขตงาน">
-<!-- <banker/> -->
+<banker/>
             </tab-content>
         </form-wizard>
       </div>
