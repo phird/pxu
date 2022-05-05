@@ -78,20 +78,21 @@ export default {};
     }
     .card-body {  /*  whole text-section   */
         display: flex;
+        flex-shrink: 1;
         flex-direction: column;
         font-size: 24px;
         justify-content: center;
         align-items: center;
-
     }
-    .content-card-body { /*  div in text-section   */
+    .card-body .content-card-body { /*  div in text-section   */
         display: flex;
+        width: 100%;
         flex-direction: column;
     }
 
     .content-card-body span{ /*  div in text-section   */
         display: flex;
-        align-content: center;
+        flex-shrink: 1;  
     }
 
     .profile-image-wrapper {  /*  floating profile-section  */
@@ -110,10 +111,8 @@ export default {};
       width: 100%;
       flex-direction: column;
       word-wrap: break-word;
-      overflow: hidden;
+      overflow:scroll;
     }
-
-
 
     .center{
     text-align: center;
@@ -121,6 +120,19 @@ export default {};
     margin-right: auto;
     
   }
+
+/* ipad thing */
+  @media only screen and (max-width: 1260px){
+        .content-box{  /*  whole text-section   */
+        display: flex;
+        
+        flex-direction: column;
+        font-size: 18px !important;
+        justify-content: center;
+        
+    }
+  }
+
 /* mobile screen */
   @media only screen and (max-width: 991px) { 
       .card-profile{ /* whole  card */
@@ -130,8 +142,6 @@ export default {};
       }
       .card-profile .profile-image-wrapper{ /*  floating profile-section  */
         display: inline-block;
-        height: 100vh;
-        width: 100vw;
         position: absolute;
         border-radius: 50%;
         margin: 0 auto;
@@ -149,11 +159,12 @@ export default {};
   
       .card-body{
         display: flex;
+        
       }
-      .content-card-body{
-        margin-left: auto;
+      .card-body .content-card-body{
+        align-content: center;
+        width: auto;
         display: flex;
-  
       }
       .content-card-body .username{
         display: flex;
