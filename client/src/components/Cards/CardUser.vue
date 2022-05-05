@@ -124,8 +124,7 @@ export default {};
 /* ipad thing */
   @media only screen and (max-width: 1260px){
         .content-box{  /*  whole text-section   */
-        display: flex;
-        
+        display: flex;   
         flex-direction: column;
         font-size: 18px !important;
         justify-content: center;
