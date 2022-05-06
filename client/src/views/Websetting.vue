@@ -176,7 +176,7 @@ export default {
       try {
         const response = await axios.get("http://localhost:5000/website");
           this.websiteName=response.data[0].websiteName;
-          this.companyName=response.data[0].companyname;
+          this.companyName=response.data[0].companyName;
           this.taxNumber=response.data[0].taxNumber;
           this.Address=response.data[0].address;
           this.subdis=response.data[0].subdistrict;
@@ -206,3 +206,4 @@ export default {
 .error {
   color: red;
 }
+</style>
