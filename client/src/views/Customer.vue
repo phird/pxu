@@ -2,7 +2,27 @@
   <!-- Projects Table Column -->
   <div class="pagebody">
     <div class="pagebody-upper">
-
+      <!-- Counter Widgets -->
+      <!-- Charts -->
+      <a-row :gutter="24" type="flex" align="stretch">
+        <a-col :span="24" :lg="8" class="mb-24">
+          <!-- Active Users Card -->
+          <!-- <CardBarChart></CardBarChart> -->
+          <RecentlyAdded></RecentlyAdded>
+          <!-- Active Users Card -->
+        </a-col>
+        <a-col :span="24" :lg="8" class="mb-24">
+          <!-- Active Users Card -->
+          <!-- <CardBarChart></CardBarChart> -->
+          
+          <!-- Active Users Card -->
+        </a-col>
+        <a-col :span="24" :lg="8" class="mb-24">
+          <!-- Sales Overview Card -->
+          
+          <!-- / Sales Overview Card -->
+        </a-col>
+      </a-row>
     </div>
     <div class="pagebody-lower">
       <a-card
@@ -454,6 +474,14 @@ import {
 import ThailandAutoComplete from "vue-thailand-address-autocomplete";
 import axios from "axios";
 
+// Card Current User .
+import RecentlyAdded from '../components/Cards/Customer/RecentlyAddCard.vue'
+
+// Card crrent Bank
+import CardBank from '../components/Cards/CardBank.vue'
+// Card Company Stat
+import CardCompanyStat from '../components/Cards/CardCompanyStat.vue'
+
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById(".header-search");
@@ -516,7 +544,7 @@ export default {
       projectHeaderBtns: "all",
       customer: [],
       visible: false,
-      status: "นิติบุคคล",
+      status: "บุคคลธรรมดา",
       contactName: "",
       contactNumber: "",
       companyName: "",
@@ -563,6 +591,9 @@ export default {
   },
   components: {
     ThailandAutoComplete,
+    RecentlyAdded,
+		CardBank,
+		CardCompanyStat,
   },
   created() {
     this.getcustomer();
@@ -609,19 +640,6 @@ export default {
           });
       }
     },
-    clearInput(e) {
-      this.contactName = "";
-      this.contactNumber = "";
-      this.companyName = "";
-      this.companyNumber = "";
-      this.taxNumber = null;
-      this.contactEmail = null;
-      this.Address = null;
-      this.subdis = "";
-      this.dis = "";
-      this.province = "";
-      this.postcode = "";
-    },
     checkcompany(status) {
       if (status == "บุคคลธรรมดา") {
         this.companyName = "pppp";
@@ -657,13 +675,12 @@ export default {
 
 
 <style scoped>
-.pagebody{
+.pagebody {
   display: flex;
   flex-direction: column;
 }
-.pagebody-upper{
-  background-color: red;
-  height: 200px;
+.pagebody-upper {
+  height: 5%;
 }
 
 .header-solid {
