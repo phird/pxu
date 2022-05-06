@@ -618,5 +618,8 @@ export default {
 .toggle-type-customer div {
   padding: 1em;
 }
+.error {
+  color: red;
+}
 /* / modal style end here  */
 </style>
