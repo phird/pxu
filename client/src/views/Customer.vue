@@ -2,7 +2,27 @@
   <!-- Projects Table Column -->
   <div class="pagebody">
     <div class="pagebody-upper">
-
+      <!-- Counter Widgets -->
+      <!-- Charts -->
+      <a-row :gutter="24" type="flex" align="stretch">
+        <a-col :span="24" :lg="8" class="mb-24">
+          <!-- Active Users Card -->
+          <!-- <CardBarChart></CardBarChart> -->
+          <RecentlyAdded></RecentlyAdded>
+          <!-- Active Users Card -->
+        </a-col>
+        <a-col :span="24" :lg="8" class="mb-24">
+          <!-- Active Users Card -->
+          <!-- <CardBarChart></CardBarChart> -->
+          <NewCustomer></NewCustomer>
+          <!-- Active Users Card -->
+        </a-col>
+        <a-col :span="24" :lg="8" class="mb-24">
+          <!-- Sales Overview Card -->
+          <TypeOfCus></TypeOfCus>
+          <!-- / Sales Overview Card -->
+        </a-col>
+      </a-row>
     </div>
     <div class="pagebody-lower">
       <a-card
@@ -26,20 +46,7 @@
             >
               <div class="table-upload-btn">
                 <a-button type="primary" @click="showModal">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M3 17C3 16.4477 3.44772 16 4 16H16C16.5523 16 17 16.4477 17 17C17 17.5523 16.5523 18 16 18H4C3.44772 18 3 17.5523 3 17ZM6.29289 6.70711C5.90237 6.31658 5.90237 5.68342 6.29289 5.29289L9.29289 2.29289C9.48043 2.10536 9.73478 2 10 2C10.2652 2 10.5196 2.10536 10.7071 2.29289L13.7071 5.29289C14.0976 5.68342 14.0976 6.31658 13.7071 6.70711C13.3166 7.09763 12.6834 7.09763 12.2929 6.70711L11 5.41421L11 13C11 13.5523 10.5523 14 10 14C9.44771 14 9 13.5523 9 13L9 5.41421L7.70711 6.70711C7.31658 7.09763 6.68342 7.09763 6.29289 6.70711Z"
-                      fill="#111827"
-                    />
-                  </svg>
+                  <b-icon icon="plus-square-dotted"></b-icon>
                   Create Customer
                 </a-button>
               </div>
@@ -454,6 +461,14 @@ import {
 import ThailandAutoComplete from "vue-thailand-address-autocomplete";
 import axios from "axios";
 
+// Card Current User .
+import RecentlyAdded from '../components/Cards/Customer/RecentlyAddCard.vue'
+
+// Card crrent Bank
+import NewCustomer from '../components/Cards/Customer/NewCustomer.vue'
+// Card Company Stat
+import TypeOfCus from '../components/Cards/Customer/TypeOfCus.vue'
+
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById(".header-search");
@@ -516,7 +531,7 @@ export default {
       projectHeaderBtns: "all",
       customer: [],
       visible: false,
-      status: "นิติบุคคล",
+      status: "บุคคลธรรมดา",
       contactName: "",
       contactNumber: "",
       companyName: "",
@@ -563,6 +578,10 @@ export default {
   },
   components: {
     ThailandAutoComplete,
+    RecentlyAdded,
+		NewCustomer,
+		TypeOfCus,
+    
   },
   created() {
     this.getcustomer();
@@ -609,19 +628,6 @@ export default {
           });
       }
     },
-    clearInput(e) {
-      this.contactName = "";
-      this.contactNumber = "";
-      this.companyName = "";
-      this.companyNumber = "";
-      this.taxNumber = null;
-      this.contactEmail = null;
-      this.Address = null;
-      this.subdis = "";
-      this.dis = "";
-      this.province = "";
-      this.postcode = "";
-    },
     checkcompany(status) {
       if (status == "บุคคลธรรมดา") {
         this.companyName = "pppp";
@@ -657,13 +663,12 @@ export default {
 
 
 <style scoped>
-.pagebody{
+.pagebody {
   display: flex;
   flex-direction: column;
 }
-.pagebody-upper{
-  background-color: red;
-  height: 200px;
+.pagebody-upper {
+  height: 5%;
 }
 
 .header-solid {

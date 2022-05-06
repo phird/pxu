@@ -9,8 +9,7 @@ router.get('/', (req, res)=> {
     db.query(sqlSelect, (err, result) => {
         // console.log(result);
         res.send(result);
-    })
-    
+    }) 
 });
 
 router.post('/', (req, res) => {
