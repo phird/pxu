@@ -81,7 +81,7 @@ export default {
 /* specific module change  */
 
 #ph >>> .step-footer{
-  display: none;
+  
 }
 #ph >>> .progressbar{
     -webkit-transition:width 1s ease;
