@@ -16,15 +16,40 @@
   </div> -->
 
 <template>
+<div>
+<div>
+</div>
   <createbank/>
+</div>
 </template>
 
 <script>
+import axios from 'axios';
 import createbank from './Createbank.vue'
 export default {
+  data(){
+    return{
+      bank:[],
+    };
+  },
 components:{
   createbank
-}
+},
+created(){
+this.getbank();
+},
+methods:{
+  		async getbank() {
+      console.log("get-bank");
+      try {
+        const response = await axios.get("http://localhost:5000/bank");
+        this.bank = response.data;
+        console.log(this.bank);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+},
 }
 </script>
 

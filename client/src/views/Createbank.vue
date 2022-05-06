@@ -29,6 +29,9 @@
       <div>
         <a-checkbox @change="changestatus()"> Set Default </a-checkbox>
       </div>
+      <div>
+        <input type="file" @change="uploadFile" />
+      </div>
 
       <button type="submit">ส่งแบบฟอร์ม</button>
     </form>
@@ -51,7 +54,8 @@ export default {
       bankName: "",
       bankAccount: "",
       accountName: null,
-      status:"-",
+      status: "-",
+      file: [],
     };
   },
 
@@ -73,34 +77,47 @@ export default {
     //   validDate: (val) => moment(val, "DD.MM.YYYY", true).isValid(),
     // },
   },
-
   methods: {
     async submitForm() {
       this.$v.$touch();
+      const formdata = new FormData();
+      formdata.append("file", this.file);
       if (this.$v.$invalid) {
         alert("can't submit");
       } else {
-        await axios
-          .post("http://localhost:5000/bank", {
-            bankName: this.bankName,
-            bankAccount: this.bankAccount,
-            accountName: this.accountName,
-            status: this.status,
-
+        await axios.post('http://localhost:5000/upload', formdata, {
+          }).then((res) => {
+              axios
+              .post("http://localhost:5000/bank", {
+                bankName: this.bankName,
+                bankAccount: this.bankAccount,
+                accountName: this.accountName,
+                status: this.status,
+                img: this.file.name,
+              }).then(
+                alert('ok')
+              )
           })
-          .then(function () {
-            alert("ok");
-          });
+      
+    
+          
       }
     },
-    changestatus(){
-      this.status='default';
+    changestatus() {
+      this.status = "default";
+    },
+    uploadFile(event){
+      this.file = event.target.files[0]
+      console.log(this.file.name);
     },
   },
 };
 </script>
 
 <style scoped>
+.uploading-image {
+  display: flex;
+}
 .field {
   margin-bottom: 24px;
 }
