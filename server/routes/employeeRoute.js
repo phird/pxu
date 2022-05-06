@@ -18,14 +18,27 @@ router.post('/', (req, res) => {
     const employeeName = req.body.employeeName
     const employeeNumber = req.body.employeeNumber
     const employeeEmail = req.body.employeeEmail
+    const status = req.body.status
 
+    const sqlInsert = "INSERT INTO employee (role,employeeName,employeeNumber,employeeEmail,status) VALUES (?,?,?,?,?);"
+    
+    if(status=='default'){
+        const sqlsearch = "UPDATE employee set status='-' WHERE status='default';"
+        db.query(sqlsearch, (err, research) => {
+            db.query(sqlInsert, [role,employeeName,employeeNumber,employeeEmail,status], (err,result)=>{
+                console.log(err);
+                console.log(result);
+                res.send([research,result]);
+            }) 
+        })
+    }else{
+        db.query(sqlInsert, [role,employeeName,employeeNumber,employeeEmail,status], (err,result)=>{
+            console.log(err);
+            console.log(result);
+            res.send(result);
+        }) 
+    }
 
-    const sqlInsert = "INSERT INTO employee (role,employeeName,employeeNumber,employeeEmail) VALUES (?,?,?,?);"
-    db.query(sqlInsert, [role,employeeName,employeeNumber,employeeEmail], (err,result)=>{
-        console.log(err);
-        console.log(result);
-        res.send(result);
-    }) 
 });
 
 export default router;

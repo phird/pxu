@@ -22,11 +22,22 @@ router.post('/', (req, res) => {
     const accountName = req.body.accountName;
     const status = req.body.status;
     const image = req.body.img;
+
     const sqlInsert = "INSERT INTO bank (bankName,bankAccount,accountName,status,img) VALUES (?,?,?,?,?);"
+    if(status=='default'){
+        const sqlsearch = "UPDATE bank set status='-' WHERE status='default';"
+        db.query(sqlsearch, (err, research) => {
+            db.query(sqlInsert, [bankName, bankAccount, accountName, status, image], (err, result) => {
+                console.log(err);
+                res.send([research,result]);
+        })
+        })
+    }else{
         db.query(sqlInsert, [bankName, bankAccount, accountName, status, image], (err, result) => {
             console.log(err);
-            console.log(result);
             res.send(result);
         })
+    }
+        
 });
 export default router;
