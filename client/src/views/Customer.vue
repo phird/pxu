@@ -600,7 +600,7 @@ export default {
 /* modal style start here  */
 .whole-modal-body {
   width: 100vw;
-  height: 100vh;
+  
 }
 .whole-modal-body >>> .ant-modal {
   width: 70% !important;
