@@ -48,8 +48,8 @@
 				<a>{{ text }}</a>
 			</template>
 
-			<a-space slot="customerID" slot-scope="customer" :size="-12" class="avatar-chips">
-				<a>{{ customer.key }}</a>
+			<a-space slot="index" slot-scope="index" :size="-12" class="avatar-chips">
+				<a>{{ index }}</a>
 			</a-space>
 
 			<template slot="status" slot-scope="status">
@@ -261,19 +261,23 @@
             <div class="addr-info-section">
               <!-- ตำบล -->
               <div class="field" id="addr-box">
-                <ThailandAutoComplete v-model="subdis" id='subdis' type="district" @select="select" label="ตำบล"  placeholder="ตำบล..."/>
+                <label for="subdis">ตำบล</label>
+                <ThailandAutoComplete v-model="subdis" id='subdis' type="district" @select="select"  placeholder="ตำบล..."/>
               </div>
               <!-- อำเภอ -->
               <div class="field" id="addr-box">
-                <ThailandAutoComplete v-model="dis" type="amphoe" @select="select" label="อำเภอ"  placeholder="อำเภอ..."/>
+                <label for="dis">อำเภอ</label>
+                <ThailandAutoComplete v-model="dis" type="amphoe" @select="select"  placeholder="อำเภอ..."/>
               </div>
               <!-- จังหวัด -->
               <div class="field" id="addr-box">
-                <ThailandAutoComplete v-model="province" type="province" @select="select" label="จังหวัด"  color="#35495e" placeholder="จังหวัด..."/>
+                <label for="provice">จังหวัด</label>
+                <ThailandAutoComplete v-model="province" type="province" @select="select"   color="#35495e" placeholder="จังหวัด..."/>
               </div>
               <!-- zip code -->
               <div class="field" id="addr-box">
-                <ThailandAutoComplete v-model="postcode" type="zipcode" @select="select" label="รหัสไปรษณีย์"  color="#00a4e4" placeholder="รหัสไปรษณีย์..."/>
+                <label for="postcode">รหัสไปรษณีย์</label>
+                <ThailandAutoComplete v-model="postcode" type="zipcode" @select="select"  color="#00a4e4" placeholder="รหัสไปรษณีย์..."/>
               </div>
             </div>
           </div>
@@ -362,8 +366,9 @@ export default {
           scopedSlots: { customRender: "companyName" },
         },
         {
-          title: "Customer ID",
-          scopedSlots: { customRender: "customer" },
+          title: "ID",
+          dataIndex: "index",
+          scopedSlots: { customRender: "index" },
         },
         {
           title: "STATUS",
@@ -454,8 +459,10 @@ export default {
     },
     async submitForm() {
       this.$v.$touch();
-      console.log(this.companyName);
-      console.log(this.companyNumber);
+      if(this.status=='บุคคลธรรมดา'){
+        this.companyName=this.contactName;
+        this.conpanyNumber=this.contactNumber;
+      }
       if (this.$v.$invalid) {
         alert("can't submit");
       } else {
@@ -493,6 +500,9 @@ export default {
       try {
         const response = await axios.get("http://localhost:5000/customer");
         this.customer = response.data;
+        for(let i=0;i<response.data.length;i++){
+             this.customer[i].index=i+1;
+        }
         console.log(this.customer);
       } catch (err) {
         console.log(err);
