@@ -1,11 +1,11 @@
 <template>
   <div class="whole-card">
     <div class="card-title">
-        <p>Recently added</p>
+        <p>เพิ่มล่าสุด</p>
     </div>
         <div class="card-content">      
             <div class="card-content-left">
-                hello world
+               CONTENT
             </div>       
         <div class="card-content-right">
             <div class="content-box">
@@ -19,22 +19,7 @@
 </template>
 
 <script>
-import axios from "axios";
-export default {
-    data() {
-        return {
-            RecentlyAdded:"",
-            async getRecentlyCustomer(){
-                try{
-                    const response = await axios.get("http://localhost:5000/recentlyadded");
-                    this.RecentlyAdded = response.data;
-                }catch(err){
-                    console.log(err);
-                }
-            },
-        }
-    },
-};
+export default {};
 
 </script>
 

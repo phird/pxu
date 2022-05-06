@@ -14,12 +14,12 @@
         <a-col :span="24" :lg="8" class="mb-24">
           <!-- Active Users Card -->
           <!-- <CardBarChart></CardBarChart> -->
-          
+          <NewCustomer></NewCustomer>
           <!-- Active Users Card -->
         </a-col>
         <a-col :span="24" :lg="8" class="mb-24">
           <!-- Sales Overview Card -->
-          
+          <TypeOfCus></TypeOfCus>
           <!-- / Sales Overview Card -->
         </a-col>
       </a-row>
@@ -46,20 +46,7 @@
             >
               <div class="table-upload-btn">
                 <a-button type="primary" @click="showModal">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M3 17C3 16.4477 3.44772 16 4 16H16C16.5523 16 17 16.4477 17 17C17 17.5523 16.5523 18 16 18H4C3.44772 18 3 17.5523 3 17ZM6.29289 6.70711C5.90237 6.31658 5.90237 5.68342 6.29289 5.29289L9.29289 2.29289C9.48043 2.10536 9.73478 2 10 2C10.2652 2 10.5196 2.10536 10.7071 2.29289L13.7071 5.29289C14.0976 5.68342 14.0976 6.31658 13.7071 6.70711C13.3166 7.09763 12.6834 7.09763 12.2929 6.70711L11 5.41421L11 13C11 13.5523 10.5523 14 10 14C9.44771 14 9 13.5523 9 13L9 5.41421L7.70711 6.70711C7.31658 7.09763 6.68342 7.09763 6.29289 6.70711Z"
-                      fill="#111827"
-                    />
-                  </svg>
+                  <b-icon icon="plus-square-dotted"></b-icon>
                   Create Customer
                 </a-button>
               </div>
@@ -478,9 +465,9 @@ import axios from "axios";
 import RecentlyAdded from '../components/Cards/Customer/RecentlyAddCard.vue'
 
 // Card crrent Bank
-import CardBank from '../components/Cards/CardBank.vue'
+import NewCustomer from '../components/Cards/Customer/NewCustomer.vue'
 // Card Company Stat
-import CardCompanyStat from '../components/Cards/CardCompanyStat.vue'
+import TypeOfCus from '../components/Cards/Customer/TypeOfCus.vue'
 
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
@@ -592,8 +579,9 @@ export default {
   components: {
     ThailandAutoComplete,
     RecentlyAdded,
-		CardBank,
-		CardCompanyStat,
+		NewCustomer,
+		TypeOfCus,
+    
   },
   created() {
     this.getcustomer();
