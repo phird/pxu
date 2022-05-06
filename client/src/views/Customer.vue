@@ -1,84 +1,116 @@
 <template>
   <!-- Projects Table Column -->
-  <div>
-    <a-card
-      :bordered="false"
-      class="header-solid h-full"
-      :bodyStyle="{ padding: 0 }"
-    >
-      <template #title>
-        <a-row type="flex" align="middle">
-          <a-col :span="24" :md="12">
-            <h5 class="font-semibold m-0">ลูกค้า</h5>
-          </a-col>
-          <a-col
-            :span="24"
-            :md="12"
-            style="
-              display: flex;
-              align-items: center;
-              justify-content: flex-end;
-            "
+  <div class="pagebody">
+    <div class="pagebody-upper">
+
+    </div>
+    <div class="pagebody-lower">
+      <a-card
+        :bordered="false"
+        class="header-solid h-full"
+        :bodyStyle="{ padding: 0 }"
+      >
+        <template #title>
+          <a-row type="flex" align="middle">
+            <a-col :span="24" :md="12">
+              <h5 class="font-semibold m-0">ลูกค้า</h5>
+            </a-col>
+            <a-col
+              :span="24"
+              :md="12"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+              "
+            >
+              <div class="table-upload-btn">
+                <a-button type="primary" @click="showModal">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M3 17C3 16.4477 3.44772 16 4 16H16C16.5523 16 17 16.4477 17 17C17 17.5523 16.5523 18 16 18H4C3.44772 18 3 17.5523 3 17ZM6.29289 6.70711C5.90237 6.31658 5.90237 5.68342 6.29289 5.29289L9.29289 2.29289C9.48043 2.10536 9.73478 2 10 2C10.2652 2 10.5196 2.10536 10.7071 2.29289L13.7071 5.29289C14.0976 5.68342 14.0976 6.31658 13.7071 6.70711C13.3166 7.09763 12.6834 7.09763 12.2929 6.70711L11 5.41421L11 13C11 13.5523 10.5523 14 10 14C9.44771 14 9 13.5523 9 13L9 5.41421L7.70711 6.70711C7.31658 7.09763 6.68342 7.09763 6.29289 6.70711Z"
+                      fill="#111827"
+                    />
+                  </svg>
+                  Create Customer
+                </a-button>
+              </div>
+            </a-col>
+          </a-row>
+        </template>
+        <a-table
+          class="quotation-table"
+          :columns="columns"
+          :data-source="customer"
+          :pagination="true"
+        >
+          <template slot="companyName" slot-scope="text">
+            <a>{{ text }}</a>
+          </template>
+
+          <a-space
+            slot="index"
+            slot-scope="index"
+            :size="-12"
+            class="avatar-chips"
           >
-            <div class="table-upload-btn">
-              <a-button type="primary" @click="showModal">
+            <a>{{ index }}</a>
+          </a-space>
+
+          <template slot="status" slot-scope="status">
+            <h6 class="m-0">
+              {{ status }}
+            </h6>
+          </template>
+
+          <template slot="contactName" slot-scope="contactName">
+            <p>{{ contactName }}</p>
+          </template>
+
+          <template slot="contactNumber" slot-scope="contactNumber">
+            {{ contactNumber }}
+          </template>
+
+          <template slot="actionSection">
+            <a-dropdown>
+              <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
                 <svg
+                  xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  class="bi bi-three-dots-vertical"
+                  viewBox="0 0 16 16"
                 >
                   <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M3 17C3 16.4477 3.44772 16 4 16H16C16.5523 16 17 16.4477 17 17C17 17.5523 16.5523 18 16 18H4C3.44772 18 3 17.5523 3 17ZM6.29289 6.70711C5.90237 6.31658 5.90237 5.68342 6.29289 5.29289L9.29289 2.29289C9.48043 2.10536 9.73478 2 10 2C10.2652 2 10.5196 2.10536 10.7071 2.29289L13.7071 5.29289C14.0976 5.68342 14.0976 6.31658 13.7071 6.70711C13.3166 7.09763 12.6834 7.09763 12.2929 6.70711L11 5.41421L11 13C11 13.5523 10.5523 14 10 14C9.44771 14 9 13.5523 9 13L9 5.41421L7.70711 6.70711C7.31658 7.09763 6.68342 7.09763 6.29289 6.70711Z"
-                    fill="#111827"
+                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
                   />
                 </svg>
-                Create Customer
-            </a-button>
-					</div>
-				</a-col>
-			</a-row>
-		</template>
-		<a-table class="quotation-table"  :columns="columns" :data-source="customer" :pagination="true">
-
-			<template slot="companyName" slot-scope="text">
-				<a>{{ text }}</a>
-			</template>
-
-			<a-space slot="index" slot-scope="index" :size="-12" class="avatar-chips">
-				<a>{{ index }}</a>
-			</a-space>
-
-			<template slot="status" slot-scope="status">
-				<h6 class="m-0">
-					{{status}}
-				</h6>
-			</template>
-
-			<template slot="contactName" slot-scope="contactName">
-				<p>{{contactName}}</p>
-			</template>
-
-			<template slot="contactNumber" slot-scope="contactNumber">
-				{{contactNumber}}
-			</template>
-
-      <template slot="actionSection" slot-scope="row">
-				<a-button  type="link" :data-id="row.customerID">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-          </svg>
-				</a-button>
-			</template>
-
-		</a-table>	
-	</a-card>
-	<!-- / Projects Table Column -->
-
-
+              </a>
+              <a-menu slot="overlay">
+                <a-menu-item>
+                  <a href="javascript:;" style="text-decoration: none">Edit</a>
+                </a-menu-item>
+                <a-menu-item>
+                  <a href="javascript:;" style="text-decoration: none"
+                    >Delete</a
+                  >
+                </a-menu-item>
+              </a-menu>
+            </a-dropdown>
+          </template>
+        </a-table>
+      </a-card>
+      <!-- / Projects Table Column -->
+    </div>
 
     <!-- Modal Start Here -->
     <a-modal
@@ -88,9 +120,12 @@
       @ok="handleOk"
     >
       <div>
+        <div class="title-modal">
+          <p>CUSTOMER</p>
+        </div>
         <form @submit.prevent="submitForm()" class="form-for-customer">
           <div class="toggle-type-customer">
-            <div>
+            <div class="radio-selected">
               <input
                 v-model="status"
                 id="individual"
@@ -101,7 +136,7 @@
               <!-- บุคคลธรรมดา -->
               <label for="individual">บุคคลธรรมดา</label>
             </div>
-            <div>
+            <div class="radio-selected">
               <input
                 v-model="status"
                 id="juristic"
@@ -117,10 +152,10 @@
           <!-- ==================================================================== -->
           <div v-if="status == 'นิติบุคคล'">
             <div class="contact-person-section">
-              <h6 class="icon">
+              <p class="icon" style="font-size: 18px; font-weight: 500">
                 <b-icon icon="person" style="color: #376303"></b-icon>
                 ข้อมูลผู้ติดต่อ
-              </h6>
+              </p>
               <!-- Name of company -->
               <div class="field">
                 <input
@@ -128,8 +163,9 @@
                   type="text"
                   v-model="companyName"
                   placeholder="ชื่อบริษัท/ลูกค้า"
-                  style="text-indent: 4%"
+                  style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
                 />
+
                 <div class="error" v-if="$v.companyName.$error">
                   <template v-if="!$v.companyName.$invalid"> </template>
                   <template v-else style="color: red"> ต้องระบุชื่อ </template>
@@ -144,7 +180,10 @@
                     type="tel"
                     v-model="companyNumber"
                     placeholder="เบอร์สำนักงาน"
-                    style="text-indent: 8%"
+                    style="
+                      text-indent: 8%;
+                      border: 1px solid rgb(211, 211, 211);
+                    "
                   />
                   <div class="error" v-if="$v.companyNumber.$error">
                     <template v-if="!$v.companyNumber.$invalid"> </template>
@@ -160,7 +199,10 @@
                     type="text"
                     v-model="taxNumber"
                     placeholder="เลขทะเบียนนิติบุคคล"
-                    style="text-indent: 4%"
+                    style="
+                      text-indent: 4%;
+                      border: 1px solid rgb(211, 211, 211);
+                    "
                   />
                   <div class="error" v-if="$v.taxNumber.$error">
                     <template v-if="!$v.taxNumber.$invalid"> </template>
@@ -175,10 +217,10 @@
           <!-- ==================================================================== -->
           <!-- บุคคลธรรมดา -->
           <div v-else>
-            <h6 class="icon">
+            <p class="icon" style="font-size: 18px; font-weight: 500">
               <b-icon icon="person" style="color: #376303"></b-icon>
               ข้อมูลผู้ติดต่อ
-            </h6>
+            </p>
             <div class="field">
               <!-- ชื่อผู้ติดต่อ -->
               <div class="field">
@@ -187,7 +229,7 @@
                   type="text"
                   v-model="contactName"
                   placeholder="ชื่อบริษัท/ลูกค้า"
-                  style="text-indent: 4%"
+                  style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
                 />
                 <div class="error" v-if="$v.contactName.$error">
                   <template v-if="!$v.contactName.$invalid"> </template>
@@ -203,7 +245,10 @@
                     id="contactNumber"
                     type="tel"
                     v-model="contactNumber"
-                    style="text-indent: 8%"
+                    style="
+                      text-indent: 8%;
+                      border: 1px solid rgb(211, 211, 211);
+                    "
                     placeholder="เบอร์โทร"
                   />
                   <div class="error" v-if="$v.contactNumber.$error">
@@ -218,7 +263,10 @@
                     type="text"
                     v-model="taxNumber"
                     placeholder="เลขผู้เสียภาษี"
-                    style="text-indent: 4%"
+                    style="
+                      text-indent: 4%;
+                      border: 1px solid rgb(211, 211, 211);
+                    "
                   />
                   <div class="error" v-if="$v.taxNumber.$error">
                     <template v-if="!$v.taxNumber.$invalid"> </template>
@@ -233,7 +281,7 @@
                   type="text"
                   v-model="contactEmail"
                   placeholder="อีเมล"
-                  style="text-indent: 4%"
+                  style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
                 />
                 <div class="error" v-if="$v.contactEmail.$error">
                   <template v-if="!$v.contactEmail.$invalid"> </template>
@@ -245,14 +293,24 @@
           <br />
           <!-- / บุคคลธรรมดา -->
           <div class="address-info">
-            <h6>
+            <p style="font-size: 18px; font-weight: 500">
               <b-icon icon="house-door" style="color: #376303"></b-icon>
               ที่อยู่ผู้ติดต่อ
-            </h6>
+            </p>
             <!-- ที่อยู่ -->
             <div class="field" id="addr-detail">
               <label for="Address">บ้านเลขที่/ที่อยู่</label>
-              <input id="Address" type="text" v-model="Address" />
+              <input
+                id="Address"
+                type="text"
+                v-model="Address"
+                style="
+                  border: 1px solid rgb(211, 211, 211);
+                  opacity: 0.5;
+                  text-indent: 4%;
+                "
+                placeholder="บ้านเลขที่/ที่อยู่"
+              />
               <div class="error" v-if="$v.Address.$error">
                 <template v-if="!$v.Address.$invalid"> </template>
                 <template v-else> ต้องใส่ที่อยู่ </template>
@@ -262,36 +320,73 @@
               <!-- ตำบล -->
               <div class="field" id="addr-box">
                 <label for="subdis">ตำบล</label>
-                <ThailandAutoComplete v-model="subdis" id='subdis' type="district" @select="select"  placeholder="ตำบล..."/>
+                <ThailandAutoComplete
+                  class="autocom-add"
+                  v-model="subdis"
+                  id="subdis"
+                  type="district"
+                  @select="select"
+                  placeholder="ตำบล..."
+                />
               </div>
               <!-- อำเภอ -->
               <div class="field" id="addr-box">
                 <label for="dis">อำเภอ</label>
-                <ThailandAutoComplete v-model="dis" type="amphoe" @select="select"  placeholder="อำเภอ..."/>
+                <ThailandAutoComplete
+                  class="autocom-add"
+                  v-model="dis"
+                  type="amphoe"
+                  @select="select"
+                  placeholder="อำเภอ..."
+                />
               </div>
               <!-- จังหวัด -->
               <div class="field" id="addr-box">
                 <label for="provice">จังหวัด</label>
-                <ThailandAutoComplete v-model="province" type="province" @select="select"   color="#35495e" placeholder="จังหวัด..."/>
+                <ThailandAutoComplete
+                  class="autocom-add"
+                  v-model="province"
+                  type="province"
+                  @select="select"
+                  color="#35495e"
+                  placeholder="จังหวัด..."
+                />
               </div>
               <!-- zip code -->
               <div class="field" id="addr-box">
                 <label for="postcode">รหัสไปรษณีย์</label>
-                <ThailandAutoComplete v-model="postcode" type="zipcode" @select="select"  color="#00a4e4" placeholder="รหัสไปรษณีย์..."/>
+                <ThailandAutoComplete
+                  class="autocom-add"
+                  v-model="postcode"
+                  type="zipcode"
+                  @select="select"
+                  color="#00a4e4"
+                  placeholder="รหัสไปรษณีย์..."
+                />
               </div>
             </div>
           </div>
           <br />
           <!-- รายละเอียดผู้ติดต่อ -->
           <div v-if="status == 'นิติบุคคล'">
-            <h6>
+            <p style="font-size: 18px; font-weight: 500">
               <b-icon icon="person" style="color: #376303"></b-icon>
               รายละเอียดผู้ติดต่อ
-            </h6>
+            </p>
 
             <div class="field">
               <label for="contactName"> ชื่อผู้ติดต่อ</label>
-              <input id="contactName" type="text" v-model="contactName" />
+              <input
+                id="contactName"
+                type="text"
+                v-model="contactName"
+                placeholder="ชื่อผู้ติดต่อ"
+                style="
+                  text-indent: 4%;
+                  border: 1px solid rgb(211, 211, 211);
+                  opacity: 0.5;
+                "
+              />
               <div class="error" v-if="$v.contactName.$error">
                 <template v-if="!$v.contactName.$invalid"> </template>
                 <template v-else> ต้องระบุชื่อ </template>
@@ -300,7 +395,17 @@
 
             <div class="field">
               <label for="contactNumber"> เบอร์โทร </label>
-              <input id="contactNumber" type="text" v-model="contactNumber" />
+              <input
+                id="contactNumber"
+                type="text"
+                v-model="contactNumber"
+                placeholder="เบอร์โทร"
+                style="
+                  text-indent: 4%;
+                  border: 1px solid rgb(211, 211, 211);
+                  opacity: 0.5;
+                "
+              />
               <div class="error" v-if="$v.contactNumber.$error">
                 <template v-if="!$v.contactNumber.$invalid"> </template>
                 <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
@@ -309,7 +414,17 @@
 
             <div class="field">
               <label for="contactEmail"> อีเมล </label>
-              <input id="contactEmail" type="text" v-model="contactEmail" />
+              <input
+                id="contactEmail"
+                type="text"
+                v-model="contactEmail"
+                placeholder="อีเมล"
+                style="
+                  text-indent: 4%;
+                  border: 1px solid rgb(211, 211, 211);
+                  opacity: 0.5;
+                "
+              />
               <div class="error" v-if="$v.contactEmail.$error">
                 <template v-if="!$v.contactEmail.$invalid"> </template>
                 <template v-else> email error </template>
@@ -317,7 +432,9 @@
             </div>
           </div>
           <div v-else></div>
-          <button type="submit">ส่งแบบฟอร์ม</button>
+          <div class="submit-but-section">
+            <button class="submit-button" type="submit">บันทึกข้อมูล</button>
+          </div>
         </form>
       </div>
     </a-modal>
@@ -336,6 +453,7 @@ import {
 } from "vuelidate/lib/validators";
 import ThailandAutoComplete from "vue-thailand-address-autocomplete";
 import axios from "axios";
+
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById(".header-search");
@@ -361,14 +479,14 @@ export default {
       type: Array,
       default: () => [
         {
+          title: "#",
+          dataIndex: "index",
+          scopedSlots: { customRender: "index" },
+        },
+        {
           title: "Customer Name",
           dataIndex: "companyName",
           scopedSlots: { customRender: "companyName" },
-        },
-        {
-          title: "ID",
-          dataIndex: "index",
-          scopedSlots: { customRender: "index" },
         },
         {
           title: "STATUS",
@@ -388,7 +506,6 @@ export default {
         {
           title: "Action",
           scopedSlots: { customRender: "actionSection" },
-          
         },
       ],
     },
@@ -407,10 +524,10 @@ export default {
       taxNumber: null,
       contactEmail: null,
       Address: null,
-      subdis: '',
-      dis: '',
-      province: '',
-      postcode: '',
+      subdis: "",
+      dis: "",
+      province: "",
+      postcode: "",
     };
   },
   validations: {
@@ -438,13 +555,13 @@ export default {
     },
     Address: {
       required,
-    }
+    },
     // passportDate: {
     //   required,
     //   validDate: (val) => moment(val, "DD.MM.YYYY", true).isValid(),
     // },
   },
-  components:{
+  components: {
     ThailandAutoComplete,
   },
   created() {
@@ -458,12 +575,16 @@ export default {
       this.postcode = address.zipcode;
     },
     async submitForm() {
-      this.$v.$touch();
-      if(this.status=='บุคคลธรรมดา'){
-        this.companyName=this.contactName;
-        this.conpanyNumber=this.contactNumber;
+      if (this.status == "บุคคลธรรมดา") {
+        this.companyName = this.contactName;
+        this.conpanyNumber = this.contactNumber;
+        console.log(this.companyName);
+        console.log(this.conpanyNumber);
       }
+      this.$v.$touch();
+      console.log(this.status);
       if (this.$v.$invalid) {
+        console.log();
         alert("can't submit");
       } else {
         await axios
@@ -481,14 +602,29 @@ export default {
             contactEmail: this.contactEmail,
             taxNumber: this.taxNumber,
           })
-          .then(function () {
-            alert("ok");
+          .then(function (e) {
+            console.log(e);
+            alert("บันทึกข้อมูลสำเร็จ");
+            window.location.reload();
           });
       }
     },
+    clearInput(e) {
+      this.contactName = "";
+      this.contactNumber = "";
+      this.companyName = "";
+      this.companyNumber = "";
+      this.taxNumber = null;
+      this.contactEmail = null;
+      this.Address = null;
+      this.subdis = "";
+      this.dis = "";
+      this.province = "";
+      this.postcode = "";
+    },
     checkcompany(status) {
       if (status == "บุคคลธรรมดา") {
-        this.companyName = "test";
+        this.companyName = "pppp";
         this.companyNumber = "0000000000";
       } else {
         this.companyName = null;
@@ -500,8 +636,8 @@ export default {
       try {
         const response = await axios.get("http://localhost:5000/customer");
         this.customer = response.data;
-        for(let i=0;i<response.data.length;i++){
-             this.customer[i].index=i+1;
+        for (let i = 0; i < response.data.length; i++) {
+          this.customer[i].index = i + 1;
         }
         console.log(this.customer);
       } catch (err) {
@@ -521,6 +657,15 @@ export default {
 
 
 <style scoped>
+.pagebody{
+  display: flex;
+  flex-direction: column;
+}
+.pagebody-upper{
+  background-color: red;
+  height: 200px;
+}
+
 .header-solid {
   font-family: "Mitr", sans-serif;
 }
@@ -541,20 +686,22 @@ export default {
 .contact-person-section-buttom-part {
   width: 100%;
 }
+
 #companyName,
 #contactName {
   background-image: url("../assets/images/icons/file-icons/person-circle.svg");
   opacity: 0.5;
   background-repeat: no-repeat;
-  background-position: 5px 50%;
+  background-position: 8px 50%;
   width: 100%;
 }
+
 #companyNumber,
 #contactNumber {
   background-image: url("../assets/images/icons/file-icons/telephone-fill.svg");
   opacity: 0.5;
   background-repeat: no-repeat;
-  background-position: 5px 50%;
+  background-position: 8px 50%;
   width: 100%;
 }
 #taxNumber {
@@ -565,7 +712,7 @@ export default {
   background-image: url("../assets/images/icons/file-icons/envelope-fill.svg");
   opacity: 0.5;
   background-repeat: no-repeat;
-  background-position: 5px 50%;
+  background-position: 8px 50%;
   width: 100%;
 }
 
@@ -587,10 +734,13 @@ export default {
 .addr-info-section div {
   width: 45%;
 }
-.form-for-customer input {
-  border-radius: 10px;
-  border: 0.5 solid rgba(0, 0, 0, 0.473);
-  opacity: 0.5;
+.form-for-customer .field input {
+  border-radius: 12px;
+  height: 45px;
+}
+
+.field input {
+  border: 1 solid rgba(190, 187, 187, 0.801);
 }
 
 .contact-person-section {
@@ -598,9 +748,21 @@ export default {
   flex-direction: column;
 }
 /* modal style start here  */
+.title-modal {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title-modal p {
+  font-size: 26px;
+  font-weight: 700;
+  margin-left: auto;
+  margin-right: auto;
+  align-content: center;
+}
 .whole-modal-body {
   width: 100vw;
-  
 }
 .whole-modal-body >>> .ant-modal {
   width: 70% !important;
@@ -610,16 +772,109 @@ export default {
   margin-left: auto;
   margin-left: auto;
 }
+.whole-modal-body >>> .ant-modal-header {
+  border-bottom: 0;
+  align-content: center;
+}
+
+.whole-modal-body >>> .ant-modal-footer {
+  display: none;
+}
+
+.whole-modal-body >>> .ant-modal-title {
+  display: none;
+}
+
 .toggle-type-customer {
   display: flex;
   flex-direction: row;
-  padding: 1em;
+  padding: 1em 1em 1em 0;
 }
 .toggle-type-customer div {
   padding: 1em;
 }
+.radio-selected {
+  justify-content: center;
+}
+
+.radio-selected input {
+  margin-right: 1em;
+  height: 21px;
+  width: 21px;
+}
 .error {
   color: red;
+}
+.field {
+  margin-bottom: 1em;
+}
+
+.submit-but-section {
+  display: flex;
+  width: 100%;
+  margin-top: 3em;
+}
+
+.submit-button {
+  background-color: #1890ff;
+  height: 36px;
+  width: 164px;
+  color: white;
+  border-radius: 8px;
+  border: 0;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.autocom-add >>> .vth-addr-input-size-default {
+  font-size: 14px;
+  font-family: "Mitr", sans-serif;
+  border-radius: 12px;
+  width: 200%;
+  opacity: 0.5;
+  text-indent: 4%;
+}
+
+@media only screen and (max-width: 991px) {
+  .contact-person-section-buttom {
+    flex-direction: column;
+    gap: 0;
+  }
+  #companyName,
+  #contactName {
+    background-image: none;
+    opacity: 0.5;
+    background-repeat: no-repeat;
+    background-position: 8px 50%;
+    width: 100%;
+    text-indent: 4% !important;
+  }
+
+  #companyNumber,
+  #contactNumber {
+    background-image: none;
+    opacity: 0.5;
+    background-repeat: no-repeat;
+    background-position: 8px 50%;
+    width: 100%;
+    text-indent: 4% !important;
+  }
+  #contactEmail {
+    background-image: none;
+    opacity: 0.5;
+    background-repeat: no-repeat;
+    background-position: 8px 50%;
+    width: 100%;
+    text-indent: 4% !important;
+  }
+  .addr-info-section {
+    flex-direction: column;
+  }
+  .autocom-add >>> .vth-addr-input-size-default {
+    border-radius: 12px;
+    width: 500%;
+  }
 }
 /* / modal style end here  */
 </style>
