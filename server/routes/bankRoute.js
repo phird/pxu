@@ -18,9 +18,9 @@ router.post('/', (req, res) => {
     const bankName=req.body.bankName;
     const bankAccount=req.body.bankAccount;
     const accountName=req.body.accountName;
-
-    const sqlInsert = "INSERT INTO bank (bankName,bankAccount,accountName) VALUES (?,?,?);"
-    db.query(sqlInsert, [bankName,bankAccount,accountName], (err,result)=>{
+    const status=req.body.status;
+    const sqlInsert = "INSERT INTO bank (bankName,bankAccount,accountName,status) VALUES (?,?,?,?);"
+    db.query(sqlInsert, [bankName,bankAccount,accountName,status], (err,result)=>{
         console.log(err);
         console.log(result);
         res.send(result);
