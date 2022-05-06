@@ -1,7 +1,5 @@
 <template>
   <div class="whole-site">
-    <!-- Left layput for website  -->
-      <div class="left-layout">
         <form-wizard  id="ph">
           <tab-content title="ข้อมูลทั่วไป" :selected="true">
             <div class="form-group">
@@ -20,31 +18,6 @@
 <banker/>
             </tab-content>
         </form-wizard>
-      </div>
-      <!-- /Left layput for website  -->
-      
-      <!-- Right layput for website  -->
-      <div class="right-layout">
-          <div class="right-layout-panel">
-            <div class="container-panel">
-              <button type="button" class="btn btn-outline-primary " disabled>
-                <!-- <b-icon icon="file-earmark-pdf" style="color: blue; font-size:24px;"></b-icon> -->
-                ดาวน์โหลดเป็น PDF
-              </button>
-              <button type="button" class="btn btn-outline-success" disabled>
-                <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
-                บันทึก
-              </button>
-              <button type="button" class="btn btn-outline-danger">
-                <!-- <b-icon icon="x-square" style="color: red; font-size:24px;"></b-icon> -->
-                ยกเลิก
-              </button>
-            </div>
-          </div>
-        
-      </div>
-      <!--/Right layput for website  -->
-
   </div>
   
 </template>
