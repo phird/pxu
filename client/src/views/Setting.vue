@@ -1,22 +1,19 @@
 <template>
   <div class="whole-site">
-        <form-wizard  id="ph">
+        <form-wizard class="wp"  id="ph">
           <tab-content title="ข้อมูลทั่วไป" :selected="true">
             <div class="form-group">
-    <websetting />
+              <websetting />
             </div>
-            </tab-content>
-
-            <tab-content title="ข้อมูลเพิ่มเติม*">
-              <div class="form-group">
-<employee/>
-              </div>
-            </tab-content>
-
-
-            <tab-content title="เพิ่มขอบเขตงาน">
-<banker/>
-            </tab-content>
+          </tab-content>
+          <tab-content title="ข้อมูลเพิ่มเติม*">
+            <div class="form-group">
+                <employee/>
+            </div>
+          </tab-content>
+          <tab-content title="เพิ่มขอบเขตงาน">
+            <banker/>
+          </tab-content>
         </form-wizard>
   </div>
   
@@ -53,7 +50,7 @@ export default {
 
 .whole-site{
   font-family: 'Mitr', sans-serif;
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-direction: row;
 }
@@ -81,30 +78,51 @@ export default {
   margin: 10px;
 }
 
-
-
-
-
 /* specific module change  */
 
+#ph >>> .step-footer{
+  display: none;
+}
 #ph >>> .progressbar{
     -webkit-transition:width 1s ease;
     transition:width 1s ease;
-    }
-#ph >>> .vue-step-wizard{
-    background-color:transparent !important;
+}
+
+.wp {
     width:100% !important;
+    display: flex !important;
+}
+.wp >>> .step-pills{
+  width: 50%;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.wp >>> .step-pills .step-item{
+    background-color:transparent !important;
+    border-radius:10px;
+    padding:5px 20px;
+    list-style-type:none;
+    padding:.5rem 1.5rem;
+    width: 100% !important;
+}
+
+#ph >>> .step-body{
+  display: flex;
+  margin-right: auto;
 }
 
 #ph >>> .step-progress{
     display: none !important;
 } 
+
 #ph >>> .bar{
     content:"";
     height:1rem;
     border-radius:1rem;
     background-color:#4b8aeb
-    }
+}
+
 #ph >>> .step-pills{
     display:-webkit-box;
     display:-ms-flexbox;
@@ -117,43 +135,24 @@ export default {
     border-radius:1rem;
     -webkit-box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;box-shadow:0 .5rem 1rem transparent!important ;
 }
-#ph >>> .step-pills .step-item{
-    background-color:transparent !important;
-    border-radius:10px;
-    padding:5px 20px;
-    list-style-type:none;
-    padding:.5rem 1.5rem;
-    }
+
+
 #ph >>> .step-pills .step-item a{
     text-decoration:none;
     color:#7b7b7b;
-    }
+}
+
 #ph >>> .step-pills .step-item.active {
     border: 0px solid transparent !important;
 }
-#ph >>> .step-pills .step-item.active a{
-    color: black;
-    font-weight: bolder;
-}
-#ph >>> .step-pills .step-item.validated{
-    border:1px solid #008011;
-}
+
 #ph >>> .step-body{
     background-color:transparent !important; 
     margin-left:auto;
     -webkit-box-shadow: none !important;
     box-shadow:0 .5rem 1rem transparent!important;
 }
-#ph >>> .step-body,.step-footer{
-    padding:1rem;
-    border-radius:1rem;
-}
-#ph >>> .step-footer{
-    margin-left:auto;
-    margin:1rem 0;
-    text-align:center;
-    justify-content: space-between !important;
-}
+
 #ph >>> .step-button{
         font-weight:700;
         line-height:1;
@@ -173,18 +172,7 @@ export default {
         -webkit-box-shadow:none!important;
         box-shadow:none!important;
         }
-#ph >>> .step-button-next{
-    background-color:#126fde
-}
-#ph >>> .step-button-previous{
-    background-color:#3deaba
-}
-#ph >>> .step-button-submit{
-    background-color:#4fa203
-}
-#ph >>> .step-button-reset{
-    background-color:#037da2
-}
+
 #ph >>> .tabStatus{
     display:inline-block;
     width:1.5rem;
