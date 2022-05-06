@@ -6,11 +6,11 @@
         <div class="card-content">      
             <div class="card-content-left" >
                <div>
-                   10
+                   {{this.customerP}}
                </div>
                :
                <div>
-                   12
+                   {{this.customerNT}}
                </div>
             </div>       
         <div class="card-content-right">
@@ -25,7 +25,30 @@
 </template>
 
 <script>
-export default {}
+import axios from 'axios'
+export default {
+  data(){
+    return{
+      customerNT:'',
+      customerP:''
+    }
+  },
+  created(){
+    this.getcus();
+  },
+  methods:{
+    getcus(){
+      console.log('get-ja');
+      axios.put("http://localhost:5000/cardcustomer",{
+
+      }).then((res)=>{
+          console.log(res.data);
+        this.customerNT=res.data[0][0].c;
+        this.customerP=res.data[1][0].c;
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>

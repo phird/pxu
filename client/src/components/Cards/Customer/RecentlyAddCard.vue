@@ -5,7 +5,7 @@
     </div>
         <div class="card-content">      
             <div class="card-content-left">
-               CONTENT
+               {{this.customer}}
             </div>       
         <div class="card-content-right">
             <div class="content-box">
@@ -19,7 +19,28 @@
 </template>
 
 <script>
-export default {};
+import axios from 'axios'
+export default {
+  data(){
+    return{
+      customer:''
+    }
+  },
+  created(){
+    this.getcus();
+  },
+  methods:{
+    getcus(){
+      console.log('get-ja');
+      axios.get("http://localhost:5000/cardcustomer",{
+
+      }).then((res)=>{
+        console.log(res.data);
+        this.customer=res.data[0].companyName;
+      })
+    }
+  }
+}
 
 </script>
 
