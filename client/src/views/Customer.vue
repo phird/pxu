@@ -156,6 +156,10 @@
               <!-- นิติบุคคล -->
               <label for="juristic">นิติบุคคล</label>
             </div>
+            <div class="error" v-if="$v.status.$error">
+                  <template v-if="!$v.status.$invalid"> </template>
+                  <template v-else style="color: red"> * </template>
+            </div>
           </div>
           <!-- /toggle-type-customer -->
           <!-- ==================================================================== -->
@@ -337,6 +341,10 @@
                   @select="select"
                   placeholder="ตำบล..."
                 />
+                <div class="error" v-if="$v.subdis.$error">
+                    <template v-if="!$v.subdis.$invalid"> </template>
+                    <template v-else> ต้องใส่ตำบล</template>
+                  </div>
               </div>
               <!-- อำเภอ -->
               <div class="field" id="addr-box">
@@ -348,6 +356,10 @@
                   @select="select"
                   placeholder="อำเภอ..."
                 />
+                 <div class="error" v-if="$v.dis.$error">
+                    <template v-if="!$v.dis.$invalid"> </template>
+                    <template v-else> ต้องใส่อำเภอ</template>
+                  </div>
               </div>
               <!-- จังหวัด -->
               <div class="field" id="addr-box">
@@ -360,6 +372,10 @@
                   color="#35495e"
                   placeholder="จังหวัด..."
                 />
+                <div class="error" v-if="$v.province.$error">
+                    <template v-if="!$v.province.$invalid"> </template>
+                    <template v-else> ต้องใส่จังหวัด</template>
+                  </div>
               </div>
               <!-- zip code -->
               <div class="field" id="addr-box">
@@ -372,6 +388,10 @@
                   color="#00a4e4"
                   placeholder="รหัสไปรษณีย์..."
                 />
+                <div class="error" v-if="$v.postcode.$error">
+                    <template v-if="!$v.postcode.$invalid"> </template>
+                    <template v-else> ต้องใส่รหัสไปรษณีย์</template>
+                  </div>
               </div>
             </div>
           </div>
@@ -535,7 +555,7 @@ export default {
       projectHeaderBtns: "all",
       customer: [],
       visible: false,
-      status: "บุคคลธรรมดา",
+      status: "",
       contactName: "",
       contactNumber: "",
       companyName: "",
@@ -573,6 +593,21 @@ export default {
       required,
     },
     Address: {
+      required,
+    },
+    status: {
+      required,
+    },
+    subdis: {
+      required,
+    },
+    dis: {
+      required,
+    },
+    province: {
+      required,
+    },
+    postcode: {
       required,
     },
     // passportDate: {
@@ -636,17 +671,17 @@ export default {
           .then(function (e) {
             console.log(e);
             alert("บันทึกข้อมูลสำเร็จ");
-            window.location.reload();
+            window.location.reload(false);  
           });
       }
     },
     checkcompany(status) {
       if (status == "บุคคลธรรมดา") {
-        this.companyName = "pppp";
-        this.companyNumber = "0000000000";
+        this.companyName = "test";
+        this.companyNumber = "1111111111";
       } else {
-        this.companyName = null;
-        this.companyNumber = null;
+        this.companyName = '';
+        this.companyNumber = '';
       }
     },
     async getcustomer() {
