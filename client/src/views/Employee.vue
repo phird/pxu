@@ -1,23 +1,27 @@
 <template>
   <!-- Projects Table Column -->
-  <a-card
-    :bordered="false"
-    class="header-solid h-full ph"
-    :bodyStyle="{ padding: 0 }"
-  >
-    <template #title>
-      <a-row type="flex" align="middle">
-        <a-col :span="24" :md="12">
-          <h5 class="font-semibold m-0">พนักงาน</h5>
-        </a-col>
-        <a-col
-          :span="24"
-          :md="12"
-          style="display: flex; align-items: center; justify-content: flex-end"
-        >
-          <div class="table-upload-btn">
-            <router-link to="/setting/createemployee">
-              <a-button type="primary">
+  <div class="font-inhere">
+    <a-card
+      :bordered="false"
+      class="header-solid h-full ph"
+      :bodyStyle="{ padding: 0 }"
+    >
+      <template #title>
+        <a-row type="flex" align="middle">
+          <a-col :span="24" :md="12">
+            <h5 class="font-semibold m-0" style="font-family: 'Mitr', sans-serif;">พนักงาน</h5>
+          </a-col>
+          <a-col
+            :span="24"
+            :md="12"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+            "
+          >
+            <div class="table-upload-btn">
+              <a-button type="primary" @click="showModal">
                 <svg
                   width="16"
                   height="16"
@@ -34,74 +38,174 @@
                 </svg>
                 เพิ่มพนักงาน
               </a-button>
-            </router-link>
-          </div>
-        </a-col>
-      </a-row>
-    </template>
-    <a-table
-      class="quotation-table"
-      :columns="columns"
-      :data-source="employee"
-      :pagination="true"
-    >
-      <template slot="idIdx" slot-scope="text">
-        <a>{{ text }}</a>
+            </div>
+          </a-col>
+        </a-row>
       </template>
-
-      <a-space
-        slot="emName"
-        slot-scope="emName"
-        :size="-12"
-        class="avatar-chips"
+      <a-table
+        class="quotation-table"
+        :columns="columns"
+        :data-source="employee"
+        :pagination="true"
       >
-        {{ emName }}
-      </a-space>
+        <template slot="idIdx" slot-scope="text">
+          <a>{{ text }}</a>
+        </template>
 
-      <template slot="emEmail" slot-scope="emEmail">
-        {{ emEmail }}
-      </template>
+        <a-space
+          slot="emName"
+          slot-scope="emName"
+          :size="-12"
+          class="avatar-chips"
+        >
+          {{ emName }}
+        </a-space>
 
-      <template slot="emTel" slot-scope="emTel">
-        {{ emTel }}
-      </template>
+        <template slot="emEmail" slot-scope="emEmail">
+          {{ emEmail }}
+        </template>
 
-      <template slot="actionSection">
-        <a-dropdown>
-          <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-three-dots-vertical"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
-              />
-            </svg>
-          </a>
-          <a-menu slot="overlay">
-            <router-link :to="`#`">
-              <a-menu-item>
-                <a href="javascript:;" style="text-decoration: none">Edit</a>
-              </a-menu-item>
-            </router-link>
-            <a-menu-item>
-              <a href="javascript:;" style="text-decoration: none" 
-                >Delete</a
+        <template slot="emTel" slot-scope="emTel">
+          {{ emTel }}
+        </template>
+
+        <template slot="actionSection">
+          <a-dropdown>
+            <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-three-dots-vertical"
+                viewBox="0 0 16 16"
               >
-            </a-menu-item>
-          </a-menu>
-        </a-dropdown>
-      </template>
-    </a-table>
-  </a-card>
+                <path
+                  d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                />
+              </svg>
+            </a>
+            <a-menu slot="overlay">
+              <a-menu-item>
+                <router-link :to="`#`" style="text-decoration: none">
+                  <span class="label menutext" style="text-decoration: none">
+                    แก้ไข
+                  </span>
+                </router-link>
+              </a-menu-item>
+
+              <a-menu-item>
+                <a style="text-decoration: none"> ลบ </a>
+              </a-menu-item>
+            </a-menu>
+          </a-dropdown>
+        </template>
+      </a-table>
+    </a-card>
+
+    <!-- Modal Start Here -->
+    <a-modal
+      class="whole-modal-body"
+      v-model="visible"
+      title="เพิ่มพนักงาน"
+      @ok="handleOk"
+    >
+      <div>
+        <div class="title-modal">
+          <p>พนักงาน</p>
+        </div>
+
+        <form @submit.prevent="submitForm()" class="form-for-employee">
+          <div class="main-form">
+          
+		  
+
+            <div class="form-component max-len">
+              
+                <label for="employeeName"> ชื่อพนักงาน </label>
+                <input 
+					id="employeeName" 
+					type="text" 
+					v-model="employeeName" 
+					placeholder="ชื่อ-สกุล พนักงาน"
+					/>
+                <div class="error" v-if="$v.employeeName.$error">
+                  <template v-if="!$v.employeeName.$invalid"> </template>
+                  <template v-else> ต้องระบุชื่อ </template>
+                </div>
+              
+            </div>
+
+
+
+		    <div class="form-component">
+              
+                <label for="employeeNumber"> เบอร์ผู้ติดต่อ</label>
+                <input
+                  id="employeeNumber"
+                  type="text"
+                  v-model="employeeNumber"
+				  placeholder="เบอร์โทรของผู้ติดต่อ"
+                />
+                <div class="error" v-if="$v.employeeNumber.$error">
+                  <template v-if="!$v.employeeNumber.$invalid"> </template>
+                  <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
+                </div>
+              
+            </div>
+
+
+            <div class="form-component">
+              
+                <label for="employeeEmail"> อีเมลพนักงาน</label>
+                <input 
+					id="employeeEmail" 
+					type="text" 
+					v-model="employeeEmail" 
+					placeholder="อีเมลของพนักงาน"
+					/>
+                <div class="error" v-if="$v.employeeEmail.$error">
+                  <template v-if="!$v.employeeEmail.$invalid"> </template>
+                  <template v-else> email error </template>
+                </div>
+              
+            </div>
+
+            <div class="form-component">
+				<label for="role"> หน้าที่ </label>
+                <select v-model="role">
+                  <option value="ผู้ดูแล">ผู้ดูแล</option>
+                  <option value="พนักงานทั่วไป">พนักงานทั่วไป</option>
+                </select>
+              
+            </div>
+          
+		  </div>
+
+          <div>
+            <a-checkbox @change="changestatus()"> Set Default </a-checkbox>
+          </div>
+
+          <div>
+            <button type="submit">บันทึกข้อมูล</button>
+          </div>
+        </form>
+      </div>
+    </a-modal>
+
+    <!-- /Modal edit Start Here -->
+  </div>
   <!-- / Projects Table Column -->
 </template>
 
 <script>
+import {
+  required,
+  minLength,
+  maxLength,
+  alpha,
+  email,
+} from "vuelidate/lib/validators";
 import axios from "axios";
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
@@ -153,9 +257,8 @@ export default {
           scopedSlots: { customRender: "val" },
         },
         {
-          title: " ",
-          dataIndex: "act",
-          scopedSlots: { customRender: "act" },
+          title: "Action",
+          scopedSlots: { customRender: "actionSection" },
         },
       ],
     },
@@ -165,12 +268,56 @@ export default {
       // Active button for the "Projects" table's card header radio button group.
       projectHeaderBtns: "all",
       employee: [],
+      visible: false,
+      status: "-",
+      role: "ผู้ดูแล",
+      employeeName: "",
+      employeeNumber: "",
+      employeeEmail: null,
     };
   },
   created() {
     this.getemployee();
   },
+  validations: {
+    employeeNumber: {
+      required,
+      validFormat: (val) => /^\d{10}$/.test(val),
+    },
+    employeeEmail: {
+      required,
+      email,
+    },
+    employeeName: {
+      required,
+    },
+    // passportDate: {
+    //   required,
+    //   validDate: (val) => moment(val, "DD.MM.YYYY", true).isValid(),
+    // },
+  },
   methods: {
+    changestatus() {
+      this.status = "default";
+    },
+    async submitForm() {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        alert("can't submit");
+      } else {
+        await axios
+          .post("http://localhost:5000/employee", {
+            role: this.role,
+            employeeName: this.employeeName,
+            employeeNumber: this.employeeNumber,
+            employeeEmail: this.employeeEmail,
+            status: this.status,
+          })
+          .then(function () {
+            alert("ok");
+          });
+      }
+    },
     async getemployee() {
       console.log("get-em");
       try {
@@ -181,14 +328,76 @@ export default {
         console.log(err);
       }
     },
+    showModal() {
+      this.visible = true;
+    },
+    handleOk(e) {
+      console.log(e);
+      this.visible = false;
+    },
   },
 };
 </script>
 
 
 <style scoped>
+
+
 .layout-dashboard .ant-card {
-  border-radius: 12px;
-  box-shadow: none !important;
+	font-family: 'Mitr', sans-serif;
+  	border-radius: 12px;
+  	box-shadow: none !important;
 }
+
+.main-form{
+	font-family: 'Mitr', sans-serif;
+	display: flex;
+	width: 100%;	
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.form-component{
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	padding: 1em;
+}
+
+.form-component input{
+	height: 45px;
+	border-radius: 14px;
+	border: 1px solid rgba(0, 0, 0, 0.123);
+	text-indent: 3%;
+}
+
+.form-component select{
+	height: 45px;
+	border-radius: 14px;
+	border: 1px solid rgba(0, 0, 0, 0.123);
+	text-indent: 3%;
+}
+
+.max-len{
+	display: flex;
+	flex-direction: column;
+	width: 100% !important;
+	padding: 1em;
+}
+
+.max-len input{
+	text-indent: 1.5% !important;
+}
+
+/* modal start here */
+
+.whole-modal-body {
+	font-family: 'Mitr', sans-serif;
+  	width: 100vw;
+}
+.whole-modal-body >>> .ant-modal {
+  width: 70% !important;
+}
+
+
 </style>

@@ -103,14 +103,15 @@
                 </svg>
               </a>
               <a-menu slot="overlay">
-                <router-link :to="`/Customers/EditCustomer/${customerID}`">
                 <a-menu-item>
-                  <a href="javascript:;" style="text-decoration: none">Edit</a>
+                  <router-link :to="`/Customers/EditCustomer/${customerID}`" style="text-decoration: none">
+                    <a  style="text-decoration: none"> แก้ไข </a>
+                  </router-link>
                 </a-menu-item>
-          </router-link>
+          
                 <a-menu-item>
-                  <a href="javascript:;" style="text-decoration: none" @click="deletecus(customerID)"
-                    >Delete</a
+                  <a  style="text-decoration: none" @click="deletecus(customerID)"
+                    > ลบ </a
                   >
                 </a-menu-item>
               </a-menu>
@@ -535,7 +536,7 @@ export default {
       projectHeaderBtns: "all",
       customer: [],
       visible: false,
-      status: "บุคคลธรรมดา",
+      status: "",
       contactName: "",
       contactNumber: "",
       companyName: "",
