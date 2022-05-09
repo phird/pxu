@@ -12,7 +12,11 @@
 		:class="['ant-layout-sider-' + sidebarColor, 'ant-layout-sider-' + sidebarTheme]"
 		theme="light"
 		:style="{ backgroundColor: 'transparent',}">
-			<div class="brand"><img src="images/logo-ct-black.png" alt=""> <span>Company Name</span></div>
+		<div class="brand"> 
+			<img :src="`http://localhost:5000/${logo}`" alt="">
+			<!-- <img :src="`images/${logo}`" alt=""> -->
+			<span>{{name}}</span>
+			</div>
 			<hr>
 
 			<!-- Sidebar Navigation Menu -->
@@ -87,6 +91,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 	export default ({
 		props: {
 			// Sidebar collapsed status.
@@ -107,11 +112,29 @@
 				default: "light",
 			},
 		},
+		created(){
+			console.log(this.logo);
+				console.log(this.name);
+			this.getweb();
+			console.log(this.logo);
+				console.log(this.name);
+		},
 		data() {
 			return {
 				// sidebarCollapsedModel: this.sidebarCollapsed,
+				name:'',
+				logo:'',
 			}
 		},
+		methods:{
+			async getweb(){
+			const response = await axios.get(`http://localhost:5000/website/img`);
+				this.name=response.data[0].websiteName;
+				this.logo=response.data[0].logo;
+				console.log(this.logo);
+				console.log(this.name);
+			}
+		}
 	})
 
 </script>

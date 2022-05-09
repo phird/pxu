@@ -28,6 +28,10 @@
             <!-- นิติบุคคล -->
             <label for="juristic">นิติบุคคล</label>
           </div>
+          <div class="error" v-if="$v.status.$error">
+                  <template v-if="!$v.status.$invalid"> </template>
+                  <template v-else style="color: red"> * </template>
+          </div>
         </div>
         <!-- /toggle-type-customer -->
         <!-- ==================================================================== -->
@@ -162,79 +166,95 @@
         <br />
         <!-- / บุคคลธรรมดา -->
         <div class="address-info">
-          <p style="font-size: 18px; font-weight: 500">
-            <b-icon icon="house-door" style="color: #376303"></b-icon>
-            ที่อยู่ผู้ติดต่อ
-          </p>
-          <!-- ที่อยู่ -->
-          <div class="field" id="addr-detail">
-            <label for="Address">บ้านเลขที่/ที่อยู่</label>
-            <input
-              id="Address"
-              type="text"
-              v-model="Address"
-              style="
-                border: 1px solid rgb(211, 211, 211);
-                opacity: 0.5;
-                text-indent: 4%;
-              "
-              placeholder="บ้านเลขที่/ที่อยู่"
-            />
-            <div class="error" v-if="$v.Address.$error">
-              <template v-if="!$v.Address.$invalid"> </template>
-              <template v-else> ต้องใส่ที่อยู่ </template>
+            <p style="font-size: 18px; font-weight: 500">
+              <b-icon icon="house-door" style="color: #376303"></b-icon>
+              ที่อยู่ผู้ติดต่อ
+            </p>
+            <!-- ที่อยู่ -->
+            <div class="field" id="addr-detail">
+              <label for="Address">บ้านเลขที่/ที่อยู่</label>
+              <input
+                id="Address"
+                type="text"
+                v-model="Address"
+                style="
+                  border: 1px solid rgb(211, 211, 211);
+                  opacity: 0.5;
+                  text-indent: 4%;
+                "
+                placeholder="บ้านเลขที่/ที่อยู่"
+              />
+              <div class="error" v-if="$v.Address.$error">
+                <template v-if="!$v.Address.$invalid"> </template>
+                <template v-else> ต้องใส่ที่อยู่ </template>
+              </div>
+            </div>
+            <div class="addr-info-section">
+              <!-- ตำบล -->
+              <div class="field" id="addr-box">
+                <label for="subdis">ตำบล</label>
+                <ThailandAutoComplete
+                  class="autocom-add"
+                  v-model="subdis"
+                  id="subdis"
+                  type="district"
+                  @select="select"
+                  placeholder="ตำบล..."
+                />
+                <div class="error" v-if="$v.subdis.$error">
+                    <template v-if="!$v.subdis.$invalid"> </template>
+                    <template v-else> ต้องใส่ตำบล</template>
+                  </div>
+              </div>
+              <!-- อำเภอ -->
+              <div class="field" id="addr-box">
+                <label for="dis">อำเภอ</label>
+                <ThailandAutoComplete
+                  class="autocom-add"
+                  v-model="dis"
+                  type="amphoe"
+                  @select="select"
+                  placeholder="อำเภอ..."
+                />
+                 <div class="error" v-if="$v.dis.$error">
+                    <template v-if="!$v.dis.$invalid"> </template>
+                    <template v-else> ต้องใส่อำเภอ</template>
+                  </div>
+              </div>
+              <!-- จังหวัด -->
+              <div class="field" id="addr-box">
+                <label for="provice">จังหวัด</label>
+                <ThailandAutoComplete
+                  class="autocom-add"
+                  v-model="province"
+                  type="province"
+                  @select="select"
+                  color="#35495e"
+                  placeholder="จังหวัด..."
+                />
+                <div class="error" v-if="$v.province.$error">
+                    <template v-if="!$v.province.$invalid"> </template>
+                    <template v-else> ต้องใส่จังหวัด</template>
+                  </div>
+              </div>
+              <!-- zip code -->
+              <div class="field" id="addr-box">
+                <label for="postcode">รหัสไปรษณีย์</label>
+                <ThailandAutoComplete
+                  class="autocom-add"
+                  v-model="postcode"
+                  type="zipcode"
+                  @select="select"
+                  color="#00a4e4"
+                  placeholder="รหัสไปรษณีย์..."
+                />
+                <div class="error" v-if="$v.postcode.$error">
+                    <template v-if="!$v.postcode.$invalid"> </template>
+                    <template v-else> ต้องใส่รหัสไปรษณีย์</template>
+                  </div>
+              </div>
             </div>
           </div>
-          <div class="addr-info-section">
-            <!-- ตำบล -->
-            <div class="field" id="addr-box">
-              <label for="subdis">ตำบล</label>
-              <ThailandAutoComplete
-                class="autocom-add"
-                v-model="subdis"
-                id="subdis"
-                type="district"
-                @select="select"
-                placeholder="ตำบล..."
-              />
-            </div>
-            <!-- อำเภอ -->
-            <div class="field" id="addr-box">
-              <label for="dis">อำเภอ</label>
-              <ThailandAutoComplete
-                class="autocom-add"
-                v-model="dis"
-                type="amphoe"
-                @select="select"
-                placeholder="อำเภอ..."
-              />
-            </div>
-            <!-- จังหวัด -->
-            <div class="field" id="addr-box">
-              <label for="provice">จังหวัด</label>
-              <ThailandAutoComplete
-                class="autocom-add"
-                v-model="province"
-                type="province"
-                @select="select"
-                color="#35495e"
-                placeholder="จังหวัด..."
-              />
-            </div>
-            <!-- zip code -->
-            <div class="field" id="addr-box">
-              <label for="postcode">รหัสไปรษณีย์</label>
-              <ThailandAutoComplete
-                class="autocom-add"
-                v-model="postcode"
-                type="zipcode"
-                @select="select"
-                color="#00a4e4"
-                placeholder="รหัสไปรษณีย์..."
-              />
-            </div>
-          </div>
-        </div>
         <br />
         <!-- รายละเอียดผู้ติดต่อ -->
         <div v-if="status == 'นิติบุคคล'">
@@ -385,6 +405,9 @@ export default {
     Address: {
       required,
     },
+    status: {
+      required,
+    },
     subdis: {
       required,
     },
@@ -392,6 +415,9 @@ export default {
       required,
     },
     province: {
+      required,
+    },
+    postcode: {
       required,
     },
     // passportDate: {
