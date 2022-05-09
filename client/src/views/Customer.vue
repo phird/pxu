@@ -103,9 +103,11 @@
                 </svg>
               </a>
               <a-menu slot="overlay">
+                <router-link :to="`/Customers/EditCustomer/${customerID}`">
                 <a-menu-item>
                   <a href="javascript:;" style="text-decoration: none">Edit</a>
                 </a-menu-item>
+          </router-link>
                 <a-menu-item>
                   <a href="javascript:;" style="text-decoration: none" @click="deletecus(customerID)"
                     >Delete</a
@@ -260,7 +262,7 @@
                   />
                   <div class="error" v-if="$v.contactNumber.$error">
                     <template v-if="!$v.contactNumber.$invalid"> </template>
-                    <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
+                    <template v-else> เบอร์ผู้ติดต่อต้องมี10หลัก </template>
                   </div>
                 </div>
                 <!-- เลขกำกับภาษี -->
@@ -415,7 +417,7 @@
               />
               <div class="error" v-if="$v.contactNumber.$error">
                 <template v-if="!$v.contactNumber.$invalid"> </template>
-                <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
+                <template v-else> เบอร์ผู้ติดต่อต้องมี10หลัก </template>
               </div>
             </div>
 
@@ -446,7 +448,8 @@
       </div>
     </a-modal>
 
-    <!-- /Modal Start Here -->
+    <!-- /Modal edit Start Here -->
+
   </div>
 </template>
 
@@ -605,13 +608,12 @@ export default {
       if (this.status == "บุคคลธรรมดา") {
         this.companyName = this.contactName;
         this.conpanyNumber = this.contactNumber;
-        console.log(this.companyName);
-        console.log(this.conpanyNumber);
+        // console.log(this.companyName);
+        // console.log(this.conpanyNumber);
       }
       this.$v.$touch();
-      console.log(this.status);
+      // console.log(this.status);
       if (this.$v.$invalid) {
-        console.log();
         alert("can't submit");
       } else {
         await axios

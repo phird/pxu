@@ -24,12 +24,6 @@ let routes = [
 		component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
 	},
 	{
-		path: '/customer',
-		name: 'Createcustomer',
-		layout: "dashboard",
-		component: () => import('../views/CreateCustomer.vue'),
-	},
-	{
 		path: '/Quotations',
 		name: 'ใบเสนอราคา',
 		layout: "dashboard",
@@ -48,10 +42,10 @@ let routes = [
 		component: () => import('../views/Customer.vue'),
 	},
 	{
-		path: '/Customers/CreateCustomer',
-		name: 'เพิ่มลูกค้า',
+		path: '/Customers/EditCustomer/:id',
+		name: 'แก้ไขลูกค้า',
 		layout: "dashboard",
-		component: () => import('../views/CreateCustomer.vue'),
+		component: () => import('../views/EditCustomer.vue'),
 	},
 	{
 		path: '/setting/createemployee',
