@@ -91,7 +91,7 @@
             />
             <div class="error" v-if="$v.companyNumber.$error">
               <template v-if="!$v.companyNumber.$invalid"> </template>
-              <template v-else> ต้องระบุชื่อ </template>
+              <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
             </div>
           </div>
 
@@ -143,6 +143,10 @@
               @select="select"
               placeholder="ตำบล..."
             />
+            <div class="error" v-if="$v.subdis.$error">
+                    <template v-if="!$v.subdis.$invalid"> </template>
+                    <template v-else> ต้องใส่ตำบล</template>
+                  </div>
           </div>
           <!-- อำเภอ -->
           <div class="addr-detail" id="addr-box">
@@ -155,6 +159,10 @@
               @select="select"
               placeholder="อำเภอ..."
             />
+            <div class="error" v-if="$v.dis.$error">
+                    <template v-if="!$v.dis.$invalid"> </template>
+                    <template v-else> ต้องใส่อำเภอ</template>
+                  </div>
           </div>
           <!-- จังหวัด -->
           <div class="addr-detail" id="addr-box">
@@ -168,6 +176,10 @@
               color="#35495e"
               placeholder="จังหวัด..."
             />
+            <div class="error" v-if="$v.province.$error">
+                    <template v-if="!$v.province.$invalid"> </template>
+                    <template v-else> ต้องใส่จังหวัด</template>
+                  </div>
           </div>
           <!-- zip code -->
           <div class="addr-detail" id="addr-box">
@@ -181,6 +193,10 @@
               color="#00a4e4"
               placeholder="รหัสไปรษณีย์..."
             />
+            <div class="error" v-if="$v.postcode.$error">
+                    <template v-if="!$v.postcode.$invalid"> </template>
+                    <template v-else> ต้องใส่รหัสไปรษณีย์</template>
+                  </div>
           </div>
         </div>
       </div>
