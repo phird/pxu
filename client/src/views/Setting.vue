@@ -33,7 +33,7 @@
           </v-tab>
 
           <v-tab title="ข้อมูลธนาคาร">
-            <banker/>
+            <bank-dash/>
           </v-tab>
       </vue-tabs>
 
@@ -47,9 +47,11 @@
 import Employee from './Employee.vue';
 import Websetting from './Websetting.vue';
 import Banker from './Banker.vue';
+import BankDash from './BankDash.vue';
 import { FormWizard, TabContent } from "vue-step-wizard";
 import {VueTabs, VTab} from 'vue-nav-tabs';
 import "vue-step-wizard/dist/vue-step-wizard.css";
+
 export default {
   //component code
   name: "Setting",
@@ -60,7 +62,9 @@ export default {
     TabContent,
     Websetting,
     Employee,
-    Banker
+    Banker,
+    BankDash,
+    BankDash,
   },
   data() {
     return{
