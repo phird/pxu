@@ -18,12 +18,13 @@
         
 
         <!-- here come vue tab -->
+        <p style="font-size:26px">  <b-icon icon="gear"></b-icon> Setting</p>
         <vue-tabs class="wp" 
                 direction="vertical"
                 type="pills"
                 :start-index="1"
                 >
-          <v-tab title="ตั้งค่าเว็บไซต์" icon="bi-sliders">
+          <v-tab title="ตั้งค่าเว็บไซต์">
             <websetting />
           </v-tab>
 
@@ -118,7 +119,7 @@ export default {
   text-decoration: none;
   width: 20%;
   padding: 2em;
-  border-right: 1px solid rgba(0, 0, 0, 0.034);
+  border-right: 1px solid rgba(0, 0, 0, 0.288);
 }
 .wp >>> .nav-tabs li{
         text-decoration: none;
@@ -197,7 +198,12 @@ export default {
       flex-direction: row;
       padding: 0;
       border-right: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.288);
     }
+    .wp >>> .tab-content{
+    width: 100%;
+    padding: .5em;
+}
   }
 
 

@@ -11,7 +11,7 @@
           <div class="website-name">
             <label for="website-name-box">ชื่อเว็บไซต์</label>
             <div class="website-name-box">
-              <b-icon
+              <!-- <b-icon
                 icon="person-circle"
                 style="
                   display: flex;
@@ -19,7 +19,7 @@
                   z-index: 10;
                   margin: auto;
                 "
-              ></b-icon>
+              ></b-icon> -->
               <input
                 style="position: relative; text-indent: 5%"
                 id="websiteName"
@@ -69,7 +69,7 @@
           <b-icon icon="house"></b-icon> ข้อมูลบริษัท
         </p>
         <div class="company-data">
-          <div class="company-name addr-content-box">
+          <div class="company-name addr-content-box maxsize-input">
             <label for="companyName"> ชื่อบริษัท</label>
             <input
               id="companyName inputbox"
@@ -104,8 +104,8 @@
             </div>
           </div>
 
-          <div>
-            <p>ตราปั้มบริษัท:{{ filestamp.name }}</p>
+          <div style="display:flex; padding:1em; flex-direction: column">
+            <label>ตราปั้มบริษัท:{{ filestamp.name }}</label>
             <input type="file" @change="uploadFilestamp" label="logo" />
           </div>
 
@@ -137,8 +137,8 @@
             <label for="subdis">ตำบล</label>
             <ThailandAutoComplete
               v-model="subdis"
+              class="autofilladdr"
               id="subdis"
-              
               type="district"
               @select="select"
               placeholder="ตำบล..."
@@ -150,7 +150,8 @@
             <ThailandAutoComplete
               v-model="dis"
               type="amphoe"
-              
+              class="autofilladdr"
+              id="subdis"
               @select="select"
               placeholder="อำเภอ..."
             />
@@ -160,8 +161,9 @@
             <label for="provice">จังหวัด</label>
             <ThailandAutoComplete
               v-model="province"
+              class="autofilladdr"
               type="province"
-              
+              id="subdis"
               @select="select"
               color="#35495e"
               placeholder="จังหวัด..."
@@ -173,7 +175,8 @@
             <ThailandAutoComplete
               v-model="postcode"
               type="zipcode"
-              
+              id="subddis"
+              class="autofilladdr"
               @select="select"
               color="#00a4e4"
               placeholder="รหัสไปรษณีย์..."
@@ -182,7 +185,10 @@
         </div>
       </div>
 
-      <button type="submit">ส่งแบบฟอร์ม</button>
+      <div class="submitbutt">
+        <button type="submit">บันทึกข้อมูล</button>
+      </div>
+
     </form>
   </div>
 </template>
@@ -359,16 +365,18 @@ export default {
   display: flex;
   width: 100%;
   flex-direction: row;
-  gap: 5em;
-  justify-content: space-around;
-  padding: 1em;
+  flex-wrap: wrap;
 }
 
 .website-logo {
   width: 50%;
+  padding: 1em;
+  
 }
 .website-name {
   width: 50%;
+  padding: 1em;
+  
 }
 
 .website-logo-box {
@@ -382,7 +390,6 @@ export default {
   height: 45px;
 }
 .website-name-box {
-  position: relative;
   display: flex;
   width: 100%;
 }
@@ -444,7 +451,6 @@ export default {
   .addr-detail-content{
     display: flex;
     flex-direction: row;
-    
     flex-wrap: wrap;
   }
 
@@ -460,5 +466,52 @@ export default {
     padding: 1em;
     flex-direction: column;
     width: 100% !important;
+  }
+
+  .maxsize-input input{
+    text-indent: 3%;
+  }
+
+  .autofilladdr >>> .vth-addr-input-size-default[data-v-1f53c317]{
+    border-radius: 14px;
+    height: 45px;
+  }
+
+  .submitbutt{
+    display: flex;
+    justify-content: flex-end;
+  }
+  .submitbutt button{
+    color: white;
+    background-color: #7367F0;
+    border-radius: 14px;
+    border: 0;
+    padding: .5em;
+  }
+
+  @media only screen and (max-width: 991px) {
+    .website-logo {
+      width: 100%;
+      padding: 1em;
+        
+    }
+    .website-name {
+      width: 100%;
+      padding: 1em;
+      
+    }
+    .addr-detail{
+      display: flex;
+      padding: 1em;
+      flex-direction: column;
+      width: 100%;
+    }
+    .addr-content-box {
+      display: flex;
+      flex-direction: column;
+      width:100%;
+      padding: 1em;
+    }
+    
   }
 </style>
