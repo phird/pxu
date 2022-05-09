@@ -73,9 +73,7 @@ const fontList = [
   "Arial",
   "Courier",
   "Garamond",
-  "Brush Script MT",
   "Kanit",
-  "Square Peg",
   "Orbitron",
   "Srisakdi",
 ];

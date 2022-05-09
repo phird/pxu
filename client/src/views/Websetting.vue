@@ -266,11 +266,11 @@ export default {
     },
     uploadFilelogo(event) {
       this.filelogo = event.target.files[0];
-      console.log(this.filelogo.name);
+      console.log(this.filelogo);
     },
     uploadFilestamp(event) {
       this.filestamp = event.target.files[0];
-      console.log(this.filestamp.name);
+      console.log(this.filestamp);
     },
     async submitForm() {
       this.$v.$touch();
@@ -322,6 +322,7 @@ export default {
               })
               .then(function () {
                 alert("update");
+                window.location.reload(false); 
               });
           });
       }

@@ -58,4 +58,14 @@ router.put('/', (req, res) => {
     })
 });
 
+router.get('/img', (req, res) => {
+
+    const sqlSelect = "SELECT websiteName,logo FROM website"
+    db.query(sqlSelect, (err, result) => {
+        // console.log(result);
+        res.send(result);
+    })
+
+});
+
 export default router;
