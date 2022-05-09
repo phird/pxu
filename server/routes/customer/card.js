@@ -5,10 +5,10 @@ const router = express.Router();
 
 router.post('/', (req, res)=> {
     const month = req.body.month;
-    console.log(month);
+    // console.log(month);
     const sqlSelectRecent = "SELECT COUNT(customerID) as c FROM `customer` WHERE MONTH(timestramp) = ?;"
     db.query(sqlSelectRecent,[month], (err, result) => {
-        console.log(result);
+        // console.log(result);
         res.send(result);
     }) 
 });
@@ -16,7 +16,7 @@ router.post('/', (req, res)=> {
 router.get('/', (req, res)=> {
     const sqlSelectRecent = "SELECT companyName FROM customer ORDER BY customerID DESC LIMIT 1"
     db.query(sqlSelectRecent, (err, result) => {
-        console.log(result.data);
+        // console.log(result.data);
         res.send(result);
     }) 
 });
@@ -26,8 +26,8 @@ router.put('/', (req, res)=> {
     const sqlSelectP = "SELECT COUNT(customerID) as c FROM customer WHERE status='บุคคลธรรมดา';"
     db.query(sqlSelectNT,(err, NT) => {
         db.query(sqlSelectP,(err, P) => {
-            console.log(NT);
-            console.log(P);
+            // console.log(NT);
+            // console.log(P);
             res.send([NT,P]);
         }) 
     }) 

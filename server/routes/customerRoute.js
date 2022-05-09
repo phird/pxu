@@ -28,10 +28,21 @@ router.post('/', (req, res) => {
 
     const sqlInsert = "INSERT INTO customer (companyName,companyNumber,status,address,subdistrict,district,province,postcode,taxNumber,contactName,contactNumber,contactEmail) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);"
     db.query(sqlInsert, [companyName,companyNumber,status,address,subdis,dis,province,postcode,taxNumber,contactName,contactNumber,contactEmail], (err,result)=>{
-        console.log(err);
-        console.log(result);
+        // console.log(err);
+        // console.log(result);
         res.send(result);
     }) 
 });
+
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    const sqlDelete = "DELETE FROM customer WHERE customerID=?";
+    db.query(sqlDelete, [id], (err, result) => {
+        console.log(err);
+        console.log(result);
+    })
+});
+
 
 export default router;

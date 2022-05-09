@@ -86,7 +86,7 @@
             {{ contactNumber }}
           </template>
 
-          <template slot="actionSection">
+          <template slot="actionSection" slot-scope="customerID">
             <a-dropdown>
               <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
                 <svg
@@ -107,7 +107,7 @@
                   <a href="javascript:;" style="text-decoration: none">Edit</a>
                 </a-menu-item>
                 <a-menu-item>
-                  <a href="javascript:;" style="text-decoration: none"
+                  <a href="javascript:;" style="text-decoration: none" @click="deletecus(customerID)"
                     >Delete</a
                   >
                 </a-menu-item>
@@ -520,6 +520,7 @@ export default {
         },
         {
           title: "Action",
+          dataIndex: "customerID",
           scopedSlots: { customRender: "actionSection" },
         },
       ],
@@ -592,6 +593,13 @@ export default {
       this.dis = address.amphoe;
       this.province = address.province;
       this.postcode = address.zipcode;
+    },
+    deletecus(id){
+      console.log(id);
+        if(window.confirm("Do you want to delete this customer ?")){
+            axios.delete(`http://localhost:5000/customer/${id}`) 
+                window.location.reload(false);    
+        }
     },
     async submitForm() {
       if (this.status == "บุคคลธรรมดา") {
