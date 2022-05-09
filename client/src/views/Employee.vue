@@ -48,7 +48,7 @@
         :data-source="employee"
         :pagination="true"
       >
-        <template slot="idIdx" slot-scope="text">
+        <template slot="index" slot-scope="text">
           <a>{{ text }}</a>
         </template>
 
@@ -233,8 +233,8 @@ export default {
       default: () => [
         {
           title: "#",
-          dataIndex: "idIdx",
-          scopedSlots: { customRender: "idIdx" },
+          dataIndex: "index",
+          scopedSlots: { customRender: "index" },
         },
         {
           title: "Name",
@@ -323,7 +323,9 @@ export default {
       try {
         const response = await axios.get("http://localhost:5000/employee");
         this.employee = response.data;
-        console.log(this.employee);
+        for (let i = 0; i < response.data.length; i++) {
+          this.employee[i].index = i + 1;
+        }
       } catch (err) {
         console.log(err);
       }
