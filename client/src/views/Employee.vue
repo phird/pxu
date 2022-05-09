@@ -111,10 +111,6 @@
       @ok="handleOk"
     >
       <div>
-        <div class="title-modal">
-          <p>พนักงาน</p>
-        </div>
-
         <form @submit.prevent="submitForm()" class="form-for-employee">
           <div class="main-form">
           
