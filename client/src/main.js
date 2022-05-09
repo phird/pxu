@@ -9,6 +9,8 @@ import router from './router'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueStepWizard from 'vue-step-wizard'
 import 'vue-step-wizard/dist/vue-step-wizard.css'
+import VueTabs from 'vue-nav-tabs'
+
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -22,6 +24,8 @@ import ThailandAutoComplete from 'vue-thailand-address-autocomplete'
 Vue.component('ThailandAutoComplete', ThailandAutoComplete)
 
 Vue.use(Vuelidate);
+
+Vue.use(VueTabs);
 
 Vue.use(VueStepWizard);
 

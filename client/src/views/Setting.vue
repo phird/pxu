@@ -1,6 +1,6 @@
 <template>
   <div class="whole-site">
-        <form-wizard class="wp"  id="ph">
+<!--         <form-wizard  class="wp"  id="ph">
           <tab-content title="ข้อมูลทั่วไป" :selected="true">
             <div class="form-group">
               <websetting />
@@ -14,7 +14,30 @@
           <tab-content title="เพิ่มขอบเขตงาน">
             <banker/>
           </tab-content>
-        </form-wizard>
+        </form-wizard> -->
+        
+
+        <!-- here come vue tab -->
+        <vue-tabs class="wp" 
+                direction="vertical"
+                type="pills"
+                :start-index="1"
+                >
+          <v-tab title="ตั้งค่าเว็บไซต์" icon="bi-sliders">
+            <websetting />
+          </v-tab>
+
+          <v-tab title="ข้อมูลพนักงาน">
+            <employee/>
+          </v-tab>
+
+          <v-tab title="ข้อมูลธนาคาร">
+            <banker/>
+          </v-tab>
+      </vue-tabs>
+
+
+        
   </div>
   
 </template>
@@ -24,11 +47,14 @@ import Employee from './Employee.vue';
 import Websetting from './Websetting.vue';
 import Banker from './Banker.vue';
 import { FormWizard, TabContent } from "vue-step-wizard";
+import {VueTabs, VTab} from 'vue-nav-tabs';
 import "vue-step-wizard/dist/vue-step-wizard.css";
 export default {
   //component code
   name: "Setting",
   components: {
+    VueTabs,
+    VTab,
     FormWizard,
     TabContent,
     Websetting,
@@ -50,53 +76,170 @@ export default {
 
 .whole-site{
   font-family: 'Mitr', sans-serif;
-  width: 80%;
+  width: 100%;
   display: flex;
-  flex-direction: row;
-}
-
-.left-layout{
-  width: 70%;
-}
-.right-layout{
-  width: 30%;
-}
-.right-layout-panel{
-  padding: 40px;
-  margin: auto;
-  width: 70%;
+  padding: 2em;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 14px;
-  align-content: center;
+  border: none;
+  margin-bottom: 1rem;
   background-color: white;
-  -webkit-box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;box-shadow:0 .5rem 1rem rgba(0,0,0,.15) !important;
-}
-.container-panel{
+  -webkit-box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  -webkit-transition: all 0.3s ease-in-out, background 0s, color 0s,
+    border-color 0s;
+  transition: all 0.3s ease-in-out, background 0s, color 0s, border-color 0s;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
-}
-.container-panel button{
-  margin: 10px;
+  min-width: 0;
+  word-wrap: break-word;
 }
 
 /* specific module change  */
+.wp{
+  background-color: transparent;
+  display: flex;
+  width: 100%;
+}
+.wp >>> .nav-pills {
+  display: flex;
+  flex-direction: column;
+}
 
-#ph >>> .step-footer{
+
+.wp >>> .left-vertical-tabs{ 
+  text-decoration: none;
+  width: 20%;
+  padding: 2em;
+  border-right: 1px solid rgba(0, 0, 0, 0.034);
+}
+.wp >>> .nav-tabs li{
+        text-decoration: none;
+        font-weight:400;
+        line-height:1;
+        text-transform:uppercase;
+        position:relative;
+        max-width:30rem;
+        text-align:center;
+        margin: 2rem;
+}
+
+.wp >>> .tab-content{
+  width: 100%;
+  padding: 2em;
+}
+
+
+.wp >>> .nav.nav-pills{
+  text-align: center;
+  margin: 1rem;
+}
+
+
+.wp >>> .nav.nav-pills li{
+  padding: 1em;
+}
+
+.wp >>> .nav.nav-pills a{
   
-}
-#ph >>> .progressbar{
-    -webkit-transition:width 1s ease;
-    transition:width 1s ease;
+  text-decoration: none;
+  color: black;
 }
 
-.wp {
-    width:100% !important;
-    display: flex !important;
+.wp >>> .nav.nav-pills .tab.active a{
+  text-align: center;
+  color: white;
 }
-.wp >>> .step-pills{
-  width: 50%;
-  display: flex !important;
-  flex-direction: column !important;
+
+.wp >>> .nav.nav-pills .tab.active{
+  text-align: center;
+  background-color: #7367F0 !important;
+  padding: 1em;
+  color: white !important;
+  border-radius: 14px;
+  -webkit-box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
 }
+.wp >>> .nav-tabs-navigation{
+  width: 30%;
+}
+
+/* mobile screen */
+  @media only screen and (max-width: 991px) { 
+    .wp{
+      display: flex;
+      flex-direction: column;
+    }
+    .wp >>> .nav.nav-pills .tab.active{
+      text-align: center;
+      background-color: #7367F0 !important;
+      color: white !important;
+      border-radius: 14px;
+      -webkit-box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+      box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+      position: relative;
+      display: -webkit-box;
+      display: -ms-flexbox;
+    }
+    .wp >>> .left-vertical-tabs{ 
+      text-decoration: none;
+      width: 100%;
+      flex-direction: row;
+      padding: 0;
+      border-right: none;
+    }
+  }
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* #ph >>> .step-pills .step-item.active .step-link .tabStatus{
+  background-color:#7367F0 !important;
+} */
+#ph >>> .step-pills .step-item.active .step-link{
+    color: black;
+    font-weight: 500;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+}
+#ph >>> .step-pills .step-item.active .step-link .tabStatus {
+    background-color: #7367F0 !important;
+    padding: auto;
+    text-align: center;
+    width: 28px;
+    height: 28px;
+}
+
 
 .wp >>> .step-pills .step-item{
     background-color:transparent !important;

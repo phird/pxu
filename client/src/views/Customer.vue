@@ -605,11 +605,13 @@ export default {
         }
     },
     async submitForm() {
+      console.log(this.companyName);
+        console.log(this.conpanyNumber);
       if (this.status == "บุคคลธรรมดา") {
         this.companyName = this.contactName;
         this.conpanyNumber = this.contactNumber;
-        // console.log(this.companyName);
-        // console.log(this.conpanyNumber);
+        /* console.log(this.companyName);
+        console.log(this.conpanyNumber); */
       }
       this.$v.$touch();
       // console.log(this.status);
