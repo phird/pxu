@@ -113,9 +113,6 @@
       <div>
         <form @submit.prevent="submitForm()" class="form-for-employee">
           <div class="main-form">
-          
-		  
-
             <div class="form-component max-len">
               
                 <label for="employeeName"> ชื่อพนักงาน </label>
@@ -178,11 +175,11 @@
           
 		  </div>
 
-          <div>
+          <div class="set-Default">
             <a-checkbox @change="changestatus()"> Set Default </a-checkbox>
           </div>
 
-          <div>
+          <div class="submitbutt">
             <button type="submit">บันทึกข้อมูล</button>
           </div>
         </form>
@@ -221,7 +218,6 @@ function myFunction() {
     }
   }
 }
-
 export default {
   props: {
     columns: {
@@ -340,7 +336,6 @@ export default {
 
 <style scoped>
 
-
 .layout-dashboard .ant-card {
 	font-family: 'Mitr', sans-serif;
   	border-radius: 12px;
@@ -396,6 +391,26 @@ export default {
 .whole-modal-body >>> .ant-modal {
   width: 70% !important;
 }
-
+.whole-modal-body >>> .ant-modal-footer {
+  display: none;
+}
+.submitbutt{
+    display: flex;
+    justify-content: flex-end;
+  }
+.submitbutt button{
+    color: white;
+    background-color: #7367F0;
+    border-radius: 14px;
+    border: 0;
+	margin: auto;
+    padding: 1em;
+  }
+	.set-Default{
+		padding: 1em;
+	}
+	.error {
+  color: red;
+	}
 
 </style>

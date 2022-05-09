@@ -10,6 +10,13 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueStepWizard from 'vue-step-wizard'
 import 'vue-step-wizard/dist/vue-step-wizard.css'
 import VueTabs from 'vue-nav-tabs'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+// make jw pagination component available in application
+import JwPagination from 'jw-vue-pagination';
+Vue.component('jw-pagination', JwPagination);
+
+Vue.use(Vuetify)
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
