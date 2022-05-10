@@ -3,7 +3,7 @@
           <!---- Query default banner of bank account here ---->
             <div class="profile-banner">
                 <img
-                    src="../../assets/images/banner/K_Banner570.jpg"
+                    :src="`http://localhost:5000/bank/${bank.img}`"
                     alt="Bank Cover Photo"
                 />
             </div>
@@ -12,7 +12,7 @@
                 <!----Query default bank account here --->
                 <div class="content-card-body">
                   <div class="bank-name m-0 center">
-                      <span style="font-size:24px;"> KASIKORNTHAI</span>
+                      <span style="font-size:24px;"> {{bank.bankName}}</span>
                   </div>
                   </div>
                       <p class="default-bank-text"> [default]</p>
@@ -23,7 +23,27 @@
 
 
 <script>
-export default {};
+import axios from 'axios'
+export default {
+  data(){
+    return{
+      bank:[]
+    }
+  },
+  created(){
+    this.getbank();
+  },
+  methods:{
+    getbank(){
+      axios.get("http://localhost:5000/carddash/bank",{
+
+      }).then((res)=>{
+        this.bank=res.data[0];
+        console.log(this.bank);
+      })
+    }
+  }
+};
 </script>
 
 <style scoped>

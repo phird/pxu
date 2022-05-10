@@ -10,6 +10,7 @@ import bankRoute from './routes/bankRoute.js'
 import uploadlogoRoute from './routes/uploadlogoRoute.js'
 import uploadstampRoute from './routes/uploadstampRoute.js'
 import cardcustomerRoute from './routes/customer/card.js'
+import carddashRoute from './routes/dashboard/card.js'
 
 app.use(cors());
 app.use(express.static('uploads'));
@@ -30,6 +31,7 @@ app.use("/bank", bankRoute);
 app.use("/uploadlogo",uploadlogoRoute);
 app.use("/uploadstamp",uploadstampRoute);
 app.use("/cardcustomer",cardcustomerRoute);
+app.use("/carddash",carddashRoute);
 
 app.listen(5000, () =>{
     console.log("Running on port 5000");

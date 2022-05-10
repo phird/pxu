@@ -25,10 +25,10 @@
                     <div class="content-card-body">
                       <div class="content-box">
                         <div id="username" >
-                          <span style="font-size:20px;" >Mr.Phirachat</span>
+                          <span style="font-size:20px;" >{{em.employeeName}}</span>
                         </div>
                         <div id="email">
-                          <span class="email-text" style="font-size:16px; font-weight:300;">Dangisdev@mail.com</span>
+                          <span class="email-text" style="font-size:16px; font-weight:300;">{{em.employeeEmail}}</span>
                         </div>
                         
                       </div>            
@@ -40,7 +40,26 @@
 </template>
 
 <script>
-export default {};
+import axios from 'axios'
+export default {
+  data(){
+    return{
+      em:[]
+    }
+  },
+  created(){
+    this.getem();
+  },
+  methods:{
+    getem(){
+      axios.get("http://localhost:5000/carddash",{
+
+      }).then((res)=>{
+        this.em=res.data[0];
+      })
+    }
+  }
+};
 </script>
 
 <style scoped>
