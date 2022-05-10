@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', (req, res)=> {
 
-    const sqlSelect = "SELECT * FROM employee"
+    const sqlSelect = "SELECT * FROM employee order by employeeID DESC"
     db.query(sqlSelect, (err, result) => {
         // console.log(result);
         res.send(result);
@@ -15,7 +15,7 @@ router.get('/', (req, res)=> {
 
 router.delete('/:id', (req, res) => {
     const id = req.params.id;
-    const sqlDelete = "DELETE FROM customer WHERE employeeID=?";
+    const sqlDelete = "DELETE FROM employee WHERE employeeID=?";
     db.query(sqlDelete, [id], (err, result) => {
         console.log(err);
     })
@@ -54,7 +54,7 @@ router.post('/', (req, res) => {
 
 router.get('/:id', (req, res)=> {
     const id = req.params.id;
-    const sqlSelect = "SELECT * FROM customer WHERE employeeID=?"
+    const sqlSelect = "SELECT * FROM employee WHERE employeeID=?"
     db.query(sqlSelect,[id], (err, result) => {
         // console.log(result);
         res.send(result);
@@ -69,10 +69,10 @@ router.post('/:id', (req, res)=> {
     const employeeEmail = req.body.employeeEmail
     const role = req.body.role
 
-    const sqlupdate = "UPDATE `employee` SET `employeeName`=?,`employeeNumber`=?,`status`=?,`employeeEmail`=?,`empid`=?,`role`=?, WHERE employeeID=?"
-    db.query(sqlupdate, [employeeName,employeeNumber,status,employeeEmail,empid,role], (err,result)=>{
-        // console.log(err);
-        // console.log(result);  
+    const sqlupdate = "UPDATE `employee` SET `employeeName`=?,`employeeNumber`=?,`status`=?,`employeeEmail`=?,`role`=? WHERE employeeID=?"
+    db.query(sqlupdate, [employeeName,employeeNumber,status,employeeEmail,role,empid], (err,result)=>{
+         console.log(err);
+         console.log(result);  
         res.send(result);
     }) 
 });

@@ -74,7 +74,7 @@
           {{ emTel }}
         </template>
 
-        <template slot="actionSection">
+        <template slot="actionSection" slot-scope="empID">
           <a-dropdown>
             <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
               <svg
@@ -93,14 +93,13 @@
             <a-menu slot="overlay">
               <a-menu-item>
                 <router-link
-                  :to="`/Customers/EditEmployee/${employeeID}`"
+                  :to="`/setting/EditEmployee/${empID}`"
                   style="text-decoration: none">
                   <a style="text-decoration: none"> แก้ไข </a>
                 </router-link>
               </a-menu-item>
-
               <a-menu-item>
-                <a style="text-decoration: none"> ลบ </a>
+                <a style="text-decoration: none" @click="deleteEmp(empID)"> ลบ </a>
               </a-menu-item>
             </a-menu>
           </a-dropdown>
@@ -246,6 +245,7 @@ export default {
         },
         {
           title: "Action",
+          dataIndex: "employeeID",
           scopedSlots: { customRender: "actionSection" },
         },
       ],
@@ -303,6 +303,7 @@ export default {
           })
           .then(function () {
             alert("ok");
+            window.location.reload(false);  
           });
       }
     },
@@ -325,6 +326,13 @@ export default {
       console.log(e);
       this.visible = false;
     },
+    deleteEmp(id){
+            console.log(id);
+        if(window.confirm("แน่ใจว่าจะลบพนักงานคนนี้ไหม ?")){
+            axios.delete(`http://localhost:5000/employee/${id}`) 
+                window.location.reload(false);    
+        }
+    }
   },
 };
 </script>

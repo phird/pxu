@@ -1,46 +1,68 @@
 <template>
   <div>
-    <div class="title-modal">
-      <p>EMPLOYEE</p>
-    </div>
-    <form @submit.prevent="submitForm()">
-      <div class="field">
-        <label for="employeeNumber"> เบอร์ผู้ติดต่อ</label>
-        <input id="employeeNumber" type="text" v-model="employeeNumber" />
-        <div class="error" v-if="$v.employeeNumber.$error">
-          <template v-if="!$v.employeeNumber.$invalid"> </template>
-          <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
-        </div>
-      </div>
-      <div class="field">
-        <label for="employeeName"> ชื่อผู้ติดต่อ</label>
-        <input id="employeeName" type="text" v-model="employeeName" />
-        <div class="error" v-if="$v.employeeName.$error">
-          <template v-if="!$v.employeeName.$invalid"> </template>
-          <template v-else> ต้องระบุชื่อ </template>
-        </div>
-      </div>
-      <div class="field">
-        <label for="employeeEmail"> emailผู้ติดต่อ</label>
-        <input id="employeeEmail" type="text" v-model="employeeEmail" />
-        <div class="error" v-if="$v.employeeEmail.$error">
-          <template v-if="!$v.employeeEmail.$invalid"> </template>
-          <template v-else> email error </template>
-        </div>
-      </div>
-      <div class="field">
-        <select v-model="role">
-          <option value="ผู้ดูแล">ผู้ดูแล</option>
-          <option value="พนักงานทั่วไป">พนักงานทั่วไป</option>
-        </select>
-      </div>
-      <div>
-        <a-checkbox @change="changestatus()"> Set Default </a-checkbox>
-      </div>
+        <form @submit.prevent="submitForm(empid)" class="form-for-employee">
+          <div class="main-form">
+              <div> <button onclick="router.back()">Go Back</button> <p> แก้ไขพนักงาน </p> </div>
+            <div class="form-component max-len">
+              <label for="employeeName"> ชื่อพนักงาน </label>
+              <input
+                id="employeeName"
+                type="text"
+                v-model="employeeName"
+                placeholder="ชื่อ-สกุล พนักงาน"
+              />
+              <div class="error" v-if="$v.employeeName.$error">
+                <template v-if="!$v.employeeName.$invalid"> </template>
+                <template v-else> ต้องระบุชื่อ </template>
+              </div>
+            </div>
 
-      <button type="submit">ส่งแบบฟอร์ม</button>
-    </form>
-  </div>
+            <div class="form-component">
+              <label for="employeeNumber"> เบอร์ผู้ติดต่อ</label>
+              <input
+                id="employeeNumber"
+                type="text"
+                v-model="employeeNumber"
+                placeholder="เบอร์โทรของผู้ติดต่อ"
+              />
+              <div class="error" v-if="$v.employeeNumber.$error">
+                <template v-if="!$v.employeeNumber.$invalid"> </template>
+                <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
+              </div>
+            </div>
+
+            <div class="form-component">
+              <label for="employeeEmail"> อีเมลพนักงาน</label>
+              <input
+                id="employeeEmail"
+                type="text"
+                v-model="employeeEmail"
+                placeholder="อีเมลของพนักงาน"
+              />
+              <div class="error" v-if="$v.employeeEmail.$error">
+                <template v-if="!$v.employeeEmail.$invalid"> </template>
+                <template v-else> email error </template>
+              </div>
+            </div>
+
+            <div class="form-component">
+              <label for="role"> หน้าที่ </label>
+              <select v-model="role">
+                <option value="ผู้ดูแล">ผู้ดูแล</option>
+                <option value="พนักงานทั่วไป">พนักงานทั่วไป</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="set-Default">
+            <a-checkbox @change="changestatus()"> Set Default </a-checkbox>
+          </div>
+
+          <div class="submitbutt">
+            <button type="submit">บันทึกข้อมูล</button>
+          </div>
+        </form>
+      </div>
 </template>
 
 <script>
@@ -56,8 +78,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      empid:"",
-        
+      empid: "",
+      employee: [],
       status: "-",
       role: "ผู้ดูแล",
       employeeName: "",
@@ -91,13 +113,13 @@ export default {
     changestatus() {
       this.status = "default";
     },
-    async submitForm() {
+    async submitForm(id) {
       this.$v.$touch();
       if (this.$v.$invalid) {
         alert("can't submit");
       } else {
         await axios
-          .post("http://localhost:5000/employee", {
+          .post(`http://localhost:5000/employee/${id}`, {
             role: this.role,
             employeeName: this.employeeName,
             employeeNumber: this.employeeNumber,
@@ -105,8 +127,25 @@ export default {
             status: this.status,
           })
           .then(function () {
-            alert("ok");
+            alert("บันทึกข้อมูลสำเร็จ");
+            window.location.reload(false);  
           });
+      }
+    },
+    async getemployee(empid) {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/employee/${empid}`
+        );
+        this.employee = response.data[0];
+        // console.log(this.customer);
+        this.status = this.employee.status;
+        this.employeeName = this.employee.employeeName;
+        this.employeeNumber = this.employee.employeeNumber;
+        this.employeeEmail = this.employee.employeeEmail;
+      } catch (err) {
+        console.log(err);
+        window.location.reload(false);  
       }
     },
   },
@@ -114,216 +153,80 @@ export default {
 </script>
 
 <style scoped>
-.pagebody {
-  display: flex;
-  flex-direction: column;
-}
-.pagebody-upper {
-  background-color: red;
-  height: 200px;
-}
-
-.header-solid {
+.layout-dashboard .ant-card {
   font-family: "Mitr", sans-serif;
-}
-.form-for-customer {
-  font-family: "Mitr", sans-serif;
-  align-content: center;
-  width: 60%;
-  margin-left: auto;
-  margin-right: auto;
-}
-.contact-person-section-buttom {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-between;
-  gap: 2em;
-}
-.contact-person-section-buttom-part {
-  width: 100%;
-}
-
-#employeeName {
-  background-image: url("../assets/images/icons/file-icons/person-circle.svg");
-  opacity: 0.5;
-  background-repeat: no-repeat;
-  background-position: 8px 50%;
-  width: 100%;
-}
-
-#employeeNumber {
-  background-image: url("../assets/images/icons/file-icons/telephone-fill.svg");
-  opacity: 0.5;
-  background-repeat: no-repeat;
-  background-position: 8px 50%;
-  width: 100%;
-}
-#employeeEmail {
-  background-image: url("../assets/images/icons/file-icons/envelope-fill.svg");
-  opacity: 0.5;
-  background-repeat: no-repeat;
-  background-position: 8px 50%;
-  width: 100%;
-}
-
-#addr-detail input {
-  width: 100%;
-}
-#addr-box {
-  display: flex;
-  flex-direction: column;
-}
-
-.addr-info-section {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-between;
-}
-.addr-info-section div {
-  width: 45%;
-}
-.form-for-customer .field input {
   border-radius: 12px;
-  height: 45px;
+  box-shadow: none !important;
 }
 
-.field input {
-  border: 1 solid rgba(190, 187, 187, 0.801);
+.main-form {
+  font-family: "Mitr", sans-serif;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-.contact-person-section {
+.form-component {
   display: flex;
   flex-direction: column;
-}
-/* modal style start here  */
-.title-modal {
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
+  width: 50%;
+  padding: 1em;
 }
 
-.title-modal p {
-  font-size: 26px;
-  font-weight: 700;
-  margin-left: auto;
-  margin-right: auto;
-  align-content: center;
+.form-component input {
+  height: 45px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.123);
+  text-indent: 3%;
 }
+
+.form-component select {
+  height: 45px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.123);
+  text-indent: 3%;
+}
+
+.max-len {
+  display: flex;
+  flex-direction: column;
+  width: 100% !important;
+  padding: 1em;
+}
+
+.max-len input {
+  text-indent: 1.5% !important;
+}
+
+/* modal start here */
+
 .whole-modal-body {
+  font-family: "Mitr", sans-serif;
   width: 100vw;
 }
 .whole-modal-body >>> .ant-modal {
   width: 70% !important;
 }
-.whole-modal-body >>> .ant-modal-content {
-  width: 50vw default 0;
-  margin-left: auto;
-  margin-left: auto;
-}
-.whole-modal-body >>> .ant-modal-header {
-  border-bottom: 0;
-  align-content: center;
-}
-
 .whole-modal-body >>> .ant-modal-footer {
   display: none;
 }
-
-.whole-modal-body >>> .ant-modal-title {
-  display: none;
-}
-
-.toggle-type-customer {
+.submitbutt {
   display: flex;
-  flex-direction: row;
-  padding: 1em 1em 1em 0;
+  justify-content: flex-end;
 }
-.toggle-type-customer div {
+.submitbutt button {
+  color: white;
+  background-color: #7367f0;
+  border-radius: 14px;
+  border: 0;
+  margin: auto;
   padding: 1em;
 }
-.radio-selected {
-  justify-content: center;
-}
-
-.radio-selected input {
-  margin-right: 1em;
-  height: 21px;
-  width: 21px;
+.set-Default {
+  padding: 1em;
 }
 .error {
   color: red;
 }
-.field {
-  margin-bottom: 1em;
-}
-
-.submit-but-section {
-  display: flex;
-  width: 100%;
-  margin-top: 3em;
-}
-
-.submit-button {
-  background-color: #1890ff;
-  height: 36px;
-  width: 164px;
-  color: white;
-  border-radius: 8px;
-  border: 0;
-
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.autocom-add >>> .vth-addr-input-size-default {
-  font-size: 14px;
-  font-family: "Mitr", sans-serif;
-  border-radius: 12px;
-  width: 200%;
-  opacity: 0.5;
-  text-indent: 4%;
-}
-
-@media only screen and (max-width: 991px) {
-  .contact-person-section-buttom {
-    flex-direction: column;
-    gap: 0;
-  }
-  #employeeName {
-    background-image: none;
-    opacity: 0.5;
-    background-repeat: no-repeat;
-    background-position: 8px 50%;
-    width: 100%;
-    text-indent: 4% !important;
-  }
-
-  #employeeNumber {
-    background-image: none;
-    opacity: 0.5;
-    background-repeat: no-repeat;
-    background-position: 8px 50%;
-    width: 100%;
-    text-indent: 4% !important;
-  }
-  #employeeEmail {
-    background-image: none;
-    opacity: 0.5;
-    background-repeat: no-repeat;
-    background-position: 8px 50%;
-    width: 100%;
-    text-indent: 4% !important;
-  }
-  .addr-info-section {
-    flex-direction: column;
-  }
-  .autocom-add >>> .vth-addr-input-size-default {
-    border-radius: 12px;
-    width: 500%;
-  }
-}
-/* / modal style end here  */
 </style>

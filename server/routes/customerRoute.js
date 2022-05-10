@@ -4,7 +4,7 @@ import db from "../config/database.js";
 const router = express.Router();
 
 router.get('/', (req, res)=> {
-    const sqlSelect = "SELECT * FROM customer"
+    const sqlSelect = "SELECT * FROM customer order by customerID DESC"
     db.query(sqlSelect, (err, result) => {
         // console.log(result);
         res.send(result);

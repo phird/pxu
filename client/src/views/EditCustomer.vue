@@ -464,6 +464,7 @@ export default {
           })
           .then(function () {
             alert("บันทึกข้อมูลสำเร็จ");
+            window.location.reload(false);  
           });
       }
     },
