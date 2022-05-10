@@ -23,18 +23,18 @@
                 direction="vertical"
                 type="pills"
                 :start-index="1"
-                @tab-change="handleTabChange"
+                @tab-change="changePage"
                 >
-          <v-tab title="ตั้งค่าเว็บไซต์" :selected="false">
-            <websetting />
+          <v-tab title="ตั้งค่าเว็บไซต์" >
+            <websetting v-if="this.index == '0'" />
           </v-tab>
 
-          <v-tab title="ข้อมูลพนักงาน" :selected="true">
-            <employee/>
+          <v-tab title="ข้อมูลพนักงาน" >
+            <employee v-if="this.index == '1'"/>
           </v-tab>
 
-          <v-tab title="ข้อมูลธนาคาร" :selected="false">
-            <bank-dash/>
+          <v-tab title="ข้อมูลธนาคาร" >
+            <bank-dash v-if="this.index == '2'" :index="index"/>
           </v-tab>
       </vue-tabs>
 
@@ -55,6 +55,7 @@ export default {
   //component code
   name: "Setting",
   components: {
+
     VueTabs,
     VTab,
     Websetting,
@@ -63,14 +64,17 @@ export default {
   },
   data() {
     return{
-      
+      index:'0',
     }
   },
   methods: {
 
     handleTabChange(tabIndex, newTab, oldTab){
         //your code here
-        console.log(tabIndex, newTab.$props, oldTab)
+        /* console.log(tabIndex, newTab.$props, oldTab) */
+    },
+    changePage(tabIndex){
+      this.index = tabIndex;
     }
 
   },

@@ -50,14 +50,14 @@
               <!--  content -->
               
               <figure class="snip1577">
-                <b-icon icon="eye-fill"></b-icon>
                   <img
                     class="imgforbank"
                     :src="`http://localhost:5000/bank/${item.img}`"
                     alt="bank"
                   />
                 <figcaption>
-                  <h3>{{ item.bankName }}</h3>
+                  
+                  <h3>{{ item.bankName }} <b-icon icon="pencil-fill" id="icon-thing"></b-icon></h3>
                   <h4>{{ item.accountName }}</h4>
                   <h4>{{ item.bankAccount }}</h4>
                 </figcaption>
@@ -237,6 +237,9 @@ const customLabels = {
   next: ">",
 };
 export default {
+  props:[
+    'index'
+    ],
   data() {
     return {
       bankNameau: "",
@@ -327,7 +330,7 @@ export default {
           })
           .then(() => {
             alert("ok");
-            window.location.reload(false);
+            window.location();
           });
       }
     },
@@ -583,11 +586,20 @@ select {
   padding: 15px 20px;
 }
 
+.snip1577 #icon-thing{
+  text-align: end;
+}
+
 .snip1577 h3,
 .snip1577 h4 {
   margin: 0;
   font-size: 1.1em;
   font-weight: normal;
+  opacity: 0;
+}
+
+.snip1577 b-icon{
+  margin: 0;
   opacity: 0;
 }
 
@@ -640,6 +652,20 @@ select {
   color: white;
   opacity: 1;
 }
+
+.snip1577:hover b-icon{
+  color: white;
+  opacity: 1;
+}
+
+.snip1577:hover b-icon,
+.snip1577.hover b-icon{
+  color: white;
+  -webkit-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+}
+
+
 
 .snip1577:hover h3,
 .snip1577.hover h3 {
