@@ -9,7 +9,12 @@
       <template #title>
         <a-row type="flex" align="middle">
           <a-col :span="24" :md="12">
-            <h5 class="font-semibold m-0" style="font-family: 'Mitr', sans-serif;">พนักงาน</h5>
+            <h5
+              class="font-semibold m-0"
+              style="font-family: 'Mitr', sans-serif"
+            >
+              พนักงาน
+            </h5>
           </a-col>
           <a-col
             :span="24"
@@ -87,10 +92,10 @@
             </a>
             <a-menu slot="overlay">
               <a-menu-item>
-                <router-link :to="`#`" style="text-decoration: none">
-                  <span class="label menutext" style="text-decoration: none">
-                    แก้ไข
-                  </span>
+                <router-link
+                  :to="`/Customers/EditEmployee/${employeeID}`"
+                  style="text-decoration: none">
+                  <a style="text-decoration: none"> แก้ไข </a>
                 </router-link>
               </a-menu-item>
 
@@ -114,66 +119,55 @@
         <form @submit.prevent="submitForm()" class="form-for-employee">
           <div class="main-form">
             <div class="form-component max-len">
-              
-                <label for="employeeName"> ชื่อพนักงาน </label>
-                <input 
-					id="employeeName" 
-					type="text" 
-					v-model="employeeName" 
-					placeholder="ชื่อ-สกุล พนักงาน"
-					/>
-                <div class="error" v-if="$v.employeeName.$error">
-                  <template v-if="!$v.employeeName.$invalid"> </template>
-                  <template v-else> ต้องระบุชื่อ </template>
-                </div>
-              
-            </div>
-
-
-
-		    <div class="form-component">
-              
-                <label for="employeeNumber"> เบอร์ผู้ติดต่อ</label>
-                <input
-                  id="employeeNumber"
-                  type="text"
-                  v-model="employeeNumber"
-				  placeholder="เบอร์โทรของผู้ติดต่อ"
-                />
-                <div class="error" v-if="$v.employeeNumber.$error">
-                  <template v-if="!$v.employeeNumber.$invalid"> </template>
-                  <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
-                </div>
-              
-            </div>
-
-
-            <div class="form-component">
-              
-                <label for="employeeEmail"> อีเมลพนักงาน</label>
-                <input 
-					id="employeeEmail" 
-					type="text" 
-					v-model="employeeEmail" 
-					placeholder="อีเมลของพนักงาน"
-					/>
-                <div class="error" v-if="$v.employeeEmail.$error">
-                  <template v-if="!$v.employeeEmail.$invalid"> </template>
-                  <template v-else> email error </template>
-                </div>
-              
+              <label for="employeeName"> ชื่อพนักงาน </label>
+              <input
+                id="employeeName"
+                type="text"
+                v-model="employeeName"
+                placeholder="ชื่อ-สกุล พนักงาน"
+              />
+              <div class="error" v-if="$v.employeeName.$error">
+                <template v-if="!$v.employeeName.$invalid"> </template>
+                <template v-else> ต้องระบุชื่อ </template>
+              </div>
             </div>
 
             <div class="form-component">
-				<label for="role"> หน้าที่ </label>
-                <select v-model="role">
-                  <option value="ผู้ดูแล">ผู้ดูแล</option>
-                  <option value="พนักงานทั่วไป">พนักงานทั่วไป</option>
-                </select>
-              
+              <label for="employeeNumber"> เบอร์ผู้ติดต่อ</label>
+              <input
+                id="employeeNumber"
+                type="text"
+                v-model="employeeNumber"
+                placeholder="เบอร์โทรของผู้ติดต่อ"
+              />
+              <div class="error" v-if="$v.employeeNumber.$error">
+                <template v-if="!$v.employeeNumber.$invalid"> </template>
+                <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
+              </div>
             </div>
-          
-		  </div>
+
+            <div class="form-component">
+              <label for="employeeEmail"> อีเมลพนักงาน</label>
+              <input
+                id="employeeEmail"
+                type="text"
+                v-model="employeeEmail"
+                placeholder="อีเมลของพนักงาน"
+              />
+              <div class="error" v-if="$v.employeeEmail.$error">
+                <template v-if="!$v.employeeEmail.$invalid"> </template>
+                <template v-else> email error </template>
+              </div>
+            </div>
+
+            <div class="form-component">
+              <label for="role"> หน้าที่ </label>
+              <select v-model="role">
+                <option value="ผู้ดูแล">ผู้ดูแล</option>
+                <option value="พนักงานทั่วไป">พนักงานทั่วไป</option>
+              </select>
+            </div>
+          </div>
 
           <div class="set-Default">
             <a-checkbox @change="changestatus()"> Set Default </a-checkbox>
@@ -186,7 +180,9 @@
       </div>
     </a-modal>
 
-    <!-- /Modal edit Start Here -->
+    <!-- =================================================================
+     /Modal edit Start Here 
+================================================================= -->
   </div>
   <!-- / Projects Table Column -->
 </template>
@@ -335,58 +331,57 @@ export default {
 
 
 <style scoped>
-
 .layout-dashboard .ant-card {
-	font-family: 'Mitr', sans-serif;
-  	border-radius: 12px;
-  	box-shadow: none !important;
+  font-family: "Mitr", sans-serif;
+  border-radius: 12px;
+  box-shadow: none !important;
 }
 
-.main-form{
-	font-family: 'Mitr', sans-serif;
-	display: flex;
-	width: 100%;	
-	flex-direction: row;
-	flex-wrap: wrap;
+.main-form {
+  font-family: "Mitr", sans-serif;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-.form-component{
-	display: flex;
-	flex-direction: column;
-	width: 50%;
-	padding: 1em;
+.form-component {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 1em;
 }
 
-.form-component input{
-	height: 45px;
-	border-radius: 14px;
-	border: 1px solid rgba(0, 0, 0, 0.123);
-	text-indent: 3%;
+.form-component input {
+  height: 45px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.123);
+  text-indent: 3%;
 }
 
-.form-component select{
-	height: 45px;
-	border-radius: 14px;
-	border: 1px solid rgba(0, 0, 0, 0.123);
-	text-indent: 3%;
+.form-component select {
+  height: 45px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.123);
+  text-indent: 3%;
 }
 
-.max-len{
-	display: flex;
-	flex-direction: column;
-	width: 100% !important;
-	padding: 1em;
+.max-len {
+  display: flex;
+  flex-direction: column;
+  width: 100% !important;
+  padding: 1em;
 }
 
-.max-len input{
-	text-indent: 1.5% !important;
+.max-len input {
+  text-indent: 1.5% !important;
 }
 
 /* modal start here */
 
 .whole-modal-body {
-	font-family: 'Mitr', sans-serif;
-  	width: 100vw;
+  font-family: "Mitr", sans-serif;
+  width: 100vw;
 }
 .whole-modal-body >>> .ant-modal {
   width: 70% !important;
@@ -394,23 +389,22 @@ export default {
 .whole-modal-body >>> .ant-modal-footer {
   display: none;
 }
-.submitbutt{
-    display: flex;
-    justify-content: flex-end;
-  }
-.submitbutt button{
-    color: white;
-    background-color: #7367F0;
-    border-radius: 14px;
-    border: 0;
-	margin: auto;
-    padding: 1em;
-  }
-	.set-Default{
-		padding: 1em;
-	}
-	.error {
+.submitbutt {
+  display: flex;
+  justify-content: flex-end;
+}
+.submitbutt button {
+  color: white;
+  background-color: #7367f0;
+  border-radius: 14px;
+  border: 0;
+  margin: auto;
+  padding: 1em;
+}
+.set-Default {
+  padding: 1em;
+}
+.error {
   color: red;
-	}
-
+}
 </style>

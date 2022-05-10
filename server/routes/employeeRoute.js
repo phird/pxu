@@ -13,6 +13,16 @@ router.get('/', (req, res)=> {
     
 });
 
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    const sqlDelete = "DELETE FROM customer WHERE employeeID=?";
+    db.query(sqlDelete, [id], (err, result) => {
+        console.log(err);
+    })
+});
+
+
+
 router.post('/', (req, res) => {
     const role = req.body.role
     const employeeName = req.body.employeeName
@@ -40,5 +50,32 @@ router.post('/', (req, res) => {
     }
 
 });
+
+
+router.get('/:id', (req, res)=> {
+    const id = req.params.id;
+    const sqlSelect = "SELECT * FROM customer WHERE employeeID=?"
+    db.query(sqlSelect,[id], (err, result) => {
+        // console.log(result);
+        res.send(result);
+    }) 
+});
+
+router.post('/:id', (req, res)=> {
+    const empid = req.params.id;
+    const employeeName = req.body.employeeName
+    const employeeNumber= req.body.employeeNumber 
+    const status = req.body.status
+    const employeeEmail = req.body.employeeEmail
+    const role = req.body.role
+
+    const sqlupdate = "UPDATE `employee` SET `employeeName`=?,`employeeNumber`=?,`status`=?,`employeeEmail`=?,`empid`=?,`role`=?, WHERE employeeID=?"
+    db.query(sqlupdate, [employeeName,employeeNumber,status,employeeEmail,empid,role], (err,result)=>{
+        // console.log(err);
+        // console.log(result);  
+        res.send(result);
+    }) 
+});
+
 
 export default router;

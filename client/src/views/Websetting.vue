@@ -1,7 +1,7 @@
 
 <template>
   <div class="setting-page">
-    <form @submit.prevent="submitForm(),uploadsubmit()">
+    <form @submit.prevent="submitForm(), uploadsubmit()">
       <div class="field">
         <p style="font-size: 18px">
           <b-icon icon="globe"> </b-icon> ข้อมูลเว็บไซต์
@@ -39,23 +39,25 @@
           <div class="website-logo">
             <label for="uploadlogo">โลโก้เว็บไซต์</label>
             <div class="website-logo-box" for="uploadlogo">
-              <div class="logobox">
-                <b-icon icon="paperclip"></b-icon>
-              </div>
-              <div class="file-name">
-                <label for="uploadlogo">{{ this.filelogo.name }}</label>
-              </div>
-              <div class="upload-butt">
-                <label for="uploadlogo"
-                  ><b-icon icon="folder"> </b-icon>
-                </label>
-                <input
-                  id="uploadlogo"
-                  type="file"
-                  @change="uploadFilelogo"
-                  label="logo"
-                  style="display: none"
-                />
+              <div class="box">
+                <div class="logobox" style="margin-top: 1%;">
+                  <b-icon icon="paperclip" ></b-icon>
+                </div>
+                <div class="file-name">
+                  <label for="uploadlogo" style="margin-top: 14%;">{{ this.filelogo.name }}</label>
+                </div>
+                <div class="upload-butt" style="margin-top:1%;">
+                  <label for="uploadlogo"
+                    ><b-icon icon="folder"> </b-icon>
+                  </label>
+                  <input
+                    id="uploadlogo"
+                    type="file"
+                    @change="uploadFilelogo"
+                    label="logo"
+                    style="display: none"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -104,12 +106,39 @@
             </div>
           </div>
 
-          <div style="display:flex; padding:1em; flex-direction: column">
+
+
+                  <!-- website logo -->
+          <div class="website-logo">
+            <label for="uploadlogo">ตราปั้มบริษัท</label>
+            <div class="website-logo-box" for="uploadlogo">
+              <div class="box">
+                <div class="logobox" style="margin-top: 1%;">
+                  <b-icon icon="paperclip" ></b-icon>
+                </div>
+                <div class="file-name">
+                  <label for="uploadlogo" style="margin-top: 14%;">{{ this.filestamp.name }}</label>
+                </div>
+                <div class="upload-butt" style="margin-top:1%;">
+                  <label for="uploadlogo"
+                    ><b-icon icon="folder"> </b-icon>
+                  </label>
+                  <input
+                    id="uploadlogo"
+                    type="file"
+                    @change="uploadFilelogo"
+                    label="logo"
+                    style="display: none"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /website logo -->
+<!--           <div style="display: flex; padding: 1em; flex-direction: column">
             <label>ตราปั้มบริษัท:{{ filestamp.name }}</label>
             <input type="file" @change="uploadFilestamp" label="logo" />
-          </div>
-
-
+          </div> -->
         </div>
       </div>
 
@@ -144,9 +173,9 @@
               placeholder="ตำบล..."
             />
             <div class="error" v-if="$v.subdis.$error">
-                    <template v-if="!$v.subdis.$invalid"> </template>
-                    <template v-else> ต้องใส่ตำบล</template>
-                  </div>
+              <template v-if="!$v.subdis.$invalid"> </template>
+              <template v-else> ต้องใส่ตำบล</template>
+            </div>
           </div>
           <!-- อำเภอ -->
           <div class="addr-detail" id="addr-box">
@@ -160,9 +189,9 @@
               placeholder="อำเภอ..."
             />
             <div class="error" v-if="$v.dis.$error">
-                    <template v-if="!$v.dis.$invalid"> </template>
-                    <template v-else> ต้องใส่อำเภอ</template>
-                  </div>
+              <template v-if="!$v.dis.$invalid"> </template>
+              <template v-else> ต้องใส่อำเภอ</template>
+            </div>
           </div>
           <!-- จังหวัด -->
           <div class="addr-detail" id="addr-box">
@@ -177,9 +206,9 @@
               placeholder="จังหวัด..."
             />
             <div class="error" v-if="$v.province.$error">
-                    <template v-if="!$v.province.$invalid"> </template>
-                    <template v-else> ต้องใส่จังหวัด</template>
-                  </div>
+              <template v-if="!$v.province.$invalid"> </template>
+              <template v-else> ต้องใส่จังหวัด</template>
+            </div>
           </div>
           <!-- zip code -->
           <div class="addr-detail" id="addr-box">
@@ -194,9 +223,9 @@
               placeholder="รหัสไปรษณีย์..."
             />
             <div class="error" v-if="$v.postcode.$error">
-                    <template v-if="!$v.postcode.$invalid"> </template>
-                    <template v-else> ต้องใส่รหัสไปรษณีย์</template>
-                  </div>
+              <template v-if="!$v.postcode.$invalid"> </template>
+              <template v-else> ต้องใส่รหัสไปรษณีย์</template>
+            </div>
           </div>
         </div>
       </div>
@@ -204,7 +233,6 @@
       <div class="submitbutt">
         <button type="submit">บันทึกข้อมูล</button>
       </div>
-
     </form>
   </div>
 </template>
@@ -294,7 +322,7 @@ export default {
       this.filestamp = event.target.files[0];
       console.log(this.filestamp);
     },
-    uploadsubmit(){
+    uploadsubmit() {
       let formDatalogo = new FormData();
       formDatalogo.append("files", this.filelogo);
       axios.post("http://localhost:5000/uploadlogo", formDatalogo, {});
@@ -307,42 +335,43 @@ export default {
       if (this.$v.$invalid) {
         alert("can't submit");
       } else if (this.setstate == "false") {
-        await axios.post("http://localhost:5000/website", {
-                websiteName: this.websiteName,
-                companyName: this.companyName,
-                companyNumber: this.companyNumber,
-                taxNumber: this.taxNumber,
-                Address: this.Address,
-                subdis: this.subdis,
-                dis: this.dis,
-                province: this.province,
-                postcode: this.postcode,
-                logo: this.filelogo.name,
-                stamp: this.filestamp.name,
-              })
-              .then(function () {
-                alert("push");
-                window.location.reload(false); 
-              });
-
+        await axios
+          .post("http://localhost:5000/website", {
+            websiteName: this.websiteName,
+            companyName: this.companyName,
+            companyNumber: this.companyNumber,
+            taxNumber: this.taxNumber,
+            Address: this.Address,
+            subdis: this.subdis,
+            dis: this.dis,
+            province: this.province,
+            postcode: this.postcode,
+            logo: this.filelogo.name,
+            stamp: this.filestamp.name,
+          })
+          .then(function () {
+            alert("push");
+            window.location.reload(false);
+          });
       } else {
-        await axios.put("http://localhost:5000/website", {
-                websiteName: this.websiteName,
-                companyName: this.companyName,
-                companyNumber: this.companyNumber,
-                taxNumber: this.taxNumber,
-                Address: this.Address,
-                subdis: this.subdis,
-                dis: this.dis,
-                province: this.province,
-                postcode: this.postcode,
-                logo: this.filelogo.name,
-                stamp: this.filestamp.name,
-              })
-              .then(function () {
-                alert("update");
-                window.location.reload(false); 
-              });
+        await axios
+          .put("http://localhost:5000/website", {
+            websiteName: this.websiteName,
+            companyName: this.companyName,
+            companyNumber: this.companyNumber,
+            taxNumber: this.taxNumber,
+            Address: this.Address,
+            subdis: this.subdis,
+            dis: this.dis,
+            province: this.province,
+            postcode: this.postcode,
+            logo: this.filelogo.name,
+            stamp: this.filestamp.name,
+          })
+          .then(function () {
+            alert("update");
+            window.location.reload(false);
+          });
       }
     },
     async getweb() {
@@ -384,12 +413,10 @@ export default {
 .website-logo {
   width: 50%;
   padding: 1em;
-  
 }
 .website-name {
   width: 50%;
   padding: 1em;
-  
 }
 
 .website-logo-box {
@@ -423,13 +450,19 @@ export default {
 }
 .filename,
 .upload-butt {
-  padding: 0.3em;
+  padding: 0.5em;
+}
+.box{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.website-logo .file-name p {
-  margin: none;
-  margin-bottom: none;
+.file-name {
+  height: 100%;
 }
+
 
 .field {
   margin-bottom: 24px;
@@ -454,77 +487,75 @@ export default {
   padding: 1em;
 }
 
-.addr-content-box input, .inputbox {
+.addr-content-box input,
+.inputbox {
   text-indent: 5%;
   border-radius: 14px;
   height: 45px;
   border: 1px solid rgba(0, 0, 0, 0.123);
 }
 
-  .addr-detail-content{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
+.addr-detail-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 
-  .addr-detail{
+.addr-detail {
+  display: flex;
+  padding: 1em;
+  flex-direction: column;
+  width: 50%;
+}
+
+.maxsize-input {
+  display: flex;
+  padding: 1em;
+  flex-direction: column;
+  width: 100% !important;
+}
+
+.maxsize-input input {
+  text-indent: 3%;
+}
+
+.autofilladdr >>> .vth-addr-input-size-default[data-v-1f53c317] {
+  border-radius: 14px;
+  height: 45px;
+}
+
+.submitbutt {
+  display: flex;
+  justify-content: flex-end;
+}
+.submitbutt button {
+  color: white;
+  background-color: #7367f0;
+  border-radius: 14px;
+  border: 0;
+  padding: 0.5em;
+}
+
+@media only screen and (max-width: 991px) {
+  .website-logo {
+    width: 100%;
+    padding: 1em;
+  }
+  .website-name {
+    width: 100%;
+    padding: 1em;
+  }
+  .addr-detail {
     display: flex;
     padding: 1em;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
   }
-
-  .maxsize-input{
+  .addr-content-box {
     display: flex;
-    padding: 1em;
     flex-direction: column;
-    width: 100% !important;
+    width: 100%;
+    padding: 1em;
   }
-
-  .maxsize-input input{
-    text-indent: 3%;
-  }
-
-  .autofilladdr >>> .vth-addr-input-size-default[data-v-1f53c317]{
-    border-radius: 14px;
-    height: 45px;
-  }
-
-  .submitbutt{
-    display: flex;
-    justify-content: flex-end;
-  }
-  .submitbutt button{
-    color: white;
-    background-color: #7367F0;
-    border-radius: 14px;
-    border: 0;
-    padding: .5em;
-  }
-
-  @media only screen and (max-width: 991px) {
-    .website-logo {
-      width: 100%;
-      padding: 1em;
-        
-    }
-    .website-name {
-      width: 100%;
-      padding: 1em;
-      
-    }
-    .addr-detail{
-      display: flex;
-      padding: 1em;
-      flex-direction: column;
-      width: 100%;
-    }
-    .addr-content-box {
-      display: flex;
-      flex-direction: column;
-      width:100%;
-      padding: 1em;
-    }
-    
-  }
+}
 </style>
