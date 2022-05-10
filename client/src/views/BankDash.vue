@@ -50,6 +50,7 @@
               <!--  content -->
               
               <figure class="snip1577">
+                <b-icon icon="eye-fill"></b-icon>
                   <img
                     class="imgforbank"
                     :src="`http://localhost:5000/bank/${item.img}`"
