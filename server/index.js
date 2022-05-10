@@ -7,7 +7,8 @@ import quotationRoute from './routes/quotationRoute.js'
 import employeeRoute from './routes/employeeRoute.js'
 import websiteRoute from './routes/websiteRoute.js'
 import bankRoute from './routes/bankRoute.js'
-import uploadRoute from './routes/uploadRoute.js'
+import uploadlogoRoute from './routes/uploadlogoRoute.js'
+import uploadstampRoute from './routes/uploadstampRoute.js'
 import cardcustomerRoute from './routes/customer/card.js'
 
 app.use(cors());
@@ -26,7 +27,8 @@ app.use("/customer", customerRoute);
 app.use("/employee", employeeRoute);
 app.use("/website", websiteRoute);
 app.use("/bank", bankRoute);
-app.use("/upload",uploadRoute);
+app.use("/uploadlogo",uploadlogoRoute);
+app.use("/uploadstamp",uploadstampRoute);
 app.use("/cardcustomer",cardcustomerRoute);
 
 app.listen(5000, () =>{

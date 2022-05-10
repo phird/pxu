@@ -1,7 +1,7 @@
 
 <template>
   <div class="setting-page">
-    <form @submit.prevent="submitForm()">
+    <form @submit.prevent="submitForm(),uploadsubmit()">
       <div class="field">
         <p style="font-size: 18px">
           <b-icon icon="globe"> </b-icon> ข้อมูลเว็บไซต์
@@ -294,19 +294,20 @@ export default {
       this.filestamp = event.target.files[0];
       console.log(this.filestamp);
     },
+    uploadsubmit(){
+      let formDatalogo = new FormData();
+      formDatalogo.append("files", this.filelogo);
+      axios.post("http://localhost:5000/uploadlogo", formDatalogo, {});
+      let formDatastamp = new FormData();
+      formDatastamp.append("files", this.filestamp);
+      axios.post("http://localhost:5000/uploadstamp", formDatastamp, {});
+    },
     async submitForm() {
       this.$v.$touch();
-      const formData = new FormData();
-      formData.append("files", this.filelogo);
-      formData.append("files", this.filestamp);
       if (this.$v.$invalid) {
         alert("can't submit");
       } else if (this.setstate == "false") {
-        await axios
-          .post("http://localhost:5000/upload", formData, {})
-          .then((res) => {
-            axios
-              .post("http://localhost:5000/website", {
+        await axios.post("http://localhost:5000/website", {
                 websiteName: this.websiteName,
                 companyName: this.companyName,
                 companyNumber: this.companyNumber,
@@ -321,15 +322,11 @@ export default {
               })
               .then(function () {
                 alert("push");
+                window.location.reload(false); 
               });
-          });
-        window.location.href = "/";
+
       } else {
-        await axios
-          .post("http://localhost:5000/upload", formData, {})
-          .then((res) => {
-            axios
-              .put("http://localhost:5000/website", {
+        await axios.put("http://localhost:5000/website", {
                 websiteName: this.websiteName,
                 companyName: this.companyName,
                 companyNumber: this.companyNumber,
@@ -346,7 +343,6 @@ export default {
                 alert("update");
                 window.location.reload(false); 
               });
-          });
       }
     },
     async getweb() {

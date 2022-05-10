@@ -1,15 +1,14 @@
 import express from 'express';
 import multer from 'multer';
-
 const router = express.Router();
 
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/')
+        cb(null, 'uploads/logo')
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname)
+        cb(null, 'logo.png')
     }
 })
 
@@ -24,12 +23,8 @@ const upload = multer({
       }
     }})
 
-router.get('/', (req, res) => {
-    res.send('Hello Upload')
-    })
-
-router.post('/', upload.array('files', 2), (req, res) => {
+router.post('/', upload.single('files'), (req, res) => {
     console.log(req.file);
-    res.send(req.file)
+    res.send(req.file);
 })
 export default router;
