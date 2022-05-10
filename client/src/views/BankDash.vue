@@ -97,7 +97,6 @@
                         <p class="mb-0">file name: {{ image.name }}</p>
                         <p class="mb-0">size: {{ image.size / 1024 }}KB</p>
                       </template>
-                      Reset input file <button @click="reset">Clear All</button>
                     </div>
 
                     <input
@@ -155,7 +154,9 @@
             </div>
           </div>
 
-          <button type="submit">ส่งแบบฟอร์ม</button>
+          <div class="submit-but-section">
+            <button class="submit-button" type="submit">บันทึกข้อมูล</button>
+          </div>
         </form>
       </div>
     </a-modal>
@@ -345,12 +346,6 @@ export default {
         reader.readAsDataURL(input.files[0]);
       }
     },
-    reset: function () {
-      this.image = null;
-      this.preview = null;
-      this.image_list = [];
-      this.preview_list = [];
-    },
   },
 };
 </script>
@@ -451,6 +446,23 @@ export default {
 .img-fluid {
   position: absolute;
   z-index: 10;
+}
+.submit-but-section {
+  display: flex;
+  width: 100%;
+  margin-top: 3em;
+}
+
+.submit-button {
+  background-color: #1890ff;
+  height: 36px;
+  width: 164px;
+  color: white;
+  border-radius: 8px;
+  border: 0;
+
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* /modal css  */
