@@ -33,7 +33,8 @@
     "vue-router": "3.5.2",
     "vue-step-wizard": "^0.1.17",
     "vue-thailand-address-autocomplete": "^0.1.1",
-    "vuelidate": "^0.7.7"
+    "vuelidate": "^0.7.7",
+    "vuetify": "^2.6.5"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.12.3",

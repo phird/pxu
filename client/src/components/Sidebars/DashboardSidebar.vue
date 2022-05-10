@@ -13,7 +13,7 @@
 		theme="light"
 		:style="{ backgroundColor: 'transparent',}">
 		<div class="brand"> 
-			<img :src="`http://localhost:5000/${logo}`" alt="">
+			<img :src="`http://localhost:5000/logo/logo.png`" alt="">
 			<!-- <img :src="`images/${logo}`" alt=""> -->
 			<span>{{name}}</span>
 			</div>
