@@ -16,7 +16,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-
     const bankName = req.body.bankName;
     const bankAccount = req.body.bankAccount;
     const accountName = req.body.accountName;
@@ -40,4 +39,38 @@ router.post('/', (req, res) => {
     }
         
 });
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    const sqlDelete = "DELETE FROM bank WHERE bankID=?";
+    db.query(sqlDelete, [id], (err, result) => {
+        console.log(err);
+    })
+});
+
+router.get('/:id', (req, res)=> {
+    const id = req.params.id;
+    const sqlSelect = "SELECT * FROM bank WHERE bankID=?"
+    db.query(sqlSelect,[id], (err, result) => {
+        // console.log(result);
+        res.send(result);
+    }) 
+});
+
+
+router.post('/:id', (req, res)=> {
+    const bID = req.params.id;
+    const bankName = req.body.bankName
+    const bankAccount= req.body.bankAccount
+    const status = req.body.status
+    const accountName = req.body.accountName
+
+    const sqlupdate = "UPDATE `bank` SET `bankName`=?,`bankAccount`=?,`accountName`=?,`status`=? WHERE bankID=?"
+    db.query(sqlupdate, [bankName,bankAccount,accountName,status,bID], (err,result)=>{
+        // console.log(err);
+        // console.log(result);
+        res.send(result);
+    }) 
+});
+
+
 export default router;

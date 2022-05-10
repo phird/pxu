@@ -54,6 +54,12 @@ let routes = [
 		component: () => import('../views/EditEmployee.vue'),
 	},
 	{
+		path: '/setting/EditBank/:id',
+		name: 'จัดการบัญชีธนาคาร',
+		layout: "dashboard",
+		component: () => import('../views/EditBank.vue'),
+	},
+	{
 		path: '/setting/createemployee',
 		name: 'เพิ่มพนักงาน',
 		layout: "dashboard",
