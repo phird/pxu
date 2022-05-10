@@ -80,8 +80,8 @@ export default {
     return {
       empid: "",
       employee: [],
-      status: "-",
-      role: "ผู้ดูแล",
+      status: "",
+      role: "",
       employeeName: "",
       employeeNumber: "",
       employeeEmail: null,
@@ -139,6 +139,7 @@ export default {
         );
         this.employee = response.data[0];
         // console.log(this.customer);
+        this.role = this.employee.role;
         this.status = this.employee.status;
         this.employeeName = this.employee.employeeName;
         this.employeeNumber = this.employee.employeeNumber;

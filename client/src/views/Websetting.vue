@@ -110,24 +110,24 @@
 
                   <!-- website logo -->
           <div class="website-logo">
-            <label for="uploadlogo">ตราปั้มบริษัท</label>
-            <div class="website-logo-box" for="uploadlogo">
+            <label for="uploadstamp">ตราปั้มบริษัท</label>
+            <div class="website-logo-box" for="uploadstamp">
               <div class="box">
                 <div class="logobox" style="margin-top: 1%;">
                   <b-icon icon="paperclip" ></b-icon>
                 </div>
                 <div class="file-name">
-                  <label for="uploadlogo" style="margin-top: 14%;">{{ this.filestamp.name }}</label>
+                  <label for="uploadstamp" style="margin-top: 14%;">{{ this.filestamp.name }}</label>
                 </div>
                 <div class="upload-butt" style="margin-top:1%;">
-                  <label for="uploadlogo"
+                  <label for="uploadstamp"
                     ><b-icon icon="folder"> </b-icon>
                   </label>
                   <input
-                    id="uploadlogo"
+                    id="uploadstamp"
                     type="file"
-                    @change="uploadFilelogo"
-                    label="logo"
+                    @change="uploadFilestamp"
+                    label="stamp"
                     style="display: none"
                   />
                 </div>

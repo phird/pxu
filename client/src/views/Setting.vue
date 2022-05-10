@@ -23,16 +23,17 @@
                 direction="vertical"
                 type="pills"
                 :start-index="1"
+                @tab-change="handleTabChange"
                 >
-          <v-tab title="ตั้งค่าเว็บไซต์">
+          <v-tab title="ตั้งค่าเว็บไซต์" :selected="false">
             <websetting />
           </v-tab>
 
-          <v-tab title="ข้อมูลพนักงาน">
+          <v-tab title="ข้อมูลพนักงาน" :selected="true">
             <employee/>
           </v-tab>
 
-          <v-tab title="ข้อมูลธนาคาร">
+          <v-tab title="ข้อมูลธนาคาร" :selected="false">
             <bank-dash/>
           </v-tab>
       </vue-tabs>
@@ -46,9 +47,7 @@
 <script>
 import Employee from './Employee.vue';
 import Websetting from './Websetting.vue';
-import Banker from './Banker.vue';
 import BankDash from './BankDash.vue';
-import { FormWizard, TabContent } from "vue-step-wizard";
 import {VueTabs, VTab} from 'vue-nav-tabs';
 import "vue-step-wizard/dist/vue-step-wizard.css";
 
@@ -58,12 +57,8 @@ export default {
   components: {
     VueTabs,
     VTab,
-    FormWizard,
-    TabContent,
     Websetting,
     Employee,
-    Banker,
-    BankDash,
     BankDash,
   },
   data() {
@@ -72,7 +67,12 @@ export default {
     }
   },
   methods: {
- 
+
+    handleTabChange(tabIndex, newTab, oldTab){
+        //your code here
+        console.log(tabIndex, newTab.$props, oldTab)
+    }
+
   },
 };
 </script>
