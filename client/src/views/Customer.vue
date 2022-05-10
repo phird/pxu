@@ -104,7 +104,7 @@
               </a>
               <a-menu slot="overlay">
                 <a-menu-item>
-                  <router-link :to="`/Customers/EditCustomer/${customerID}`" style="text-decoration: none">
+                  <router-link :to="`/setting/EditEmployee/${customerID}`" style="text-decoration: none">
                     <a  style="text-decoration: none"> แก้ไข </a>
                   </router-link>
                 </a-menu-item>

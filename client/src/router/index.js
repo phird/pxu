@@ -48,6 +48,12 @@ let routes = [
 		component: () => import('../views/EditCustomer.vue'),
 	},
 	{
+		path: '/setting/EditEmployee/:id',
+		name: 'จัดการพนักงาน',
+		layout: "dashboard",
+		component: () => import('../views/EditEmployee.vue'),
+	},
+	{
 		path: '/setting/createemployee',
 		name: 'เพิ่มพนักงาน',
 		layout: "dashboard",
