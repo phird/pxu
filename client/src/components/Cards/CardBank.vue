@@ -3,7 +3,7 @@
           <!---- Query default banner of bank account here ---->
             <div class="profile-banner">
                 <img
-                    :src="`http://localhost:5000/bank/${bank.img}`"
+                    :src="`http://localhost:5000/bank/${bank.img}`"  
                     alt="Bank Cover Photo"
                 />
             </div>

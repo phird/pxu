@@ -48,12 +48,21 @@
               sm="4"
             >
               <!--  content -->
+              
               <figure class="snip1577">
-                <img :src="item.src" alt="bank" />
+                
+                  <img
+                    class="imgforbank"
+                    :src="`http://localhost:5000/bank/${item.img}`"
+                    alt="bank"
+                  />
                 <figcaption>
-                  <h3>{{ item.name }}</h3>
+                  <h3>{{ item.bankName }}</h3>
+                  <h4>{{ item.accountName }}</h4>
+                  <h4>{{ item.bankAccount }}</h4>
                 </figcaption>
               </figure>
+             
 
               <!-- /content -->
             </v-col>
@@ -62,7 +71,7 @@
         <div class="card-footer pb-0 pt-3">
           <jw-pagination
             :pageSize="6"
-            :items="items"
+            :items="bank"
             @changePage="onChangePage"
             :labels="customLabels"
           ></jw-pagination>
@@ -84,21 +93,13 @@
         <form @submit.prevent="submitForm()">
           <div class="wrapper">
             <div class="left-wrapper">
-              <div class="col-md-5 offset-md-1 bank-box">
+              <div class="bank-box">
                 <div class="form-group">
-                  <div class="border p-2 mt-3 upload-here">
-                    <div class="text-upload">
-                      <label for="my-file">
-                        <b-icon icon="upload"></b-icon>
-                      </label>
-                      <label for="my-file">Click to Upload Image</label>
-                      <template v-if="preview">
-                        <img :src="preview" class="img-fluid" />
-                        <p class="mb-0">file name: {{ image.name }}</p>
-                        <p class="mb-0">size: {{ image.size / 1024 }}KB</p>
-                      </template>
-                    </div>
-
+                  <div class="upload-here">
+                    <img
+                      :src="`http://localhost:5000/bank/${imageName}`"
+                      class="img-fluid"
+                    />
                     <input
                       type="file"
                       accept="image/*"
@@ -125,19 +126,45 @@
                     type="text"
                     v-model="bankNameau"
                     @change="checkname()"
+                    style="text-indent: 3%"
                   >
-                    <option value="ธนาคารกรุงเทพ">ธนาคารกรุงเทพ</option>
-                    <option value="ธนาคารกสิกรไทย">ธนาคารกสิกรไทย</option>
-                    <option value="ธนาคารกรุงไทย">ธนาคารกรุงไทย</option>
-                    <option value="ธนาคารไทยพาณิชย์">ธนาคารไทยพาณิชย์</option>
-                    <option value="ธนาคารทหารไทยธนชาต">ธนาคารทหารไทยธนชาต</option>
-                    <option value="ธนาคารกรุงศรีอยุธยา">ธนาคารกรุงศรีอยุธยา</option>
-                    <option value="ธนาคารออมสิน">ธนาคารออมสิน</option>
-                    <option value="ธนาคารยูโอบี">ธนาคารยูโอบี</option>
-                    <option value="อื่นๆ">อื่นๆ</option>
+                    <option value="" style="text-indent: 3%" disabled>
+                      โปรดเลือกธนาคาร
+                    </option>
+                    <option value="ธนาคารกรุงเทพ" style="text-indent: 3%">
+                      ธนาคารกรุงเทพ
+                    </option>
+                    <option value="ธนาคารกสิกรไทย" style="text-indent: 3%">
+                      ธนาคารกสิกรไทย
+                    </option>
+                    <option value="ธนาคารกรุงไทย" style="text-indent: 3%">
+                      ธนาคารกรุงไทย
+                    </option>
+                    <option value="ธนาคารไทยพาณิชย์" style="text-indent: 3%">
+                      ธนาคารไทยพาณิชย์
+                    </option>
+                    <option value="ธนาคารทหารไทยธนชาต" style="text-indent: 3%">
+                      ธนาคารทหารไทยธนชาต
+                    </option>
+                    <option value="ธนาคารกรุงศรีอยุธยา" style="text-indent: 3%">
+                      ธนาคารกรุงศรีอยุธยา
+                    </option>
+                    <option value="ธนาคารออมสิน" style="text-indent: 3%">
+                      ธนาคารออมสิน
+                    </option>
+                    <option value="ธนาคารยูโอบี" style="text-indent: 3%">
+                      ธนาคารยูโอบี
+                    </option>
+                    <option value="อื่นๆ" style="text-indent: 3%">อื่นๆ</option>
                   </select>
+
                   <div v-if="bankNameau == 'อื่นๆ'">
-                    <input id="bankName" type="text" v-model="bankName" />
+                    <input
+                      id="bankName"
+                      type="text"
+                      v-model="bankName"
+                      style="text-indent: 3%"
+                    />
                   </div>
                   <div class="error" v-if="$v.bankName.$error">
                     <template v-if="!$v.bankName.$invalid"> </template>
@@ -147,7 +174,12 @@
 
                 <div class="field">
                   <label for="accountName"> accountName</label>
-                  <input id="accountName" type="text" v-model="accountName" />
+                  <input
+                    id="accountName"
+                    type="text"
+                    v-model="accountName"
+                    style="text-indent: 3%"
+                  />
                   <div class="error" v-if="$v.accountName.$error">
                     <template v-if="!$v.accountName.$invalid"> </template>
                     <template v-else> email error </template>
@@ -156,7 +188,12 @@
 
                 <div class="field">
                   <label for="bankAccount"> เลขธนาคาร</label>
-                  <input id="bankAccount" type="text" v-model="bankAccount" />
+                  <input
+                    id="bankAccount"
+                    type="text"
+                    v-model="bankAccount"
+                    style="text-indent: 3%"
+                  />
                   <div class="error" v-if="$v.bankAccount.$error">
                     <template v-if="!$v.bankAccount.$invalid"> </template>
                     <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
@@ -207,74 +244,11 @@ export default {
       bankAccount: "",
       accountName: null,
       status: "-",
-      file: [],
       bank: [],
       visible: false,
       customLabels,
       pageOfItems: [],
-      imageName:'',
-      items: [
-        {
-          id: 1,
-          name: "KST",
-          src: require("../assets/images/banner/K_Banner570.jpg"),
-        },
-        {
-          id: 2,
-          name: "KST",
-          src: require("../assets/images/banner/K_Banner570.jpg"),
-        },
-        {
-          id: 3,
-          name: "KST",
-          src: require("../assets/images/banner/K_Banner570.jpg"),
-        },
-        {
-          id: 4,
-          name: "KST",
-          src: require("../assets/images/banner/K_Banner570.jpg"),
-        },
-        {
-          id: 5,
-          name: "KST",
-          src: require("../assets/images/banner/K_Banner570.jpg"),
-        },
-        {
-          id: 6,
-          name: "KST",
-          src: require("../assets/images/banner/K_Banner570.jpg"),
-        },
-        {
-          id: 7,
-          name: "KST",
-          src: require("../assets/images/banner/K_Banner570.jpg"),
-        },
-        {
-          id: 8,
-          name: "KST",
-          src: require("../assets/images/banner/K_Banner570.jpg"),
-        },
-        {
-          id: 9,
-          name: "KST",
-          src: require("../assets/images/banner/K_Banner570.jpg"),
-        },
-        {
-          id: 10,
-          name: "KST",
-          src: require("../assets/images/banner/K_Banner570.jpg"),
-        },
-        {
-          id: 11,
-          name: "KST",
-          src: require("../assets/images/banner/K_Banner570.jpg"),
-        },
-        {
-          id: 12,
-          name: "KST",
-          src: require("../assets/images/banner/K_Banner570.jpg"),
-        },
-      ],
+      imageName: "default.png",
       preview: null,
       image: null,
       preview_list: [],
@@ -307,37 +281,39 @@ export default {
       if (this.bankNameau !== "อื่นๆ") {
         this.bankName = this.bankNameau;
       }
+      switch (this.bankName) {
+        case "ธนาคารกรุงเทพ":
+          this.imageName = "กรุงเทพ.jpg";
+          break;
+        case "ธนาคารกสิกรไทย":
+          this.imageName = "กสิกรไทย.jpg";
+          break;
+        case "ธนาคารกรุงไทย":
+          this.imageName = "กรุงไทย.png";
+          break;
+        case "ธนาคารไทยพาณิชย์":
+          this.imageName = "ไทยพาณิชย์.jpg";
+          break;
+        case "ธนาคารทหารไทยธนชาต":
+          this.imageName = "ทหารไทยธนชาต.jpg";
+          break;
+        case "ธนาคารกรุงศรีอยุธยา":
+          this.imageName = "กรุงศรี.png";
+          break;
+        case "ธนาคารออมสิน":
+          this.imageName = "ออมสิน.jpg";
+          break;
+        case "ธนาคารยูโอบี":
+          this.imageName = "UOB.png";
+          break;
+        default:
+          this.imageName = "default.png";
+        /*  */
+      }
     },
     async submitForm() {
       this.$v.$touch();
-      switch (this.bankName) {
-        case 'ธนาคารกรุงเทพ':
-          this.imageName='กรุงเทพ.jpg'
-          break;
-        case 'ธนาคารกสิกรไทย':
-          this.imageName='กสิกรไทย.jpg'
-          break;
-        case 'ธนาคารกรุงไทย':
-          this.imageName='กรุงไทย.png'
-          break;
-        case 'ธนาคารไทยพาณิชย์':
-          this.imageName='ไทยพาณิชย์.jpg'
-          break;
-        case 'ธนาคารทหารไทยธนชาต':
-          this.imageName='ทหารไทยธนชาต.jpg'
-          break;
-        case 'ธนาคารกรุงศรีอยุธยา':
-          this.imageName='กรุงศรี.png'
-          break;
-        case 'ธนาคารออมสิน':
-          this.imageName='ออมสิน.jpg'
-          break;
-        case 'ธนาคารยูโอบี':
-          this.imageName='UOB.png'
-          break;
-        default:
-          this.imageName='default.png'
-      }
+
       if (this.$v.$invalid) {
         alert("can't submit");
       } else {
@@ -402,6 +378,20 @@ export default {
 
 
 <style scoped>
+@media (min-width: 576px) {
+  .col-sm-4 {
+    flex: 0 0 auto;
+    width: 25%;
+  }
+
+  @media (max-width: 576px) {
+    .d-flex .child-flex .col-sm-4 .col-6 {
+      flex: 0 0 auto;
+      width: 100% !important;
+    }
+  }
+}
+
 .error {
   color: red;
 }
@@ -426,6 +416,7 @@ export default {
 
 /* modal css is here  */
 .whole-modal-body {
+  font-family: "Mitr", sans-serif;
   width: 100vw;
 }
 .whole-modal-body >>> .ant-modal {
@@ -467,9 +458,11 @@ export default {
 .field {
   display: flex;
   flex-direction: column;
+  margin: 1em;
 }
 
-.field input {
+.field input,
+select {
   height: 45px;
   border: 1px solid rgba(0, 0, 0, 0.089);
   border-radius: 14px;
@@ -494,8 +487,11 @@ export default {
 }
 
 .img-fluid {
-  position: absolute;
+  position: relative;
+  object-fit: cover;
   z-index: 10;
+  width: 100%;
+  height: 100%;
 }
 .submit-but-section {
   display: flex;
@@ -519,18 +515,28 @@ export default {
 
 /* card css start here  */
 .snip1577 {
-  font-family: "Montserrat", Arial, sans-serif;
   position: relative;
   display: inline-block;
   overflow: hidden;
   margin: 10px;
-  min-width: 230px;
-  max-width: 315px;
+  min-width: 233px;
+  max-width: 233px;
   width: 100%;
   color: #fff;
   text-align: left;
   font-size: 16px;
   background: #000;
+}
+.image-box-size{
+  width: 290px;
+  height: 290px;
+}
+.snip1577 img {
+  position: relative;
+  object-fit: cover;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
 }
 
 .snip1577 *,

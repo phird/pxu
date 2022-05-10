@@ -8,7 +8,7 @@
 		<!-- Counter Widgets -->
 		<!-- Charts -->
 		<a-row :gutter="24" type="flex" align="stretch">
-			<a-col :span="24" :lg="5" class="mb-24">
+			<a-col :span="24" :lg="6" class="mb-24">
 
 				<!-- Active Users Card -->
 				<!-- <CardBarChart></CardBarChart> -->
@@ -16,7 +16,7 @@
 				<!-- Active Users Card -->
 
 			</a-col>
-			<a-col :span="24" :lg="5" class="mb-24">
+			<a-col :span="24" :lg="6" class="mb-24">
 
 				<!-- Active Users Card -->
 				<!-- <CardBarChart></CardBarChart> -->
@@ -24,7 +24,7 @@
 				<!-- Active Users Card -->
 
 			</a-col>
-			<a-col :span="24" :lg="14" class="mb-24">
+			<a-col :span="24" :lg="12" class="mb-24">
 				
 				<!-- Sales Overview Card -->
 				<CardCompanyStat></CardCompanyStat>
