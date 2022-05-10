@@ -120,10 +120,28 @@
               <div class="info-box">
                 <div class="field">
                   <label for="bankName"> ชื่อธนาคาร</label>
-                  <input id="bankName" type="text" v-model="bankName" />
+                  <select
+                    id="bankName"
+                    type="text"
+                    v-model="bankNameau"
+                    @change="checkname()"
+                  >
+                    <option value="ธนาคารกรุงเทพ">ธนาคารกรุงเทพ</option>
+                    <option value="ธนาคารกสิกรไทย">ธนาคารกสิกรไทย</option>
+                    <option value="ธนาคารกรุงไทย">ธนาคารกรุงไทย</option>
+                    <option value="ธนาคารไทยพาณิชย์">ธนาคารไทยพาณิชย์</option>
+                    <option value="ธนาคารทหารไทยธนชาต">ธนาคารทหารไทยธนชาต</option>
+                    <option value="ธนาคารกรุงศรีอยุธยา">ธนาคารกรุงศรีอยุธยา</option>
+                    <option value="ธนาคารออมสิน">ธนาคารออมสิน</option>
+                    <option value="ธนาคารยูโอบี">ธนาคารยูโอบี</option>
+                    <option value="อื่นๆ">อื่นๆ</option>
+                  </select>
+                  <div v-if="bankNameau == 'อื่นๆ'">
+                    <input id="bankName" type="text" v-model="bankName" />
+                  </div>
                   <div class="error" v-if="$v.bankName.$error">
                     <template v-if="!$v.bankName.$invalid"> </template>
-                    <template v-else> ต้องระบุชื่อ </template>
+                    <template v-else> ต้องระบุธนาคาร </template>
                   </div>
                 </div>
 
@@ -184,6 +202,7 @@ const customLabels = {
 export default {
   data() {
     return {
+      bankNameau: "",
       bankName: "",
       bankAccount: "",
       accountName: null,
@@ -193,6 +212,7 @@ export default {
       visible: false,
       customLabels,
       pageOfItems: [],
+      imageName:'',
       items: [
         {
           id: 1,
@@ -283,25 +303,55 @@ export default {
     // },
   },
   methods: {
+    checkname() {
+      if (this.bankNameau !== "อื่นๆ") {
+        this.bankName = this.bankNameau;
+      }
+    },
     async submitForm() {
       this.$v.$touch();
-      const formdata = new FormData();
-      formdata.append("file", this.file);
+      switch (this.bankName) {
+        case 'ธนาคารกรุงเทพ':
+          this.imageName='กรุงเทพ.jpg'
+          break;
+        case 'ธนาคารกสิกรไทย':
+          this.imageName='กสิกรไทย.jpg'
+          break;
+        case 'ธนาคารกรุงไทย':
+          this.imageName='กรุงไทย.png'
+          break;
+        case 'ธนาคารไทยพาณิชย์':
+          this.imageName='ไทยพาณิชย์.jpg'
+          break;
+        case 'ธนาคารทหารไทยธนชาต':
+          this.imageName='ทหารไทยธนชาต.jpg'
+          break;
+        case 'ธนาคารกรุงศรีอยุธยา':
+          this.imageName='กรุงศรี.png'
+          break;
+        case 'ธนาคารออมสิน':
+          this.imageName='ออมสิน.jpg'
+          break;
+        case 'ธนาคารยูโอบี':
+          this.imageName='UOB.png'
+          break;
+        default:
+          this.imageName='default.png'
+      }
       if (this.$v.$invalid) {
         alert("can't submit");
       } else {
         await axios
-          .post("http://localhost:5000/upload", formdata, {})
-          .then((res) => {
-            axios
-              .post("http://localhost:5000/bank", {
-                bankName: this.bankName,
-                bankAccount: this.bankAccount,
-                accountName: this.accountName,
-                status: this.status,
-                img: this.file.name,
-              })
-              .then(alert("ok"));
+          .post("http://localhost:5000/bank", {
+            bankName: this.bankName,
+            bankAccount: this.bankAccount,
+            accountName: this.accountName,
+            status: this.status,
+            img: this.imageName,
+          })
+          .then(() => {
+            alert("ok");
+            window.location.reload(false);
           });
       }
     },
