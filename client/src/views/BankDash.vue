@@ -45,20 +45,16 @@
               :key="item.id"
               class="d-flex child-flex"
               cols="6"
-              sm="4"
-            >
+              sm="4">
               <!--  content -->
               <div class="iteminPage"> 
                 <router-link
                   :to="`/setting/EditBank/${item.bankID}`"
-                  style="text-decoration: none"
-                >
+                  style="text-decoration: none">
                   <figure class="snip1577">
                     <img
-                      class="imgforbank"
                       :src="`http://localhost:5000/bank/${item.img}`"
-                      alt="bank"
-                    />
+                      alt="bank"/>
                     <figcaption>
                       <h3>
                         {{ item.bankName }}
@@ -70,14 +66,13 @@
                   </figure>
                 </router-link>
               </div>
-
               <!-- /content -->
             </v-col>
           </v-row>
         </div>
         <div class="card-footer pb-0 pt-3">
           <jw-pagination
-            :pageSize="8"
+            :pageSize="6"
             :items="bank"
             @changePage="onChangePage"
             :labels="customLabels"
@@ -339,7 +334,6 @@ export default {
           })
           .then(() => {
             alert("ok");
-
             window.location.reload(false);
           });
       }
@@ -398,19 +392,6 @@ export default {
 
 
 <style scoped>
- @media (min-width: 576px) {
-    .col-sm-4 {
-      flex: 0 0 auto;
-      width: 24.5%;
-    }
-  
-    @media (max-width: 576px) {
-      .d-flex .child-flex .col-sm-4 .col-6 {
-        flex: 0 0 auto;
-        width: 100% !important;
-      }
-    }
-  }
   
   .error {
     color: red;
@@ -440,7 +421,7 @@ export default {
     display: inline-block;
     overflow: hidden;
     margin: 10px;
-    max-height: 175px !important;
+    /* max-height: 175px !important; */
     width: 100% !important;
     color: #fff;
     text-align: left;
@@ -448,15 +429,15 @@ export default {
     background: #000;
   }
   .image-box-size {
-    width: 290px;
-    height: 290px;
+    width: 400px;
+    height: 400px;
   }
   .snip1577 img {
     position: relative;
     z-index: 10;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain !important;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
   
   .snip1577 *,
@@ -469,7 +450,6 @@ export default {
   }
   
   .snip1577 img {
-    max-width: 100%;
     backface-visibility: hidden;
     vertical-align: top;
   }
@@ -536,7 +516,7 @@ export default {
   
   .snip1577:hover img,
   .snip1577.hover img {
-    zoom: 1;
+    zoom: 2;
     filter: alpha(opacity=20);
     -webkit-opacity: 0.2;
     opacity: 0.2;
@@ -658,8 +638,8 @@ export default {
   .upload-here {
     position: relative;
     background-color: #eeeeee;
-    height: 290px;
-    width: 290px;
+    height: 400px;
+    width: 400px;
     text-align: center;
   }
   .text-upload {
