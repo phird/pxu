@@ -1,7 +1,16 @@
 <template>
-  <div>
+  <div class="whole-site">
     <form @submit.prevent="submitForm(bID)">
       <div class="wrapper">
+        <div
+          class="header-site"
+          style="display: flex; flex-direction: row; gap: 1em"
+        >
+          <button @click="history.back()">
+            <b-icon icon="chevron-left"></b-icon>
+          </button>
+          <span>แก้ไขธนาคาร</span>
+        </div>
         <div class="left-wrapper">
           <div class="bank-box">
             <div class="form-group">
@@ -109,16 +118,31 @@
             </div>
 
             <div>
-              <a-checkbox v-if="status=='default'" checked> Set Default </a-checkbox>
-              <a-checkbox v-else @change="changestatus()"> Set Default </a-checkbox>
+              <a-checkbox v-if="status == 'default'" checked>
+                Set Default
+              </a-checkbox>
+              <a-checkbox v-else @change="changestatus()">
+                Set Default
+              </a-checkbox>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="submit-but-section">
-        <button class="submit-button" type="submit" >บันทึกข้อมูล</button>
-        <button class="submit-button" type="delete" @click="deletebank(bID)">ลบ</button>
+      <div class="buttom-section">
+        <div class="submit-but-section">
+          <div>
+            <button class="submit-button" type="submit">บันทึกข้อมูล</button>
+          </div>
+          <div>
+            <button
+              class="delete-button"
+              type="delete"
+              @click="deletebank(bID)"
+            >
+              ลบ
+            </button>
+          </div>
+        </div>
       </div>
     </form>
   </div>
@@ -136,7 +160,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      bID:"",
+      bID: "",
       bankNameau: "",
       bankName: "",
       bankAccount: "",
@@ -164,7 +188,7 @@ export default {
     //   validDate: (val) => moment(val, "DD.MM.YYYY", true).isValid(),
     // },
   },
-  created(){
+  created() {
     this.bID = this.$route.params.id;
     this.getbank(this.bID);
   },
@@ -172,8 +196,8 @@ export default {
     checkname() {
       if (this.bankNameau !== "อื่นๆ") {
         this.bankName = this.bankNameau;
-      }else{
-        this.bankName = '';
+      } else {
+        this.bankName = "";
       }
       switch (this.bankName) {
         case "ธนาคารกรุงเทพ":
@@ -222,7 +246,7 @@ export default {
           })
           .then(() => {
             alert("บันทึกข้อมูลสำเร็จ");
-            window.location.replace("http://localhost:8080/#/setting/bank"); 
+            window.location.replace("http://localhost:8080/#/setting/bank");
           });
       }
     },
@@ -236,7 +260,6 @@ export default {
         this.accountName = response.data[0].accountName;
         this.status = response.data[0].status;
         this.imageName = response.data[0].img;
-  
       } catch (err) {
         console.log(err);
       }
@@ -244,17 +267,39 @@ export default {
     changestatus() {
       this.status = "default";
     },
-    deletebank(bID){
-      if(window.confirm("Do you want to delete this bank ?")){
-            axios.delete(`http://localhost:5000/bank/${bID}`);
-            window.location.replace("http://localhost:8080/#/setting/bank");   
-        }
-    }
+    deletebank(bID) {
+      if (window.confirm("Do you want to delete this bank ?")) {
+        axios.delete(`http://localhost:5000/bank/${bID}`);
+        window.location.replace("http://localhost:8080/#/setting/bank");
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
+.whole-site {
+  font-family: "Mitr", sans-serif;
+  padding: 2em;
+  background-color: white;
+  border-radius: 14px;
+  border: none;
+  margin-bottom: 2rem;
+  -webkit-box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  -webkit-transition: all 0.3s ease-in-out, background 0s, color 0s,
+    border-color 0s;
+  transition: all 0.3s ease-in-out, background 0s, color 0s, border-color 0s;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+}
 .error {
   color: red;
 }
@@ -289,10 +334,10 @@ export default {
   font-size: 16px;
   background: #000;
 }
-  .image-box-size {
-    width: 400px;
-    height: 400px;
-  }
+.image-box-size {
+  width: 400px;
+  height: 400px;
+}
 .snip1577 img {
   position: relative;
   object-fit: cover;
@@ -420,104 +465,162 @@ export default {
 /* end here */
 
 /* modal css is here  */
+.whole-modal-body {
+  font-family: "Mitr", sans-serif;
+  width: 100vw;
+}
+.whole-modal-body >>> .ant-modal {
+  width: 70% !important;
+}
+.whole-modal-body >>> .ant-modal-content {
+  width: 50vw default 0;
+  margin-left: auto;
+  margin-left: auto;
+}
+.whole-modal-body >>> .ant-modal-header {
+  border-bottom: 0;
+  align-content: center;
+}
+
+.whole-modal-body >>> .ant-modal-footer {
+  display: none;
+}
+.whole-modal-body >>> .layout-dashboard .ant-layout-content {
+  padding: 4em !important;
+}
+.whole-modal-body >>> .ant-modal-title {
+  display: none;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 1em;
+}
+
+.left-wrapper {
+  width: 40%;
+}
+.right-wrapper {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  margin: 1em;
+}
+
+.field input,
+select {
+  height: 45px;
+  border: 1px solid rgba(0, 0, 0, 0.089);
+  border-radius: 14px;
+}
+.bank-box {
+  padding: 1em;
+}
+.info-box {
+  padding: 1em;
+}
+.upload-here {
+  position: relative;
+  background-color: #eeeeee;
+  height: 400px;
+  width: 400px;
+  text-align: center;
+  padding: 2em;
+}
+.text-upload {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.img-fluid {
+  position: relative;
+  object-fit: cover;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+}
+.submit-but-section {
+  display: flex;
+  width: 100%;
+  margin-top: 3em;
+  flex-direction: row;
+  gap: 2em;
+  margin-left: 70%;
+}
+.submit-but-section div {
+  display: flex;
+}
+
+.submit-button {
+  background-color: #1890ff;
+  height: 36px;
+  width: 164px;
+  color: white;
+  border-radius: 8px;
+  border: 0;
+}
+.buttom-section {
+  display: flex;
+  width: 100%;
+}
+.delete-button {
+  background-color: #5f0724;
+  height: 36px;
+  width: 164px;
+  color: white;
+  border-radius: 8px;
+  border: 0;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+/* /modal css  */
+
+@media only screen and (max-width: 991px) {
   .whole-modal-body {
     font-family: "Mitr", sans-serif;
     width: 100vw;
   }
-  .whole-modal-body >>> .ant-modal {
-    width: 70% !important;
+
+  .ant-layout-content {
+    display: flex;
+    flex-direction: column;
   }
-  .whole-modal-body >>> .ant-modal-content {
-    width: 50vw default 0;
-    margin-left: auto;
-    margin-left: auto;
-  }
-  .whole-modal-body >>> .ant-modal-header {
-    border-bottom: 0;
-    align-content: center;
-  }
-  
-  .whole-modal-body >>> .ant-modal-footer {
-    display: none;
-  }
-  .whole-modal-body >>> .layout-dashboard .ant-layout-content {
-    padding: 4em !important; 
-  }
-  .whole-modal-body >>> .ant-modal-title {
-    display: none;
-  }
-  
   .wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    padding: 1em;
-  }
-  
-  .left-wrapper {
-    width: 40%;
-  }
-  .right-wrapper {
-    width: 60%;
     display: flex;
     flex-direction: column;
-  }
-  .field {
-    display: flex;
-    flex-direction: column;
-    margin: 1em;
-  }
-  
-  .field input,
-  select {
-    height: 45px;
-    border: 1px solid rgba(0, 0, 0, 0.089);
-    border-radius: 14px;
-  }
-  .bank-box {
-    padding: 1em;
-  }
-  .info-box {
-    padding: 1em;
   }
   .upload-here {
-    position: relative;
-    background-color: #eeeeee;
-    height: 400px;
-    width: 400px;
-    text-align: center;
-    padding: 2em;
+    padding: 1px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    height: 200px;
   }
-  .text-upload {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .img-fluid {
-    position: relative;
-    object-fit: cover;
-    z-index: 10;
+  .left-wrapper {
     width: 100%;
-    height: 100%;
+  }
+  .right-wrapper {
+    width: 100%;
   }
   .submit-but-section {
     display: flex;
     width: 100%;
-    margin-top: 3em;
-  }
-  
-  .submit-button {
-    background-color: #1890ff;
-    height: 36px;
-    width: 164px;
-    color: white;
-    border-radius: 8px;
-    border: 0;
-  
+    padding-top: 5px;
+    flex-direction: column;
+    gap: 1em;
+    padding-bottom: 3em;
+    align-items: center;
     margin-left: auto;
     margin-right: auto;
   }
-  
-  /* /modal css  */
+}
 </style>

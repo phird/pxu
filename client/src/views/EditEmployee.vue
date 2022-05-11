@@ -1,10 +1,16 @@
 <template>
   <div class="whole-site">
-    
     <form @submit.prevent="submitForm(empid)" class="form-for-employee">
-      <button @click="history.back()">Go Back</button>
       <div class="main-form">
-        <div><p>แก้ไขพนักงาน</p></div>
+        <div
+          class="header-site"
+          style="display: flex; flex-direction: row; gap: 1em"
+        >
+          <button @click="history.back()">
+            <b-icon icon="chevron-left"></b-icon>
+          </button>
+          <span>แก้ไขพนักงาน</span>
+        </div>
         <div class="form-component max-len">
           <label for="employeeName"> ชื่อพนักงาน </label>
           <input
@@ -66,8 +72,7 @@
       <div class="submitbutt">
         <button type="submit">บันทึกข้อมูล</button>
       </div>
-      <div>
-  </div>
+      <div></div>
     </form>
   </div>
 </template>
@@ -92,7 +97,6 @@ export default {
       employeeName: "",
       employeeNumber: "",
       employeeEmail: null,
-      
     };
   },
 
@@ -263,5 +267,42 @@ export default {
 }
 .error {
   color: red;
+}
+@media only screen and (max-width: 991px) {
+  .whole-modal-body {
+    font-family: "Mitr", sans-serif;
+    width: 100vw;
+  }
+  .whole-modal-body >>> .ant-modal {
+    width: 70% !important;
+  }
+  .whole-modal-body >>> .ant-modal-footer {
+    display: none;
+  }
+  .main-form {
+    font-family: "Mitr", sans-serif;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .submitbutt {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .submitbutt button {
+    color: white;
+    background-color: #7367f0;
+    border-radius: 14px;
+    border: 0;
+    margin: auto;
+    padding: 1em;
+  }
+  .form-component {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1em;
+  }
 }
 </style>
