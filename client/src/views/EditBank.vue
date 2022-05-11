@@ -141,8 +141,6 @@ export default {
       accountName: null,
       status: "-",
       bank: [],
-      visible: false,
-      pageOfItems: [],
       imageName: "default.png",
     };
   },
@@ -166,7 +164,7 @@ export default {
   },
   created(){
     this.bID = this.$route.params.id;
-    this.getbank(bID);
+    this.getbank(this.bID);
   },
   methods: {
     checkname() {
@@ -206,14 +204,14 @@ export default {
       }
     },
 
-    async submitForm(id) {
+    async submitForm(bID) {
       this.$v.$touch();
 
       if (this.$v.$invalid) {
         alert("can't submit");
       } else {
         await axios
-          .post(`http://localhost:5000/bank/${id}`, {
+          .post(`http://localhost:5000/bank/${bID}`, {
             bankName: this.bankName,
             bankAccount: this.bankAccount,
             accountName: this.accountName,
@@ -221,38 +219,28 @@ export default {
             img: this.imageName,
           })
           .then(() => {
-            alert("ok");
+            alert("บันทึกข้อมูลสำเร็จ");
             window.location.reload(false);
           });
       }
     },
-    async getbank(id) {
+    async getbank(bID) {
       console.log("get-bank");
       try {
-        const response = await axios.get(`http://localhost:5000/bank/${id}`);
-        this.bank = response.data;
-        console.log(this.bank);
+        const response = await axios.get(`http://localhost:5000/bank/${bID}`);
+        this.bankName = response.data[0].bankName;
+        this.bankNameau = this.bankName;
+        this.bankAccount = response.data[0].bankAccount;
+        this.accountName = response.data[0].accountName;
+        this.status = response.data[0].status;
+        this.imageName = response.data[0].img;
+  
       } catch (err) {
         console.log(err);
       }
     },
     changestatus() {
       this.status = "default";
-    },
-    uploadFile(event) {
-      this.file = event.target.files[0];
-      console.log(this.file.name);
-    },
-    onChangePage(pageOfItems) {
-      // update page of items
-      this.pageOfItems = pageOfItems;
-    },
-    showModal() {
-      this.visible = true;
-    },
-    handleOk(e) {
-      console.log(e);
-      this.visible = false;
     },
   },
 };

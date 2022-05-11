@@ -63,13 +63,27 @@ router.post('/:id', (req, res)=> {
     const bankAccount= req.body.bankAccount
     const status = req.body.status
     const accountName = req.body.accountName
+    const image = req.body.img;
 
-    const sqlupdate = "UPDATE `bank` SET `bankName`=?,`bankAccount`=?,`accountName`=?,`status`=? WHERE bankID=?"
-    db.query(sqlupdate, [bankName,bankAccount,accountName,status,bID], (err,result)=>{
+    const sqlupdate = "UPDATE `bank` SET `bankName`=?,`bankAccount`=?,`accountName`=?,`status`=?,img=? WHERE bankID=?"
+    if(status=='default'){
+        const sqlsearch = "UPDATE bank set status='-' WHERE status='default';"
+        db.query(sqlsearch, (err, research) => {
+            db.query(sqlupdate, [bankName,bankAccount,accountName,status,image,bID], (err,result)=>{
+                // console.log(err);
+                // console.log(result);
+                res.send([result,research]);
+            }) 
+        })
+    }else{
+        db.query(sqlupdate, [bankName,bankAccount,accountName,status,image,bID], (err,result)=>{
         // console.log(err);
         // console.log(result);
         res.send(result);
     }) 
+    }
+
+    
 });
 
 
