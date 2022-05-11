@@ -70,11 +70,22 @@ router.post('/:id', (req, res)=> {
     const role = req.body.role
 
     const sqlupdate = "UPDATE `employee` SET `employeeName`=?,`employeeNumber`=?,`status`=?,`employeeEmail`=?,`role`=? WHERE employeeID=?"
-    db.query(sqlupdate, [employeeName,employeeNumber,status,employeeEmail,role,empid], (err,result)=>{
-         console.log(err);
-         console.log(result);  
-        res.send(result);
-    }) 
+    if(status=='default'){
+        const sqlsearch = "UPDATE employee set status='-' WHERE status='default';"
+        db.query(sqlsearch, (err, research) => {
+            db.query(sqlupdate, [employeeName,employeeNumber,status,employeeEmail,role,empid], (err,result)=>{
+                console.log(err);
+                console.log(result);  
+               res.send([result,research]);
+           })
+        })
+    }else{
+        db.query(sqlupdate, [employeeName,employeeNumber,status,employeeEmail,role,empid], (err,result)=>{
+            console.log(err);
+            console.log(result);  
+           res.send(result);
+       })
+    }
 });
 
 
