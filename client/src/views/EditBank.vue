@@ -109,7 +109,8 @@
             </div>
 
             <div>
-              <a-checkbox @change="changestatus()"> Set Default </a-checkbox>
+              <a-checkbox v-if="status=='default'" checked> Set Default </a-checkbox>
+              <a-checkbox v-else @change="changestatus()"> Set Default </a-checkbox>
             </div>
           </div>
         </div>
