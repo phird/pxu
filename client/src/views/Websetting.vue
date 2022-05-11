@@ -407,7 +407,7 @@ export default {
 <style scoped>
 .setting-page {
   font-family: "Mitr", sans-serif;
-  padding: 2em;
+  padding: 4em;
   background-color: white;
   border-radius: 14px;
   border: none;

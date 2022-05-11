@@ -420,7 +420,7 @@ export default {
   font-family: "Mitr", sans-serif;
   background-color: white;
   border-radius: 14px;
-  padding: 2em;
+  padding: 4em;
   background-color: white;
   border-radius: 14px;
   border: none;

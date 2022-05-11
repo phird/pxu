@@ -362,7 +362,7 @@ export default {
 <style scoped>
 .font-inhere {
   font-family: "Mitr", sans-serif;
-  padding: 2em;
+  padding: 4em;
   background-color: white;
   border-radius: 14px;
   border: none;

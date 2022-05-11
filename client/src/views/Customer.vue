@@ -177,7 +177,7 @@
                   type="text"
                   v-model="companyName"
                   placeholder="ชื่อบริษัท/ลูกค้า"
-                  style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
+                  style="text-indent: 5%; border: 1px solid rgb(211, 211, 211)"
                 />
 
                 <div class="error" v-if="$v.companyName.$error">
@@ -195,7 +195,7 @@
                     v-model="companyNumber"
                     placeholder="เบอร์สำนักงาน"
                     style="
-                      text-indent: 8%;
+                      text-indent: 10%;
                       border: 1px solid rgb(211, 211, 211);
                     "
                   />
@@ -245,7 +245,7 @@
                   type="text"
                   v-model="contactName"
                   placeholder="ชื่อบริษัท/ลูกค้า"
-                  style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
+                  style="text-indent: 5%; border: 1px solid rgb(211, 211, 211)"
                 />
                 <div class="error" v-if="$v.contactName.$error">
                   <template v-if="!$v.contactName.$invalid"> </template>
@@ -262,7 +262,7 @@
                     type="tel"
                     v-model="contactNumber"
                     style="
-                      text-indent: 8%;
+                      text-indent: 10%;
                       border: 1px solid rgb(211, 211, 211);
                     "
                     placeholder="เบอร์โทร"
@@ -281,7 +281,7 @@
                     v-model="taxNumber"
                     placeholder="เลขผู้เสียภาษี"
                     style="
-                      text-indent: 4%;
+                      text-indent: 5%;
                       border: 1px solid rgb(211, 211, 211);
                     "
                   />
@@ -299,7 +299,7 @@
                   type="text"
                   v-model="contactEmail"
                   placeholder="อีเมล"
-                  style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
+                  style="text-indent: 5%; border: 1px solid rgb(211, 211, 211)"
                 />
                 <div class="error" v-if="$v.contactEmail.$error">
                   <template v-if="!$v.contactEmail.$invalid"> </template>
@@ -417,7 +417,7 @@
                 v-model="contactName"
                 placeholder="ชื่อผู้ติดต่อ"
                 style="
-                  text-indent: 4%;
+                  text-indent: 5%;
                   border: 1px solid rgb(211, 211, 211);
                   opacity: 0.5;
                 "
@@ -436,7 +436,7 @@
                 v-model="contactNumber"
                 placeholder="เบอร์โทร"
                 style="
-                  text-indent: 4%;
+                  text-indent: 5%;
                   border: 1px solid rgb(211, 211, 211);
                   opacity: 0.5;
                 "
@@ -456,7 +456,7 @@
                 v-model="contactEmail"
                 placeholder="อีเมล"
                 style="
-                  text-indent: 4%;
+                  text-indent: 5%;
                   border: 1px solid rgb(211, 211, 211);
                   opacity: 0.5;
                 "
@@ -726,6 +726,28 @@ export default {
   height: 5%;
 }
 
+.pagebody-lower .header-solid.h-full.ant-card{
+  padding: 3em;
+  background-color: white;
+  border-radius: 14px;
+  border: none;
+  margin-bottom: 2rem;
+  -webkit-box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  -webkit-transition: all 0.3s ease-in-out, background 0s, color 0s,
+    border-color 0s;
+  transition: all 0.3s ease-in-out, background 0s, color 0s, border-color 0s;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+}
+
 .header-solid {
   font-family: "Mitr", sans-serif;
 }
@@ -893,7 +915,7 @@ export default {
   border-radius: 12px;
   width: 200%;
   opacity: 0.5;
-  text-indent: 4%;
+  text-indent: 5%;
 }
 
 @media only screen and (max-width: 991px) {
@@ -908,7 +930,7 @@ export default {
     background-repeat: no-repeat;
     background-position: 8px 50%;
     width: 100%;
-    text-indent: 4% !important;
+    text-indent: 5% !important;
   }
 
   #companyNumber,
@@ -918,7 +940,7 @@ export default {
     background-repeat: no-repeat;
     background-position: 8px 50%;
     width: 100%;
-    text-indent: 4% !important;
+    text-indent: 5% !important;
   }
   #contactEmail {
     background-image: none;

@@ -1,16 +1,16 @@
 <template>
   <div class="whole-site">
     <form @submit.prevent="submitForm(bID)">
+      <div
+        class="header-site"
+        style="display: flex; flex-direction: row; gap: 1em"
+      >
+        <button @click="history.back()">
+          <b-icon icon="chevron-left"></b-icon>
+        </button>
+        <span>แก้ไขธนาคาร</span>
+      </div>
       <div class="wrapper">
-        <div
-          class="header-site"
-          style="display: flex; flex-direction: row; gap: 1em"
-        >
-          <button @click="history.back()">
-            <b-icon icon="chevron-left"></b-icon>
-          </button>
-          <span>แก้ไขธนาคาร</span>
-        </div>
         <div class="left-wrapper">
           <div class="bank-box">
             <div class="form-group">
@@ -113,8 +113,12 @@
               />
               <div class="error" v-if="$v.bankAccount.$error">
                 <template v-if="!$v.bankAccount.$invalid"> </template>
-                <template v-else-if="!$v.bankAccount.required"> โปรดใส่เลขบัญชีธนาคาร </template>
-                <template v-else-if="!$v.bankAccount.validFormat"> เลขบัญชีธนาคารต้องเป็นตัวเลข10-12หลัก </template>
+                <template v-else-if="!$v.bankAccount.required">
+                  โปรดใส่เลขบัญชีธนาคาร
+                </template>
+                <template v-else-if="!$v.bankAccount.validFormat">
+                  เลขบัญชีธนาคารต้องเป็นตัวเลข10-12หลัก
+                </template>
               </div>
             </div>
 
@@ -134,18 +138,14 @@
           <div>
             <button class="submit-button" type="submit">บันทึกข้อมูล</button>
           </div>
-          <div>
-            <button
-              class="delete-button"
-              type="delete"
-              @click="deletebank(bID)"
-            >
-              ลบ
-            </button>
-          </div>
         </div>
       </div>
     </form>
+    <div class="delete-section">
+      <button class="delete-button" type="delete" @click="deletebank(bID)">
+        ลบ
+      </button>
+    </div>
   </div>
 </template>
 
@@ -268,18 +268,19 @@ export default {
     changestatus() {
       this.status = "default";
     },
-    deletebank(bID){
-      if(window.confirm("คุณต้องการลบธนาคารนี้ใช่หรือไม่ ?")){
-            axios.delete(`http://localhost:5000/bank/${bID}`);
-            window.location.replace("http://localhost:8080/#/setting/bank");   
-        }
-    }
+    deletebank(bID) {
+      if (window.confirm("คุณต้องการลบธนาคารนี้ใช่หรือไม่ ?")) {
+        axios.delete(`http://localhost:5000/bank/${bID}`);
+        window.location.replace("http://localhost:8080/#/setting/bank");
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
 .whole-site {
+  position: relative;
   font-family: "Mitr", sans-serif;
   padding: 2em;
   background-color: white;
@@ -553,7 +554,7 @@ select {
   margin-top: 3em;
   flex-direction: row;
   gap: 2em;
-  margin-left: 70%;
+  margin-left: 80%;
 }
 .submit-but-section div {
   display: flex;
@@ -573,14 +574,17 @@ select {
 }
 .delete-button {
   background-color: #5f0724;
+  position: absolute;
   height: 36px;
   width: 164px;
   color: white;
   border-radius: 8px;
   border: 0;
-
   margin-left: auto;
   margin-right: auto;
+  z-index: 10;
+  bottom: 33px;
+  left: 7%;
 }
 /* /modal css  */
 
@@ -617,11 +621,30 @@ select {
     width: 100%;
     padding-top: 5px;
     flex-direction: column;
-    gap: 1em;
-    padding-bottom: 3em;
     align-items: center;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 50px;
   }
+  .delete-section{
+    width: 100%;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    
+  }
+  .delete-button {
+  background-color: #5f0724;
+  height: 36px;
+  width: 164px;
+  color: white;
+  border-radius: 8px;
+  border: 0;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+}
 }
 </style>
