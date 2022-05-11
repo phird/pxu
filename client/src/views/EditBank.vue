@@ -13,7 +13,6 @@
                 <input
                   type="file"
                   accept="image/*"
-                  @change="previewImage"
                   class="form-control-file"
                   id="my-file"
                   style="display: none"
@@ -67,7 +66,6 @@
                 </option>
                 <option value="อื่นๆ" style="text-indent: 3%">อื่นๆ</option>
               </select>
-
               <div v-if="bankNameau == 'อื่นๆ'">
                 <input
                   id="bankName"
@@ -136,7 +134,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-        bID:"",
+      bID:"",
       bankNameau: "",
       bankName: "",
       bankAccount: "",
@@ -144,13 +142,8 @@ export default {
       status: "-",
       bank: [],
       visible: false,
-      customLabels,
       pageOfItems: [],
       imageName: "default.png",
-      preview: null,
-      image: null,
-      preview_list: [],
-      image_list: [],
     };
   },
   validations: {
@@ -171,13 +164,16 @@ export default {
     //   validDate: (val) => moment(val, "DD.MM.YYYY", true).isValid(),
     // },
   },
-  created() {
-    this.getbank();
+  created(){
+    this.bID = this.$route.params.id;
+    this.getbank(bID);
   },
   methods: {
     checkname() {
       if (this.bankNameau !== "อื่นๆ") {
         this.bankName = this.bankNameau;
+      }else{
+        this.bankName = '';
       }
       switch (this.bankName) {
         case "ธนาคารกรุงเทพ":
@@ -230,7 +226,7 @@ export default {
           });
       }
     },
-    async getbank() {
+    async getbank(id) {
       console.log("get-bank");
       try {
         const response = await axios.get(`http://localhost:5000/bank/${id}`);
@@ -257,19 +253,6 @@ export default {
     handleOk(e) {
       console.log(e);
       this.visible = false;
-    },
-    previewImage: function (event) {
-      this.file = event.target.files[0];
-      console.log(this.file.name);
-      var input = event.target;
-      if (input.files) {
-        var reader = new FileReader();
-        reader.onload = (e) => {
-          this.preview = e.target.result;
-        };
-        this.image = input.files[0];
-        reader.readAsDataURL(input.files[0]);
-      }
     },
   },
 };

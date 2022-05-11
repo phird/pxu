@@ -48,38 +48,22 @@
               sm="4"
             >
               <!--  content -->
-
-              <figure class="snip1577" >
-                <img
-                  class="imgforbank"
-                  :src="`http://localhost:5000/bank/${item.img}`"
-                  alt="bank"
-                />
-                <figcaption style="width: 100%">
-                  <div
-                    style="
-                      display: flex;
-                      flex-direction: row;
-                      justify-content: space-between;
-                    "
-                  >
-                    <div>
-                      <h3>
-                        {{ item.bankName }}
-                      </h3>
-                    </div>
-                    <router-link
-                      :to="`/setting/EditBank/${item.bankID}`"
-                      style="text-decoration: none"
-                    >
-                      <a  style="text-decoration: none"> แก้ไข </a>
-                    </router-link>
-                  </div>
+              <router-link :to="`/setting/EditBank/${item.bankID}`" style="text-decoration: none" class="snip1577">
+              <figure class="snip1577">
+                
+                  <img
+                    class="imgforbank"
+                    :src="`http://localhost:5000/bank/${item.img}`"
+                    alt="bank"
+                  />
+                <figcaption>
+                  
+                  <h3>{{ item.bankName }}  <b-icon icon="pencil-fill" id="icon-thing"></b-icon></h3>
                   <h4>{{ item.accountName }}</h4>
                   <h4>{{ item.bankAccount }}</h4>
                 </figcaption>
-              </figure>
-
+               </figure>
+              </router-link>
               <!-- /content -->
             </v-col>
           </v-row>
@@ -301,6 +285,8 @@ export default {
     checkname() {
       if (this.bankNameau !== "อื่นๆ") {
         this.bankName = this.bankNameau;
+      }else{
+        this.bankName = '';
       }
       switch (this.bankName) {
         case "ธนาคารกรุงเทพ":
