@@ -40,13 +40,15 @@
             <label for="uploadlogo">โลโก้เว็บไซต์</label>
             <div class="website-logo-box" for="uploadlogo">
               <div class="box">
-                <div class="logobox" style="margin-top: 1%;">
-                  <b-icon icon="paperclip" ></b-icon>
+                <div class="logobox" style="margin-top: 1%">
+                  <b-icon icon="paperclip"></b-icon>
                 </div>
                 <div class="file-name">
-                  <label for="uploadlogo" style="margin-top: 14%;">{{ this.filelogo.name }}</label>
+                  <label for="uploadlogo" style="margin-top: 14%">{{
+                    this.filelogo.name
+                  }}</label>
                 </div>
-                <div class="upload-butt" style="margin-top:1%;">
+                <div class="upload-butt" style="margin-top: 1%">
                   <label for="uploadlogo"
                     ><b-icon icon="folder"> </b-icon>
                   </label>
@@ -106,20 +108,20 @@
             </div>
           </div>
 
-
-
-                  <!-- website logo -->
+          <!-- website logo -->
           <div class="website-logo">
             <label for="uploadstamp">ตราปั้มบริษัท</label>
             <div class="website-logo-box" for="uploadstamp">
               <div class="box">
-                <div class="logobox" style="margin-top: 1%;">
-                  <b-icon icon="paperclip" ></b-icon>
+                <div class="logobox" style="margin-top: 1%">
+                  <b-icon icon="paperclip"></b-icon>
                 </div>
                 <div class="file-name">
-                  <label for="uploadstamp" style="margin-top: 14%;">{{ this.filestamp.name }}</label>
+                  <label for="uploadstamp" style="margin-top: 14%">{{
+                    this.filestamp.name
+                  }}</label>
                 </div>
-                <div class="upload-butt" style="margin-top:1%;">
+                <div class="upload-butt" style="margin-top: 1%">
                   <label for="uploadstamp"
                     ><b-icon icon="folder"> </b-icon>
                   </label>
@@ -135,7 +137,7 @@
             </div>
           </div>
           <!-- /website logo -->
-<!--           <div style="display: flex; padding: 1em; flex-direction: column">
+          <!--           <div style="display: flex; padding: 1em; flex-direction: column">
             <label>ตราปั้มบริษัท:{{ filestamp.name }}</label>
             <input type="file" @change="uploadFilestamp" label="logo" />
           </div> -->
@@ -251,7 +253,7 @@ export default {
   components: {
     ThailandAutoComplete,
   },
- 
+
   data() {
     return {
       filelogo: [],
@@ -402,7 +404,26 @@ export default {
 
 <style scoped>
 .setting-page {
+  font-family: "Mitr", sans-serif;
   padding: 2em;
+  background-color: white;
+  border-radius: 14px;
+  border: none;
+  margin-bottom: 2rem;
+  -webkit-box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  -webkit-transition: all 0.3s ease-in-out, background 0s, color 0s,
+    border-color 0s;
+  transition: all 0.3s ease-in-out, background 0s, color 0s, border-color 0s;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
 }
 .website-data {
   display: flex;
@@ -453,7 +474,7 @@ export default {
 .upload-butt {
   padding: 0.5em;
 }
-.box{
+.box {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -463,7 +484,6 @@ export default {
 .file-name {
   height: 100%;
 }
-
 
 .field {
   margin-bottom: 24px;

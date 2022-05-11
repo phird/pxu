@@ -339,6 +339,30 @@ export default {
 
 
 <style scoped>
+
+.font-inhere{
+  font-family: "Mitr", sans-serif;
+  padding: 2em;
+  background-color: white;
+  border-radius: 14px;
+  border: none;
+  margin-bottom: 2rem;
+  -webkit-box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  -webkit-transition: all 0.3s ease-in-out, background 0s, color 0s,
+    border-color 0s;
+  transition: all 0.3s ease-in-out, background 0s, color 0s, border-color 0s;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+}
+
 .layout-dashboard .ant-card {
   font-family: "Mitr", sans-serif;
   border-radius: 12px;

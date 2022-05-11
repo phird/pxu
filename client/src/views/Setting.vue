@@ -90,19 +90,7 @@ export default {
     changePage(tabIndex, newTab, oldTab) {
       //your code here
       // console.log(tabIndex, newTab.$props, oldTab)
-      if(tabIndex==0 ){
-        this.$store.commit('setSetting');
-        this.tabName1 = this.$store.commit('setSetting');
-        /* console.log(this.tabName); */
-      }else if(tabIndex==1){
-        this.$store.commit('setEmployee');
-        this.tabName1 = this.$store.commit('setEmployee');
-       /*  console.log(this.tabName); */
-    }else{
-      this.$store.commit('setBank');
-      this.tabName1 = this.$store.commit('setBank');
-      /* console.log(this.tabName); */
-    }
+      
   },
   
 },
