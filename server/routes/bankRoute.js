@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
 
-    const sqlSelect = "SELECT * FROM bank"
+    const sqlSelect = "SELECT * FROM bank order by bankID DESC"
     db.query(sqlSelect, (err, result) => {
         // console.log(result);
         res.send(result);
