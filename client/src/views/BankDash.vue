@@ -399,6 +399,104 @@ export default {
 
 <style scoped>
  @import url('./BankDash.css');
+ /* modal css is here  */
+  .whole-modal-body {
+    font-family: "Mitr", sans-serif;
+    width: 100vw;
+  }
+  .whole-modal-body >>> .ant-modal {
+    width: 70% !important;
+  }
+  .whole-modal-body >>> .ant-modal-content {
+    width: 50vw default 0;
+    margin-left: auto;
+    margin-left: auto;
+  }
+  .whole-modal-body >>> .ant-modal-header {
+    border-bottom: 0;
+    align-content: center;
+  }
+  
+  .whole-modal-body >>> .ant-modal-footer {
+    display: none;
+  }
+  
+  .whole-modal-body >>> .ant-modal-title {
+    display: none;
+  }
+  
+  .wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 1em;
+  }
+  
+  .left-wrapper {
+    width: 40%;
+  }
+  .right-wrapper {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+  }
+  
+  .field input,
+  select {
+    height: 45px;
+    border: 1px solid rgba(0, 0, 0, 0.089);
+    border-radius: 14px;
+  }
+  .bank-box {
+    padding: 1em;
+  }
+  .info-box {
+    padding: 1em;
+  }
+  .upload-here {
+    position: relative;
+    background-color: #eeeeee;
+    height: 290px;
+    width: 290px;
+    text-align: center;
+  }
+  .text-upload {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .img-fluid {
+    position: relative;
+    object-fit: cover;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+  }
+  .submit-but-section {
+    display: flex;
+    width: 100%;
+    margin-top: 3em;
+  }
+  
+  .submit-button {
+    background-color: #1890ff;
+    height: 36px;
+    width: 164px;
+    color: white;
+    border-radius: 8px;
+    border: 0;
+  
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* /modal css  */
 </style>
 
 
