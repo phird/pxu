@@ -48,8 +48,9 @@
               sm="4"
             >
               <!--  content -->
-              
+              <router-link :to="`/setting/EditBank/${item.bankID}`" style="text-decoration: none" class="snip1577">
               <figure class="snip1577">
+                
                   <img
                     class="imgforbank"
                     :src="`http://localhost:5000/bank/${item.img}`"
@@ -57,13 +58,12 @@
                   />
                 <figcaption>
                   
-                  <h3>{{ item.bankName }} <b-icon icon="pencil-fill" id="icon-thing"></b-icon></h3>
+                  <h3>{{ item.bankName }}  <b-icon icon="pencil-fill" id="icon-thing"></b-icon></h3>
                   <h4>{{ item.accountName }}</h4>
                   <h4>{{ item.bankAccount }}</h4>
                 </figcaption>
-              </figure>
-             
-
+               </figure>
+              </router-link>
               <!-- /content -->
             </v-col>
           </v-row>
@@ -283,6 +283,8 @@ export default {
     checkname() {
       if (this.bankNameau !== "อื่นๆ") {
         this.bankName = this.bankNameau;
+      }else{
+        this.bankName = '';
       }
       switch (this.bankName) {
         case "ธนาคารกรุงเทพ":
