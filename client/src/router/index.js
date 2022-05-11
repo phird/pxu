@@ -66,16 +66,28 @@ let routes = [
 		component: () => import('../views/CreateEmployee.vue'),
 	},
 	{
-		path: '/setting',
-		name: 'ตั้งค่าเว็บไซต์',
-		layout: "dashboard",
-		component: () => import('../views/Setting.vue'),
-	},
-	{
 		path: '/archive',
 		name: 'อื่นๆ',
 		layout: "dashboard",
 		component: () => import('../views/Billing.vue'),
+	},
+	{
+		path: '/setting/webSetting',
+		name: 'ตั้งค่าเว็บไซต์',
+		layout: "dashboard",
+		component: () => import('../views/Websetting.vue'),
+	},
+	{
+		path: '/setting/employee',
+		name: 'จัดการพนักงาน',
+		layout: "dashboard",
+		component: () => import('../views/Employee.vue'),
+	},
+	{
+		path: '/setting/bank',
+		name: 'จัดการธนาคาร',
+		layout: "dashboard",
+		component: () => import('../views/BankDash.vue'),
 	},
 ]
 

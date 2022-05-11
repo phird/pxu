@@ -251,6 +251,7 @@ export default {
   components: {
     ThailandAutoComplete,
   },
+ 
   data() {
     return {
       filelogo: [],

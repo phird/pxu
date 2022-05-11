@@ -48,21 +48,37 @@
               sm="4"
             >
               <!--  content -->
-              
-              <figure class="snip1577">
-                  <img
-                    class="imgforbank"
-                    :src="`http://localhost:5000/bank/${item.img}`"
-                    alt="bank"
-                  />
-                <figcaption>
-                  
-                  <h3>{{ item.bankName }} <b-icon icon="pencil-fill" id="icon-thing"></b-icon></h3>
+
+              <figure class="snip1577" >
+                <img
+                  class="imgforbank"
+                  :src="`http://localhost:5000/bank/${item.img}`"
+                  alt="bank"
+                />
+                <figcaption style="width: 100%">
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      justify-content: space-between;
+                    "
+                  >
+                    <div>
+                      <h3>
+                        {{ item.bankName }}
+                      </h3>
+                    </div>
+                    <router-link
+                      :to="`/setting/EditBank/${item.bankID}`"
+                      style="text-decoration: none"
+                    >
+                      <a  style="text-decoration: none"> แก้ไข </a>
+                    </router-link>
+                  </div>
                   <h4>{{ item.accountName }}</h4>
                   <h4>{{ item.bankAccount }}</h4>
                 </figcaption>
               </figure>
-             
 
               <!-- /content -->
             </v-col>
@@ -237,11 +253,10 @@ const customLabels = {
   next: ">",
 };
 export default {
-  props:[
-    'index'
-    ],
+  props: ["tabToChange"],
   data() {
     return {
+      tabToChange: 'ข้อมูลธนาคาร',
       bankNameau: "",
       bankName: "",
       bankAccount: "",
@@ -280,6 +295,9 @@ export default {
     // },
   },
   methods: {
+    changeTab(){
+      
+    },
     checkname() {
       if (this.bankNameau !== "อื่นๆ") {
         this.bankName = this.bankNameau;
@@ -330,7 +348,9 @@ export default {
           })
           .then(() => {
             alert("ok");
-            window.location();
+            
+            window.location.reload(false); 
+            
           });
       }
     },
@@ -361,6 +381,13 @@ export default {
     handleOk(e) {
       console.log(e);
       this.visible = false;
+    },
+            deletebank(id){
+      console.log(id);
+        if(window.confirm("Are you sure to delete?")){
+            axios.delete(`http://localhost:5000/bank/${id}`) 
+                window.location.reload(false);    
+        }
     },
     previewImage: function (event) {
       this.file = event.target.files[0];
@@ -530,7 +557,7 @@ select {
   font-size: 16px;
   background: #000;
 }
-.image-box-size{
+.image-box-size {
   width: 290px;
   height: 290px;
 }
@@ -586,7 +613,7 @@ select {
   padding: 15px 20px;
 }
 
-.snip1577 #icon-thing{
+.snip1577 #icon-thing {
   text-align: end;
 }
 
@@ -598,7 +625,7 @@ select {
   opacity: 0;
 }
 
-.snip1577 b-icon{
+.snip1577 b-icon {
   margin: 0;
   opacity: 0;
 }
@@ -653,19 +680,17 @@ select {
   opacity: 1;
 }
 
-.snip1577:hover b-icon{
+.snip1577:hover b-icon {
   color: white;
   opacity: 1;
 }
 
 .snip1577:hover b-icon,
-.snip1577.hover b-icon{
+.snip1577.hover b-icon {
   color: white;
   -webkit-transition-delay: 0.3s;
   transition-delay: 0.3s;
 }
-
-
 
 .snip1577:hover h3,
 .snip1577.hover h3 {

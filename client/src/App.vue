@@ -7,7 +7,7 @@
 <template>
 	<div id="app">
 		<component :is="layout">
-			<router-view />
+			<router-view :tabName="tabName"/>
 		</component>
 	</div>
 </template>
@@ -21,6 +21,11 @@
 				return "layout-" + ( this.$route.meta.layout|| "default" ).toLowerCase() ;
 			}
 		},
+		data(){
+			return{
+				tabName:""
+			}
+		}
 	})
 	
 </script>

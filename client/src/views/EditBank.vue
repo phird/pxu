@@ -136,6 +136,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+        bID:"",
       bankNameau: "",
       bankName: "",
       bankAccount: "",
@@ -169,6 +170,9 @@ export default {
     //   required,
     //   validDate: (val) => moment(val, "DD.MM.YYYY", true).isValid(),
     // },
+  },
+  created() {
+    this.getbank();
   },
   methods: {
     checkname() {
@@ -205,6 +209,7 @@ export default {
         /*  */
       }
     },
+
     async submitForm(id) {
       this.$v.$touch();
 

@@ -14,9 +14,18 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 // make jw pagination component available in application
 import JwPagination from 'jw-vue-pagination';
+import { BTabs } from 'bootstrap-vue'
+Vue.component('b-tabs', BTabs)
+import { TabsPlugin } from 'bootstrap-vue'
+Vue.use(TabsPlugin)
+
 Vue.component('jw-pagination', JwPagination);
 
 Vue.use(Vuetify)
+
+
+
+
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -54,3 +63,12 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')
+
+/* const app = createApp({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app')
+
+
+app.use(store); */
