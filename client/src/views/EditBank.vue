@@ -76,7 +76,7 @@
               </div>
               <div class="error" v-if="$v.bankName.$error">
                 <template v-if="!$v.bankName.$invalid"> </template>
-                <template v-else> ต้องระบุธนาคาร </template>
+                <template v-else> โปรดระบุธนาคาร </template>
               </div>
             </div>
 
@@ -90,7 +90,7 @@
               />
               <div class="error" v-if="$v.accountName.$error">
                 <template v-if="!$v.accountName.$invalid"> </template>
-                <template v-else> email error </template>
+                <template v-else> โปรดใส่ชื่อบัญชีธนาคาร </template>
               </div>
             </div>
 
@@ -104,7 +104,8 @@
               />
               <div class="error" v-if="$v.bankAccount.$error">
                 <template v-if="!$v.bankAccount.$invalid"> </template>
-                <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
+                <template v-else-if="!$v.bankAccount.required"> โปรดใส่เลขบัญชีธนาคาร </template>
+                <template v-else-if="!$v.bankAccount.validFormat"> เลขบัญชีธนาคารต้องเป็นตัวเลข10-12หลัก </template>
               </div>
             </div>
 
@@ -245,7 +246,7 @@ export default {
       this.status = "default";
     },
     deletebank(bID){
-      if(window.confirm("Do you want to delete this bank ?")){
+      if(window.confirm("คุณต้องการลบธนาคารนี้ใช่หรือไม่ ?")){
             axios.delete(`http://localhost:5000/bank/${bID}`);
             window.location.replace("http://localhost:8080/#/setting/bank");   
         }

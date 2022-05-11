@@ -15,7 +15,7 @@
           />
           <div class="error" v-if="$v.employeeName.$error">
             <template v-if="!$v.employeeName.$invalid"> </template>
-            <template v-else> ต้องระบุชื่อ </template>
+            <template v-else> โปรดระบุชื่อ </template>
           </div>
         </div>
 
@@ -29,7 +29,8 @@
           />
           <div class="error" v-if="$v.employeeNumber.$error">
             <template v-if="!$v.employeeNumber.$invalid"> </template>
-            <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
+            <template v-else-if="!$v.employeeNumber.required"> โปรดใส่เบอร์ผู้ติดต่อ </template>
+            <template v-else-if="!$v.employeeNumber.validFormat"> เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก </template>
           </div>
         </div>
 
@@ -43,7 +44,8 @@
           />
           <div class="error" v-if="$v.employeeEmail.$error">
             <template v-if="!$v.employeeEmail.$invalid"> </template>
-            <template v-else> email error </template>
+            <template v-else-if="!$v.employeeEmail.required"> โปรดใส่อีเมล </template>
+            <template v-else-if="!$v.employeeEmail.email"> ใส่อีเมลให้ถูกต้อง </template>
           </div>
         </div>
 
