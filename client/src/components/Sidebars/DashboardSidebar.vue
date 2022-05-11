@@ -128,7 +128,7 @@
             <router-link to="/setting/webSetting">
               <span
                 class="label menutext"
-                style="text-decoration: none; font-size: 14px"
+                style="text-decoration: none; font-size: 16px"
               >
                 ข้อมูลเว็บไซต์
               </span>
@@ -138,7 +138,7 @@
             <router-link to="/setting/employee">
               <span
                 class="label menutext"
-                style="text-decoration: none; font-size: 14px"
+                style="text-decoration: none; font-size: 16px"
               >
                 จัดการพนักงาน
               </span>
@@ -149,7 +149,7 @@
             <router-link to="/setting/bank">
               <span
                 class="label menutext"
-                style="text-decoration: none; font-size: 14px"
+                style="text-decoration: none; font-size: 16px"
               >
                 จัดการธนาคาร
               </span>

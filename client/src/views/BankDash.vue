@@ -86,7 +86,7 @@
         </div>
         <div class="card-footer pb-0 pt-3">
           <jw-pagination
-            :pageSize="6"
+            :pageSize="8"
             :items="bank"
             @changePage="onChangePage"
             :labels="customLabels"
