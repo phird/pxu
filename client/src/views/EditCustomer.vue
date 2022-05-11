@@ -464,7 +464,7 @@ export default {
           })
           .then(function () {
             alert("บันทึกข้อมูลสำเร็จ");
-            window.location.reload(false);  
+            window.location.replace("http://localhost:8080/#/customers");
           });
       }
     },

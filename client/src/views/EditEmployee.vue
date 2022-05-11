@@ -55,7 +55,8 @@
           </div>
 
           <div class="set-Default">
-            <a-checkbox @change="changestatus()"> Set Default </a-checkbox>
+            <a-checkbox v-if="status=='default'" checked> Set Default </a-checkbox>
+            <a-checkbox v-else @change="changestatus()"> Set Default </a-checkbox>
           </div>
 
           <div class="submitbutt">
@@ -128,7 +129,7 @@ export default {
           })
           .then(function () {
             alert("บันทึกข้อมูลสำเร็จ");
-            window.location.reload(false);  
+            window.location.replace("http://localhost:8080/#/setting/employee"); 
           });
       }
     },
