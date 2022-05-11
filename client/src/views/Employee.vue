@@ -73,6 +73,17 @@
         <template slot="emTel" slot-scope="emTel">
           {{ emTel }}
         </template>
+        <template slot="role" slot-scope="role">
+          {{ role }}
+        </template>
+        <template slot="status" slot-scope="status">
+          <span v-if="status == 'default'" style="color:red">
+            {{ status }}
+          </span>
+          <span v-else>
+
+          </span>
+        </template>
 
         <template slot="actionSection" slot-scope="empID">
           <a-dropdown>
@@ -94,12 +105,15 @@
               <a-menu-item>
                 <router-link
                   :to="`/setting/EditEmployee/${empID}`"
-                  style="text-decoration: none">
+                  style="text-decoration: none"
+                >
                   <a style="text-decoration: none"> แก้ไข </a>
                 </router-link>
               </a-menu-item>
               <a-menu-item>
-                <a style="text-decoration: none" @click="deleteEmp(empID)"> ลบ </a>
+                <a style="text-decoration: none" @click="deleteEmp(empID)">
+                  ลบ
+                </a>
               </a-menu-item>
             </a-menu>
           </a-dropdown>
@@ -241,7 +255,12 @@ export default {
         {
           title: "Role",
           dataIndex: "role",
-          scopedSlots: { customRender: "val" },
+          scopedSlots: { customRender: "role" },
+        },
+        {
+          title: "",
+          dataIndex: "status",
+          scopedSlots: { customRender: "status" },
         },
         {
           title: "Action",
@@ -303,7 +322,7 @@ export default {
           })
           .then(function () {
             alert("ok");
-            window.location.reload(false);  
+            window.location.reload(false);
           });
       }
     },
@@ -326,21 +345,20 @@ export default {
       console.log(e);
       this.visible = false;
     },
-    deleteEmp(id){
-            console.log(id);
-        if(window.confirm("แน่ใจว่าจะลบพนักงานคนนี้ไหม ?")){
-            axios.delete(`http://localhost:5000/employee/${id}`) 
-                window.location.reload(false);    
-        }
-    }
+    deleteEmp(id) {
+      console.log(id);
+      if (window.confirm("แน่ใจว่าจะลบพนักงานคนนี้ไหม ?")) {
+        axios.delete(`http://localhost:5000/employee/${id}`);
+        window.location.reload(false);
+      }
+    },
   },
 };
 </script>
 
 
 <style scoped>
-
-.font-inhere{
+.font-inhere {
   font-family: "Mitr", sans-serif;
   padding: 2em;
   background-color: white;

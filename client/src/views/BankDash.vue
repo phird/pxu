@@ -54,6 +54,23 @@
                   style="text-decoration: none"
                 >
                   <figure class="snip1577">
+                    <div
+                      v-if="item.status == 'default'"
+                      style="
+                        z-index: 100;
+                        position: absolute;
+                        background-color: black;
+                        color: white;
+                        width: 100%;
+                        margin-left: auto;
+                        top: 94%;
+                        padding-left: 80%;
+                        opacity: 50%;
+                      "
+                    >
+                      <span>DEFAULT</span>
+                    </div>
+                    <div v-else></div>
                     <img
                       :src="`http://localhost:5000/bank/${item.img}`"
                       alt="bank"
@@ -63,8 +80,8 @@
                         {{ item.bankName }}
                         <b-icon icon="pencil-fill" id="icon-thing"></b-icon>
                       </h3>
-                      <h4 style="opacity:50%">{{ item.accountName }}</h4>
-                      <h4 style="opacity:50%">{{ item.bankAccount }}</h4>
+                      <h4 style="opacity: 50%">{{ item.accountName }}</h4>
+                      <h4 style="opacity: 50%">{{ item.bankAccount }}</h4>
                     </figcaption>
                   </figure>
                 </router-link>
@@ -407,7 +424,7 @@ export default {
   -webkit-box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
   box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
   -webkit-transition: all 0.3s ease-in-out, background 0s, color 0s,
-  border-color 0s;
+    border-color 0s;
   transition: all 0.3s ease-in-out, background 0s, color 0s, border-color 0s;
   position: relative;
   display: -webkit-box;
