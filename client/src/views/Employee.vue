@@ -323,7 +323,7 @@ export default {
             status: this.status,
           })
           .then(function () {
-            alert("ok");
+            alert("บันทึกข้อมูลสำเร็จ");
             window.location.reload(false);
           });
       }

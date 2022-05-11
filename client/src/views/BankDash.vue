@@ -125,14 +125,6 @@
                       :src="`http://localhost:5000/bank/${imageName}`"
                       class="img-fluid"
                     />
-                    <input
-                      type="file"
-                      accept="image/*"
-                      @change="previewImage"
-                      class="form-control-file"
-                      id="my-file"
-                      style="display: none"
-                    />
                   </div>
                 </div>
               </div>
@@ -222,7 +214,7 @@
                   <div class="error" v-if="$v.bankAccount.$error">
                     <template v-if="!$v.bankAccount.$invalid"> </template>
                     <template v-else-if="!$v.bankAccount.required"> โปรดใส่เลขบัญชีธนาคาร </template>
-                    <template v-else-if="!$v.bankAccount.validFormat"> เลขบัญชีธนาคารต้องเป็นตัวเลข10-12หลัก </template>
+                    <template v-else-if="!$v.bankAccount.minLength"> เลขบัญชีธนาคารต้องเป็นตัวเลข10-12หลัก </template>
                   </div>
                 </div>
 
@@ -263,10 +255,8 @@ const customLabels = {
   next: ">",
 };
 export default {
-  props: ["tabToChange"],
   data() {
     return {
-      tabToChange: "ข้อมูลธนาคาร",
       bankNameau: "",
       bankName: "",
       bankAccount: "",
@@ -277,10 +267,6 @@ export default {
       customLabels,
       pageOfItems: [],
       imageName: "default.png",
-      preview: null,
-      image: null,
-      preview_list: [],
-      image_list: [],
     };
   },
   created() {
@@ -357,7 +343,7 @@ export default {
             img: this.imageName,
           })
           .then(() => {
-            alert("ok");
+            alert("บันทึกข้อมูลสำเร็จ");
             window.location.reload(false);
           });
       }
@@ -375,10 +361,6 @@ export default {
     changestatus() {
       this.status = "default";
     },
-    uploadFile(event) {
-      this.file = event.target.files[0];
-      console.log(this.file.name);
-    },
     onChangePage(pageOfItems) {
       // update page of items
       this.pageOfItems = pageOfItems;
@@ -390,26 +372,7 @@ export default {
       console.log(e);
       this.visible = false;
     },
-    deletebank(id) {
-      console.log(id);
-      if (window.confirm("Are you sure to delete?")) {
-        axios.delete(`http://localhost:5000/bank/${id}`);
-        window.location.reload(false);
-      }
-    },
-    previewImage: function (event) {
-      this.file = event.target.files[0];
-      console.log(this.file.name);
-      var input = event.target;
-      if (input.files) {
-        var reader = new FileReader();
-        reader.onload = (e) => {
-          this.preview = e.target.result;
-        };
-        this.image = input.files[0];
-        reader.readAsDataURL(input.files[0]);
-      }
-    },
+
   },
 };
 </script>
