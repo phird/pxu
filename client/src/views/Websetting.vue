@@ -355,7 +355,7 @@ export default {
             stamp: this.filestamp.name,
           })
           .then(function () {
-            alert("push");
+            alert("บันทึกข้อมูลสำเร็จ");
             window.location.reload(false);
           });
       } else {
@@ -374,7 +374,7 @@ export default {
             stamp: this.filestamp.name,
           })
           .then(function () {
-            alert("update");
+            alert("บันทึกข้อมูลสำเร็จ");
             window.location.reload(false);
           });
       }
