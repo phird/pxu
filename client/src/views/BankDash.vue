@@ -48,29 +48,36 @@
               sm="4"
             >
               <!--  content -->
-              <router-link :to="`/setting/EditBank/${item.bankID}`" style="text-decoration: none" class="snip1577">
-              <figure class="snip1577">
-                
-                  <img
-                    class="imgforbank"
-                    :src="`http://localhost:5000/bank/${item.img}`"
-                    alt="bank"
-                  />
-                <figcaption>
-                  
-                  <h3>{{ item.bankName }}  <b-icon icon="pencil-fill" id="icon-thing"></b-icon></h3>
-                  <h4>{{ item.accountName }}</h4>
-                  <h4>{{ item.bankAccount }}</h4>
-                </figcaption>
-               </figure>
-              </router-link>
+              <div class="iteminPage"> 
+                <router-link
+                  :to="`/setting/EditBank/${item.bankID}`"
+                  style="text-decoration: none"
+                >
+                  <figure class="snip1577">
+                    <img
+                      class="imgforbank"
+                      :src="`http://localhost:5000/bank/${item.img}`"
+                      alt="bank"
+                    />
+                    <figcaption>
+                      <h3>
+                        {{ item.bankName }}
+                        <b-icon icon="pencil-fill" id="icon-thing"></b-icon>
+                      </h3>
+                      <h4>{{ item.accountName }}</h4>
+                      <h4>{{ item.bankAccount }}</h4>
+                    </figcaption>
+                  </figure>
+                </router-link>
+              </div>
+
               <!-- /content -->
             </v-col>
           </v-row>
         </div>
         <div class="card-footer pb-0 pt-3">
           <jw-pagination
-            :pageSize="6"
+            :pageSize="8"
             :items="bank"
             @changePage="onChangePage"
             :labels="customLabels"
@@ -240,7 +247,7 @@ export default {
   props: ["tabToChange"],
   data() {
     return {
-      tabToChange: 'ข้อมูลธนาคาร',
+      tabToChange: "ข้อมูลธนาคาร",
       bankNameau: "",
       bankName: "",
       bankAccount: "",
@@ -279,14 +286,12 @@ export default {
     // },
   },
   methods: {
-    changeTab(){
-      
-    },
+    changeTab() {},
     checkname() {
       if (this.bankNameau !== "อื่นๆ") {
         this.bankName = this.bankNameau;
-      }else{
-        this.bankName = '';
+      } else {
+        this.bankName = "";
       }
       switch (this.bankName) {
         case "ธนาคารกรุงเทพ":
@@ -334,9 +339,8 @@ export default {
           })
           .then(() => {
             alert("ok");
-            
-            window.location.reload(false); 
-            
+
+            window.location.reload(false);
           });
       }
     },
@@ -368,12 +372,12 @@ export default {
       console.log(e);
       this.visible = false;
     },
-            deletebank(id){
+    deletebank(id) {
       console.log(id);
-        if(window.confirm("Are you sure to delete?")){
-            axios.delete(`http://localhost:5000/bank/${id}`) 
-                window.location.reload(false);    
-        }
+      if (window.confirm("Are you sure to delete?")) {
+        axios.delete(`http://localhost:5000/bank/${id}`);
+        window.location.reload(false);
+      }
     },
     previewImage: function (event) {
       this.file = event.target.files[0];
@@ -394,305 +398,7 @@ export default {
 
 
 <style scoped>
-@media (min-width: 576px) {
-  .col-sm-4 {
-    flex: 0 0 auto;
-    width: 25%;
-  }
-
-  @media (max-width: 576px) {
-    .d-flex .child-flex .col-sm-4 .col-6 {
-      flex: 0 0 auto;
-      width: 100% !important;
-    }
-  }
-}
-
-.error {
-  color: red;
-}
-.action-icon {
-  position: relative;
-  z-index: 3;
-  color: white;
-  opacity: 0;
-  /* transform: translateY(30px); */
-  /* transition: 0.5s; */
-  width: 100%;
-  height: 100%;
-}
-
-.galleryBlock {
-  cursor: pointer;
-}
-.pagination {
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* modal css is here  */
-.whole-modal-body {
-  font-family: "Mitr", sans-serif;
-  width: 100vw;
-}
-.whole-modal-body >>> .ant-modal {
-  width: 70% !important;
-}
-.whole-modal-body >>> .ant-modal-content {
-  width: 50vw default 0;
-  margin-left: auto;
-  margin-left: auto;
-}
-.whole-modal-body >>> .ant-modal-header {
-  border-bottom: 0;
-  align-content: center;
-}
-
-.whole-modal-body >>> .ant-modal-footer {
-  display: none;
-}
-
-.whole-modal-body >>> .ant-modal-title {
-  display: none;
-}
-
-.wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  padding: 1em;
-}
-
-.left-wrapper {
-  width: 40%;
-}
-.right-wrapper {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-}
-.field {
-  display: flex;
-  flex-direction: column;
-  margin: 1em;
-}
-
-.field input,
-select {
-  height: 45px;
-  border: 1px solid rgba(0, 0, 0, 0.089);
-  border-radius: 14px;
-}
-.bank-box {
-  padding: 1em;
-}
-.info-box {
-  padding: 1em;
-}
-.upload-here {
-  position: relative;
-  background-color: #eeeeee;
-  height: 290px;
-  width: 290px;
-  text-align: center;
-}
-.text-upload {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.img-fluid {
-  position: relative;
-  object-fit: cover;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-}
-.submit-but-section {
-  display: flex;
-  width: 100%;
-  margin-top: 3em;
-}
-
-.submit-button {
-  background-color: #1890ff;
-  height: 36px;
-  width: 164px;
-  color: white;
-  border-radius: 8px;
-  border: 0;
-
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* /modal css  */
-
-/* card css start here  */
-.snip1577 {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  margin: 10px;
-  min-width: 233px;
-  max-width: 233px;
-  width: 100%;
-  color: #fff;
-  text-align: left;
-  font-size: 16px;
-  background: #000;
-}
-.image-box-size {
-  width: 290px;
-  height: 290px;
-}
-.snip1577 img {
-  position: relative;
-  object-fit: cover;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-}
-
-.snip1577 *,
-.snip1577:before,
-.snip1577:after {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
-}
-
-.snip1577 img {
-  max-width: 100%;
-  backface-visibility: hidden;
-  vertical-align: top;
-}
-
-.snip1577:before,
-.snip1577:after {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  content: "";
-  color: white;
-  background-color: #fff;
-  z-index: 1;
-  opacity: 0;
-}
-
-.snip1577:before {
-  width: 0;
-  height: 1px;
-}
-
-.snip1577:after {
-  height: 0;
-  width: 1px;
-}
-
-.snip1577 figcaption {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  padding: 15px 20px;
-}
-
-.snip1577 #icon-thing {
-  text-align: end;
-}
-
-.snip1577 h3,
-.snip1577 h4 {
-  margin: 0;
-  font-size: 1.1em;
-  font-weight: normal;
-  opacity: 0;
-}
-
-.snip1577 b-icon {
-  margin: 0;
-  opacity: 0;
-}
-
-.snip1577 h4 {
-  font-size: 0.8em;
-  text-transform: uppercase;
-}
-
-.snip1577 a {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-}
-
-.snip1577:hover img,
-.snip1577.hover img {
-  zoom: 1;
-  filter: alpha(opacity=20);
-  -webkit-opacity: 0.2;
-  opacity: 0.2;
-}
-
-.snip1577:hover:before,
-.snip1577.hover:before,
-.snip1577:hover:after,
-.snip1577.hover:after {
-  opacity: 1;
-  -webkit-transition-delay: 0.25s;
-  transition-delay: 0.25s;
-  color: white;
-}
-
-.snip1577:hover:before,
-.snip1577.hover:before {
-  width: 40px;
-}
-
-.snip1577:hover:after,
-.snip1577.hover:after {
-  height: 40px;
-}
-
-.snip1577:hover h3,
-.snip1577.hover h3,
-.snip1577:hover h4,
-.snip1577.hover h4 {
-  color: white;
-  opacity: 1;
-}
-
-.snip1577:hover b-icon {
-  color: white;
-  opacity: 1;
-}
-
-.snip1577:hover b-icon,
-.snip1577.hover b-icon {
-  color: white;
-  -webkit-transition-delay: 0.3s;
-  transition-delay: 0.3s;
-}
-
-.snip1577:hover h3,
-.snip1577.hover h3 {
-  color: white;
-  -webkit-transition-delay: 0.3s;
-  transition-delay: 0.3s;
-}
-
-.snip1577:hover h4,
-.snip1577.hover h4 {
-  color: white;
-  -webkit-transition-delay: 0.35s;
-  transition-delay: 0.35s;
-}
-
-/* end here */
+ @import url('./BankDash.css');
 </style>
 
 
