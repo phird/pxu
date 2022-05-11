@@ -66,7 +66,6 @@
                 </option>
                 <option value="อื่นๆ" style="text-indent: 3%">อื่นๆ</option>
               </select>
-
               <div v-if="bankNameau == 'อื่นๆ'">
                 <input
                   id="bankName"
@@ -135,7 +134,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      bid:'',
+      bID:"",
       bankNameau: "",
       bankName: "",
       bankAccount: "",
@@ -166,8 +165,8 @@ export default {
     // },
   },
   created(){
-    this.bid = this.$route.params.id;
-    this.getbank(bid);
+    this.bID = this.$route.params.id;
+    this.getbank(bID);
   },
   methods: {
     checkname() {
@@ -206,6 +205,7 @@ export default {
         /*  */
       }
     },
+
     async submitForm(id) {
       this.$v.$touch();
 
