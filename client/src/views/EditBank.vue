@@ -246,21 +246,7 @@ export default {
 };
 </script>
 
-<style>
-@media (min-width: 576px) {
-  .col-sm-4 {
-    flex: 0 0 auto;
-    width: 25%;
-  }
-
-  @media (max-width: 576px) {
-    .d-flex .child-flex .col-sm-4 .col-6 {
-      flex: 0 0 auto;
-      width: 100% !important;
-    }
-  }
-}
-
+<style scoped>
 .error {
   color: red;
 }
@@ -283,123 +269,22 @@ export default {
   flex-wrap: wrap;
 }
 
-/* modal css is here  */
-.whole-modal-body {
-  font-family: "Mitr", sans-serif;
-  width: 100vw;
-}
-.whole-modal-body >>> .ant-modal {
-  width: 70% !important;
-}
-.whole-modal-body >>> .ant-modal-content {
-  width: 50vw default 0;
-  margin-left: auto;
-  margin-left: auto;
-}
-.whole-modal-body >>> .ant-modal-header {
-  border-bottom: 0;
-  align-content: center;
-}
-
-.whole-modal-body >>> .ant-modal-footer {
-  display: none;
-}
-
-.whole-modal-body >>> .ant-modal-title {
-  display: none;
-}
-
-.wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  padding: 1em;
-}
-
-.left-wrapper {
-  width: 40%;
-}
-.right-wrapper {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-}
-.field {
-  display: flex;
-  flex-direction: column;
-  margin: 1em;
-}
-
-.field input,
-select {
-  height: 45px;
-  border: 1px solid rgba(0, 0, 0, 0.089);
-  border-radius: 14px;
-}
-.bank-box {
-  padding: 1em;
-}
-.info-box {
-  padding: 1em;
-}
-.upload-here {
-  position: relative;
-  background-color: #eeeeee;
-  height: 290px;
-  width: 290px;
-  text-align: center;
-}
-.text-upload {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.img-fluid {
-  position: relative;
-  object-fit: cover;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-}
-.submit-but-section {
-  display: flex;
-  width: 100%;
-  margin-top: 3em;
-}
-
-.submit-button {
-  background-color: #1890ff;
-  height: 36px;
-  width: 164px;
-  color: white;
-  border-radius: 8px;
-  border: 0;
-
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* /modal css  */
-
 /* card css start here  */
 .snip1577 {
   position: relative;
   display: inline-block;
   overflow: hidden;
   margin: 10px;
-  min-width: 233px;
-  max-width: 233px;
   width: 100%;
   color: #fff;
   text-align: left;
   font-size: 16px;
   background: #000;
 }
-.image-box-size {
-  width: 290px;
-  height: 290px;
-}
+  .image-box-size {
+    width: 400px;
+    height: 400px;
+  }
 .snip1577 img {
   position: relative;
   object-fit: cover;
@@ -525,4 +410,106 @@ select {
 }
 
 /* end here */
+
+/* modal css is here  */
+  .whole-modal-body {
+    font-family: "Mitr", sans-serif;
+    width: 100vw;
+  }
+  .whole-modal-body >>> .ant-modal {
+    width: 70% !important;
+  }
+  .whole-modal-body >>> .ant-modal-content {
+    width: 50vw default 0;
+    margin-left: auto;
+    margin-left: auto;
+  }
+  .whole-modal-body >>> .ant-modal-header {
+    border-bottom: 0;
+    align-content: center;
+  }
+  
+  .whole-modal-body >>> .ant-modal-footer {
+    display: none;
+  }
+  .whole-modal-body >>> .layout-dashboard .ant-layout-content {
+    padding: 4em !important; 
+  }
+  .whole-modal-body >>> .ant-modal-title {
+    display: none;
+  }
+  
+  .wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 1em;
+  }
+  
+  .left-wrapper {
+    width: 40%;
+  }
+  .right-wrapper {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+  }
+  
+  .field input,
+  select {
+    height: 45px;
+    border: 1px solid rgba(0, 0, 0, 0.089);
+    border-radius: 14px;
+  }
+  .bank-box {
+    padding: 1em;
+  }
+  .info-box {
+    padding: 1em;
+  }
+  .upload-here {
+    position: relative;
+    background-color: #eeeeee;
+    height: 400px;
+    width: 400px;
+    text-align: center;
+    padding: 2em;
+  }
+  .text-upload {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .img-fluid {
+    position: relative;
+    object-fit: cover;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+  }
+  .submit-but-section {
+    display: flex;
+    width: 100%;
+    margin-top: 3em;
+  }
+  
+  .submit-button {
+    background-color: #1890ff;
+    height: 36px;
+    width: 164px;
+    color: white;
+    border-radius: 8px;
+    border: 0;
+  
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* /modal css  */
 </style>
