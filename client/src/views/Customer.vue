@@ -182,7 +182,7 @@
 
                 <div class="error" v-if="$v.companyName.$error">
                   <template v-if="!$v.companyName.$invalid"> </template>
-                  <template v-else style="color: red"> ต้องระบุชื่อ </template>
+                  <template v-else style="color: red"> โปรดระบุชื่อ </template>
                 </div>
               </div>
               <!-- /Name of company -->
@@ -201,7 +201,8 @@
                   />
                   <div class="error" v-if="$v.companyNumber.$error">
                     <template v-if="!$v.companyNumber.$invalid"> </template>
-                    <template v-else> เบอร์บริษัทต้องมี10หลัก </template>
+                    <template v-else-if="!$v.companyNumber.required"> โปรดใส่เบอร์บริษัท </template>
+                    <template v-else-if="!$v.companyNumber.validFormat"> เบอร์บริษัทต้องเป็นตัวเลข10หลัก </template>
                   </div>
                 </div>
                 <!-- /COMPANY TEL. -->
@@ -220,7 +221,8 @@
                   />
                   <div class="error" v-if="$v.taxNumber.$error">
                     <template v-if="!$v.taxNumber.$invalid"> </template>
-                    <template v-else> หมายเลขกำกับภาษีต้องมี13ตัว</template>
+                    <template v-else-if="!$v.taxNumber.required"> โปรดใส่หมายเลขกำกับภาษี</template>
+                    <template v-else-if="!$v.taxNumber.validFormat"> หมายเลขกำกับภาษีต้องเป็นตัวเลข13หลัก </template>
                   </div>
                 </div>
                 <!-- TAX NUM -->
@@ -247,7 +249,7 @@
                 />
                 <div class="error" v-if="$v.contactName.$error">
                   <template v-if="!$v.contactName.$invalid"> </template>
-                  <template v-else> ต้องระบุชื่อ </template>
+                  <template v-else> โปรดระบุชื่อ </template>
                 </div>
               </div>
 
@@ -267,7 +269,8 @@
                   />
                   <div class="error" v-if="$v.contactNumber.$error">
                     <template v-if="!$v.contactNumber.$invalid"> </template>
-                    <template v-else> เบอร์ผู้ติดต่อต้องมี10หลัก </template>
+                    <template v-else-if="!$v.contactNumber.required"> โปรดใส่เบอร์ผู้ติดต่อ </template>
+                    <template v-else-if="!$v.contactNumber.validFormat"> เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก </template>
                   </div>
                 </div>
                 <!-- เลขกำกับภาษี -->
@@ -284,7 +287,8 @@
                   />
                   <div class="error" v-if="$v.taxNumber.$error">
                     <template v-if="!$v.taxNumber.$invalid"> </template>
-                    <template v-else> หมายเลขกำกับภาษีต้องมี13ตัว</template>
+                    <template v-else-if="!$v.taxNumber.required"> โปรดใส่หมายเลขกำกับภาษี</template>
+                    <template v-else-if="!$v.taxNumber.validFormat"> หมายเลขกำกับภาษีต้องเป็นตัวเลข13หลัก </template>
                   </div>
                 </div>
               </div>
@@ -299,7 +303,8 @@
                 />
                 <div class="error" v-if="$v.contactEmail.$error">
                   <template v-if="!$v.contactEmail.$invalid"> </template>
-                  <template v-else> email error </template>
+                   <template v-else-if="!$v.contactEmail.required"> โปรดใส่อีเมล </template>
+                <template v-else-if="!$v.contactEmail.email"> ใส่อีเมลให้ถูกต้อง </template>
                 </div>
               </div>
             </div>
@@ -327,7 +332,7 @@
               />
               <div class="error" v-if="$v.Address.$error">
                 <template v-if="!$v.Address.$invalid"> </template>
-                <template v-else> ต้องใส่ที่อยู่ </template>
+                <template v-else> โปรดใส่ที่อยู่ </template>
               </div>
             </div>
             <div class="addr-info-section">
@@ -344,7 +349,7 @@
                 />
                 <div class="error" v-if="$v.subdis.$error">
                     <template v-if="!$v.subdis.$invalid"> </template>
-                    <template v-else> ต้องใส่ตำบล</template>
+                    <template v-else> โปรดใส่ตำบล</template>
                   </div>
               </div>
               <!-- อำเภอ -->
@@ -359,7 +364,7 @@
                 />
                  <div class="error" v-if="$v.dis.$error">
                     <template v-if="!$v.dis.$invalid"> </template>
-                    <template v-else> ต้องใส่อำเภอ</template>
+                    <template v-else> โปรดใส่อำเภอ</template>
                   </div>
               </div>
               <!-- จังหวัด -->
@@ -375,7 +380,7 @@
                 />
                 <div class="error" v-if="$v.province.$error">
                     <template v-if="!$v.province.$invalid"> </template>
-                    <template v-else> ต้องใส่จังหวัด</template>
+                    <template v-else> โปรดใส่จังหวัด</template>
                   </div>
               </div>
               <!-- zip code -->
@@ -391,7 +396,7 @@
                 />
                 <div class="error" v-if="$v.postcode.$error">
                     <template v-if="!$v.postcode.$invalid"> </template>
-                    <template v-else> ต้องใส่รหัสไปรษณีย์</template>
+                    <template v-else> โปรดใส่รหัสไปรษณีย์</template>
                   </div>
               </div>
             </div>
@@ -419,7 +424,7 @@
               />
               <div class="error" v-if="$v.contactName.$error">
                 <template v-if="!$v.contactName.$invalid"> </template>
-                <template v-else> ต้องระบุชื่อ </template>
+                <template v-else> โปรดระบุชื่อ </template>
               </div>
             </div>
 
@@ -438,7 +443,8 @@
               />
               <div class="error" v-if="$v.contactNumber.$error">
                 <template v-if="!$v.contactNumber.$invalid"> </template>
-                <template v-else> เบอร์ผู้ติดต่อต้องมี10หลัก </template>
+                <template v-else-if="!$v.contactNumber.required"> โปรดใส่เบอร์ผู้ติดต่อ </template>
+                <template v-else-if="!$v.contactNumber.validFormat"> เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก </template>
               </div>
             </div>
 
@@ -457,7 +463,8 @@
               />
               <div class="error" v-if="$v.contactEmail.$error">
                 <template v-if="!$v.contactEmail.$invalid"> </template>
-                <template v-else> email error </template>
+                <template v-else-if="!$v.contactEmail.required"> โปรดใส่อีเมล </template>
+                <template v-else-if="!$v.contactEmail.email"> ใส่อีเมลให้ถูกต้อง </template>
               </div>
             </div>
           </div>
@@ -635,7 +642,7 @@ export default {
     },
     deletecus(id){
       console.log(id);
-        if(window.confirm("Do you want to delete this customer ?")){
+        if(window.confirm("คุณต้องการจะลบลูกค้าคนนี้ใช่หรือไม่ ?")){
             axios.delete(`http://localhost:5000/customer/${id}`) 
                 window.location.reload(false);    
         }
