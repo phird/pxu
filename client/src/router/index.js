@@ -60,12 +60,6 @@ let routes = [
 		component: () => import('../views/EditBank.vue'),
 	},
 	{
-		path: '/setting/createemployee',
-		name: 'เพิ่มพนักงาน',
-		layout: "dashboard",
-		component: () => import('../views/CreateEmployee.vue'),
-	},
-	{
 		path: '/archive',
 		name: 'อื่นๆ',
 		layout: "dashboard",
