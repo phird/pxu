@@ -116,7 +116,8 @@
       </div>
 
       <div class="submit-but-section">
-        <button class="submit-button" type="submit">บันทึกข้อมูล</button>
+        <button class="submit-button" type="submit" >บันทึกข้อมูล</button>
+        <button class="submit-button" type="delete" @click="deletebank(bID)">ลบ</button>
       </div>
     </form>
   </div>
@@ -220,7 +221,7 @@ export default {
           })
           .then(() => {
             alert("บันทึกข้อมูลสำเร็จ");
-            window.location.reload(false);
+            window.location.replace("http://localhost:8080/#/setting/bank"); 
           });
       }
     },
@@ -242,6 +243,12 @@ export default {
     changestatus() {
       this.status = "default";
     },
+    deletebank(bID){
+      if(window.confirm("Do you want to delete this bank ?")){
+            axios.delete(`http://localhost:5000/bank/${bID}`);
+            window.location.replace("http://localhost:8080/#/setting/bank");   
+        }
+    }
   },
 };
 </script>
