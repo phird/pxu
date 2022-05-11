@@ -123,9 +123,13 @@
             ตั้งค่าเว็บไซต์
           </span>
         </span>
-        <a-menu-item-group >
+        <a-menu-item-group>
           <a-menu-item key="setting:1">
             <router-link to="/setting/webSetting">
+              <span class="icon">
+                <b-icon icon="globe" style="color: blue; font-size: 24px">
+                </b-icon>
+              </span>
               <span
                 class="label menutext"
                 style="text-decoration: none; font-size: 16px"
@@ -134,8 +138,12 @@
               </span>
             </router-link>
           </a-menu-item>
-		  <a-menu-item key="setting:3">
+          <a-menu-item key="setting:3">
             <router-link to="/setting/employee">
+              <span class="icon">
+                <b-icon icon="people" style="color: blue; font-size: 24px">
+                </b-icon>
+              </span>
               <span
                 class="label menutext"
                 style="text-decoration: none; font-size: 16px"
@@ -147,6 +155,10 @@
 
           <a-menu-item key="setting:4">
             <router-link to="/setting/bank">
+              <span class="icon">
+                <b-icon icon="bank2" style="color: blue; font-size: 24px">
+                </b-icon>
+              </span>
               <span
                 class="label menutext"
                 style="text-decoration: none; font-size: 16px"
@@ -156,7 +168,6 @@
             </router-link>
           </a-menu-item>
         </a-menu-item-group>
-
       </a-sub-menu>
 
       <!-- 
@@ -262,27 +273,26 @@ export default {
   text-decoration: none !important;
   cursor: pointer;
 }
-.submenu-title-wrapper{
-	margin: 0;
-	margin-left: -9px;
+.submenu-title-wrapper {
+  margin: 0;
+  margin-left: -9px;
 }
-#phi >>> .ant-menu-item-group-title{
-	margin: 0;
-	font-weight: 500;
-	margin-left:-10px;
+#phi >>> .ant-menu-item-group-title {
+  margin: 0;
+  font-weight: 500;
+  margin-left: -10px;
 }
 
-#phi >>> .ant-menu-item-group-list{
-	
+#phi >>> .ant-menu-item-group-list {
 }
 
 #ph[data-v-e9978e80].ant-menu-item-group-list a {
-    text-decoration: none !important;
-    cursor: pointer;
-	padding-left: 20%;
+  text-decoration: none !important;
+  cursor: pointer;
+  padding-left: 20%;
 }
 
-#phi >>> .ant-menu-item .ant-menu-item-selected{
-	width: 100%;
+#phi >>> .ant-menu-item .ant-menu-item-selected {
+  width: 100%;
 }
 </style>
