@@ -440,8 +440,8 @@ export default {
     display: inline-block;
     overflow: hidden;
     margin: 10px;
-    max-height: 175px;
-    width: 100%;
+    max-height: 175px !important;
+    width: 100% !important;
     color: #fff;
     text-align: left;
     font-size: 16px;
@@ -454,9 +454,9 @@ export default {
   .snip1577 img {
     position: relative;
     z-index: 10;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
   }
   
   .snip1577 *,
