@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="whole-site">
     <div>
       <div class="title-modal">
         <p>CUSTOMER</p>
@@ -176,87 +176,86 @@
               ที่อยู่ผู้ติดต่อ
             </p>
             <!-- ที่อยู่ -->
-            <div class="field" id="addr-detail">
-              <label for="Address">บ้านเลขที่/ที่อยู่</label>
-              <input
-                id="Address"
-                type="text"
-                v-model="Address"
-                style="
-                  border: 1px solid rgb(211, 211, 211);
-                  opacity: 0.5;
-                  text-indent: 4%;
-                "
-                placeholder="บ้านเลขที่/ที่อยู่"
-              />
-              <div class="error" v-if="$v.Address.$error">
-                <template v-if="!$v.Address.$invalid"> </template>
-                <template v-else> โปรดใส่ที่อยู่ </template>
+            <div class="addr-detail-content">
+              <div class="addr-detail maxsize-input">
+                <label for="Address">ที่อยู่</label>
+                <input
+                  id="Address"
+                  class="inputbox"
+                  type="text"
+                  v-model="Address"
+                />
+                <div class="error" v-if="$v.Address.$error">
+                  <template v-if="!$v.Address.$invalid"> </template>
+                  <template v-else> โปรดใส่ที่อยู่ </template>
+                </div>
               </div>
-            </div>
-            <div class="addr-info-section">
+
               <!-- ตำบล -->
-              <div class="field" id="addr-box">
+              <div class="addr-detail" id="addr-box">
                 <label for="subdis">ตำบล</label>
                 <ThailandAutoComplete
-                  class="autocom-add"
                   v-model="subdis"
+                  class="autofilladdr"
                   id="subdis"
                   type="district"
                   @select="select"
                   placeholder="ตำบล..."
                 />
                 <div class="error" v-if="$v.subdis.$error">
-                    <template v-if="!$v.subdis.$invalid"> </template>
-                    <template v-else> โปรดใส่ตำบล</template>
-                  </div>
+                  <template v-if="!$v.subdis.$invalid"> </template>
+                  <template v-else> โปรดใส่ตำบล</template>
+                </div>
               </div>
               <!-- อำเภอ -->
-              <div class="field" id="addr-box">
+              <div class="addr-detail" id="addr-box">
                 <label for="dis">อำเภอ</label>
                 <ThailandAutoComplete
-                  class="autocom-add"
                   v-model="dis"
                   type="amphoe"
+                  class="autofilladdr"
+                  id="subdis"
                   @select="select"
                   placeholder="อำเภอ..."
                 />
-                 <div class="error" v-if="$v.dis.$error">
-                    <template v-if="!$v.dis.$invalid"> </template>
-                    <template v-else> โปรดใส่อำเภอ</template>
-                  </div>
+                <div class="error" v-if="$v.dis.$error">
+                  <template v-if="!$v.dis.$invalid"> </template>
+                  <template v-else> โปรดใส่อำเภอ</template>
+                </div>
               </div>
               <!-- จังหวัด -->
-              <div class="field" id="addr-box">
+              <div class="addr-detail" id="addr-box">
                 <label for="provice">จังหวัด</label>
                 <ThailandAutoComplete
-                  class="autocom-add"
                   v-model="province"
+                  class="autofilladdr"
                   type="province"
+                  id="subdis"
                   @select="select"
                   color="#35495e"
                   placeholder="จังหวัด..."
                 />
                 <div class="error" v-if="$v.province.$error">
-                    <template v-if="!$v.province.$invalid"> </template>
-                    <template v-else> โปรดใส่จังหวัด</template>
-                  </div>
+                  <template v-if="!$v.province.$invalid"> </template>
+                  <template v-else> โปรดใส่จังหวัด</template>
+                </div>
               </div>
               <!-- zip code -->
-              <div class="field" id="addr-box">
+              <div class="addr-detail" id="addr-box">
                 <label for="postcode">รหัสไปรษณีย์</label>
                 <ThailandAutoComplete
-                  class="autocom-add"
                   v-model="postcode"
                   type="zipcode"
+                  id="subddis"
+                  class="autofilladdr"
                   @select="select"
                   color="#00a4e4"
                   placeholder="รหัสไปรษณีย์..."
                 />
                 <div class="error" v-if="$v.postcode.$error">
-                    <template v-if="!$v.postcode.$invalid"> </template>
-                    <template v-else> โปรดใส่รหัสไปรษณีย์</template>
-                  </div>
+                  <template v-if="!$v.postcode.$invalid"> </template>
+                  <template v-else> โปรดใส่รหัสไปรษณีย์</template>
+                </div>
               </div>
             </div>
           </div>
@@ -509,6 +508,28 @@ export default {
 </script>
 
 <style scoped>
+.whole-site {
+  font-family: "Mitr", sans-serif;
+  padding: 2em;
+  background-color: white;
+  border-radius: 14px;
+  border: none;
+  margin-bottom: 2rem;
+  -webkit-box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  -webkit-transition: all 0.3s ease-in-out, background 0s, color 0s,
+    border-color 0s;
+  transition: all 0.3s ease-in-out, background 0s, color 0s, border-color 0s;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+}
 .pagebody {
   display: flex;
   flex-direction: column;
@@ -685,6 +706,49 @@ export default {
   width: 200%;
   opacity: 0.5;
   text-indent: 4%;
+}
+.addr-content-box {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 1em;
+}
+
+.addr-content-box input,
+.inputbox {
+  text-indent: 5%;
+  border-radius: 14px;
+  height: 45px;
+  border: 1px solid rgba(0, 0, 0, 0.123);
+}
+
+.addr-detail-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.addr-detail {
+  display: flex;
+  padding: 1em;
+  flex-direction: column;
+  width: 50%;
+}
+
+.maxsize-input {
+  display: flex;
+  padding: 1em;
+  flex-direction: column;
+  width: 100% !important;
+}
+
+.maxsize-input input {
+  text-indent: 3%;
+}
+
+.autofilladdr >>> .vth-addr-input-size-default[data-v-1f53c317] {
+  border-radius: 14px;
+  height: 45px;
 }
 
 @media only screen and (max-width: 991px) {
