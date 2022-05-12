@@ -63,6 +63,11 @@ import Summernote from "./Summernote.vue";
 import QuotatuinPage2 from "./CreateQuoP2.vue";
 import { FormWizard, TabContent } from "vue-step-wizard";
 import "vue-step-wizard/dist/vue-step-wizard.css";
+import moment from 'moment'
+
+
+const d = new Date("YYMM");
+
 export default {
   //component code
   name: "Quotation",
@@ -72,6 +77,9 @@ export default {
     Todo,
     Summernote,
     QuotatuinPage2,
+  },
+  created() {
+    setInterval( this.getdate , 1000);
   },
   data() {
     return {
@@ -88,12 +96,18 @@ export default {
       companyname: "",
       customerID: "",
       employeeID: "",
-      qID: "",
+      qID:"",
       dateq: "",
       status: "",
     };
   },
   methods: {
+    getdate(){
+      const today = new Date();
+      const to = moment(today).format("YY-MM-")
+      this.qID = 'QA'+to;
+    },
+
     updatesum(sumnote) {
       this.sumnote = sumnote;
     },

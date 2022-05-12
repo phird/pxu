@@ -21,10 +21,12 @@ import 'vue2-datepicker/index.css';
 Vue.component('b-tabs', BTabs)
 import { TabsPlugin } from 'bootstrap-vue'
 Vue.use(TabsPlugin)
+Vue.use('vue-moment');
 
 Vue.component('jw-pagination', JwPagination);
 
 Vue.use(Vuetify)
+
 
 
 

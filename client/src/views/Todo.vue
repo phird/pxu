@@ -25,7 +25,7 @@
         <div class="right-section-container">
           <div class="container-box">
             <div class="idQuotation hbox">
-              <span>เลขที่ </span> <span> QAYY-MM-XXX </span>
+              <span>เลขที่ </span> <span>{{ qID }}</span>
             </div>
             <div class="date-section hbox">
               <span>วันที่ </span>
