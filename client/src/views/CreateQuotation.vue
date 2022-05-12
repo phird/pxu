@@ -130,16 +130,16 @@ export default {
 }
 
 
-
-
-
 /* specific module change  */
+#ph[data-v-4f675eb4] .step-body{
+  background-color: white !important;
+}
 
 #ph >>> .progressbar{
     -webkit-transition:width 1s ease;
     transition:width 1s ease;
     }
-#ph >>> .vue-step-wizard{
+.vue-step-wizard{
     background-color:transparent !important;
     width:100% !important;
 }
@@ -186,11 +186,12 @@ export default {
 #ph >>> .step-pills .step-item.validated{
     border:1px solid #008011;
 }
-#ph >>> .step-body{
-    background-color:transparent !important; 
+.step-body{
+    background-color:white !important; 
     margin-left:auto;
     -webkit-box-shadow: none !important;
-    box-shadow:0 .5rem 1rem transparent!important;
+    padding: 2em;
+    box-shadow:0 !important;
 }
 #ph >>> .step-body,.step-footer{
     padding:1rem;
@@ -244,4 +245,5 @@ export default {
     background:rgba(0,0,0,.38) !important;
     border-radius: 10px !important;
     }
+
 </style>
