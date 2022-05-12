@@ -67,43 +67,50 @@
       <template slot="val" slot-scope="val">
         <a>{{ val }}</a>
       </template>
-      <template slot="act" slot-scope="quotationID">
-        <a-dropdown>
-          <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-three-dots-vertical"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
-              />
-            </svg>
-          </a>
-          <a-menu slot="overlay">
-            <a-menu-item>
-              <router-link
-                :to="`/Invoice/${quotationID}`"
-                style="text-decoration: none"
-              >
-                <a style="text-decoration: none">INVOICE</a>
-              </router-link>
-            </a-menu-item>
-
-            <a-menu-item>
-              <a
-                style="text-decoration: none"
-                @click="rescindingquo(quotationID)"
-              >
-                RESCINDING
+      <template slot="act" slot-scope="quotationID"> 
+		  <a-dropdown>
+              <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-three-dots-vertical"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                  />
+                </svg>
               </a>
-            </a-menu-item>
-          </a-menu>
-        </a-dropdown>
-      </template>
+	   <a-menu slot="overlay">
+                <a-menu-item>
+                  <router-link
+                    :to="`/Invoice/${quotationID}`"
+                    style="text-decoration: none"
+                  >
+                    <a style="text-decoration: none">INVOICE</a>
+                  </router-link>
+                </a-menu-item>
+				<a-menu-item>
+                  <a
+                    style="text-decoration: none"
+                    @click="contractedquo(quotationID)"
+                  >
+                    CONTRACTED
+                  </a>
+                </a-menu-item>
+                <a-menu-item>
+                  <a
+                    style="text-decoration: none"
+                    @click="rescindingquo(quotationID)"
+                  >
+                    RESCINDING
+                  </a>
+                </a-menu-item>
+              </a-menu>
+			   </a-dropdown>
+		</template>
     </a-table>
   </a-card>
   <!-- / Projects Table Column -->
@@ -198,6 +205,14 @@ export default {
         });
         window.location.reload(false);
       }
+    },
+	contractedquo(id) {
+      console.log(id);
+
+        axios.put(`http://localhost:5000/quotation/${id}`,{
+			quostatus:'Contracted',
+	  });
+        window.location.reload(false);
     },
   },
 };
