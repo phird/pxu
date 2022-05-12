@@ -13,6 +13,16 @@ router.get('/', (req, res) => {
 
 });
 
+router.get('/companyName', (req, res) => {
+
+    const sqlSelect = "SELECT companyName FROM website"
+    db.query(sqlSelect, (err, result) => {
+        // console.log(result);
+        res.send(result);
+    })
+
+});
+
 router.post('/', (req, res) => {
 
     const websiteName = req.body.websiteName;

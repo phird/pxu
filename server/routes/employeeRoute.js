@@ -13,6 +13,16 @@ router.get('/', (req, res)=> {
     
 });
 
+router.get('/name', (req, res)=> {
+
+    const sqlSelect = "SELECT employeeName,employeeID,employeeNumber FROM employee order by status DESC,employeeID DESC"
+    db.query(sqlSelect, (err, result) => {
+        // console.log(result);
+        res.send(result);
+    })
+    
+});
+
 router.delete('/:id', (req, res) => {
     const id = req.params.id;
     const sqlDelete = "DELETE FROM employee WHERE employeeID=?";

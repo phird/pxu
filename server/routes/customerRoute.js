@@ -11,6 +11,14 @@ router.get('/', (req, res)=> {
     }) 
 });
 
+router.get('/name', (req, res)=> {
+    const sqlSelect = "SELECT customerID,companyName FROM customer order by customerID DESC"
+    db.query(sqlSelect, (err, result) => {
+        // console.log(result);
+        res.send(result);
+    }) 
+});
+
 router.post('/', (req, res) => {
     const companyName = req.body.companyName
     const companyNumber= req.body.companyNumber

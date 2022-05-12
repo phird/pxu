@@ -9,16 +9,14 @@
       <div class="header-left-section">
         <div class="project-name">
           <span for="customer-select"> ชื่อโปรเจก: </span>
-          <input class="project-name-input" type="text" />
+          <input v-model="quoname" class="project-name-input" type="text" @change="authqn()" />
         </div>
 
         <div class="select-left-section">
           <span for="customer-select"> ลูกค้า: </span>
-          <a-select id="customer-select" default-value="" style="width: 120px">
+          <a-select id="customer-select" v-model="customerID" style="width: 120px" @change="authc()">
             <a-select-option value="" disable> เลือกลูกค้า </a-select-option>
-            <a-select-option value="jack"> Jack </a-select-option>
-            <a-select-option value="lucy"> Lucy </a-select-option>
-            <a-select-option value="Yiminghe"> yiminghe </a-select-option>
+            <a-select-option v-for="(cus) in customer" :key="cus.customerID" :value="cus.customerID"> {{cus.companyName}} </a-select-option>
           </a-select>
         </div>
       </div>
@@ -32,7 +30,7 @@
             <div class="date-section hbox">
               <span>วันที่ </span>
               <span
-                ><date-picker v-model="time1" valueType="format"></date-picker>
+                ><date-picker v-model="dateq" valueType="format"></date-picker>
               </span>
             </div>
             <div class="seller-name hbox">
@@ -40,19 +38,14 @@
               <span>
                 <a-select
                   id="customer-select"
-                  default-value=""
+                  v-model="employeeID"
+                  @change="authem()"
                   style="width: 120px"
                 >
-                  <a-select-option value="" disable> คนขาย </a-select-option>
-                  <a-select-option value="jack"> Jack </a-select-option>
-                  <a-select-option value="lucy"> Lucy </a-select-option>
-                  <a-select-option value="Yiminghe"> yiminghe </a-select-option>
+                  <a-select-option value="" disable> เลือกพนักงานขาย </a-select-option>
+                  <a-select-option v-for="(cus) in employee" :key="cus.employeeID" :value="cus.employeeID"> {{cus.employeeName}} </a-select-option>
                 </a-select>
               </span>
-            </div>
-            <div class="seller-tel hbox">
-              <span>เบอร์ </span>
-              <span> 087-5458849 </span>
             </div>
           </div>
         </div>
@@ -301,9 +294,10 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "ToDo",
-  props: ["todos", "sumtodo"],
+  props: ["todos", "sumtodo","quoname","customerID","employeeID","qID","dateq"],
   data() {
     return {
       //   statusvat:'1',
@@ -311,7 +305,6 @@ export default {
       //   total: 0,
       //   vat7: 0,
       //   payment: 0,
-      time1: null,
       newprice: 0,
       newquantity: 1,
       newTodo: "",
@@ -325,9 +318,29 @@ export default {
       vat7: this.sumtodo.vat7,
       payment: this.sumtodo.payment,
       //   todos: [],
+      customer:[],
+      //
+      employee:[],
+
     };
   },
+  created(){
+    this.getcus();
+    this.getem();
+  },
   methods: {
+    authqn(){
+      let mytext = this.quoname;
+      this.$emit("update-qn", mytext);
+    },
+    authem(){
+      let mytext = this.employeeID;
+      this.$emit("update-em", mytext);
+    },
+    authc(){
+      let mytext = this.customerID;
+      this.$emit("update-cid", mytext);
+    },
     auth() {
       this.sumtodo.statusvat = this.statusvat;
       this.sumtodo.totalnow = this.totalnow;
@@ -414,6 +427,27 @@ export default {
       this.todos[index + 1].quantity = this.tempquantityTodo;
       this.todos[index + 1].price = this.temppriceTodo;
     },
+   async getcus() {
+      console.log("get-cus");
+      try {
+        const response = await axios.get("http://localhost:5000/customer/name");
+        this.customer = response.data;
+        console.log(this.customer);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getem() {
+      console.log("get-em");
+      try {
+        const response = await axios.get("http://localhost:5000/employee/name");
+        this.employee = response.data;
+        console.log(this.employee);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    
   },
 };
 </script>
