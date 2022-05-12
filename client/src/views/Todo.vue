@@ -7,8 +7,6 @@
     ================================================================== -->
     <div class="header">
       <div class="header-left-section">
-
-
         <div class="project-name">
           <span for="customer-select"> ชื่อโปรเจก: </span>
           <input class="project-name-input" type="text" />
@@ -116,13 +114,16 @@
               />
             </td>
             <td class="cbox">
-              <button
-                type="submit"
-                class="submit-btn"
-                @click="addTodo(), calc(statusvat)"
-              >
-                + Add
-              </button>
+              <a-tooltip>
+                <template slot="title"> เพิ่มรายละเอียด </template>
+                <button
+                  type="submit"
+                  class="submit-btn"
+                  @click="addTodo(), calc(statusvat)"
+                >
+                  + Add
+                </button>
+              </a-tooltip>
             </td>
           </tr>
           <tr
@@ -133,9 +134,9 @@
             <!-- /card-todo-container -->
             <div class="card-todo-container">
               <td class="text-start cbox" style="width: 20%">
-                <h8>
+                <span>
                   {{ todo.name }}
-                </h8>
+                </span>
               </td>
 
               <td class="cbox">
@@ -209,10 +210,34 @@
             <a-tabs default-active-key="1">
               <a-tab-pane key="1" tab="ชำระเต็มจำนวน"> </a-tab-pane>
               <a-tab-pane key="2" tab="ผ่อนจ่าย 2 งวด" force-render>
-                ผ่อนจ่าย 2 งวด
+                <div>
+                  <div class="two-installment">
+                    <div>
+                      <label for="installment1"> งวดที่ 1</label>
+                      <input id="installment1" type="text" />
+                    </div>
+                    <div>
+                      <label for="installment2"> งวดที่ 2</label>
+                      <input id="installment2" type="text" />
+                    </div>
+                  </div>
+                </div>
               </a-tab-pane>
               <a-tab-pane key="3" tab="ผ่อนจ่าย 3 งวด">
-                ผ่อนจ่าย 3 งวด
+                <div class="three-installment">
+                  <div>
+                    <label for="installment1"> งวดที่ 1</label>
+                    <input id="installment1" type="text" />
+                  </div>
+                  <div>
+                    <label for="installment2"> งวดที่ 2</label>
+                    <input id="installment2" type="text" />
+                  </div>
+                  <div>
+                    <label for="installment3"> งวดที่ 3</label>
+                    <input id="installment3" type="text" />
+                  </div>
+                </div>
               </a-tab-pane>
             </a-tabs>
           </div>
@@ -390,7 +415,7 @@ export default {
   padding: 2em;
 }
 
-.project-name-input{
+.project-name-input {
   height: 35px;
   border: 1px solid rgba(151, 148, 148, 0.459);
   border-radius: 14px;
@@ -572,6 +597,21 @@ sum payment
   width: 100%;
 }
 
+.two-installment {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+.two-installment #installment1 {
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 14px;
+}
+.two-installment #installment2 {
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 14px;
+}
 .sum-payment-right-section {
   display: flex;
   width: 50%;

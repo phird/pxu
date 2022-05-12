@@ -45,10 +45,13 @@
               "
             >
               <div class="table-upload-btn" style="color:white">
+                <a-tooltip>
+              <template slot="title"> เพิ่มลูกค้า </template>
                 <a-button type="primary" @click="showModal">
                   <b-icon icon="plus-square-dotted"></b-icon>
                   Create Customer
                 </a-button>
+                </a-tooltip>
               </div>
             </a-col>
           </a-row>

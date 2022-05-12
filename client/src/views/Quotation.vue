@@ -17,7 +17,9 @@
         >
           <div class="table-upload-btn">
             <router-link to="/Quotations/CreateQuotation">
-              <a-button type="primary">
+            <a-tooltip>
+              <template slot="title"> สร้างใบเสนอราคา </template>
+              <a-button type="primary" style="color: white">
                 <svg
                   width="16"
                   height="16"
@@ -32,8 +34,13 @@
                     fill="#111827"
                   />
                 </svg>
-                Create Quotation
+                <span>
+                  
+                    Create Quotation
+                  
+                </span>
               </a-button>
+              </a-tooltip>
             </router-link>
           </div>
         </a-col>
@@ -54,49 +61,49 @@
       <template slot="status" slot-scope="status">
         <a>{{ status }}</a>
       </template>
-	  <template slot="statusw" slot-scope="statusw">
+      <template slot="statusw" slot-scope="statusw">
         <a>{{ statusw }}</a>
       </template>
       <template slot="val" slot-scope="val">
         <a>{{ val }}</a>
       </template>
-      <template slot="act" slot-scope="quotationID"> 
-		  <a-dropdown>
-              <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-three-dots-vertical"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
-                  />
-                </svg>
-              </a>
-	   <a-menu slot="overlay">
-                <a-menu-item>
-                  <router-link
-                    :to="`/Invoice/${quotationID}`"
-                    style="text-decoration: none"
-                  >
-                    <a style="text-decoration: none">INVOICE</a>
-                  </router-link>
-                </a-menu-item>
+      <template slot="act" slot-scope="quotationID">
+        <a-dropdown>
+          <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-three-dots-vertical"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+              />
+            </svg>
+          </a>
+          <a-menu slot="overlay">
+            <a-menu-item>
+              <router-link
+                :to="`/Invoice/${quotationID}`"
+                style="text-decoration: none"
+              >
+                <a style="text-decoration: none">INVOICE</a>
+              </router-link>
+            </a-menu-item>
 
-                <a-menu-item>
-                  <a
-                    style="text-decoration: none"
-                    @click="rescindingquo(quotationID)"
-                  >
-                    RESCINDING
-                  </a>
-                </a-menu-item>
-              </a-menu>
-			   </a-dropdown>
-		</template>
+            <a-menu-item>
+              <a
+                style="text-decoration: none"
+                @click="rescindingquo(quotationID)"
+              >
+                RESCINDING
+              </a>
+            </a-menu-item>
+          </a-menu>
+        </a-dropdown>
+      </template>
     </a-table>
   </a-card>
   <!-- / Projects Table Column -->
@@ -144,7 +151,7 @@ export default {
           dataIndex: "statusquotation",
           scopedSlots: { customRender: "status" },
         },
-		{
+        {
           title: "W-STATUS",
           dataIndex: "statuswork",
           scopedSlots: { customRender: "statusw" },
@@ -156,7 +163,7 @@ export default {
         },
         {
           title: "Action",
-		  dataIndex:"quotationID",
+          dataIndex: "quotationID",
           scopedSlots: { customRender: "act" },
         },
       ],
@@ -183,12 +190,12 @@ export default {
         console.log(err);
       }
     },
-	rescindingquo(id) {
+    rescindingquo(id) {
       console.log(id);
       if (window.confirm("คุณต้องการจะลบลูกค้าคนนี้ใช่หรือไม่ ?")) {
-        axios.put(`http://localhost:5000/quotation/${id}`,{
-			quostatus:'Rescinding',
-	  });
+        axios.put(`http://localhost:5000/quotation/${id}`, {
+          quostatus: "Rescinding",
+        });
         window.location.reload(false);
       }
     },
@@ -200,5 +207,12 @@ export default {
 <style scoped>
 .header-solid {
   font-family: "Mitr", sans-serif;
+}
+.ant-card-body {
+  padding: 2em;
+}
+
+.quotation-table .ant-table-wrapper {
+  padding: 2em;
 }
 </style>
