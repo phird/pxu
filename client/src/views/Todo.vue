@@ -214,11 +214,19 @@
                   <div class="two-installment">
                     <div>
                       <label for="installment1"> งวดที่ 1</label>
-                      <input id="installment1" type="text" />
+                      <input
+                        class="intstallment_input"
+                        id="installment1"
+                        type="text"
+                      />
                     </div>
                     <div>
                       <label for="installment2"> งวดที่ 2</label>
-                      <input id="installment2" type="text" />
+                      <input
+                        class="intstallment_input"
+                        id="installment2"
+                        type="text"
+                      />
                     </div>
                   </div>
                 </div>
@@ -227,15 +235,27 @@
                 <div class="three-installment">
                   <div>
                     <label for="installment1"> งวดที่ 1</label>
-                    <input id="installment1" type="text" />
+                    <input
+                      class="intstallment_input"
+                      id="installment1"
+                      type="text"
+                    />
                   </div>
                   <div>
                     <label for="installment2"> งวดที่ 2</label>
-                    <input id="installment2" type="text" />
+                    <input
+                      class="intstallment_input"
+                      id="installment2"
+                      type="text"
+                    />
                   </div>
                   <div>
                     <label for="installment3"> งวดที่ 3</label>
-                    <input id="installment3" type="text" />
+                    <input
+                      class="intstallment_input"
+                      id="installment3"
+                      type="text"
+                    />
                   </div>
                 </div>
               </a-tab-pane>
@@ -598,20 +618,32 @@ sum payment
 }
 
 .two-installment {
+  width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 1em;
 }
-.two-installment #installment1 {
+.two-installment input{
+  margin-left: 1em;
+}
+
+.three-installment {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.three-installment input{
+ margin-left: 1em;
+}
+
+
+.intstallment_input {
   height: 30px;
-  border: 1px solid black;
+  border: 1px solid rgba(97, 95, 95, 0.377);
   border-radius: 14px;
 }
-.two-installment #installment2 {
-  height: 30px;
-  border: 1px solid black;
-  border-radius: 14px;
-}
+
 .sum-payment-right-section {
   display: flex;
   width: 50%;
