@@ -553,7 +553,6 @@ select {
   width: 100%;
   margin-top: 3em;
   flex-direction: row;
-  gap: 2em;
   margin-left: 80%;
 }
 .submit-but-section div {
@@ -572,6 +571,12 @@ select {
   display: flex;
   width: 100%;
 }
+.delete-section{
+  display: flex;
+  width: 100%;
+  height: 80px;
+
+}
 .delete-button {
   background-color: #5f0724;
   position: absolute;
@@ -580,11 +585,10 @@ select {
   color: white;
   border-radius: 8px;
   border: 0;
-  margin-left: auto;
+  margin-left: 0;
   margin-right: auto;
-  z-index: 10;
-  bottom: 33px;
-  left: 7%;
+  bottom: 113px;
+  left: 100px;
 }
 /* /modal css  */
 
@@ -593,7 +597,6 @@ select {
     font-family: "Mitr", sans-serif;
     width: 100vw;
   }
-
   .ant-layout-content {
     display: flex;
     flex-direction: column;
@@ -624,7 +627,7 @@ select {
     align-items: center;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
   }
   .delete-section{
     width: 100%;
@@ -633,10 +636,11 @@ select {
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
-    
   }
+
   .delete-button {
   background-color: #5f0724;
+  position: relative;
   height: 36px;
   width: 164px;
   color: white;
@@ -645,6 +649,8 @@ select {
   margin-left: auto;
   margin-right: auto;
   align-items: center;
+  bottom: 0px;
+  left: 0;
 }
 }
 </style>

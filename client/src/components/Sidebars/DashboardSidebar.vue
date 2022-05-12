@@ -20,7 +20,7 @@
     <div class="brand">
       <img :src="`http://localhost:5000/logo/logo.png`" alt="" />
       <!-- <img :src="`images/${logo}`" alt=""> -->
-      <span>{{ name }}</span>
+      <span style="font-size:36px; margin-left:auto; margin-right:auto;">{{ name }}</span>
     </div>
     <hr />
 
@@ -294,5 +294,11 @@ export default {
 
 #phi >>> .ant-menu-item .ant-menu-item-selected {
   width: 100%;
+}
+.layout-dashboard .ant-layout-sider.sider-primary .brand img {
+    display: flex;
+    height: 150px;
+    margin-left: -50px;
+    margin-right: auto;
 }
 </style>
