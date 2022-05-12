@@ -230,4 +230,5 @@ export default {
 .quotation-table .ant-table-wrapper {
   padding: 2em;
 }
+
 </style>

@@ -20,9 +20,7 @@
         <tab-content title="ข้อมูลเพิ่มเติม*">
           <div class="form-group">
             <div class="set-Default">
-              <a-checkbox v-model="status" true-value="default" false-value="-">
-                Set Default
-              </a-checkbox>
+              <quotatuin-page-2/>
             </div>
           </div>
         </tab-content>
@@ -62,6 +60,7 @@
 <script>
 import Todo from "./Todo.vue";
 import Summernote from "./Summernote.vue";
+import QuotatuinPage2 from "./CreateQuoP2.vue";
 import { FormWizard, TabContent } from "vue-step-wizard";
 import "vue-step-wizard/dist/vue-step-wizard.css";
 export default {
@@ -72,6 +71,7 @@ export default {
     TabContent,
     Todo,
     Summernote,
+    QuotatuinPage2,
   },
   data() {
     return {
@@ -258,5 +258,21 @@ export default {
   text-align: center !important;
   background: rgba(0, 0, 0, 0.38) !important;
   border-radius: 10px !important;
+}
+#ph[data-v-4f675eb4] >>> .step-button-next {
+  font-weight: 500;
+  background-color: #7367f0;
+}
+#ph[data-v-4f675eb4] >>> .step-button-previous {
+  background-color: white;
+  border: 1px solid #7367f0;
+  color: #7367f0;
+  font-weight: 500;
+}
+
+#ph >>> .step-footer .btn-group{
+  width: 100%;
+  justify-content: center;
+  
 }
 </style>
