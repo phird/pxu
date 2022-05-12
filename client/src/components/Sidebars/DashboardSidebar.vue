@@ -18,9 +18,15 @@
     :style="{ backgroundColor: 'transparent' }"
   >
     <div class="brand">
-      <img :src="`http://localhost:5000/logo/logo.png`" alt="" />
+      <div class="brand-pic">
+        <img :src="`http://localhost:5000/logo/logo.png`" alt="" />
+      </div>
+      <div class="brand-name">
+        <span style="font-size: 36px; margin-left: auto; margin-right: auto">
+          {{name}}
+        </span>
+      </div>
       <!-- <img :src="`images/${logo}`" alt=""> -->
-      <span style="font-size:36px; margin-left:auto; margin-right:auto;">{{ name }}</span>
     </div>
     <hr />
 
@@ -295,10 +301,30 @@ export default {
 #phi >>> .ant-menu-item .ant-menu-item-selected {
   width: 100%;
 }
+.brand {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.brand-pic{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  background-color: white;
+  border-radius: 14px;
+}
+.brand-pic img{
+  object-fit: cover;
+  width: 100%;
+  border-radius: 14px;
+}
+.brand-name{
+  text-align: center;
+}
+
 .layout-dashboard .ant-layout-sider.sider-primary .brand img {
-    display: flex;
-    height: 150px;
-    margin-left: -50px;
-    margin-right: auto;
+    height: 150px; 
 }
 </style>

@@ -44,7 +44,7 @@
                 justify-content: flex-end;
               "
             >
-              <div class="table-upload-btn">
+              <div class="table-upload-btn" style="color:white">
                 <a-button type="primary" @click="showModal">
                   <b-icon icon="plus-square-dotted"></b-icon>
                   Create Customer

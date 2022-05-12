@@ -44,9 +44,9 @@
                   <b-icon icon="paperclip"></b-icon>
                 </div>
                 <div class="file-name">
-                  <label for="uploadlogo" style="margin-top: 14%">{{
-                    this.filelogo.name
-                  }}</label>
+                  <label for="uploadlogo">
+                    <p style="margin-top: 10px;">{{this.filelogo.name}}</p>
+                  </label>
                 </div>
                 <div class="upload-butt" style="margin-top: 1%">
                   <label for="uploadlogo"
@@ -484,7 +484,8 @@ export default {
 }
 
 .file-name {
-  height: 100%;
+  display: table;
+  margin: 0 auto;
 }
 
 .field {
