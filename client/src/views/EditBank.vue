@@ -123,10 +123,10 @@
             </div>
 
             <div>
-              <a-checkbox v-if="status == 'default'" checked>
+              <a-checkbox v-if="statustest == 'default'" checked>
                 Set Default
               </a-checkbox>
-              <a-checkbox v-else true-value="default" false-value="-">
+              <a-checkbox v-else v-model="checked" @change="checkstatus()">
                 Set Default
               </a-checkbox>
             </div>
@@ -167,6 +167,8 @@ export default {
       bankAccount: "",
       accountName: null,
       status: "-",
+      checked:false,
+      statustest: "",
       bank: [],
       imageName: "default.png",
     };
@@ -194,6 +196,13 @@ export default {
     this.getbank(this.bID);
   },
   methods: {
+    checkstatus() {
+      if(this.checked){
+        this.status='default';
+      }else{
+        this.status='-';
+      }
+    },
     checkname() {
       if (this.bankNameau !== "อื่นๆ") {
         this.bankName = this.bankNameau;
@@ -259,8 +268,11 @@ export default {
         this.bankNameau = this.bankName;
         this.bankAccount = response.data[0].bankAccount;
         this.accountName = response.data[0].accountName;
-        this.status = response.data[0].status;
+        this.statustest = response.data[0].status;
         this.imageName = response.data[0].img;
+        if(this.statustest=='default'){
+          this.status=this.statustest;
+        }
       } catch (err) {
         console.log(err);
       }

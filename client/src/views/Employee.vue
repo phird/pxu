@@ -191,7 +191,7 @@
           </div>
 
           <div class="set-Default">
-            <a-checkbox true-value="default" false-value="-">
+            <a-checkbox v-model="checked" @change="checkstatus()">
               Set Default
             </a-checkbox>
           </div>
@@ -286,6 +286,7 @@ export default {
       projectHeaderBtns: "all",
       employee: [],
       visible: false,
+      checked:false,
       status: "-",
       role: "ผู้ดูแล",
       employeeName: "",
@@ -314,6 +315,13 @@ export default {
     // },
   },
   methods: {
+    checkstatus() {
+      if(this.checked){
+        this.status='default';
+      }else{
+        this.status='-';
+      }
+    },
     async submitForm() {
       this.$v.$touch();
       if (this.$v.$invalid) {

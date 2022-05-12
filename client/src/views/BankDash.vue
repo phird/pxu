@@ -224,9 +224,8 @@
 
                 <div>
                   <a-checkbox
-                    v-model="status"
-                    true-value="default"
-                    false-value="-"
+                    v-model="checked"
+                    @change="checkstatus()"
                   >
                     Set Default
                   </a-checkbox>
@@ -269,6 +268,7 @@ export default {
       bankName: "",
       bankAccount: "",
       accountName: null,
+      checked:false,
       status: "-",
       bank: [],
       visible: false,
@@ -299,7 +299,13 @@ export default {
     // },
   },
   methods: {
-    changeTab() {},
+    checkstatus() {
+      if(this.checked){
+        this.status='default';
+      }else{
+        this.status='-';
+      }
+    },
     checkname() {
       if (this.bankNameau !== "อื่นๆ") {
         this.bankName = this.bankNameau;

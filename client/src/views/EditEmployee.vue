@@ -73,10 +73,10 @@
       </div>
 
       <div class="set-Default">
-        <a-checkbox v-if="status == 'default'" checked>
+        <a-checkbox v-if="statustest == 'default'" checked>
           Set Default
         </a-checkbox>
-        <a-checkbox v-else true-value="default" false-value="-">
+        <a-checkbox v-else v-model="checked" @change="checkstatus()">
           Set Default
         </a-checkbox>
       </div>
@@ -104,8 +104,10 @@ export default {
     return {
       empid: "",
       employee: [],
-      status: "",
+      status: "-",
+      statustest:'',
       role: "",
+      checked:false,
       employeeName: "",
       employeeNumber: "",
       employeeEmail: null,
@@ -134,6 +136,13 @@ export default {
     this.getemployee(this.empid);
   },
   methods: {
+    checkstatus() {
+      if(this.checked){
+        this.status='default';
+      }else{
+        this.status='-';
+      }
+    },
     handleClose() {
       this.visible = false;
     },
@@ -162,12 +171,14 @@ export default {
           `http://localhost:5000/employee/${empid}`
         );
         this.employee = response.data[0];
-        // console.log(this.customer);
         this.role = this.employee.role;
-        this.status = this.employee.status;
+        this.statustest = this.employee.status;
         this.employeeName = this.employee.employeeName;
         this.employeeNumber = this.employee.employeeNumber;
         this.employeeEmail = this.employee.employeeEmail;
+        if(this.statustest=='default'){
+          this.status=this.statustest;
+        }
       } catch (err) {
         console.log(err);
         window.location.reload(false);
