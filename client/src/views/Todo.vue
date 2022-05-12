@@ -7,6 +7,13 @@
     ================================================================== -->
     <div class="header">
       <div class="header-left-section">
+
+
+        <div class="project-name">
+          <span for="customer-select"> ชื่อโปรเจก: </span>
+          <input class="project-name-input" type="text" />
+        </div>
+
         <div class="select-left-section">
           <span for="customer-select"> ลูกค้า: </span>
           <a-select id="customer-select" default-value="" style="width: 120px">
@@ -200,9 +207,7 @@
           <span> รูปแบบการชำระเงิน </span>
           <div class="installment-box-sl">
             <a-tabs default-active-key="1">
-              <a-tab-pane key="1" tab="ชำระเต็มจำนวน">
-                
-              </a-tab-pane>
+              <a-tab-pane key="1" tab="ชำระเต็มจำนวน"> </a-tab-pane>
               <a-tab-pane key="2" tab="ผ่อนจ่าย 2 งวด" force-render>
                 ผ่อนจ่าย 2 งวด
               </a-tab-pane>
@@ -239,7 +244,7 @@
     <div class="note-section">
       <div class="note-container">
         <span>หมายเหตุ </span>
-        <input class="note-box" type="text">
+        <input class="note-box" type="text" />
       </div>
     </div>
 
@@ -380,9 +385,17 @@ export default {
 .header-left-section {
   width: 50%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 2em;
   padding: 2em;
 }
+
+.project-name-input{
+  height: 35px;
+  border: 1px solid rgba(151, 148, 148, 0.459);
+  border-radius: 14px;
+}
+
 #customer-select >>> .ant-select-selection--single {
   height: 40px;
   border-radius: 14px;
@@ -552,10 +565,10 @@ sum payment
   display: flex;
   width: 50%;
 }
-.installment-box{
+.installment-box {
   width: 100%;
 }
-.installment-box-sl{
+.installment-box-sl {
   width: 100%;
 }
 
@@ -569,22 +582,19 @@ sum payment
 /sum payment
 ========================================== */
 
-
 /* ==========================================
 note section
 ========================================== */
-  .note-section{
-    padding: 2em;
-  }
+.note-section {
+  padding: 2em;
+}
 
-  .note-box{
-    width: 100%;
-    height: 100px;
-    border: 1px solid rgba(129, 128, 128, 0.486);
-    text-indent: 3%;
-  }
-
-
+.note-box {
+  width: 100%;
+  height: 100px;
+  border: 1px solid rgba(129, 128, 128, 0.486);
+  text-indent: 3%;
+}
 
 /* ==========================================
 end note section
