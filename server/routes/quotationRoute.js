@@ -15,6 +15,17 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/res', (req, res) => {
+    const sqlQuotation = "SELECT * FROM quotation WHERE statusquotation = 'Rescinding' order by quotationID DESC";
+
+    db.query(sqlQuotation, (err, sqlQuotationRe) => {
+        console.log(err);
+        if (err) throw err;
+        // console.log(sqlQuotationRe);
+        res.send(sqlQuotationRe);
+    })
+})
+
 router.post('/', (req, res) => {
     const qID = req.body.qID;
     const cID = req.body.cID;
