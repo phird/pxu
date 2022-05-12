@@ -85,7 +85,14 @@
                     <a style="text-decoration: none">INVOICE</a>
                   </router-link>
                 </a-menu-item>
-
+				<a-menu-item>
+                  <a
+                    style="text-decoration: none"
+                    @click="contractedquo(quotationID)"
+                  >
+                    CONTRACTED
+                  </a>
+                </a-menu-item>
                 <a-menu-item>
                   <a
                     style="text-decoration: none"
@@ -191,6 +198,14 @@ export default {
 	  });
         window.location.reload(false);
       }
+    },
+	contractedquo(id) {
+      console.log(id);
+
+        axios.put(`http://localhost:5000/quotation/${id}`,{
+			quostatus:'Contracted',
+	  });
+        window.location.reload(false);
     },
   },
 };

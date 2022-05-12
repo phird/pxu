@@ -133,9 +133,9 @@
             <!-- /card-todo-container -->
             <div class="card-todo-container">
               <td class="text-start cbox" style="width: 20%">
-                <h8>
+                <span>
                   {{ todo.name }}
-                </h8>
+                </span>
               </td>
 
               <td class="cbox">

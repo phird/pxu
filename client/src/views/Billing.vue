@@ -89,9 +89,9 @@
                 <a-menu-item>
                   <a
                     style="text-decoration: none"
-                    @click="rescindingquo(quotationID)"
+                    @click="deletequo(quotationID)"
                   >
-                    RESCINDING
+                    DELETE
                   </a>
                 </a-menu-item>
               </a-menu>
@@ -183,12 +183,10 @@ export default {
         console.log(err);
       }
     },
-	rescindingquo(id) {
+	deletequo(id) {
       console.log(id);
       if (window.confirm("คุณต้องการจะลบลูกค้าคนนี้ใช่หรือไม่ ?")) {
-        axios.put(`http://localhost:5000/quotation/${id}`,{
-			quostatus:'Rescinding',
-	  });
+        axios.delete(`http://localhost:5000/quotation/${id}`);
         window.location.reload(false);
       }
     },
