@@ -5,7 +5,7 @@ import db from "../config/database.js";
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    const sqlQuotation = "SELECT * FROM quotation order by quotationID DESC";
+    const sqlQuotation = "SELECT * FROM quotation WHERE statusquotation != 'Rescinding' order by quotationID DESC";
 
     db.query(sqlQuotation, (err, sqlQuotationRe) => {
         console.log(err);
@@ -66,6 +66,23 @@ router.post('/', (req, res) => {
             res.send(sqlQuotationRe);
         })
 })
+
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    const sqlDelete = "DELETE FROM quotation WHERE quotationID=?";
+    db.query(sqlDelete, [id], (err, result) => {
+        console.log(err);
+    })
+});
+
+router.put('/:id', (req, res) => {
+    const id = req.params.id;
+    const qstatus = req.body.quostatus;
+    const sqlDelete = "UPDATE quotation SET statusquotation=? WHERE quotationID=?";
+    db.query(sqlDelete, [qstatus,id], (err, result) => {
+        console.log(err);
+    })
+});
 // router.get('/:id', (req, res) => {
 //     const qID = req.params.id;
 //     const sqlQuotation = "SELECT * FROM quotation as q , work as w  WHERE q.workID = w.workID AND q.quotationID = ? ";
