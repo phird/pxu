@@ -256,7 +256,7 @@ export default {
           })
           .then(() => {
             alert("บันทึกข้อมูลสำเร็จ");
-            window.location.replace("http://localhost:8080/#/setting/bank");
+            history.back();
           });
       }
     },
@@ -280,7 +280,7 @@ export default {
     deletebank(bID) {
       if (window.confirm("คุณต้องการลบธนาคารนี้ใช่หรือไม่ ?")) {
         axios.delete(`http://localhost:5000/bank/${bID}`);
-        window.location.replace("http://localhost:8080/#/setting/bank");
+        history.back();
       }
     },
   },

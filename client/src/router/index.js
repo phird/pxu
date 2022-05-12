@@ -30,6 +30,12 @@ let routes = [
 		component: () => import('../views/Quotation.vue'),
 	},
 	{
+		path: '/Invoice/:id',
+		name: 'ใบวางบิล',
+		layout: "dashboard",
+		component: () => import('../views/Invoice.vue'),
+	},
+	{
 		path: '/Quotations/CreateQuotation',
 		name: 'สร้างใบเสนอราคา',
 		layout: "dashboard",
