@@ -14,21 +14,19 @@
 
             <tab-content title="ข้อมูลเพิ่มเติม*">
               <div class="form-group">
-                <summernote 
-                :sumnote="sumnote" @update-text="update"/>
+                <div class="set-Default">
+            <a-checkbox v-model="status"
+  true-value="default"
+  false-value="-"> Set Default </a-checkbox>
+          </div>
               </div>
             </tab-content>
 
 
             <tab-content title="เพิ่มขอบเขตงาน">
               <div class="form-group">
-                <label for="referral">From Where did you hear about us</label>
-                <select class="form-control" v-model="referral">
-                  <option>Newspaper</option>
-                  <option>Online Ad</option>
-                  <option>Friend</option>
-                  <option>Other</option>
-                </select>
+               <summernote 
+                :sumnote="sumnote" @update-text="update"/>
               </div>
             </tab-content>
         </form-wizard>
@@ -88,7 +86,7 @@ export default {
       sumnote: '',
       fullName: "",
       companyName: "",
-      referral: "",
+      status: '',
     };
   },
   methods: {

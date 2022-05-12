@@ -25,7 +25,7 @@
               justify-content: flex-end;
             "
           >
-            <div class="table-upload-btn" style="color: white;">
+            <div class="table-upload-btn" style="color: white">
               <a-button type="primary" @click="showModal">
                 <svg
                   width="16"
@@ -77,12 +77,10 @@
           {{ role }}
         </template>
         <template slot="status" slot-scope="status">
-          <span v-if="status == 'default'" style="color:red">
+          <span v-if="status == 'default'" style="color: red">
             {{ status }}
           </span>
-          <span v-else>
-
-          </span>
+          <span v-else> </span>
         </template>
 
         <template slot="actionSection" slot-scope="empID">
@@ -155,8 +153,12 @@
               />
               <div class="error" v-if="$v.employeeNumber.$error">
                 <template v-if="!$v.employeeNumber.$invalid"> </template>
-                <template v-else-if="!$v.employeeNumber.required"> โปรดใส่เบอร์ผู้ติดต่อ </template>
-                <template v-else-if="!$v.employeeNumber.validFormat"> เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก </template>
+                <template v-else-if="!$v.employeeNumber.required">
+                  โปรดใส่เบอร์ผู้ติดต่อ
+                </template>
+                <template v-else-if="!$v.employeeNumber.validFormat">
+                  เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก
+                </template>
               </div>
             </div>
 
@@ -170,8 +172,12 @@
               />
               <div class="error" v-if="$v.employeeEmail.$error">
                 <template v-if="!$v.employeeEmail.$invalid"> </template>
-                <template v-else-if="!$v.employeeEmail.required"> โปรดใส่อีเมล </template>
-                <template v-else-if="!$v.employeeEmail.email"> ใส่อีเมลให้ถูกต้อง </template>
+                <template v-else-if="!$v.employeeEmail.required">
+                  โปรดใส่อีเมล
+                </template>
+                <template v-else-if="!$v.employeeEmail.email">
+                  ใส่อีเมลให้ถูกต้อง
+                </template>
               </div>
             </div>
 
@@ -185,7 +191,9 @@
           </div>
 
           <div class="set-Default">
-            <a-checkbox @change="changestatus()"> Set Default </a-checkbox>
+            <a-checkbox true-value="default" false-value="-">
+              Set Default
+            </a-checkbox>
           </div>
 
           <div class="submitbutt">
@@ -306,9 +314,6 @@ export default {
     // },
   },
   methods: {
-    changestatus() {
-      this.status = "default";
-    },
     async submitForm() {
       this.$v.$touch();
       if (this.$v.$invalid) {
@@ -461,39 +466,39 @@ export default {
 }
 @media only screen and (max-width: 991px) {
   .whole-modal-body {
-  font-family: "Mitr", sans-serif;
-  width: 100vw;
-}
-.whole-modal-body >>> .ant-modal {
-  width: 70% !important;
-}
-.whole-modal-body >>> .ant-modal-footer {
-  display: none;
-}
-.main-form {
-  font-family: "Mitr", sans-serif;
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-.submitbutt {
-  display: flex;
-  justify-content: flex-end;
-}
-.submitbutt button {
-  color: white;
-  background-color: #7367f0;
-  border-radius: 14px;
-  border: 0;
-  margin: auto;
-  padding: 1em;
-}
-.form-component {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 1em;
-}
+    font-family: "Mitr", sans-serif;
+    width: 100vw;
+  }
+  .whole-modal-body >>> .ant-modal {
+    width: 70% !important;
+  }
+  .whole-modal-body >>> .ant-modal-footer {
+    display: none;
+  }
+  .main-form {
+    font-family: "Mitr", sans-serif;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .submitbutt {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .submitbutt button {
+    color: white;
+    background-color: #7367f0;
+    border-radius: 14px;
+    border: 0;
+    margin: auto;
+    padding: 1em;
+  }
+  .form-component {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1em;
+  }
 }
 </style>

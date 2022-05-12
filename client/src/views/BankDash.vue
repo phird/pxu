@@ -213,13 +213,21 @@
                   />
                   <div class="error" v-if="$v.bankAccount.$error">
                     <template v-if="!$v.bankAccount.$invalid"> </template>
-                    <template v-else-if="!$v.bankAccount.required"> โปรดใส่เลขบัญชีธนาคาร </template>
-                    <template v-else-if="!$v.bankAccount.minLength"> เลขบัญชีธนาคารต้องเป็นตัวเลข10-12หลัก </template>
+                    <template v-else-if="!$v.bankAccount.required">
+                      โปรดใส่เลขบัญชีธนาคาร
+                    </template>
+                    <template v-else-if="!$v.bankAccount.minLength">
+                      เลขบัญชีธนาคารต้องเป็นตัวเลข10-12หลัก
+                    </template>
                   </div>
                 </div>
 
                 <div>
-                  <a-checkbox @change="changestatus()">
+                  <a-checkbox
+                    v-model="status"
+                    true-value="default"
+                    false-value="-"
+                  >
                     Set Default
                   </a-checkbox>
                 </div>
@@ -358,9 +366,6 @@ export default {
         console.log(err);
       }
     },
-    changestatus() {
-      this.status = "default";
-    },
     onChangePage(pageOfItems) {
       // update page of items
       this.pageOfItems = pageOfItems;
@@ -372,7 +377,6 @@ export default {
       console.log(e);
       this.visible = false;
     },
-
   },
 };
 </script>
@@ -687,102 +691,102 @@ select {
 
 @media only screen and (max-width: 991px) {
   .whole-modal-body {
-  font-family: "Mitr", sans-serif;
-  width: 100vw;
-}
-.whole-modal-body >>> .ant-modal {
-  width: 70% !important;
-}
-.whole-modal-body >>> .ant-modal-content {
-  width: 50vw default 0;
-  margin-left: auto;
-  margin-left: auto;
-}
-.whole-modal-body >>> .ant-modal-header {
-  border-bottom: 0;
-  align-content: center;
-}
+    font-family: "Mitr", sans-serif;
+    width: 100vw;
+  }
+  .whole-modal-body >>> .ant-modal {
+    width: 70% !important;
+  }
+  .whole-modal-body >>> .ant-modal-content {
+    width: 50vw default 0;
+    margin-left: auto;
+    margin-left: auto;
+  }
+  .whole-modal-body >>> .ant-modal-header {
+    border-bottom: 0;
+    align-content: center;
+  }
 
-.whole-modal-body >>> .ant-modal-footer {
-  display: none;
-}
+  .whole-modal-body >>> .ant-modal-footer {
+    display: none;
+  }
 
-.whole-modal-body >>> .ant-modal-title {
-  display: none;
-}
+  .whole-modal-body >>> .ant-modal-title {
+    display: none;
+  }
 
-.wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 1em;
-}
+  .wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+  }
 
-.left-wrapper {
-  width: 100%;
-}
-.right-wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-.field {
-  display: flex;
-  flex-direction: column;
-  margin: 1em;
-}
+  .left-wrapper {
+    width: 100%;
+  }
+  .right-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+  }
 
-.field input,
-select {
-  height: 45px;
-  border: 1px solid rgba(0, 0, 0, 0.089);
-  border-radius: 14px;
-}
-.bank-box {
-  padding: 1em;
-}
-.info-box {
-  padding: 1em;
-}
-.upload-here {
-  position: relative;
-  background-color: #eeeeee;
-  height: 150px;
-  width: 150px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-.text-upload {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
+  .field input,
+  select {
+    height: 45px;
+    border: 1px solid rgba(0, 0, 0, 0.089);
+    border-radius: 14px;
+  }
+  .bank-box {
+    padding: 1em;
+  }
+  .info-box {
+    padding: 1em;
+  }
+  .upload-here {
+    position: relative;
+    background-color: #eeeeee;
+    height: 150px;
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  .text-upload {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
 
-.img-fluid {
-  position: relative;
-  object-fit: cover;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-}
-.submit-but-section {
-  display: flex;
-  width: 100%;
-  margin-top: 3em;
-}
+  .img-fluid {
+    position: relative;
+    object-fit: cover;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+  }
+  .submit-but-section {
+    display: flex;
+    width: 100%;
+    margin-top: 3em;
+  }
 
-.submit-button {
-  background-color: #1890ff;
-  height: 36px;
-  width: 164px;
-  color: white;
-  border-radius: 8px;
-  border: 0;
+  .submit-button {
+    background-color: #1890ff;
+    height: 36px;
+    width: 164px;
+    color: white;
+    border-radius: 8px;
+    border: 0;
 
-  margin-left: auto;
-  margin-right: auto;
-}
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 </style>
 

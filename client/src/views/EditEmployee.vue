@@ -35,8 +35,12 @@
           />
           <div class="error" v-if="$v.employeeNumber.$error">
             <template v-if="!$v.employeeNumber.$invalid"> </template>
-            <template v-else-if="!$v.employeeNumber.required"> โปรดใส่เบอร์ผู้ติดต่อ </template>
-            <template v-else-if="!$v.employeeNumber.validFormat"> เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก </template>
+            <template v-else-if="!$v.employeeNumber.required">
+              โปรดใส่เบอร์ผู้ติดต่อ
+            </template>
+            <template v-else-if="!$v.employeeNumber.validFormat">
+              เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก
+            </template>
           </div>
         </div>
 
@@ -50,8 +54,12 @@
           />
           <div class="error" v-if="$v.employeeEmail.$error">
             <template v-if="!$v.employeeEmail.$invalid"> </template>
-            <template v-else-if="!$v.employeeEmail.required"> โปรดใส่อีเมล </template>
-            <template v-else-if="!$v.employeeEmail.email"> ใส่อีเมลให้ถูกต้อง </template>
+            <template v-else-if="!$v.employeeEmail.required">
+              โปรดใส่อีเมล
+            </template>
+            <template v-else-if="!$v.employeeEmail.email">
+              ใส่อีเมลให้ถูกต้อง
+            </template>
           </div>
         </div>
 
@@ -68,7 +76,9 @@
         <a-checkbox v-if="status == 'default'" checked>
           Set Default
         </a-checkbox>
-        <a-checkbox v-else @change="changestatus()"> Set Default </a-checkbox>
+        <a-checkbox v-else true-value="default" false-value="-">
+          Set Default
+        </a-checkbox>
       </div>
 
       <div class="submitbutt">
@@ -126,9 +136,6 @@ export default {
   methods: {
     handleClose() {
       this.visible = false;
-    },
-    changestatus() {
-      this.status = "default";
     },
     async submitForm(id) {
       this.$v.$touch();

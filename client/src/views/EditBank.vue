@@ -126,7 +126,7 @@
               <a-checkbox v-if="status == 'default'" checked>
                 Set Default
               </a-checkbox>
-              <a-checkbox v-else @change="changestatus()">
+              <a-checkbox v-else true-value="default" false-value="-">
                 Set Default
               </a-checkbox>
             </div>
@@ -264,9 +264,6 @@ export default {
       } catch (err) {
         console.log(err);
       }
-    },
-    changestatus() {
-      this.status = "default";
     },
     deletebank(bID) {
       if (window.confirm("คุณต้องการลบธนาคารนี้ใช่หรือไม่ ?")) {
@@ -571,11 +568,10 @@ select {
   display: flex;
   width: 100%;
 }
-.delete-section{
+.delete-section {
   display: flex;
   width: 100%;
   height: 80px;
-
 }
 .delete-button {
   background-color: #5f0724;
@@ -629,7 +625,7 @@ select {
     margin-right: auto;
     margin-bottom: 10px;
   }
-  .delete-section{
+  .delete-section {
     width: 100%;
     text-align: center;
     align-content: center;
@@ -639,18 +635,18 @@ select {
   }
 
   .delete-button {
-  background-color: #5f0724;
-  position: relative;
-  height: 36px;
-  width: 164px;
-  color: white;
-  border-radius: 8px;
-  border: 0;
-  margin-left: auto;
-  margin-right: auto;
-  align-items: center;
-  bottom: 0px;
-  left: 0;
-}
+    background-color: #5f0724;
+    position: relative;
+    height: 36px;
+    width: 164px;
+    color: white;
+    border-radius: 8px;
+    border: 0;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    bottom: 0px;
+    left: 0;
+  }
 }
 </style>

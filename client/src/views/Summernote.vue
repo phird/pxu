@@ -12,7 +12,6 @@
       >
       </quill-editor>
     </div>
-    <button @click="savesum">click</button>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -200,28 +199,6 @@ export default {
     addtext() {
       let mytext = this.sumnote;
       this.$emit("update-text", mytext);
-    },
-    async getsum() {
-      console.log("get-products");
-      try {
-        const response = await axios.get("http://localhost:5000/setting");
-        this.content = response.data[1].summernote;
-        console.log(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    async savesum() {
-      alert(this.content);
-      console.log(this.content);
-      try {
-        await axios.post("http://localhost:5000/setting", {
-          summernote: this.sumnote,
-        });
-      } catch (err) {
-        alert(err);
-        console.log(err);
-      }
     },
   },
 };
