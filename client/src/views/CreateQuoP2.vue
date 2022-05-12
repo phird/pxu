@@ -13,7 +13,7 @@
               <label>ผู้ว่าจ้าง</label>
             </div>
             <div class="date_here">
-              <date-picker v-model="time1" valueType="format"></date-picker>
+              {{dateq}}
             </div>
           </div>
         </div>
@@ -48,7 +48,7 @@
                 <label>ผู้อนุมัติ</label>
               </div>
               <div class="date_here">
-                <date-picker v-model="time2" valueType="format"></date-picker>
+                {{dateq}}
               </div>
             </div>
           </a-col>
@@ -101,6 +101,7 @@
 
 <script>
 export default {
+  props:["dateq"],
   data() {
     return {
       time1: "",

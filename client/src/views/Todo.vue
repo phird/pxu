@@ -25,12 +25,12 @@
         <div class="right-section-container">
           <div class="container-box">
             <div class="idQuotation hbox">
-              <span>เลขที่ </span> <span> QAYY-MM-XXX </span>
+              <span>เลขที่ </span> <span > {{qID}} </span>
             </div>
             <div class="date-section hbox">
               <span>วันที่ </span>
               <span
-                ><date-picker v-model="dateq" valueType="format"></date-picker>
+                ><date-picker v-model="dateq" valueType="format" @change="authdate()"></date-picker>
               </span>
             </div>
             <div class="seller-name hbox">
@@ -329,6 +329,10 @@ export default {
     this.getem();
   },
   methods: {
+    authdate(){
+      let mytext = this.dateq;
+      this.$emit("update-date", mytext);
+    },
     authqn(){
       let mytext = this.quoname;
       this.$emit("update-qn", mytext);

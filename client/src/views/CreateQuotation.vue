@@ -12,7 +12,7 @@
               :customerID="customerID" @update-cid="updatecid"
               :employeeID="employeeID" @update-em="updateem"
               :qID="qID"
-              :dateq="dateq"
+              :dateq="dateq" @update-date="updatedate"
             />
           </div>
         </tab-content>
@@ -20,7 +20,7 @@
         <tab-content title="ข้อมูลเพิ่มเติม*">
           <div class="form-group">
             <div class="set-Default">
-              <quotatuin-page-2/>
+              <quotatuin-page-2 :dateq="dateq"/>
             </div>
           </div>
         </tab-content>
@@ -105,6 +105,9 @@ export default {
     },
     updateqn(quoname) {
       this.quoname = quoname;
+    },
+    updatedate(dateq) {
+      this.dateq = dateq;
     },
   },
 };
