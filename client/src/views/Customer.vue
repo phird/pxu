@@ -104,15 +104,21 @@
               </a>
               <a-menu slot="overlay">
                 <a-menu-item>
-                  <router-link :to="`/Customers/EditCustomer/${customerID}`" style="text-decoration: none">
-                    <a  style="text-decoration: none"> แก้ไข </a>
+                  <router-link
+                    :to="`/Customers/EditCustomer/${customerID}`"
+                    style="text-decoration: none"
+                  >
+                    <a style="text-decoration: none"> แก้ไข </a>
                   </router-link>
                 </a-menu-item>
-          
+
                 <a-menu-item>
-                  <a  style="text-decoration: none" @click="deletecus(customerID)"
-                    > ลบ </a
+                  <a
+                    style="text-decoration: none"
+                    @click="deletecus(customerID)"
                   >
+                    ลบ
+                  </a>
                 </a-menu-item>
               </a-menu>
             </a-dropdown>
@@ -158,8 +164,8 @@
               <label for="juristic">นิติบุคคล</label>
             </div>
             <div class="error" v-if="$v.status.$error">
-                  <template v-if="!$v.status.$invalid"> </template>
-                  <template v-else style="color: red"> * </template>
+              <template v-if="!$v.status.$invalid"> </template>
+              <template v-else style="color: red"> * </template>
             </div>
           </div>
           <!-- /toggle-type-customer -->
@@ -201,8 +207,12 @@
                   />
                   <div class="error" v-if="$v.companyNumber.$error">
                     <template v-if="!$v.companyNumber.$invalid"> </template>
-                    <template v-else-if="!$v.companyNumber.required"> โปรดใส่เบอร์บริษัท </template>
-                    <template v-else-if="!$v.companyNumber.validFormat"> เบอร์บริษัทต้องเป็นตัวเลข10หลัก </template>
+                    <template v-else-if="!$v.companyNumber.required">
+                      โปรดใส่เบอร์บริษัท
+                    </template>
+                    <template v-else-if="!$v.companyNumber.validFormat">
+                      เบอร์บริษัทต้องเป็นตัวเลข10หลัก
+                    </template>
                   </div>
                 </div>
                 <!-- /COMPANY TEL. -->
@@ -221,8 +231,12 @@
                   />
                   <div class="error" v-if="$v.taxNumber.$error">
                     <template v-if="!$v.taxNumber.$invalid"> </template>
-                    <template v-else-if="!$v.taxNumber.required"> โปรดใส่หมายเลขกำกับภาษี</template>
-                    <template v-else-if="!$v.taxNumber.validFormat"> หมายเลขกำกับภาษีต้องเป็นตัวเลข13หลัก </template>
+                    <template v-else-if="!$v.taxNumber.required">
+                      โปรดใส่หมายเลขกำกับภาษี</template
+                    >
+                    <template v-else-if="!$v.taxNumber.validFormat">
+                      หมายเลขกำกับภาษีต้องเป็นตัวเลข13หลัก
+                    </template>
                   </div>
                 </div>
                 <!-- TAX NUM -->
@@ -269,8 +283,12 @@
                   />
                   <div class="error" v-if="$v.contactNumber.$error">
                     <template v-if="!$v.contactNumber.$invalid"> </template>
-                    <template v-else-if="!$v.contactNumber.required"> โปรดใส่เบอร์ผู้ติดต่อ </template>
-                    <template v-else-if="!$v.contactNumber.validFormat"> เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก </template>
+                    <template v-else-if="!$v.contactNumber.required">
+                      โปรดใส่เบอร์ผู้ติดต่อ
+                    </template>
+                    <template v-else-if="!$v.contactNumber.validFormat">
+                      เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก
+                    </template>
                   </div>
                 </div>
                 <!-- เลขกำกับภาษี -->
@@ -287,8 +305,12 @@
                   />
                   <div class="error" v-if="$v.taxNumber.$error">
                     <template v-if="!$v.taxNumber.$invalid"> </template>
-                    <template v-else-if="!$v.taxNumber.required"> โปรดใส่หมายเลขกำกับภาษี</template>
-                    <template v-else-if="!$v.taxNumber.validFormat"> หมายเลขกำกับภาษีต้องเป็นตัวเลข13หลัก </template>
+                    <template v-else-if="!$v.taxNumber.required">
+                      โปรดใส่หมายเลขกำกับภาษี</template
+                    >
+                    <template v-else-if="!$v.taxNumber.validFormat">
+                      หมายเลขกำกับภาษีต้องเป็นตัวเลข13หลัก
+                    </template>
                   </div>
                 </div>
               </div>
@@ -303,8 +325,12 @@
                 />
                 <div class="error" v-if="$v.contactEmail.$error">
                   <template v-if="!$v.contactEmail.$invalid"> </template>
-                   <template v-else-if="!$v.contactEmail.required"> โปรดใส่อีเมล </template>
-                <template v-else-if="!$v.contactEmail.email"> ใส่อีเมลให้ถูกต้อง </template>
+                  <template v-else-if="!$v.contactEmail.required">
+                    โปรดใส่อีเมล
+                  </template>
+                  <template v-else-if="!$v.contactEmail.email">
+                    ใส่อีเมลให้ถูกต้อง
+                  </template>
                 </div>
               </div>
             </div>
@@ -317,87 +343,86 @@
               ที่อยู่ผู้ติดต่อ
             </p>
             <!-- ที่อยู่ -->
-            <div class="field" id="addr-detail">
-              <label for="Address">บ้านเลขที่/ที่อยู่</label>
-              <input
-                id="Address"
-                type="text"
-                v-model="Address"
-                style="
-                  border: 1px solid rgb(211, 211, 211);
-                  opacity: 0.5;
-                  text-indent: 4%;
-                "
-                placeholder="บ้านเลขที่/ที่อยู่"
-              />
-              <div class="error" v-if="$v.Address.$error">
-                <template v-if="!$v.Address.$invalid"> </template>
-                <template v-else> โปรดใส่ที่อยู่ </template>
+            <div class="addr-detail-content">
+              <div class="addr-detail maxsize-input">
+                <label for="Address">ที่อยู่</label>
+                <input
+                  id="Address"
+                  class="inputbox"
+                  type="text"
+                  v-model="Address"
+                />
+                <div class="error" v-if="$v.Address.$error">
+                  <template v-if="!$v.Address.$invalid"> </template>
+                  <template v-else> โปรดใส่ที่อยู่ </template>
+                </div>
               </div>
-            </div>
-            <div class="addr-info-section">
+
               <!-- ตำบล -->
-              <div class="field" id="addr-box">
+              <div class="addr-detail" id="addr-box">
                 <label for="subdis">ตำบล</label>
                 <ThailandAutoComplete
-                  class="autocom-add"
                   v-model="subdis"
+                  class="autofilladdr"
                   id="subdis"
                   type="district"
                   @select="select"
                   placeholder="ตำบล..."
                 />
                 <div class="error" v-if="$v.subdis.$error">
-                    <template v-if="!$v.subdis.$invalid"> </template>
-                    <template v-else> โปรดใส่ตำบล</template>
-                  </div>
+                  <template v-if="!$v.subdis.$invalid"> </template>
+                  <template v-else> โปรดใส่ตำบล</template>
+                </div>
               </div>
               <!-- อำเภอ -->
-              <div class="field" id="addr-box">
+              <div class="addr-detail" id="addr-box">
                 <label for="dis">อำเภอ</label>
                 <ThailandAutoComplete
-                  class="autocom-add"
                   v-model="dis"
                   type="amphoe"
+                  class="autofilladdr"
+                  id="subdis"
                   @select="select"
                   placeholder="อำเภอ..."
                 />
-                 <div class="error" v-if="$v.dis.$error">
-                    <template v-if="!$v.dis.$invalid"> </template>
-                    <template v-else> โปรดใส่อำเภอ</template>
-                  </div>
+                <div class="error" v-if="$v.dis.$error">
+                  <template v-if="!$v.dis.$invalid"> </template>
+                  <template v-else> โปรดใส่อำเภอ</template>
+                </div>
               </div>
               <!-- จังหวัด -->
-              <div class="field" id="addr-box">
+              <div class="addr-detail" id="addr-box">
                 <label for="provice">จังหวัด</label>
                 <ThailandAutoComplete
-                  class="autocom-add"
                   v-model="province"
+                  class="autofilladdr"
                   type="province"
+                  id="subdis"
                   @select="select"
                   color="#35495e"
                   placeholder="จังหวัด..."
                 />
                 <div class="error" v-if="$v.province.$error">
-                    <template v-if="!$v.province.$invalid"> </template>
-                    <template v-else> โปรดใส่จังหวัด</template>
-                  </div>
+                  <template v-if="!$v.province.$invalid"> </template>
+                  <template v-else> โปรดใส่จังหวัด</template>
+                </div>
               </div>
               <!-- zip code -->
-              <div class="field" id="addr-box">
+              <div class="addr-detail" id="addr-box">
                 <label for="postcode">รหัสไปรษณีย์</label>
                 <ThailandAutoComplete
-                  class="autocom-add"
                   v-model="postcode"
                   type="zipcode"
+                  id="subddis"
+                  class="autofilladdr"
                   @select="select"
                   color="#00a4e4"
                   placeholder="รหัสไปรษณีย์..."
                 />
                 <div class="error" v-if="$v.postcode.$error">
-                    <template v-if="!$v.postcode.$invalid"> </template>
-                    <template v-else> โปรดใส่รหัสไปรษณีย์</template>
-                  </div>
+                  <template v-if="!$v.postcode.$invalid"> </template>
+                  <template v-else> โปรดใส่รหัสไปรษณีย์</template>
+                </div>
               </div>
             </div>
           </div>
@@ -443,8 +468,12 @@
               />
               <div class="error" v-if="$v.contactNumber.$error">
                 <template v-if="!$v.contactNumber.$invalid"> </template>
-                <template v-else-if="!$v.contactNumber.required"> โปรดใส่เบอร์ผู้ติดต่อ </template>
-                <template v-else-if="!$v.contactNumber.validFormat"> เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก </template>
+                <template v-else-if="!$v.contactNumber.required">
+                  โปรดใส่เบอร์ผู้ติดต่อ
+                </template>
+                <template v-else-if="!$v.contactNumber.validFormat">
+                  เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก
+                </template>
               </div>
             </div>
 
@@ -463,8 +492,12 @@
               />
               <div class="error" v-if="$v.contactEmail.$error">
                 <template v-if="!$v.contactEmail.$invalid"> </template>
-                <template v-else-if="!$v.contactEmail.required"> โปรดใส่อีเมล </template>
-                <template v-else-if="!$v.contactEmail.email"> ใส่อีเมลให้ถูกต้อง </template>
+                <template v-else-if="!$v.contactEmail.required">
+                  โปรดใส่อีเมล
+                </template>
+                <template v-else-if="!$v.contactEmail.email">
+                  ใส่อีเมลให้ถูกต้อง
+                </template>
               </div>
             </div>
           </div>
@@ -477,7 +510,6 @@
     </a-modal>
 
     <!-- /Modal edit Start Here -->
-
   </div>
 </template>
 
@@ -493,12 +525,12 @@ import ThailandAutoComplete from "vue-thailand-address-autocomplete";
 import axios from "axios";
 
 // Card Current User .
-import RecentlyAdded from '../components/Cards/Customer/RecentlyAddCard.vue'
+import RecentlyAdded from "../components/Cards/Customer/RecentlyAddCard.vue";
 
 // Card crrent Bank
-import NewCustomer from '../components/Cards/Customer/NewCustomer.vue'
+import NewCustomer from "../components/Cards/Customer/NewCustomer.vue";
 // Card Company Stat
-import TypeOfCus from '../components/Cards/Customer/TypeOfCus.vue'
+import TypeOfCus from "../components/Cards/Customer/TypeOfCus.vue";
 
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
@@ -626,9 +658,8 @@ export default {
   components: {
     ThailandAutoComplete,
     RecentlyAdded,
-		NewCustomer,
-		TypeOfCus,
-    
+    NewCustomer,
+    TypeOfCus,
   },
   created() {
     this.getcustomer();
@@ -640,16 +671,16 @@ export default {
       this.province = address.province;
       this.postcode = address.zipcode;
     },
-    deletecus(id){
+    deletecus(id) {
       console.log(id);
-        if(window.confirm("คุณต้องการจะลบลูกค้าคนนี้ใช่หรือไม่ ?")){
-            axios.delete(`http://localhost:5000/customer/${id}`) 
-                window.location.reload(false);    
-        }
+      if (window.confirm("คุณต้องการจะลบลูกค้าคนนี้ใช่หรือไม่ ?")) {
+        axios.delete(`http://localhost:5000/customer/${id}`);
+        window.location.reload(false);
+      }
     },
     async submitForm() {
       console.log(this.companyName);
-        console.log(this.conpanyNumber);
+      console.log(this.conpanyNumber);
       if (this.status == "บุคคลธรรมดา") {
         this.companyName = this.contactName;
         this.conpanyNumber = this.contactNumber;
@@ -679,7 +710,7 @@ export default {
           .then(function (e) {
             console.log(e);
             alert("บันทึกข้อมูลสำเร็จ");
-            window.location.reload(false);  
+            window.location.reload(false);
           });
       }
     },
@@ -688,8 +719,8 @@ export default {
         this.companyName = "test";
         this.companyNumber = "1111111111";
       } else {
-        this.companyName = '';
-        this.companyNumber = '';
+        this.companyName = "";
+        this.companyNumber = "";
       }
     },
     async getcustomer() {
@@ -726,7 +757,7 @@ export default {
   height: 5%;
 }
 
-.pagebody-lower .header-solid.h-full.ant-card{
+.pagebody-lower .header-solid.h-full.ant-card {
   padding: 3em;
   background-color: white;
   border-radius: 14px;
@@ -908,14 +939,40 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
-
-.autocom-add >>> .vth-addr-input-size-default {
-  font-size: 14px;
-  font-family: "Mitr", sans-serif;
-  border-radius: 12px;
-  width: 200%;
-  opacity: 0.5;
+.addr-content-box input,
+.inputbox {
   text-indent: 5%;
+  border-radius: 14px;
+  height: 45px;
+  border: 1px solid rgba(0, 0, 0, 0.123);
+}
+.addr-detail-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.addr-detail {
+  display: flex;
+  padding: 1em;
+  flex-direction: column;
+  width: 50%;
+}
+
+.maxsize-input {
+  display: flex;
+  padding: 1em;
+  flex-direction: column;
+  width: 100% !important;
+}
+
+.maxsize-input input {
+  text-indent: 3%;
+}
+
+.autofilladdr >>> .vth-addr-input-size-default[data-v-1f53c317] {
+  border-radius: 14px;
+  height: 45px;
 }
 
 @media only screen and (max-width: 991px) {
