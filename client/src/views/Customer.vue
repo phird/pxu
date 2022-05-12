@@ -351,6 +351,8 @@
                   class="inputbox"
                   type="text"
                   v-model="Address"
+                  placeholder="ที่อยู่"
+                  style="text-indent: 5%"
                 />
                 <div class="error" v-if="$v.Address.$error">
                   <template v-if="!$v.Address.$invalid"> </template>
@@ -1014,6 +1016,18 @@ export default {
     border-radius: 12px;
     width: 500%;
   }
+  .addr-detail-content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.addr-detail {
+  display: flex;
+  padding: 1em;
+  flex-direction: column;
+  width: 100%;
+}
 }
 /* / modal style end here  */
 </style>
