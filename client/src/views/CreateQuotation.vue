@@ -28,7 +28,7 @@
     
 
           <div v-if="check=='2'" class="form-group">
-            <summernote :sumnote="sumnote"  />
+            <summernote :sumnote="sumnote"  @update-text="updatesum"/>
             <button @click="goa(0)">next</button>
             <button @click="goa(1)">previous</button>
           </div>
