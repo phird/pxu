@@ -2,9 +2,8 @@
   <div class="whole-site">
     <!-- Left layput for website  -->
     <div class="left-layout">
-      <form-wizard id="ph">
-        <tab-content title="ข้อมูลทั่วไป" :selected="true">
-          <div class="form-group">
+    
+          <div v-if="check=='0'" class="form-group">
             <todo
               :todos="todos"
               :sumtodo="sumtodo"
@@ -14,23 +13,26 @@
               :qID="qID"
               :dateq="dateq" @update-date="updatedate"
             />
+            <button @click="goa(1)">next</button>
           </div>
-        </tab-content>
 
-        <tab-content title="ข้อมูลเพิ่มเติม*">
-          <div class="form-group">
+
+        
+          <div  v-if="check=='1'" class="form-group">
             <div class="set-Default">
               <quotatuin-page-2 :dateq="dateq"/>
+              <button @click="goa(2)">next</button>
+              <button @click="goa(0)">previous</button>
             </div>
           </div>
-        </tab-content>
+    
 
-        <tab-content title="เพิ่มขอบเขตงาน">
-          <div class="form-group">
-            <summernote :sumnote="sumnote" @update-text="updatesum" />
+          <div v-if="check=='2'" class="form-group">
+            <summernote :sumnote="sumnote"  />
+            <button @click="goa(0)">next</button>
+            <button @click="goa(1)">previous</button>
           </div>
-        </tab-content>
-      </form-wizard>
+
     </div>
     <!-- /Left layput for website  -->
 
@@ -42,7 +44,7 @@
             <!-- <b-icon icon="file-earmark-pdf" style="color: blue; font-size:24px;"></b-icon> -->
             ดาวน์โหลดเป็น PDF
           </button>
-          <button type="button" class="btn btn-outline-success">
+          <button type="button" class="btn btn-outline-success" @click="submitff()">
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
           </button>
@@ -64,9 +66,8 @@ import QuotatuinPage2 from "./CreateQuoP2.vue";
 import { FormWizard, TabContent } from "vue-step-wizard";
 import "vue-step-wizard/dist/vue-step-wizard.css";
 import moment from 'moment'
+import axios from 'axios'
 
-
-const d = new Date("YYMM");
 
 export default {
   //component code
@@ -99,12 +100,16 @@ export default {
       qID:"",
       dateq: "",
       status: "",
+      check:'0',
     };
   },
   methods: {
+    goa(numf){
+      this.check=numf;
+    },
     getdate(){
-      const today = new Date();
-      const to = moment(today).format("YY-MM-")
+       const today = new Date();
+       const to = moment(today).format("YY-MM-")
       this.qID = 'QA'+to;
     },
 
@@ -122,6 +127,37 @@ export default {
     },
     updatedate(dateq) {
       this.dateq = dateq;
+    },
+    submitff() {
+        axios.post("http://localhost:5000/quotation", {
+              qID : this.qID,
+     cID : this.customerID,
+     eID : this.employeeID,
+     bID : 'this.bID',
+     date : this.dateq,
+     noteq : 'this.noteq',
+     qIN : 'this.qIN',
+     vat : this.sumtodo.vat7,
+     total : this.sumtodo.totalnow,
+     payment : this.sumtodo.payment,
+     address : 'this.address',
+     subd : 'this.subd',
+     d : 'this.d',
+     prov : 'this.prov',
+     postcode : 'this.postcode',
+     taxNumber :'this.taxNumber',
+     stamp : 'this.stamp',
+     companyName : 'this.companyName',
+     estatus :'this.estatus',
+     summernote :this.sumnote,
+         
+          })
+          .then(function (e) {
+            console.log(e);
+            alert("บันทึกข้อมูลสำเร็จ");
+            window.location.reload(false);
+          });
+      
     },
   },
 };
