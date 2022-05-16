@@ -2,37 +2,81 @@
   <div class="whole-site">
     <!-- Left layput for website  -->
     <div class="left-layout">
-    
-          <div v-if="check=='0'" class="form-group">
-            <todo
-              :todos="todos"
-              :sumtodo="sumtodo"
-              :quoname="quoname" @update-qn="updateqn"
-              :customerID="customerID" @update-cid="updatecid"
-              :employeeID="employeeID" @update-em="updateem"
-              :qID="qID"
-              :dateq="dateq" @update-date="updatedate"
-            />
-            <button @click="goa(1)">next</button>
+      <!-- step pills -->
+      <div class="step-pills">
+        <div class="step-item" :class="{ active: isOne }" @click="goa(0)">
+          <div class="num-pill"><span>1</span></div>
+          <span class="text-pill"> ข้อมูลทั่วไป </span>
+          <span>  <b-icon icon="chevron-right"> </b-icon> </span>
+        </div>
+         
+        <div class="step-item" :class="{ active: isTwo }" @click="goa(1)">  
+          <div class="num-pill"><span>2</span></div>
+          <span class="text-pill"> ข้อมูลเพิ่มเติม </span>
+          <span>  <b-icon icon="chevron-right"> </b-icon> </span>
+        </div>
+
+
+        <div class="step-item" :class="{ active: isThree }" @click="goa(2)"> 
+          <div class="num-pill"><span>3</span></div>
+          <span class="text-pill"> เพิ่มขอบเขตงาน </span>
+        </div>
+      </div>
+      <!-- step pills -->
+      <!-- add detail section -->
+      <div v-if="check == '0'" class="form-group detail-section">
+        <todo
+          :todos="todos"
+          :sumtodo="sumtodo"
+          :quoname="quoname"
+          @update-qn="updateqn"
+          :customerID="customerID"
+          @update-cid="updatecid"
+          :employeeID="employeeID"
+          @update-em="updateem"
+          :qID="qID"
+          :dateq="dateq"
+          @update-date="updatedate"
+        />
+        <div class="nav-section">
+          <button @click="goa(1)" class="nav-but">
+            ต่อไป <b-icon icon="chevron-right"></b-icon>
+          </button>
+        </div>
+      </div>
+      <!-- add detail section -->
+
+      <!-- sign - section  -->
+      <div v-if="check == '1'" class="form-group detail-section">
+        <div class="set-Default">
+          <quotatuin-page-2 :dateq="dateq" />
+          <div class="nav-section">
+            <button @click="goa(0)" class="nav-but nav-but-back">
+              ก่อนหน้า
+            </button>
+            <button @click="goa(2)" class="nav-but">ต้อไป</button>
           </div>
+        </div>
+      </div>
+      <!-- sign - section  -->
 
+      <!-- add scope of work  - section  -->
+      <div v-if="check == '2'" class="form-group detail-section">
+        <summernote :sumnote="sumnote" @update-text="updatesum" />
+        <div class="nav-section">
+          <button @click="goa(1)" class="nav-but nav-but-back">ก่อนหน้า</button>
+          <button
+            type="button"
+            class="btn nav-but nav-but-suc"
+            @click="submitff()"
+          >
+            <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
+            บันทึก
+          </button>
+        </div>
+      </div>
 
-        
-          <div  v-if="check=='1'" class="form-group">
-            <div class="set-Default">
-              <quotatuin-page-2 :dateq="dateq"/>
-              <button @click="goa(2)">next</button>
-              <button @click="goa(0)">previous</button>
-            </div>
-          </div>
-    
-
-          <div v-if="check=='2'" class="form-group">
-            <summernote :sumnote="sumnote"  @update-text="updatesum"/>
-            <button @click="goa(0)">next</button>
-            <button @click="goa(1)">previous</button>
-          </div>
-
+      <!-- add scope of work  - section  -->
     </div>
     <!-- /Left layput for website  -->
 
@@ -44,7 +88,11 @@
             <!-- <b-icon icon="file-earmark-pdf" style="color: blue; font-size:24px;"></b-icon> -->
             ดาวน์โหลดเป็น PDF
           </button>
-          <button type="button" class="btn btn-outline-success" @click="submitff()">
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            @click="submitff()"
+          >
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
           </button>
@@ -65,9 +113,8 @@ import Summernote from "./Summernote.vue";
 import QuotatuinPage2 from "./CreateQuoP2.vue";
 import { FormWizard, TabContent } from "vue-step-wizard";
 import "vue-step-wizard/dist/vue-step-wizard.css";
-import moment from 'moment'
-import axios from 'axios'
-
+import moment from "moment";
+import axios from "axios";
 
 export default {
   //component code
@@ -80,7 +127,7 @@ export default {
     QuotatuinPage2,
   },
   created() {
-    setInterval( this.getdate , 1000);
+    setInterval(this.getdate, 1000);
   },
   data() {
     return {
@@ -97,20 +144,40 @@ export default {
       companyname: "",
       customerID: "",
       employeeID: "",
-      qID:"",
+      isOne: true,
+      isTwo: false,
+      isThree: false,
+      qID: "",
       dateq: "",
       status: "",
-      check:'0',
+      check: "0",
     };
   },
   methods: {
-    goa(numf){
-      this.check=numf;
+    goa(numf) {
+      if (numf == "0") {
+        this.isOne = true;
+        this.isTwo = false;
+        this.isThree = false;
+      } else if (numf == "1") {
+        this.isTwo = true;
+        this.isOne = false;
+        this.isThree = false;
+      } else {
+        this.isThree = true;
+        this.isOne = false;
+        this.isTwo = false;
+      } 
+      console.log(this.isOne);
+      console.log(this.isTwo);
+      console.log(this.isThree);
+      this.check = numf;
+      console.log(this.check);
     },
-    getdate(){
-       const today = new Date();
-       const to = moment(today).format("YY-MM-")
-      this.qID = 'QA'+to;
+    getdate() {
+      const today = new Date();
+      const to = moment(today).format("YY-MM-");
+      this.qID = "QA" + to;
     },
 
     updatesum(sumnote) {
@@ -129,35 +196,34 @@ export default {
       this.dateq = dateq;
     },
     submitff() {
-        axios.post("http://localhost:5000/quotation", {
-              qID : this.qID,
-     cID : this.customerID,
-     eID : this.employeeID,
-     bID : 'this.bID',
-     date : this.dateq,
-     noteq : 'this.noteq',
-     qIN : 'this.qIN',
-     vat : this.sumtodo.vat7,
-     total : this.sumtodo.totalnow,
-     payment : this.sumtodo.payment,
-     address : 'this.address',
-     subd : 'this.subd',
-     d : 'this.d',
-     prov : 'this.prov',
-     postcode : 'this.postcode',
-     taxNumber :'this.taxNumber',
-     stamp : 'this.stamp',
-     companyName : 'this.companyName',
-     estatus :'this.estatus',
-     summernote :this.sumnote,
-         
-          })
-          .then(function (e) {
-            console.log(e);
-            alert("บันทึกข้อมูลสำเร็จ");
-            window.location.reload(false);
-          });
-      
+      axios
+        .post("http://localhost:5000/quotation", {
+          qID: this.qID,
+          cID: this.customerID,
+          eID: this.employeeID,
+          bID: "this.bID",
+          date: this.dateq,
+          noteq: "this.noteq",
+          qIN: "this.qIN",
+          vat: this.sumtodo.vat7,
+          total: this.sumtodo.totalnow,
+          payment: this.sumtodo.payment,
+          address: "this.address",
+          subd: "this.subd",
+          d: "this.d",
+          prov: "this.prov",
+          postcode: "this.postcode",
+          taxNumber: "this.taxNumber",
+          stamp: "this.stamp",
+          companyName: "this.companyName",
+          estatus: "this.estatus",
+          summernote: this.sumnote,
+        })
+        .then(function (e) {
+          console.log(e);
+          alert("บันทึกข้อมูลสำเร็จ");
+          window.location.reload(false);
+        });
     },
   },
 };
@@ -170,7 +236,6 @@ export default {
   display: flex;
   flex-direction: row;
 }
-
 .left-layout {
   width: 70%;
 }
@@ -194,31 +259,43 @@ export default {
 .container-panel button {
   margin: 10px;
 }
-
-/* specific module change  */
-#ph[data-v-4f675eb4] .step-body {
+.nav-section {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.nav-but {
+  width: 164px;
+  height: 36px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  position: relative;
+  text-align: center;
+  border-radius: 10px !important;
+  color: white;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  margin: 0.5rem;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  background-color: #7367f0;
+}
+.nav-but-back {
+  border: 1px solid #7367f0 !important;
+  color: #7367f0 !important;
   background-color: white !important;
 }
+.nav-but-suc {
+  color: white !important;
+  background-color: rgb(74, 204, 74) !important;
+}
+/* specific module change  */
 
-#ph >>> .progressbar {
-  -webkit-transition: width 1s ease;
-  transition: width 1s ease;
-}
-.vue-step-wizard {
-  background-color: transparent !important;
-  width: 100% !important;
-}
-
-#ph >>> .step-progress {
-  display: none !important;
-}
-#ph >>> .bar {
-  content: "";
-  height: 1rem;
-  border-radius: 1rem;
-  background-color: #4b8aeb;
-}
-#ph >>> .step-pills {
+.step-pills {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -231,105 +308,61 @@ export default {
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
   box-shadow: 0 0.5rem 1rem transparent !important ;
 }
-#ph >>> .step-pills .step-item {
+.step-item {
+  cursor: pointer;
+  display: flex;
+  height: 100%;
+  flex-direction: row;
   background-color: transparent !important;
   border-radius: 10px;
-  padding: 5px 20px;
+  padding: 5px 5px;
   list-style-type: none;
-  padding: 0.5rem 1.5rem;
+  gap: 10px;
 }
-#ph >>> .step-pills .step-item a {
+
+.step-item.active .num-pill {
+  background-color: #7367f0;
+  border-radius: 10px;
+  color: white;
+  justify-content: center;
+  text-align: center;
+}
+.step-item.active .text-pill{
+  font-weight: 600;
+}
+.num-pill {
+  background-color: #7b7b7b;
+  border-radius: 10px;
+  width: 50px;
+  height: 100%;
+  color: white;
+  justify-content: center;
+  text-align: center;
+}
+.text-pill {
+  height: 100%;
+  width: 100%;
+  font-weight: 200;
+}
+
+.step-pills .step-item a {
   text-decoration: none;
   color: #7b7b7b;
 }
-#ph >>> .step-pills .step-item.active {
+.step-pills .step-item.active {
   border: 0px solid transparent !important;
-  
 }
-#ph >>> .step-pills .step-item.active a {
-  color: black;
-  font-weight: bolder;
-}
-#ph >>> .step-pills .step-item.active .tabStatus{
-  background-color: #7367f0 !important;
-}
-#ph >>> .step-pills .step-item.validated {
-  border: 1px solid #008011;
-}
-.step-body {
+.detail-section {
   background-color: white !important;
   margin-left: auto;
   -webkit-box-shadow: none !important;
   padding: 2em;
   box-shadow: 0 !important;
-}
-#ph >>> .step-body,
-.step-footer {
-  padding: 1rem;
-  border-radius: 1rem;
-}
-#ph >>> .step-footer {
-  margin-left: auto;
-  margin: 1rem 0;
-  text-align: center;
-  justify-content: space-between !important;
-}
-#ph >>> .step-button {
-  font-weight: 700;
-  line-height: 1;
-  text-transform: uppercase;
-  position: relative;
-  max-width: 30rem;
-  text-align: center;
-  border: 1px solid;
-  border-radius: 12px !important;
-  color: #22292f;
-  color: rgba(34, 41, 47, var(--text-opacity));
-  padding: 0.5rem 1.25rem;
-  font-size: 0.875rem;
-  margin: 0.5rem;
-  color: #fff;
-  outline: none !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-}
-#ph >>> .step-button-next {
-  background-color: #126fde;
-}
-#ph >>> .step-button-previous {
-  background-color: #3deaba;
-}
-#ph >>> .step-button-submit {
-  background-color: #4fa203;
-}
-#ph >>> .step-button-reset {
-  background-color: #037da2;
-}
-#ph >>> .tabStatus {
-  display: inline-block;
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-right: 0.5rem;
-  line-height: 1.5rem;
-  color: #fff !important;
-  text-align: center !important;
-  background: rgba(0, 0, 0, 0.38) !important;
-  border-radius: 10px !important;
-}
-#ph[data-v-4f675eb4] >>> .step-button-next {
-  font-weight: 500;
-  background-color: #7367f0;
-}
-#ph[data-v-4f675eb4] >>> .step-button-previous {
+  border-radius: 14px;
+  margin-bottom: 2em;
+  align-content: center;
   background-color: white;
-  border: 1px solid #7367f0;
-  color: #7367f0;
-  font-weight: 500;
-}
-
-#ph >>> .step-footer .btn-group{
-  width: 100%;
-  justify-content: center;
-  
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 </style>

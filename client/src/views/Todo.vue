@@ -1,6 +1,15 @@
 <template>
   <div class="container rounded-3">
-    <div class="page-title">สร้างใบเสนอราคา</div>
+    <div class="container-header">
+      <router-link
+        :to="`/quotations`"
+        style="text-decoration: none; color:black;"
+      >
+        <b-icon icon="chevron-left"> </b-icon>
+      </router-link>
+      <span class="page-title"> สร้างใบเสนอราคา </span>
+    </div>
+
     <!-- 
     ==================================================================
     header 
@@ -9,14 +18,30 @@
       <div class="header-left-section">
         <div class="project-name">
           <span for="customer-select"> ชื่อโปรเจก: </span>
-          <input v-model="quoname" class="project-name-input" type="text" @change="authqn()" />
+          <input
+            v-model="quoname"
+            class="project-name-input"
+            type="text"
+            @change="authqn()"
+          />
         </div>
 
         <div class="select-left-section">
           <span for="customer-select"> ลูกค้า: </span>
-          <a-select id="customer-select" v-model="customerID" style="width: 120px" @change="authc()">
+          <a-select
+            id="customer-select"
+            v-model="customerID"
+            style="width: 120px"
+            @change="authc()"
+          >
             <a-select-option value="" disable> เลือกลูกค้า </a-select-option>
-            <a-select-option v-for="(cus) in customer" :key="cus.customerID" :value="cus.customerID"> {{cus.companyName}} </a-select-option>
+            <a-select-option
+              v-for="cus in customer"
+              :key="cus.customerID"
+              :value="cus.customerID"
+            >
+              {{ cus.companyName }}
+            </a-select-option>
           </a-select>
         </div>
       </div>
@@ -25,12 +50,16 @@
         <div class="right-section-container">
           <div class="container-box">
             <div class="idQuotation hbox">
-              <span>เลขที่ </span> <span > {{qID}} </span>
+              <span>เลขที่ </span> <span> {{ qID }} </span>
             </div>
             <div class="date-section hbox">
               <span>วันที่ </span>
               <span
-                ><date-picker v-model="dateq" valueType="format" @change="authdate()"></date-picker>
+                ><date-picker
+                  v-model="dateq"
+                  valueType="format"
+                  @change="authdate()"
+                ></date-picker>
               </span>
             </div>
             <div class="seller-name hbox">
@@ -42,10 +71,17 @@
                   @change="authem()"
                   style="width: 120px"
                   default-value="5"
-                  
                 >
-                  <a-select-option value="" disable> เลือกพนักงานขาย </a-select-option>
-                  <a-select-option v-for="(cus) in employee" :key="cus.employeeID" :value="cus.employeeID"> {{cus.employeeName}} </a-select-option>
+                  <a-select-option value="" disable>
+                    เลือกพนักงานขาย
+                  </a-select-option>
+                  <a-select-option
+                    v-for="cus in employee"
+                    :key="cus.employeeID"
+                    :value="cus.employeeID"
+                  >
+                    {{ cus.employeeName }}
+                  </a-select-option>
                 </a-select>
               </span>
             </div>
@@ -296,10 +332,18 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   name: "ToDo",
-  props: ["todos", "sumtodo","quoname","customerID","employeeID","qID","dateq"],
+  props: [
+    "todos",
+    "sumtodo",
+    "quoname",
+    "customerID",
+    "employeeID",
+    "qID",
+    "dateq",
+  ],
   data() {
     return {
       //   statusvat:'1',
@@ -320,30 +364,29 @@ export default {
       vat7: this.sumtodo.vat7,
       payment: this.sumtodo.payment,
       //   todos: [],
-      customer:[],
+      customer: [],
       //
-      employee:[],
-
+      employee: [],
     };
   },
-  created(){
+  created() {
     this.getcus();
     this.getem();
   },
   methods: {
-    authdate(){
+    authdate() {
       let mytext = this.dateq;
       this.$emit("update-date", mytext);
     },
-    authqn(){
+    authqn() {
       let mytext = this.quoname;
       this.$emit("update-qn", mytext);
     },
-    authem(){
+    authem() {
       let mytext = this.employeeID;
       this.$emit("update-em", mytext);
     },
-    authc(){
+    authc() {
       let mytext = this.customerID;
       this.$emit("update-cid", mytext);
     },
@@ -433,7 +476,7 @@ export default {
       this.todos[index + 1].quantity = this.tempquantityTodo;
       this.todos[index + 1].price = this.temppriceTodo;
     },
-   async getcus() {
+    async getcus() {
       console.log("get-cus");
       try {
         const response = await axios.get("http://localhost:5000/customer/name");
@@ -453,7 +496,6 @@ export default {
         console.log(err);
       }
     },
-    
   },
 };
 </script>
@@ -465,6 +507,19 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.page-title {
+  font-size: 22px;
+}
+.container-header {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  vertical-align: middle;
+}
+.container-header svg {
+  margin: 0.5em;
 }
 
 .header-left-section {
@@ -663,7 +718,7 @@ sum payment
   flex-direction: column;
   gap: 1em;
 }
-.two-installment input{
+.two-installment input {
   margin-left: 1em;
 }
 
@@ -673,10 +728,9 @@ sum payment
   flex-direction: column;
   gap: 1em;
 }
-.three-installment input{
- margin-left: 1em;
+.three-installment input {
+  margin-left: 1em;
 }
-
 
 .intstallment_input {
   height: 30px;
@@ -715,6 +769,4 @@ end note section
 /* ===============================================
 footer
 ================================================ */
-
-
 </style>
