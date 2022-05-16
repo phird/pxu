@@ -60,7 +60,6 @@ router.post('/', (req, res) => {
         statusw,
         qIN,
         vat,
-        total,
         payment,
         address,
         subd,
@@ -70,8 +69,7 @@ router.post('/', (req, res) => {
         taxNumber,
         stamp,
         companyName,
-        estatus,
-        summernote], (err, sqlQuotationRe) => {
+        summernote,total,estatus], (err, sqlQuotationRe) => {
             if (err) throw err;
             // console.log(sqlQuotationRe);
             res.send(sqlQuotationRe);
