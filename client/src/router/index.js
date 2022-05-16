@@ -55,7 +55,7 @@ let routes = [
 	},
 	{
 		path: '/setting/EditEmployee/:id',
-		name: 'จัดการพนักงาน',
+		name: 'แก้ไขพนักงาน',
 		layout: "dashboard",
 		component: () => import('../views/EditEmployee.vue'),
 	},

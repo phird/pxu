@@ -41,6 +41,8 @@
                   v-model="employeeID"
                   @change="authem()"
                   style="width: 120px"
+                  default-value="5"
+                  
                 >
                   <a-select-option value="" disable> เลือกพนักงานขาย </a-select-option>
                   <a-select-option v-for="(cus) in employee" :key="cus.employeeID" :value="cus.employeeID"> {{cus.employeeName}} </a-select-option>

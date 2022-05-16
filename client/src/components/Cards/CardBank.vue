@@ -15,7 +15,7 @@
                       <span style="font-size:24px;"> {{bank.bankName}}</span>
                   </div>
                   </div>
-                      <p class="default-bank-text"> [default]</p>
+                      
                   </div>
             <!----><!---->
     </div>

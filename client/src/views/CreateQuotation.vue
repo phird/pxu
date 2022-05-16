@@ -208,10 +208,14 @@ export default {
 }
 #ph >>> .step-pills .step-item.active {
   border: 0px solid transparent !important;
+  
 }
 #ph >>> .step-pills .step-item.active a {
   color: black;
   font-weight: bolder;
+}
+#ph >>> .step-pills .step-item.active .tabStatus{
+  background-color: #7367f0 !important;
 }
 #ph >>> .step-pills .step-item.validated {
   border: 1px solid #008011;

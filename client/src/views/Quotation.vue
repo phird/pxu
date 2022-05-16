@@ -35,9 +35,7 @@
                   />
                 </svg>
                 <span>
-                  
-                    Create Quotation
-                  
+                    สร้างใบเสนอราคา
                 </span>
               </a-button>
               </a-tooltip>
@@ -89,7 +87,7 @@
                     :to="`/Invoice/${quotationID}`"
                     style="text-decoration: none"
                   >
-                    <a style="text-decoration: none">INVOICE</a>
+                    <a style="text-decoration: none">ใบแจ้งหนี้</a>
                   </router-link>
                 </a-menu-item>
 				<a-menu-item>
@@ -97,7 +95,7 @@
                     style="text-decoration: none"
                     @click="contractedquo(quotationID)"
                   >
-                    CONTRACTED
+                    ทำสัญญาแล้ว
                   </a>
                 </a-menu-item>
                 <a-menu-item>
@@ -105,7 +103,7 @@
                     style="text-decoration: none"
                     @click="rescindingquo(quotationID)"
                   >
-                    RESCINDING
+                    ยกเลิกสัญญา
                   </a>
                 </a-menu-item>
               </a-menu>
