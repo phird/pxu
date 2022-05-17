@@ -111,8 +111,6 @@
 import Todo from "./Todo.vue";
 import Summernote from "./Summernote.vue";
 import QuotatuinPage2 from "./CreateQuoP2.vue";
-import { FormWizard, TabContent } from "vue-step-wizard";
-import "vue-step-wizard/dist/vue-step-wizard.css";
 import moment from "moment";
 import axios from "axios";
 
@@ -120,8 +118,6 @@ export default {
   //component code
   name: "Quotation",
   components: {
-    FormWizard,
-    TabContent,
     Todo,
     Summernote,
     QuotatuinPage2,

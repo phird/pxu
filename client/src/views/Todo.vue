@@ -39,6 +39,7 @@
               v-for="cus in customer"
               :key="cus.customerID"
               :value="cus.customerID"
+              @click="cusstatus=cus.status"
             >
               {{ cus.companyName }}
             </a-select-option>
@@ -304,6 +305,7 @@
           : {{ this.totalnow.toFixed(2) }} บาท
         </div>
         <div step="0.01">vat 7% : {{ this.vat7.toFixed(2) }} บาท</div>
+        <div v-if="cusstatus=='นิติบุคคล'" step="0.01">ภาษี ณ ที่จ่าย 3% : {{ this.vat7.toFixed(2) }} บาท</div>
         <div step="0.01">รวมเป็นเงิน : {{ this.payment.toFixed(2) }} บาท</div>
       </div>
     </div>
@@ -363,8 +365,10 @@ export default {
       total: this.sumtodo.total,
       vat7: this.sumtodo.vat7,
       payment: this.sumtodo.payment,
+      tax3:0,
       //   todos: [],
       customer: [],
+      cusstatus:'',
       //
       employee: [],
     };
@@ -387,6 +391,7 @@ export default {
       this.$emit("update-em", mytext);
     },
     authc() {
+      console.log(this.cusstatus);
       let mytext = this.customerID;
       this.$emit("update-cid", mytext);
     },
@@ -404,7 +409,19 @@ export default {
       }
     },
     calc(statusvat) {
-      if (statusvat == "2") {
+      if(cusstatus == 'นิติบุคคล'){
+        if (statusvat == "2") {
+        this.totalnow = this.total;
+        this.vat7 = this.total * 0.07;
+        this.tax
+        this.payment = this.total + this.vat7;
+      } else if (statusvat == "1") {
+        this.totalnow = this.total * 0.9346;
+        this.vat7 = this.total - this.totalnow;
+        this.payment = this.total;
+      }
+      }else{
+        if (statusvat == "2") {
         this.totalnow = this.total;
         this.vat7 = this.total * 0.07;
         this.payment = this.total + this.vat7;
@@ -413,6 +430,8 @@ export default {
         this.vat7 = this.total - this.totalnow;
         this.payment = this.total;
       }
+      }
+      
       this.auth();
     },
     addTodo() {
