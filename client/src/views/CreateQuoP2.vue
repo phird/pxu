@@ -38,8 +38,11 @@
               </div>
               <div class="sign-box">
                 <div class="sign">
-                  <template v-if="preview && status">
+                  <template v-if="preview && estatus">
                     <img :src="preview" class="img-fluid" />
+                  </template>
+                  <template v-if="!preview && estatus">
+                    <img src="http://localhost:5000/esignature/esignature.png" class="img-fluid" />
                   </template>
                   <template v-else>
                     <div></div>
@@ -58,17 +61,17 @@
             <div class="boxs-1">
               <div class="radio-selected">
                 <input
-                  v-model="status"
+                  v-model="estatus"
                   id="esign"
                   type="checkbox"
                   value="showpic"
-                  @change="resetImage"
+                  @change="resetImage(),addtext()"
                 />
                 <!-- e-signature -->
                 <label for="esign" style="margin-left: 10px">
                   e-signature
                 </label>
-                <div v-if="status == true">
+                <div v-if="estatus == true">
                   <form>
                     <div class="form-group">
                       <label class="upload-sign" for="my-file">
@@ -88,7 +91,7 @@
                   </form>
                 </div>
                 <div v-else>
-                  <div v-if="status == false"></div>
+                  <div v-if="estatus == false"></div>
                 </div>
               </div>
             </div>
@@ -100,20 +103,30 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  props:["dateq"],
+  props:["dateq","estatus"],
   data() {
     return {
       time1: "",
       time2: "",
       preview: null,
+      file:[],
       image: null,
-      status: "",
+      estatus: this.estatus,
     };
   },
   methods: {
+    addtext() {
+      let mytext = this.estatus;
+      this.$emit("update-status", mytext);
+    },
     previewImage(e) {
       var input = e.target;
+      this.file = e.target.files[0];
+      let formData = new FormData();
+      formData.append("files", this.file);
+      axios.post("http://localhost:5000/uploadesignature", formData, {});
       if (input.files) {
         var reader = new FileReader();
         reader.onload = (e) => {
@@ -124,7 +137,7 @@ export default {
       }
     },
     resetImage(e) {
-      if (this.status == false) {
+      if (this.estatus == false) {
         this.image = null;
         this.preview = null;
       }

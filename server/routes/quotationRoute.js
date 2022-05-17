@@ -26,18 +26,31 @@ router.get('/res', (req, res) => {
     })
 })
 
+router.put('/qid', (req, res) => {
+    const to = '%'+req.body.to+'%';
+    const sqlQuotation = "SELECT COUNT(quotationID) as num FROM quotation WHERE quotationID LIKE ? order by quotationID DESC";
+
+    db.query(sqlQuotation,[to], (err, sqlQuotationRe) => {
+        console.log(err);
+        console.log(to);
+        if (err) throw err;
+        console.log(sqlQuotationRe);
+        res.send(sqlQuotationRe);
+    })
+})
+
 router.post('/', (req, res) => {
     const qID = req.body.qID;
     const cID = req.body.cID;
     const eID = req.body.eID;
-    const bID = req.body.bID;
     const statusq = 'Negotiation';
+    const qName = req.body.qName;
+    const customerstatus = req.body.customerstatus;
     const date = req.body.date;
     const noteq = req.body.noteq;
     const statusw = 'On-Going';
     const qIN = req.body.qIN;
-    const vat = req.body.vat;
-    const total = req.body.total;
+    const vatstatus = req.body.vatstatus;
     const payment = req.body.payment;
     const address = req.body.address;
     const subd = req.body.subd;
@@ -45,31 +58,32 @@ router.post('/', (req, res) => {
     const prov = req.body.prov;
     const postcode = req.body.postcode;
     const taxNumber = req.body.taxNumber;
-    const stamp = req.body.stamp;
     const companyName = req.body.companyName;
     const estatus = req.body.estatus;
     const summernote = req.body.summernote;
-    const sqlQuotation = "INSERT INTO `quotation`(`quotationID`, `customerID`, `employeeID`, `bankID`, `statusquotation`, `datequotation`, `notequotation`, `statuswork`, `quantityinstallment`, `vat`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `stamp`, `companyName`, `paymentPrice`, `summernote`, `estatus`, `total`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    const sqlQuotation = "INSERT INTO `quotation`(`quotationID`, `customerID`, `employeeID`,`quotationName`,`statusquotation`, `datequotation`, `notequotation`, `statuswork`, `quantityinstallment`, `vatstatus`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `customerstatus`, `companyName`, `paymentPrice`, `summernote`, `estatus`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     db.query(sqlQuotation, [qID,
         cID,
         eID,
-        bID,
+        qName,
         statusq,
         date,
         noteq,
         statusw,
         qIN,
-        vat,
-        payment,
+        vatstatus,
         address,
         subd,
         d,
         prov,
         postcode,
         taxNumber,
-        stamp,
+        customerstatus,
         companyName,
-        summernote,total,estatus], (err, sqlQuotationRe) => {
+        payment,
+        summernote,
+        estatus
+    ], (err, sqlQuotationRe) => {
             if (err) throw err;
             // console.log(sqlQuotationRe);
             res.send(sqlQuotationRe);

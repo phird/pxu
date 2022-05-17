@@ -28,15 +28,8 @@
         <todo
           :todos="todos"
           :sumtodo="sumtodo"
-          :quoname="quoname"
-          @update-qn="updateqn"
-          :customerID="customerID"
-          @update-cid="updatecid"
-          :employeeID="employeeID"
-          @update-em="updateem"
           :qID="qID"
-          :dateq="dateq"
-          @update-date="updatedate"
+          :inv="inv"
         />
         <div class="nav-section">
           <button @click="goa(1)" class="nav-but">
@@ -49,7 +42,10 @@
       <!-- sign - section  -->
       <div v-if="check == '1'" class="form-group detail-section">
         <div class="set-Default">
-          <quotatuin-page-2 :dateq="dateq" />
+          <quotatuin-page-2 
+          :dateq="sumtodo.dateq"
+          :estatus="estatus" @update-status="updateestatus"
+          />
           <div class="nav-section">
             <button @click="goa(0)" class="nav-but nav-but-back">
               ก่อนหน้า
@@ -65,14 +61,6 @@
         <summernote :sumnote="sumnote" @update-text="updatesum" />
         <div class="nav-section">
           <button @click="goa(1)" class="nav-but nav-but-back">ก่อนหน้า</button>
-          <button
-            type="button"
-            class="btn nav-but nav-but-suc"
-            @click="submitff()"
-          >
-            <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
-            บันทึก
-          </button>
         </div>
       </div>
 
@@ -91,7 +79,7 @@
           <button
             type="button"
             class="btn btn-outline-success"
-            @click="submitff()"
+            @click="submitff"
           >
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
@@ -113,7 +101,8 @@ import Summernote from "./Summernote.vue";
 import QuotatuinPage2 from "./CreateQuoP2.vue";
 import moment from "moment";
 import axios from "axios";
-
+const today = new Date();
+const tous = moment(today).format("YY-MM-");
 export default {
   //component code
   name: "Quotation",
@@ -123,30 +112,40 @@ export default {
     QuotatuinPage2,
   },
   created() {
-    setInterval(this.getdate, 1000);
+    this.getid();
+    this.getwebsite();
   },
   data() {
     return {
       todos: [],
       sumtodo: {
-        statusvat: "1",
+        statusvat: "vatใน",
         totalnow: 0,
         total: 0,
         vat7: 0,
         payment: 0,
+        tax3: 0,
+        cusstatus:'',
+        customerID: "",
+        employeeID: "",
+        quoname: "",
+        dateq: "",
+        noteq:'',
+        qIN:'',
       },
-      sumnote: "",
-      quoname: "",
-      companyname: "",
-      customerID: "",
-      employeeID: "",
+      sumnote: "",  
       isOne: true,
       isTwo: false,
       isThree: false,
-      qID: "",
-      dateq: "",
-      status: "",
+      qID: "",  
+      estatus: false,
       check: "0",
+      inv: {
+        IN1: 100,
+        IN2: 0,
+        IN3: 0,
+      },
+      web:[],
     };
   },
   methods: {
@@ -170,57 +169,63 @@ export default {
       this.check = numf;
       console.log(this.check);
     },
-    getdate() {
-      const today = new Date();
-      const to = moment(today).format("YY-MM-");
-      this.qID = "QA" + to;
-    },
-
     updatesum(sumnote) {
       this.sumnote = sumnote;
     },
-    updatecid(customerID) {
-      this.customerID = customerID;
-    },
-    updateem(employeeID) {
-      this.employeeID = employeeID;
-    },
-    updateqn(quoname) {
-      this.quoname = quoname;
-    },
-    updatedate(dateq) {
-      this.dateq = dateq;
+    updateestatus(estatus) {
+      this.estatus = estatus;
     },
     submitff() {
       axios
         .post("http://localhost:5000/quotation", {
           qID: this.qID,
-          cID: this.customerID,
-          eID: this.employeeID,
-          bID: "this.bID",
-          date: this.dateq,
-          noteq: "this.noteq",
-          qIN: "this.qIN",
-          vat: this.sumtodo.vat7,
-          total: this.sumtodo.totalnow,
+          cID: this.sumtodo.customerID,
+          eID: this.sumtodo.employeeID,
+          date: this.sumtodo.dateq,
+          noteq: this.sumtodo.noteq,
+          qName: this.sumtodo.quoname,
+          qIN: this.sumtodo.qIN,
+          vatstatus: this.sumtodo.statusvat,
+          customerstatus:this.sumtodo.cusstatus, 
           payment: this.sumtodo.payment,
-          address: "this.address",
-          subd: "this.subd",
-          d: "this.d",
-          prov: "this.prov",
-          postcode: "this.postcode",
-          taxNumber: "this.taxNumber",
-          stamp: "this.stamp",
-          companyName: "this.companyName",
-          estatus: "this.estatus",
+          address: this.web.address,
+          subd: this.web.subdistrict,
+          d: this.web.district,
+          prov: this.web.province,
+          postcode: this.web.postcode,
+          taxNumber: this.web.taxNumber,
+          companyName: this.web.companyName,
+          estatus: this.estatus,
           summernote: this.sumnote,
         })
-        .then(function (e) {
-          console.log(e);
-          alert("บันทึกข้อมูลสำเร็จ");
-          window.location.reload(false);
-        });
+        .then(
+          axios.post("",{
+
+          }).then(()=>{
+
+          })
+        );
     },
+    async getid(){
+      try {
+        const response = await axios.put("http://localhost:5000/quotation/qid",{to:tous});
+        if(response.data[0].num=='0'){
+          this.qID = "QA" + tous + '001';
+        }else{
+          this.qID = "QA"+ tous + '00'+(response.data[0].num+1);
+      } }catch (err) {
+        console.log(err);
+      }
+    },
+    async getwebsite(){
+      try {
+        const response = await axios.get("http://localhost:5000/website");
+        this.web=response.data[0];
+        console.log(this.web);
+       }catch (err) {
+        console.log(err);
+      }
+    }
   },
 };
 </script>
