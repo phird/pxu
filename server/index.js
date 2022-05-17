@@ -10,6 +10,7 @@ import bankRoute from './routes/bankRoute.js'
 import invoiceRoute from './routes/invoiceRoute.js'
 import uploadlogoRoute from './routes/uploadlogoRoute.js'
 import uploadstampRoute from './routes/uploadstampRoute.js'
+import uploadesignatureRoute from './routes/uploadesignatureRoute.js'
 import cardcustomerRoute from './routes/customer/card.js'
 import carddashRoute from './routes/dashboard/card.js'
 
@@ -32,6 +33,7 @@ app.use("/bank", bankRoute);
 app.use("/invoice", invoiceRoute);
 app.use("/uploadlogo",uploadlogoRoute);
 app.use("/uploadstamp",uploadstampRoute);
+app.use("/uploadesignature",uploadesignatureRoute);
 app.use("/cardcustomer",cardcustomerRoute);
 app.use("/carddash",carddashRoute);
 
