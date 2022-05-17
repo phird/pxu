@@ -33,7 +33,11 @@ let routes = [
 		path: '/pdf',
 		name: 'ใบเสนอราคา',
 		layout: "dashboard",
-		component: () => import('../views/Pdf.vue'),
+		component: () => import('../views/PDF/Pdf.vue'),
+	},	{
+		path: '/createpdf',
+		name: 'createpdf',
+		component: () => import('../views/PDF/createPDF.vue'),
 	},
 	{
 		path: '/Invoice/:id',

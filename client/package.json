@@ -23,6 +23,7 @@
     "chart.js": "3.4.1",
     "core-js": "3.15.2",
     "jw-vue-pagination": "^1.0.3",
+    "pdfmake": "^0.2.5",
     "quill-image-edit-module": "^0.1.6",
     "quill-image-extend-module": "^1.1.2",
     "vue": "^2.6.14",
