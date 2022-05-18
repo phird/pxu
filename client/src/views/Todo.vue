@@ -414,17 +414,17 @@ export default {
         this.IN1=100
         this.IN2=0;
         this.IN3=0;
-      }else if(this.qIN==2 && this.IN1!=100 && this.IN2==0){
+      }else if(this.qIN==2 && this.IN1!=this.inv.IN1){
         this.IN2=100-this.IN1;
         this.IN3=0;
-      }else if(this.qIN==2 && this.IN2!=0){
+      }else if(this.qIN==2 && this.IN2!=this.inv.IN2){
         this.IN1=100-this.IN2;
         this.IN3=0;
-      }else if(this.qIN==3 && this.IN2!=0 && this.IN1!=100){
+      }else if(this.qIN==3 && this.IN2!=this.inv.IN2 || this.IN1!=this.inv.IN1){
         this.IN3=100-this.IN2-this.IN1;
-      }else if(this.qIN==3 && this.IN3!=0 && this.IN1!=100){
+      }else if(this.qIN==3 && this.IN3!=this.inv.IN3 || this.IN1!=this.inv.IN1){
         this.IN2=100-this.IN1-this.IN3;
-      }else if(this.qIN==3 && this.IN3!=0 && this.IN2!=0){
+      }else if(this.qIN==3 && this.IN3!=this.inv.IN3 || this.IN2!=this.inv.IN2){
         this.IN1=100-this.IN2-this.IN3;
       }
       this.inv.IN1 = this.IN1;

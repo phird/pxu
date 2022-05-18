@@ -84,9 +84,9 @@ router.post('/', (req, res) => {
         summernote,
         estatus
     ], (err, sqlQuotationRe) => {
-            if (err) throw err;
-            // console.log(sqlQuotationRe);
-            res.send(sqlQuotationRe);
+    
+                if (err) {console.log(err); throw err;}
+                res.send(sqlQuotationRe);
         })
 })
 

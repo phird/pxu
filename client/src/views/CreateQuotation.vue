@@ -7,17 +7,16 @@
         <div class="step-item" :class="{ active: isOne }" @click="goa(0)">
           <div class="num-pill"><span>1</span></div>
           <span class="text-pill"> ข้อมูลทั่วไป </span>
-          <span>  <b-icon icon="chevron-right"> </b-icon> </span>
+          <span> <b-icon icon="chevron-right"> </b-icon> </span>
         </div>
-         
-        <div class="step-item" :class="{ active: isTwo }" @click="goa(1)">  
+
+        <div class="step-item" :class="{ active: isTwo }" @click="goa(1)">
           <div class="num-pill"><span>2</span></div>
           <span class="text-pill"> ข้อมูลเพิ่มเติม </span>
-          <span>  <b-icon icon="chevron-right"> </b-icon> </span>
+          <span> <b-icon icon="chevron-right"> </b-icon> </span>
         </div>
 
-
-        <div class="step-item" :class="{ active: isThree }" @click="goa(2)"> 
+        <div class="step-item" :class="{ active: isThree }" @click="goa(2)">
           <div class="num-pill"><span>3</span></div>
           <span class="text-pill"> เพิ่มขอบเขตงาน </span>
         </div>
@@ -25,12 +24,7 @@
       <!-- step pills -->
       <!-- add detail section -->
       <div v-if="check == '0'" class="form-group detail-section">
-        <todo
-          :todos="todos"
-          :sumtodo="sumtodo"
-          :qID="qID"
-          :inv="inv"
-        />
+        <todo :todos="todos" :sumtodo="sumtodo" :qID="qID" :inv="inv" />
         <div class="nav-section">
           <button @click="goa(1)" class="nav-but">
             ต่อไป <b-icon icon="chevron-right"></b-icon>
@@ -42,9 +36,10 @@
       <!-- sign - section  -->
       <div v-if="check == '1'" class="form-group detail-section">
         <div class="set-Default">
-          <quotatuin-page-2 
-          :dateq="sumtodo.dateq"
-          :estatus="estatus" @update-status="updateestatus"
+          <quotatuin-page-2
+            :dateq="sumtodo.dateq"
+            :estatus="estatus"
+            @update-status="updateestatus"
           />
           <div class="nav-section">
             <button @click="goa(0)" class="nav-but nav-but-back">
@@ -79,7 +74,7 @@
           <button
             type="button"
             class="btn btn-outline-success"
-            @click="submitff"
+            @click="submit"
           >
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
@@ -125,19 +120,19 @@ export default {
         vat7: 0,
         payment: 0,
         tax3: 0,
-        cusstatus:'',
+        cusstatus: "",
         customerID: "",
         employeeID: "",
         quoname: "",
         dateq: "",
-        noteq:'',
-        qIN:'',
+        noteq: "",
+        qIN: "",
       },
-      sumnote: "",  
+      sumnote: "",
       isOne: true,
       isTwo: false,
       isThree: false,
-      qID: "",  
+      qID: "",
       estatus: false,
       check: "0",
       inv: {
@@ -145,7 +140,9 @@ export default {
         IN2: 0,
         IN3: 0,
       },
-      web:[],
+      inID: "",
+      web: [],
+      numindex:0,
     };
   },
   methods: {
@@ -162,7 +159,7 @@ export default {
         this.isThree = true;
         this.isOne = false;
         this.isTwo = false;
-      } 
+      }
       console.log(this.isOne);
       console.log(this.isTwo);
       console.log(this.isThree);
@@ -175,19 +172,59 @@ export default {
     updateestatus(estatus) {
       this.estatus = estatus;
     },
-    submitff() {
-      axios
-        .post("http://localhost:5000/quotation", {
+    submitquo() {
+      axios.post("http://localhost:5000/quotation", {
+        qID: this.qID,
+        cID: this.sumtodo.customerID,
+        eID: this.sumtodo.employeeID,
+        date: this.sumtodo.dateq,
+        noteq: this.sumtodo.noteq,
+        qName: this.sumtodo.quoname,
+        qIN: this.sumtodo.qIN,
+        vatstatus: this.sumtodo.statusvat,
+        customerstatus: this.sumtodo.cusstatus,
+        payment: this.sumtodo.payment,
+        address: this.web.address,
+        subd: this.web.subdistrict,
+        d: this.web.district,
+        prov: this.web.province,
+        postcode: this.web.postcode,
+        taxNumber: this.web.taxNumber,
+        companyName: this.web.companyName,
+        estatus: this.estatus,
+        summernote: this.sumnote,
+      }).then(()=>{
+        alert('บันทึกข้อมูลสำเร็จ');
+        history.back();
+      });
+    },
+    submit() {
+      const requestone=[];
+      for (let i = 1; i <= this.sumtodo.qIN; i++) {
+        this.inID = "INV" + tous + "00" + this.numindex + "-" + i;
+        let test;
+        if (this.sumtodo.qIN == 1 && i == 1) {
+          test = this.inv.IN1 / 100;
+        } else if (this.sumtodo.qIN == 2 && i == 1) {
+          test = this.inv.IN1 / 100;
+        } else if (this.sumtodo.qIN == 2 && i == 2) {
+          test = this.inv.IN2 / 100;
+        } else if (this.sumtodo.qIN == 3 && i == 1) {
+          test = this.inv.IN1 / 100;
+        } else if (this.sumtodo.qIN == 3 && i == 2) {
+          test = this.inv.IN2 / 100;
+        } else if (this.sumtodo.qIN == 3 && i == 3) {
+          test = this.inv.IN3 / 100;
+        }
+        requestone[i]=axios.post("http://localhost:5000/invoice", {
+          inID: this.inID,
           qID: this.qID,
           cID: this.sumtodo.customerID,
           eID: this.sumtodo.employeeID,
-          date: this.sumtodo.dateq,
-          noteq: this.sumtodo.noteq,
-          qName: this.sumtodo.quoname,
-          qIN: this.sumtodo.qIN,
+          num: i,
           vatstatus: this.sumtodo.statusvat,
-          customerstatus:this.sumtodo.cusstatus, 
-          payment: this.sumtodo.payment,
+          customerstatus: this.sumtodo.cusstatus,
+          payment: this.sumtodo.payment * test,
           address: this.web.address,
           subd: this.web.subdistrict,
           d: this.web.district,
@@ -196,36 +233,39 @@ export default {
           taxNumber: this.web.taxNumber,
           companyName: this.web.companyName,
           estatus: this.estatus,
-          summernote: this.sumnote,
-        })
-        .then(
-          axios.post("",{
-
-          }).then(()=>{
-
-          })
-        );
+        });
+      }
+      axios.all([requestone[1],requestone[2],requestone[3]]).then(
+        this.submitquo()
+      );
+  
     },
-    async getid(){
+    async getid() {
       try {
-        const response = await axios.put("http://localhost:5000/quotation/qid",{to:tous});
-        if(response.data[0].num=='0'){
-          this.qID = "QA" + tous + '001';
-        }else{
-          this.qID = "QA"+ tous + '00'+(response.data[0].num+1);
-      } }catch (err) {
+        const response = await axios.put(
+          "http://localhost:5000/quotation/qid",
+          { to: tous }
+        );
+        if (response.data[0].num == "0") {
+          this.qID = "QA" + tous + "001";
+          this.numindex = 1;
+        } else {
+          this.qID = "QA" + tous + "00" + (response.data[0].num + 1);
+          this.numindex = response.data[0].num + 1;
+        }
+      } catch (err) {
         console.log(err);
       }
     },
-    async getwebsite(){
+    async getwebsite() {
       try {
         const response = await axios.get("http://localhost:5000/website");
-        this.web=response.data[0];
+        this.web = response.data[0];
         console.log(this.web);
-       }catch (err) {
+      } catch (err) {
         console.log(err);
       }
-    }
+    },
   },
 };
 </script>
@@ -328,7 +368,7 @@ export default {
   justify-content: center;
   text-align: center;
 }
-.step-item.active .text-pill{
+.step-item.active .text-pill {
   font-weight: 600;
 }
 .num-pill {
