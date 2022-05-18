@@ -200,6 +200,8 @@ export default {
     },
     submit() {
       const requestone=[];
+      console.log(this.todos);
+      let j = 0;
       for (let i = 1; i <= this.sumtodo.qIN; i++) {
         this.inID = "INV" + tous + "00" + this.numindex + "-" + i;
         let test;
@@ -216,7 +218,7 @@ export default {
         } else if (this.sumtodo.qIN == 3 && i == 3) {
           test = this.inv.IN3 / 100;
         }
-        requestone[i]=axios.post("http://localhost:5000/invoice", {
+        requestone[i-1]=axios.post("http://localhost:5000/invoice", {
           inID: this.inID,
           qID: this.qID,
           cID: this.sumtodo.customerID,
@@ -234,8 +236,19 @@ export default {
           companyName: this.web.companyName,
           estatus: this.estatus,
         });
+        j=i;
+        console.log(j);
       }
-      axios.all([requestone[1],requestone[2],requestone[3]]).then(
+      for(let i = 0; i < this.todos.length; i++){
+        requestone[j+i]=axios.post("http://localhost:5000/scope", {
+          qID: this.qID,
+          text: this.todos[i].name,
+          price: this.todos[i].price,
+          quantity: this.todos[i].quantity,
+        });
+      }
+
+      axios.all([requestone]).then(
         this.submitquo()
       );
   

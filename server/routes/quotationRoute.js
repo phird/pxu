@@ -93,8 +93,14 @@ router.post('/', (req, res) => {
 router.delete('/:id', (req, res) => {
     const id = req.params.id;
     const sqlDelete = "DELETE FROM quotation WHERE quotationID=?";
+    const sqlDeleteinv = "DELETE FROM invoice WHERE quotationID=?";
+    const sqlDeletescope = "DELETE FROM scope WHERE workID=?";
     db.query(sqlDelete, [id], (err, result) => {
-        console.log(err);
+        db.query(sqlDeleteinv, [id], (err, result) => {
+            db.query(sqlDeletescope, [id], (err, result) => {
+                console.log(err);
+            })
+        })
     })
 });
 
