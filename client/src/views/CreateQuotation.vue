@@ -126,7 +126,7 @@ export default {
         quoname: "",
         dateq: "",
         noteq: "",
-        qIN: "",
+        qIN: '1',
       },
       sumnote: "",
       isOne: true,
