@@ -94,10 +94,7 @@
 import Todo from "./Todo.vue";
 import Summernote from "./Summernote.vue";
 import QuotatuinPage2 from "./CreateQuoP2.vue";
-import moment from "moment";
 import axios from "axios";
-const today = new Date();
-const tous = moment(today).format("YY-MM-");
 export default {
   //component code
   name: "Quotation",
@@ -109,6 +106,7 @@ export default {
   created() {
     this.qID = this.$route.params.id;
     this.getid(this.qID);
+    this.getscope(this.qID);
   },
   data() {
     return {
@@ -259,7 +257,23 @@ export default {
            `http://localhost:5000/quotation/${id}`
         );
           this.quotation = response.data[0];
+          this.sumtodo.quoname=this.quotation.quotationName;
+          this.sumtodo.customerID=this.quotation.customerID;
+          this.sumtodo.employeeID=this.quotation.employeeID;
+          this.sumnote=this.quotation.summernote;
           console.log(this.quotation);
+          console.log(this.sumtodo);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getscope(id) {
+      try {
+        const response = await axios.get(
+           `http://localhost:5000/scope/${id}`
+        );
+          this.todos = response.data;
+          console.log(this.todos);
       } catch (err) {
         console.log(err);
       }

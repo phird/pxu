@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/:id', (req, res) => {
     const qID = req.params.id;
-    const sql = "SELECT * FROM scope WHERE workID=? ORDER BY scopeID ";
+    const sql = "SELECT name,price,quantity FROM scope WHERE workID=? ORDER BY scopeID ";
     db.query(sql, [qID], (err, result) => {
         console.log(err);
         if (err) throw err;
@@ -16,10 +16,10 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     const qID = req.body.qID;
-    const text = req.body.text;
+    const text = req.body.name;
     const price = req.body.price;
     const quantity = req.body.quantity;
-    const sql = "INSERT INTO `scope`(`workID`, `text`, `price`, `quantity`) VALUES (?,?,?,?)";
+    const sql = "INSERT INTO `scope`(`workID`, `name`, `price`, `quantity`) VALUES (?,?,?,?)";
     db.query(sql, [
         qID,
         text,

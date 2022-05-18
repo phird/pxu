@@ -241,7 +241,7 @@ export default {
       for(let i = 0; i < this.todos.length; i++){
         requestone[j+i]=axios.post("http://localhost:5000/scope", {
           qID: this.qID,
-          text: this.todos[i].name,
+          name: this.todos[i].name,
           price: this.todos[i].price,
           quantity: this.todos[i].quantity,
         });
