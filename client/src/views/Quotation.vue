@@ -51,7 +51,7 @@
       :pagination="true"
     >
       <template slot="qID" slot-scope="qID">
-        <a>{{ qID }}</a>
+        <a>QA{{ qID }}</a>
       </template>
       <template slot="qName" slot-scope="qName">
         <a> {{ qName }}</a>
@@ -88,6 +88,14 @@
                     style="text-decoration: none"
                   >
                     <a style="text-decoration: none">ใบแจ้งหนี้</a>
+                  </router-link>
+                </a-menu-item>
+                <a-menu-item>
+                  <router-link
+                    :to="`/Quotations/Editquotation/${quotationID}`"
+                    style="text-decoration: none"
+                  >
+                    <a style="text-decoration: none">แก้ไข</a>
                   </router-link>
                 </a-menu-item>
 				<a-menu-item>

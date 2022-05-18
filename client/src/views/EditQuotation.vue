@@ -107,11 +107,12 @@ export default {
     QuotatuinPage2,
   },
   created() {
-    this.getid();
-    this.getwebsite();
+    this.qID = this.$route.params.id;
+    this.getid(this.qID);
   },
   data() {
     return {
+        quotation:[],
       todos: [],
       sumtodo: {
         statusvat: "vatใน",
@@ -141,7 +142,7 @@ export default {
         IN3: 0,
       },
       inID: "",
-      web: [],
+      numindex:0,
     };
   },
   methods: {
@@ -183,13 +184,13 @@ export default {
         vatstatus: this.sumtodo.statusvat,
         customerstatus: this.sumtodo.cusstatus,
         payment: this.sumtodo.payment,
-        address: this.web.address,
-        subd: this.web.subdistrict,
-        d: this.web.district,
-        prov: this.web.province,
-        postcode: this.web.postcode,
-        taxNumber: this.web.taxNumber,
-        companyName: this.web.companyName,
+        address: this.quotation.address,
+        subd: this.quotation.subdistrict,
+        d: this.quotation.district,
+        prov: this.quotation.province,
+        postcode: this.quotation.postcode,
+        taxNumber: this.quotation.taxNumber,
+        companyName: this.quotation.companyName,
         estatus: this.estatus,
         summernote: this.sumnote,
       }).then(()=>{
@@ -202,7 +203,7 @@ export default {
       console.log(this.todos);
       let j = 0;
       for (let i = 1; i <= this.sumtodo.qIN; i++) {
-        this.inID = this.qID+ "-" + i;
+        this.inID =  this.qID + "-" + i;
         let test;
         if (this.sumtodo.qIN == 1 && i == 1) {
           test = this.inv.IN1 / 100;
@@ -226,13 +227,13 @@ export default {
           vatstatus: this.sumtodo.statusvat,
           customerstatus: this.sumtodo.cusstatus,
           payment: this.sumtodo.payment * test,
-          address: this.web.address,
-          subd: this.web.subdistrict,
-          d: this.web.district,
-          prov: this.web.province,
-          postcode: this.web.postcode,
-          taxNumber: this.web.taxNumber,
-          companyName: this.web.companyName,
+          address: this.quotation.address,
+          subd: this.quotation.subdistrict,
+          d: this.quotation.district,
+          prov: this.quotation.province,
+          postcode: this.quotation.postcode,
+          taxNumber: this.quotation.taxNumber,
+          companyName: this.quotation.companyName,
           estatus: this.estatus,
         });
         j=i;
@@ -252,30 +253,18 @@ export default {
       );
   
     },
-    async getid() {
+    async getid(id) {
       try {
-        const response = await axios.put(
-          "http://localhost:5000/quotation/qid",
-          { to: tous }
+        const response = await axios.get(
+           `http://localhost:5000/quotation/${id}`
         );
-        if (response.data[0].num == "0") {
-          this.qID =  tous + "001";
-        } else {
-          this.qID =  tous + "00" + (response.data[0].num + 1);
-        }
+          this.quotation = response.data[0];
+          console.log(this.quotation);
       } catch (err) {
         console.log(err);
       }
     },
-    async getwebsite() {
-      try {
-        const response = await axios.get("http://localhost:5000/website");
-        this.web = response.data[0];
-        console.log(this.web);
-      } catch (err) {
-        console.log(err);
-      }
-    },
+
   },
 };
 </script>

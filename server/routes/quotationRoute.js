@@ -84,17 +84,23 @@ router.post('/', (req, res) => {
         summernote,
         estatus
     ], (err, sqlQuotationRe) => {
-            if (err) throw err;
-            // console.log(sqlQuotationRe);
-            res.send(sqlQuotationRe);
+    
+                if (err) {console.log(err); throw err;}
+                res.send(sqlQuotationRe);
         })
 })
 
 router.delete('/:id', (req, res) => {
     const id = req.params.id;
     const sqlDelete = "DELETE FROM quotation WHERE quotationID=?";
+    const sqlDeleteinv = "DELETE FROM invoice WHERE quotationID=?";
+    const sqlDeletescope = "DELETE FROM scope WHERE workID=?";
     db.query(sqlDelete, [id], (err, result) => {
-        console.log(err);
+        db.query(sqlDeleteinv, [id], (err, result) => {
+            db.query(sqlDeletescope, [id], (err, result) => {
+                console.log(err);
+            })
+        })
     })
 });
 
@@ -106,16 +112,17 @@ router.put('/:id', (req, res) => {
         console.log(err);
     })
 });
-// router.get('/:id', (req, res) => {
-//     const qID = req.params.id;
-//     const sqlQuotation = "SELECT * FROM quotation as q , work as w  WHERE q.workID = w.workID AND q.quotationID = ? ";
-//     console.log(qID);
-//     db.query(sqlQuotation,[qID], (err, sqlQuotationRe) => {
-//         if(err) throw err;
-//         console.log(sqlQuotationRe);
-//         res.send(sqlQuotationRe);
-//     })
-// })
+
+router.get('/:id', (req, res) => {
+    const qID = req.params.id;
+    const sqlQuotation = "SELECT * FROM quotation as q  WHERE q.quotationID = ? ";
+    console.log(qID);
+    db.query(sqlQuotation,[qID], (err, sqlQuotationRe) => {
+        if(err) throw err;
+        console.log(sqlQuotationRe);
+        res.send(sqlQuotationRe);
+    })
+})
 
 
 // router.delete('/:id', (req, res) => {

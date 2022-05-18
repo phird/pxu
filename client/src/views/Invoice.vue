@@ -18,8 +18,8 @@
       :data-source="invoice"
       :pagination="true"
     >
-      <template slot="invoiceID" slot-scope="inID">
-        <a>{{ inID }}</a>
+      <template slot="inID" slot-scope="inID">
+        <a>INV{{ inID }}</a>
       </template>
     <template slot="installment" slot-scope="installment">
         <a>งวดที่ {{ installment }}</a>

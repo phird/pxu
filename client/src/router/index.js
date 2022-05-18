@@ -46,6 +46,12 @@ let routes = [
 		component: () => import('../views/Invoice.vue'),
 	},
 	{
+		path: '/Quotations/Editquotation/:id',
+		name: 'แก้ไขใบเสนอราคา',
+		layout: "dashboard",
+		component: () => import('../views/EditQuotation.vue'),
+	},
+	{
 		path: '/Quotations/CreateQuotation',
 		name: 'สร้างใบเสนอราคา',
 		layout: "dashboard",
