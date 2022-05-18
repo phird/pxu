@@ -71,17 +71,9 @@
             <!-- <b-icon icon="file-earmark-pdf" style="color: blue; font-size:24px;"></b-icon> -->
             ดาวน์โหลดเป็น PDF
           </button>
-          <button
-            type="button"
-            class="btn btn-outline-success"
-            @click="submit"
-          >
+          <button type="button" class="btn btn-outline-success" @click="submit">
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
-          </button>
-          <button type="button" class="btn btn-outline-danger">
-            <!-- <b-icon icon="x-square" style="color: red; font-size:24px;"></b-icon> -->
-            ยกเลิก
           </button>
         </div>
       </div>
@@ -95,6 +87,7 @@ import Todo from "./Todo.vue";
 import Summernote from "./Summernote.vue";
 import QuotatuinPage2 from "./CreateQuoP2.vue";
 import axios from "axios";
+import moment from "moment";
 export default {
   //component code
   name: "Quotation",
@@ -107,10 +100,12 @@ export default {
     this.qID = this.$route.params.id;
     this.getid(this.qID);
     this.getscope(this.qID);
+    axios.delete(`http://localhost:5000/invoice/${this.qID}`);
+    axios.delete(`http://localhost:5000/scope/${this.qID}`);
   },
   data() {
     return {
-        quotation:[],
+      quotation: [],
       todos: [],
       sumtodo: {
         statusvat: "vatใน",
@@ -125,7 +120,8 @@ export default {
         quoname: "",
         dateq: "",
         noteq: "",
-        qIN: '1',
+        qIN: "1",
+        checkedit: true,
       },
       sumnote: "",
       isOne: true,
@@ -133,14 +129,14 @@ export default {
       isThree: false,
       qID: "",
       estatus: false,
-      check: "0",
+      check: "2",
       inv: {
         IN1: 100,
         IN2: 0,
         IN3: 0,
       },
       inID: "",
-      numindex:0,
+      numindex: 0,
     };
   },
   methods: {
@@ -171,37 +167,29 @@ export default {
       this.estatus = estatus;
     },
     submitquo() {
-      axios.post("http://localhost:5000/quotation", {
-        qID: this.qID,
-        cID: this.sumtodo.customerID,
-        eID: this.sumtodo.employeeID,
-        date: this.sumtodo.dateq,
-        noteq: this.sumtodo.noteq,
-        qName: this.sumtodo.quoname,
-        qIN: this.sumtodo.qIN,
-        vatstatus: this.sumtodo.statusvat,
-        customerstatus: this.sumtodo.cusstatus,
-        payment: this.sumtodo.payment,
-        address: this.quotation.address,
-        subd: this.quotation.subdistrict,
-        d: this.quotation.district,
-        prov: this.quotation.province,
-        postcode: this.quotation.postcode,
-        taxNumber: this.quotation.taxNumber,
-        companyName: this.quotation.companyName,
-        estatus: this.estatus,
-        summernote: this.sumnote,
-      }).then(()=>{
-        alert('บันทึกข้อมูลสำเร็จ');
-        history.back();
-      });
+      axios
+        .post(`http://localhost:5000/quotation/${this.qID}`, {
+          eID: this.sumtodo.employeeID,
+          date: this.sumtodo.dateq,
+          noteq: this.sumtodo.noteq,
+          qName: this.sumtodo.quoname,
+          qIN: this.sumtodo.qIN,
+          vatstatus: this.sumtodo.statusvat,
+          payment: this.sumtodo.payment,
+          estatus: this.estatus,
+          summernote: this.sumnote,
+        })
+        .then(() => {
+          alert("บันทึกข้อมูลสำเร็จ");
+          history.back();
+        });
     },
     submit() {
-      const requestone=[];
+      const requestone = [];
       console.log(this.todos);
       let j = 0;
       for (let i = 1; i <= this.sumtodo.qIN; i++) {
-        this.inID =  this.qID + "-" + i;
+        this.inID = this.qID + "-" + i;
         let test;
         if (this.sumtodo.qIN == 1 && i == 1) {
           test = this.inv.IN1 / 100;
@@ -216,7 +204,7 @@ export default {
         } else if (this.sumtodo.qIN == 3 && i == 3) {
           test = this.inv.IN3 / 100;
         }
-        requestone[i-1]=axios.post("http://localhost:5000/invoice", {
+        requestone[i - 1] = axios.post("http://localhost:5000/invoice", {
           inID: this.inID,
           qID: this.qID,
           cID: this.sumtodo.customerID,
@@ -234,51 +222,80 @@ export default {
           companyName: this.quotation.companyName,
           estatus: this.estatus,
         });
-        j=i;
+        j = i;
         console.log(j);
       }
-      for(let i = 0; i < this.todos.length; i++){
-        requestone[j+i]=axios.post("http://localhost:5000/scope", {
+      for (let i = 0; i < this.todos.length; i++) {
+        requestone[j + i] = axios.post("http://localhost:5000/scope", {
           qID: this.qID,
-          text: this.todos[i].name,
+          name: this.todos[i].name,
           price: this.todos[i].price,
           quantity: this.todos[i].quantity,
         });
       }
-
-      axios.all([requestone]).then(
-        this.submitquo()
-      );
-  
+      axios.all([requestone]).then(this.submitquo());
     },
     async getid(id) {
       try {
         const response = await axios.get(
-           `http://localhost:5000/quotation/${id}`
+          `http://localhost:5000/quotation/${id}`
         );
-          this.quotation = response.data[0];
-          this.sumtodo.quoname=this.quotation.quotationName;
-          this.sumtodo.customerID=this.quotation.customerID;
-          this.sumtodo.employeeID=this.quotation.employeeID;
-          this.sumnote=this.quotation.summernote;
-          console.log(this.quotation);
-          console.log(this.sumtodo);
+        this.quotation = response.data[0];
+        this.sumtodo.quoname = this.quotation.quotationName;
+        this.sumtodo.customerID = this.quotation.customerID;
+        this.sumtodo.employeeID = this.quotation.employeeID;
+        this.sumtodo.dateq = moment(
+          String(this.quotation.datequotation)
+        ).format("YYYY-MM-DD");
+        this.sumnote = this.quotation.summernote;
+        this.sumtodo.payment = this.quotation.paymentPrice;
+        this.sumtodo.cusstatus = this.quotation.customerstatus;
+        this.sumtodo.statusvat = this.quotation.vatstatus;
+        if (this.quotation.estatus == "0") {
+          this.estatus = false;
+        } else {
+          this.estatus = true;
+        }
+        if (this.sumtodo.cusstatus == "นิติบุคคล") {
+          if (this.sumtodo.statusvat == "vatนอก") {
+            this.sumtodo.total = (this.sumtodo.payment * 100) / 110;
+            this.sumtodo.totalnow = this.sumtodo.total;
+            this.sumtodo.vat7 = this.sumtodo.total * 0.07;
+            this.sumtodo.tax3 = this.sumtodo.total * 0.03;
+          } else if (this.sumtodo.statusvat == "vatใน") {
+            this.sumtodo.total = (this.sumtodo.payment * 100) / 103;
+            this.sumtodo.vat7 = this.sumtodo.total * 0.07;
+            this.sumtodo.tax3 = this.sumtodo.total * 0.03;
+            this.sumtodo.totalnow = this.sumtodo.total - this.sumtodo.vat7;
+          }
+        } else {
+          if (this.sumtodo.statusvat == "vatนอก") {
+            this.sumtodo.total = (this.sumtodo.payment * 100) / 107;
+            this.sumtodo.totalnow = this.sumtodo.total;
+            this.sumtodo.vat7 = this.sumtodo.total * 0.07;
+            this.sumtodo.tax3 = 0;
+          } else if (this.sumtodo.statusvat == "vatใน") {
+            this.sumtodo.total = this.sumtodo.payment;
+            this.sumtodo.totalnow = this.sumtodo.total * 0.93;
+            this.sumtodo.vat7 = this.sumtodo.total - this.sumtodo.totalnow;
+            this.sumtodo.tax3 = 0;
+          }
+        }
+        console.log(this.quotation);
+        console.log(this.sumtodo);
       } catch (err) {
         console.log(err);
       }
     },
     async getscope(id) {
       try {
-        const response = await axios.get(
-           `http://localhost:5000/scope/${id}`
-        );
-          this.todos = response.data;
-          console.log(this.todos);
+        const response = await axios.get(`http://localhost:5000/scope/${id}`);
+        this.todos = response.data;
+        console.log(this.todos);
       } catch (err) {
         console.log(err);
       }
     },
-
   },
 };
 </script>

@@ -14,6 +14,16 @@ router.get('/:id', (req, res) => {
     })
 })
 
+router.delete('/:id', (req, res) => {
+    const qID = req.params.id;
+    const sql = "DELETE FROM scope WHERE workID=?";
+    db.query(sql, [qID], (err, result) => {
+        console.log(err);
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
 router.post('/', (req, res) => {
     const qID = req.body.qID;
     const text = req.body.name;

@@ -127,6 +127,7 @@ export default {
         dateq: "",
         noteq: "",
         qIN: '1',
+        checkedit:false,
       },
       sumnote: "",
       isOne: true,

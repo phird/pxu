@@ -26,13 +26,33 @@
           />
         </div>
 
-        <div class="select-left-section">
+        <div v-if="!checkedit" class="select-left-section">
           <span for="customer-select"> ลูกค้า: </span>
           <a-select
             id="customer-select"
             v-model="customerID"
             style="width: 120px"
             @change="auth(), calc(statusvat)"
+          >
+            <a-select-option value="" disable> เลือกลูกค้า </a-select-option>
+            <a-select-option
+              v-for="cus in customer"
+              :key="cus.customerID"
+              :value="cus.customerID"
+              @click="cusstatus = cus.status"
+            >
+              {{ cus.companyName }}
+            </a-select-option>
+          </a-select>
+        </div>
+        <div v-if="checkedit" class="select-left-section">
+          <span for="customer-select"> ลูกค้า: </span>
+          <a-select
+            id="customer-select"
+            v-model="customerID"
+            style="width: 120px"
+            @change="auth(), calc(statusvat)"
+            disabled
           >
             <a-select-option value="" disable> เลือกลูกค้า </a-select-option>
             <a-select-option
@@ -382,6 +402,7 @@ export default {
       dateq: this.sumtodo.dateq,
       noteq: this.sumtodo.noteq,
       qIN: this.sumtodo.qIN,
+      checkedit: this.sumtodo.checkedit,
       //
       IN1: this.inv.IN1,
       IN2: this.inv.IN2,
@@ -447,8 +468,8 @@ export default {
         } else if (statusvat == "vatใน") {
           this.tax3 = this.total * 0.03;
           this.vat7 = this.total * 0.07;
-          this.totalnow = this.total - (this.vat7 + this.tax3);
-          this.payment = this.total;
+          this.totalnow = this.total - this.vat7;
+          this.payment = this.total+this.tax3;
         }
       } else {
         if (statusvat == "vatนอก") {
@@ -457,7 +478,7 @@ export default {
           this.payment = this.total + this.vat7;
           this.tax3 = 0;
         } else if (statusvat == "vatใน") {
-          this.totalnow = this.total * 0.9346;
+          this.totalnow = this.total * 0.93;
           this.vat7 = this.total - this.totalnow;
           this.payment = this.total;
           this.tax3 = 0;

@@ -110,6 +110,7 @@ router.put('/:id', (req, res) => {
     const sqlDelete = "UPDATE quotation SET statusquotation=? WHERE quotationID=?";
     db.query(sqlDelete, [qstatus,id], (err, result) => {
         console.log(err);
+        console.log(result);
     })
 });
 
@@ -124,6 +125,38 @@ router.get('/:id', (req, res) => {
     })
 })
 
+router.post('/:id', (req, res) => {
+    const qID = req.params.id;
+    const eID = req.body.eID;
+    const qName = req.body.qName;
+    const date = req.body.date;
+    const noteq = req.body.noteq;
+    const qIN = req.body.qIN;
+    const vatstatus = req.body.vatstatus;
+    const payment = req.body.payment;
+    const estatus = req.body.estatus;
+    const summernote = req.body.summernote;
+    const sqlQuotation = "UPDATE `quotation` SET `employeeID`=?,`quotationName`=?, `datequotation`=?, `notequotation`=?, `quantityinstallment`=?,`vatstatus`=?, `paymentPrice`=?, `summernote`=?, `estatus`=? WHERE quotationID=?";
+    db.query(sqlQuotation, [
+        eID,
+        qName,
+        date,
+        noteq,
+        qIN,
+        vatstatus,
+        payment,
+        summernote,
+        estatus,
+        qID,
+    ], (err, sqlQuotationRe) => {
+    
+                if (err) {console.log(err); throw err;}
+                console.log('สัสเอ้ย');
+                console.log(qID);
+                console.log(sqlQuotationRe);
+                res.send(sqlQuotationRe);
+        })
+})
 
 // router.delete('/:id', (req, res) => {
 //     const qID = req.params.id;
