@@ -15,6 +15,16 @@ router.get('/:id', (req, res) => {
     })
 })
 
+router.delete('/:id', (req, res) => {
+    const qID=req.params.id;
+    const sqlInvoice = "DELETE FROM invoice WHERE quotationID=? ";
+    db.query(sqlInvoice,[qID], (err, result) => {
+        console.log(err);
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
 router.post('/', (req, res) => {
     const inID = req.body.inID;
     const qID = req.body.qID;
