@@ -1,7 +1,8 @@
 <template>
   <div id="createPDF" class="pdf-creation">
     <div @click="generatePDF()" class="np-btn">Generate PDF</div>
-
+    <br />
+    <div @click="downloadPDF()" class="np-btn">Download PDF</div>
     <vue-html2pdf
       :show-layout="true"
       :float-layout="false"
@@ -21,7 +22,7 @@
       ref="html2Pdf"
     >
       <section slot="pdf-content" class="section-pdf">
-        <div class="paper-form">
+        <div class="paper-form" ref="testHtml">
           <div class="header-section">
             <div class="header-left-section">
               <div class="logo-section"></div>
@@ -143,6 +144,7 @@
 
 <script>
 import VueHtml2pdf from "vue-html2pdf";
+import { jsPDF } from "jspdf";
 
 export default {
   name: "App",
@@ -156,6 +158,21 @@ export default {
     },
     generatePDF() {
       this.$refs.html2Pdf.generatePdf();
+    },
+    downloadPDF() {
+      var doc = new jsPDF("p", "pt", "A4");
+      margins = {
+        top: 80,
+        bottom: 60,
+        left: 40,
+        width: 522,
+      };
+
+      doc.fromHTML(this.$refs.testHtml, margins.left, margins.top, {
+        width: margins.width,
+      });
+
+      doc.save("test.pdf");
     },
   },
   components: {

@@ -197,14 +197,7 @@ export default {
           companyName: this.web.companyName,
           estatus: this.estatus,
           summernote: this.sumnote,
-        })
-        .then(
-          axios.post("",{
-
-          }).then(()=>{
-
-          })
-        );
+        });
     },
     async getid(){
       try {
