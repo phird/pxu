@@ -196,11 +196,11 @@ export default {
           {
             alignment: "center",
             columns: [
-              { width: "*", text: "" },
+              /* { width: "*", text: "" }, */
               {
                 style: "tableExample",
                 alignment: "center",
-                width: "auto",
+                
                 table: {
                   widths: [30, "*", 30, 100, 100],
                   fontSize: 10,
@@ -257,7 +257,7 @@ export default {
                   defaultBorder: false,
                 }, */,
               },
-              { width: "*", text: "" },
+             /*  { width: "*", text: "" }, */
             ],
             style: "lineSpacing3",
           } /* ============================================
