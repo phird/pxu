@@ -62,13 +62,18 @@ let routes = [
 		name: 'สร้าง Invoice',
 		layout: "dashboard",
 		component: () => import('../views/CreateInvoice.vue'),
-	},
-	
+	},	
 	{
 		path: '/createInvoice',
 		name: 'สร้าง Invoice',
 		layout: "dashboard",
 		component: () => import('../views/PDF/createPDFInvoice.vue'),
+	},
+	{
+		path: '/createReceipt',
+		name: 'สร้างใบเสร็จ',
+		layout: "dashboard",
+		component: () => import('../views/PDF/createPDFreciept.vue'),
 	},
 	{
 		path: '/Customers',
