@@ -72,19 +72,20 @@ export default {
         image.src = src;
       }
     },
-    export() {
+    async export() {
       this.quoID = this.$route.params.id;
       /* this.getquo(this.quoID); */
       console.log("get-quotation-pdf");
       try {
-        console.log("now im try");
-        const response = axios.get(
+        console.log("now im try"); 
+        const response = await axios.get(
           `http://localhost:5000/quotation/quo/${this.quoID}`
         );
+        console.log(response.data[0]);
         this.quotation = response.data[0];
         console.log("data from response");
         console.log(this.quotation.wcompanyName);
-        console.log(this.quotation);
+       
         
         this.comName = this.quotation.wcompanyName;
         this.comAddr = this.quotation.address;
