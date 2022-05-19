@@ -87,7 +87,7 @@
                     :to="`/Invoice/${quotationID}`"
                     style="text-decoration: none"
                   >
-                    <a style="text-decoration: none">ใบแจ้งหนี้</a>
+                    <a style="text-decoration: none">ใบวางบิล</a>
                   </router-link>
                 </a-menu-item>
                 <a-menu-item>

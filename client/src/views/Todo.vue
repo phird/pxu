@@ -1,12 +1,6 @@
 <template>
   <div class="container rounded-3">
     <div class="container-header">
-      <router-link
-        :to="`/quotations`"
-        style="text-decoration: none; color: black"
-      >
-        <b-icon icon="chevron-left"> </b-icon>
-      </router-link>
       <span class="page-title"> สร้างใบเสนอราคา </span>
     </div>
 
@@ -562,6 +556,7 @@ export default {
       try {
         const response = await axios.get("http://localhost:5000/employee/name");
         this.employee = response.data;
+        this.employeeID=this.employee[0].employeeID;
         console.log(this.employee);
       } catch (err) {
         console.log(err);

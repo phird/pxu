@@ -1,7 +1,9 @@
 <template>
   <div class="whole-site">
+    
     <!-- Left layput for website  -->
     <div class="left-layout">
+      <div style="color:red"> ***จำเป็นต้องกำหนดจำนวนใบวางบิลทุกครั้งที่ทำการแก้ไข</div>
       <!-- step pills -->
       <div class="step-pills">
         <div class="step-item" :class="{ active: isOne }" @click="goa(0)">
@@ -71,7 +73,15 @@
             <!-- <b-icon icon="file-earmark-pdf" style="color: blue; font-size:24px;"></b-icon> -->
             ดาวน์โหลดเป็น PDF
           </button>
-          <button type="button" class="btn btn-outline-success" @click="submit">
+           <button v-if="check=='2'" type="button" class="btn btn-outline-success" disabled>
+            <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
+            บันทึก
+          </button>
+          <button v-if="check=='1'" type="button" class="btn btn-outline-success" disabled>
+            <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
+            บันทึก
+          </button>
+          <button v-if="check=='0'" type="button" class="btn btn-outline-success" @click="submit">
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
           </button>
