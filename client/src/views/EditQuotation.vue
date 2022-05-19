@@ -1,7 +1,9 @@
 <template>
   <div class="whole-site">
+    
     <!-- Left layput for website  -->
     <div class="left-layout">
+      <div style="color:red"> ***จำเป็นต้องกำหนดจำนวนใบวางบิลทุกครั้งที่ทำการแก้ไข</div>
       <!-- step pills -->
       <div class="step-pills">
         <div class="step-item" :class="{ active: isOne }" @click="goa(0)">

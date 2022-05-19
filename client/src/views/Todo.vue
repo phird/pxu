@@ -1,12 +1,6 @@
 <template>
   <div class="container rounded-3">
     <div class="container-header">
-      <router-link
-        :to="`/quotations`"
-        style="text-decoration: none; color: black"
-      >
-        <b-icon icon="chevron-left"> </b-icon>
-      </router-link>
       <span class="page-title"> สร้างใบเสนอราคา </span>
     </div>
 
