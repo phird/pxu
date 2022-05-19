@@ -6,34 +6,13 @@
 import pdfMake from "pdfmake";
 import pdfFonts from "../../assets/custom-fonts.js"; // 1. import custom fonts
 import axios from "axios";
+import moment from "moment";
 export default {
   name: "App",
   data() {
     return {
+      quoDate:"",
       quotation: [],
-      comName: "" /* done */,
-      comAddr: "",
-      comSubdis: "",
-      comDistrct: "",
-      comProvice: "",
-      comPostcode: "",
-      comTel: "" /* done */,
-      comTaxNum: "",
-      comEmail: "infinityp.soft@gmail.com",
-      quoID: "",
-      quoDate: "",
-      quoSeller: "",
-      quoSellerTel: "",
-
-      cusName: "",
-      cusAddr: "",
-      cusSubdis: "",
-      cusDistrct: "",
-      cusProvice: "",
-      cusPostcode: "",
-      cusTax: "0605558001296",
-
-      price: "1,588,785.05",
       tax7: "111,214,95",
       priceaftertax7: "1,700,000",
       withholding3: "47,663.55",
@@ -84,32 +63,10 @@ export default {
         console.log(response.data[0]);
         this.quotation = response.data[0];
         console.log("data from response");
-        console.log(this.quotation.wcompanyName);
-       
-        
-        this.comName = this.quotation.wcompanyName;
-        this.comAddr = this.quotation.address;
-        this.comSubdis = this.quotation.subdistrict;
-        this.comDistrct = this.quotation.district;
-        this.comProvice = this.quotation.province;
-        this.comPostcode = this.quotation.postcode;
-        this.comTel = this.quotation.wcompanyNumber;
-        this.comTaxNum = this.quotation.taxNumber;
-
-        this.quoID = this.quotation.quotationID;
-        this.quoDate = this.quotation.datequotation;
-        this.quoSeller = this.quotation.employeeName;
-        this.quoSellerTel = this.quotation.employeeNumber;
-
-        this.cusName = this.quotation.companyName;
-        this.cusAddr = this.quotation.caddress;
-        this.cusSubdis = this.quotation.csubdistrict;
-        this.cusDistrct = this.quotation.cdistrict;
-        this.cusProvice = this.quotation.cprovince;
-        this.cusPostcode = this.quotation.cpostcode;
-        this.cusTax = this.quotation.ctaxNumber;
-
-        this.price = this.quotation.paymentPrice;
+        console.log(this.quotation.wcompanyName);   
+        this.quoDate = moment(
+          String(this.quotation.datequotation)
+          ).format("YYYY-MM-DD");
       } catch (err) {
         console.log(err);
       }
@@ -180,13 +137,13 @@ export default {
                 text: [
                   this.quotation.wcompanyName +
                     "\nที่อยู่: " +
-                    /* this.comAddr */ this.quotation.address +
-                    "\nเบอร์โทร: " +
-                    this.comTel +
+                    /* this.comAddr */ this.quotation.address + "ต." + this.quotation.subdistrict + "อ." + this.quotation.district +"\nจ." + this.quotation.province + " " +this.quotation.postcode + 
+                    ", เบอร์โทร: " +
+                    this.quotation.wcompanyNumber +
                     "\nเลขผู้เสียภาษี: " +
-                    this.comTaxNum +
+                    this.quotation.taxNumber +
                     "\n อีเมล: " +
-                    this.comEmail,
+                    this.quotation.employeeEmail,
                 ],
               },
               {
@@ -199,10 +156,10 @@ export default {
                 fontSize: 10,
                 type: "none",
                 ol: [
-                  "เลขที่: " + "QA" + this.quoID,
-                  "วันที่: " + this.quoDate,
-                  "ผู้ขาย: " + this.quoSeller,
-                  "เบอร์: " + this.quoSellerTel,
+                  "เลขที่: " + "QA" + this.quotation.quotationID,
+                  "วันที่: " + moment(String(this.quotation.datequotation)).format("DD-MM-YYYY"),
+                  "ผู้ขาย: " + this.quotation.employeeName,
+                  "เบอร์: " + this.quotation.employeeNumber,
                 ],
               },
             ],
@@ -225,21 +182,21 @@ export default {
                     bold: true,
                   },
                   {
-                    text: this.cusName,
+                    text: this.quotation.companyName,
                   },
                   {
                     text: "\nที่อยู่: ",
                     bold: true,
                   },
                   {
-                    text: this.cusAddr,
+                    text:  this.quotation.caddress + " ต." + this.quotation.csubdistrict + " อ." + this.quotation.cdistrict +" จ." + this.quotation.cprovince + " " +this.quotation.cpostcode ,
                   },
                   {
                     text: "\nเลขทะเบียนนิติบุคคล: ",
                     bold: true,
                   },
                   {
-                    text: this.cusTax,
+                    text: this.quotation.ctaxNumber,
                   },
                 ],
               },
@@ -342,7 +299,7 @@ export default {
                 fontSize: 10,
                 type: "none",
                 ol: [
-                  "ราคาก่อนภาษี : " + this.price + " บาท",
+                  "ราคาก่อนภาษี : " + this.quotation.paymentPrice + " บาท",
                   "ภาษี 7% : " + this.tax7 + " บาท",
                   "ราคารวมภาษีมูลค่าเพิ่ม 7% : " + this.priceaftertax7 + " บาท",
                   "หัก ณ ที่จ่าย 3% : " + this.withholding3 + " บาท",
@@ -377,33 +334,23 @@ export default {
                     bold: true,
                   },
                   {
-                    text: this.cusName,
-                    lineHeight: 6,
+                    text: this.quotation.companyName,
                   },
                   {
-                    canvas: [
-                      {
-                        type: "line",
-                        x1: 0,
-                        y1: 280,
-                        x2: 700,
-                        y2: 280,
-                        dash: { length: 5, space: 10 },
-                      },
-                    ],
+                    lineHeight: 6,
+                    text: " ",
                   },
                   {
                     text: "\nผู้ว่าจ้าง ",
-                    margin: [30, 0],
                     bold: true,
                   },
                   {
-                    text: "\n" + this.quoDate,
+                    text: "\n" + moment(String(this.quotation.datequotation)).format("DD-MM-YYYY"),
                   },
                 ],
               },
               {
-                width: "*",
+                width: "auto",
                 alignment: "center",
                 fontSize: 10,
                 type: "none",
@@ -413,7 +360,7 @@ export default {
                     bold: true,
                   },
                   {
-                    text: this.comName,
+                    text: this.quotation.wcompanyName,
                     lineHeight: 6,
                   },
                   {},
@@ -423,7 +370,7 @@ export default {
                     bold: true,
                   },
                   {
-                    text: "\n" + this.quoDate,
+                    text: "\n" + moment(String(this.quotation.datequotation)).format("DD-MM-YYYY"),
                   },
                 ],
                 style: {
@@ -485,20 +432,6 @@ export default {
       };
       pdfMake.createPdf(dd).open();
       /* pdfMake.createPdf(dd).open({}, window) */
-      const getBase64Image = (url) => {
-        const img = new Image();
-        img.setAttribute("crossOrigin", "anonymous");
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          canvas.width = img.width;
-          canvas.height = img.height;
-          const ctx = canvas.getContext("2d");
-          ctx.drawImage(img, 0, 0);
-          const dataURL = canvas.toDataURL("image/png");
-          console.log(dataURL);
-        };
-        img.src = url;
-      };
     },
   },
 };
