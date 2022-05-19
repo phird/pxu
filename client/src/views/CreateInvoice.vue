@@ -167,7 +167,6 @@ export default {};
   width: 30%;
   /* background-color: tan; */
 }
-
 /* right layout */
 .right-layout-panel {
   margin-top: 0;
