@@ -23,6 +23,7 @@
       </div>
       <!-- step pills -->
       <!-- add detail section -->
+
       <div v-if="check == '0'" class="form-group detail-section">
         <todo :todos="todos" :sumtodo="sumtodo" :qID="qID" :inv="inv" />
         <div class="nav-section">
@@ -58,7 +59,6 @@
           <button @click="goa(1)" class="nav-but nav-but-back">ก่อนหน้า</button>
         </div>
       </div>
-
       <!-- add scope of work  - section  -->
     </div>
     <!-- /Left layput for website  -->
@@ -71,11 +71,15 @@
             <!-- <b-icon icon="file-earmark-pdf" style="color: blue; font-size:24px;"></b-icon> -->
             ดาวน์โหลดเป็น PDF
           </button>
-          <button
-            type="button"
-            class="btn btn-outline-success"
-            @click="submit"
-          >
+          <button v-if="check=='0'" type="button" class="btn btn-outline-success" disabled>
+            <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
+            บันทึก
+          </button>
+          <button v-if="check=='1'" type="button" class="btn btn-outline-success" disabled>
+            <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
+            บันทึก
+          </button>
+          <button v-if="check=='2'" type="button" class="btn btn-outline-success" @click="submit">
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
           </button>
@@ -86,6 +90,7 @@
         </div>
       </div>
     </div>
+
     <!--/Right layput for website  -->
   </div>
 </template>
@@ -126,8 +131,8 @@ export default {
         quoname: "",
         dateq: "",
         noteq: "",
-        qIN: '1',
-        checkedit:false,
+        qIN: "1",
+        checkedit: false,
       },
       sumnote: "",
       isOne: true,
@@ -146,8 +151,8 @@ export default {
     };
   },
   methods: {
-    cancel(){
-      if(window.confirm('คุณแน่ใจใช่ไหมที่จะยกเลิกรายการนี้')){
+    cancel() {
+      if (window.confirm("คุณแน่ใจใช่ไหมที่จะยกเลิกรายการนี้")) {
         history.back();
       }
     },
@@ -178,60 +183,18 @@ export default {
       this.estatus = estatus;
     },
     submitquo() {
-      axios.post("http://localhost:5000/quotation", {
-        qID: this.qID,
-        cID: this.sumtodo.customerID,
-        eID: this.sumtodo.employeeID,
-        date: this.sumtodo.dateq,
-        noteq: this.sumtodo.noteq,
-        qName: this.sumtodo.quoname,
-        qIN: this.sumtodo.qIN,
-        vatstatus: this.sumtodo.statusvat,
-        customerstatus: this.sumtodo.cusstatus,
-        payment: this.sumtodo.payment,
-        address: this.web.address,
-        subd: this.web.subdistrict,
-        d: this.web.district,
-        prov: this.web.province,
-        postcode: this.web.postcode,
-        taxNumber: this.web.taxNumber,
-        companyName: this.web.companyName,
-        estatus: this.estatus,
-        summernote: this.sumnote,
-      }).then(()=>{
-        alert('บันทึกข้อมูลสำเร็จ');
-        history.back();
-      });
-    },
-    submit() {
-      const requestone=[];
-      console.log(this.todos);
-      let j = 0;
-      for (let i = 1; i <= this.sumtodo.qIN; i++) {
-        this.inID = this.qID+ "-" + i;
-        let test;
-        if (this.sumtodo.qIN == 1 && i == 1) {
-          test = this.inv.IN1 / 100;
-        } else if (this.sumtodo.qIN == 2 && i == 1) {
-          test = this.inv.IN1 / 100;
-        } else if (this.sumtodo.qIN == 2 && i == 2) {
-          test = this.inv.IN2 / 100;
-        } else if (this.sumtodo.qIN == 3 && i == 1) {
-          test = this.inv.IN1 / 100;
-        } else if (this.sumtodo.qIN == 3 && i == 2) {
-          test = this.inv.IN2 / 100;
-        } else if (this.sumtodo.qIN == 3 && i == 3) {
-          test = this.inv.IN3 / 100;
-        }
-        requestone[i-1]=axios.post("http://localhost:5000/invoice", {
-          inID: this.inID,
+      axios
+        .post("http://localhost:5000/quotation", {
           qID: this.qID,
           cID: this.sumtodo.customerID,
           eID: this.sumtodo.employeeID,
-          num: i,
+          date: this.sumtodo.dateq,
+          noteq: this.sumtodo.noteq,
+          qName: this.sumtodo.quoname,
+          qIN: this.sumtodo.qIN,
           vatstatus: this.sumtodo.statusvat,
           customerstatus: this.sumtodo.cusstatus,
-          payment: this.sumtodo.payment * test,
+          payment: this.sumtodo.payment,
           address: this.web.address,
           subd: this.web.subdistrict,
           d: this.web.district,
@@ -240,23 +203,66 @@ export default {
           taxNumber: this.web.taxNumber,
           companyName: this.web.companyName,
           estatus: this.estatus,
+          summernote: this.sumnote,
+        })
+        .then(() => {
+          alert("บันทึกข้อมูลสำเร็จ");
+          history.back();
         });
-        j=i;
-        console.log(j);
-      }
-      for(let i = 0; i < this.todos.length; i++){
-        requestone[j+i]=axios.post("http://localhost:5000/scope", {
-          qID: this.qID,
-          name: this.todos[i].name,
-          price: this.todos[i].price,
-          quantity: this.todos[i].quantity,
-        });
-      }
+    },
+    submit() {
 
-      axios.all([requestone]).then(
-        this.submitquo()
-      );
-  
+        const requestone = [];
+        console.log(this.todos);
+        let j = 0;
+        for (let i = 1; i <= this.sumtodo.qIN; i++) {
+          this.inID = this.qID + "-" + i;
+          let test;
+          if (this.sumtodo.qIN == 1 && i == 1) {
+            test = this.inv.IN1 / 100;
+          } else if (this.sumtodo.qIN == 2 && i == 1) {
+            test = this.inv.IN1 / 100;
+          } else if (this.sumtodo.qIN == 2 && i == 2) {
+            test = this.inv.IN2 / 100;
+          } else if (this.sumtodo.qIN == 3 && i == 1) {
+            test = this.inv.IN1 / 100;
+          } else if (this.sumtodo.qIN == 3 && i == 2) {
+            test = this.inv.IN2 / 100;
+          } else if (this.sumtodo.qIN == 3 && i == 3) {
+            test = this.inv.IN3 / 100;
+          }
+          requestone[i - 1] = axios.post("http://localhost:5000/invoice", {
+            inID: this.inID,
+            qID: this.qID,
+            cID: this.sumtodo.customerID,
+            eID: this.sumtodo.employeeID,
+            num: i,
+            vatstatus: this.sumtodo.statusvat,
+            customerstatus: this.sumtodo.cusstatus,
+            payment: this.sumtodo.payment * test,
+            address: this.web.address,
+            subd: this.web.subdistrict,
+            d: this.web.district,
+            prov: this.web.province,
+            postcode: this.web.postcode,
+            taxNumber: this.web.taxNumber,
+            companyName: this.web.companyName,
+            estatus: this.estatus,
+          });
+          j = i;
+          console.log(j);
+        }
+        for (let i = 0; i < this.todos.length; i++) {
+          requestone[j + i] = axios.post("http://localhost:5000/scope", {
+            qID: this.qID,
+            name: this.todos[i].name,
+            price: this.todos[i].price,
+            quantity: this.todos[i].quantity,
+          });
+        }
+
+        axios.all([requestone]).then(this.submitquo());
+
     },
     async getid() {
       try {
@@ -265,9 +271,9 @@ export default {
           { to: tous }
         );
         if (response.data[0].num == "0") {
-          this.qID =  tous + "001";
+          this.qID = tous + "001";
         } else {
-          this.qID =  tous + "00" + (response.data[0].num + 1);
+          this.qID = tous + "00" + (response.data[0].num + 1);
         }
       } catch (err) {
         console.log(err);
