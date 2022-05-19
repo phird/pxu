@@ -37,7 +37,7 @@ let routes = [
 	},	{
 		path: '/createpdf',
 		name: 'createpdf',
-		component: () => import('../views/PDF/createPDF.vue'),
+		component: () => import('../views/PDF/createPDFquotation.vue'),
 	},
 	{
 		path: '/Invoice/:id',
@@ -70,10 +70,22 @@ let routes = [
 		component: () => import('../views/PDF/createPDFInvoice.vue'),
 	},
 	{
+		path: '/createInvoice',
+		name: 'สร้าง Invoice บุคคลธรรมดา',
+		layout: "dashboard",
+		component: () => import('../views/PDF/createPDFInvoiceNormal.vue'),
+	},
+	{
 		path: '/createReceipt',
 		name: 'สร้างใบเสร็จ',
 		layout: "dashboard",
-		component: () => import('../views/PDF/createPDFreciept.vue'),
+		component: () => import('../views/PDF/createPDFreceipt.vue'),
+	},
+	{
+		path: '/createReceiptNormal',
+		name: 'สร้างใบเสร็จ บุคคลธรรมดา',
+		layout: "dashboard",
+		component: () => import('../views/PDF/createPDFreceiptNormal.vue'),
 	},
 	{
 		path: '/Customers',

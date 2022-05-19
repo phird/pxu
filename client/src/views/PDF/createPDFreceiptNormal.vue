@@ -1,7 +1,7 @@
-/* ==================================================
- นิติบุคคล
-==================================================
- */
+/* 
+=======================
+บุคคลธรรมดา
+======================= */
 <template>
   <div id="app"></div>
 </template>
@@ -18,10 +18,10 @@ export default {
       comTel: "052-005-509",
       comTaxNum: "0503561005794",
       comEmail: "infinityp.soft@gmail.com",
-      invID: "INVYYMM-XXX",
-      invDate: "17/05/2022",
-      invSeller: "Phirachat",
-      invSellerTel: "087-5458849",
+      reID: "REYYMM-XXX",
+      reDate: "17/05/2022",
+      reSeller: "Phirachat",
+      reSellerTel: "087-5458849",
 
       cusName: "บริษัท ชิปโปรมาโคร จำกัด",
       cusAddr: "226/1 หมู่ 2 ต.สันผักหวาน อ.หางดง จ.เชียงใหม่",
@@ -34,8 +34,8 @@ export default {
       price: "1,588,785.05",
       tax7: "111,214,95",
       priceaftertax7: "1,700,000",
-      withholding3: "47,663.55",
-      netprice: "1,652,336.45",
+      
+      netprice: "1,700,000",
     };
   },
   mounted() {
@@ -95,7 +95,7 @@ export default {
                 width: 130,
                 fontSize: 20,
                 alignment: "left",
-                text: "ใบวางบิล",
+                text: "ใบเสร็จรับเงิน",
               },
             ],
           },
@@ -129,10 +129,10 @@ export default {
                 fontSize: 10,
                 type: "none",
                 ol: [
-                  "เลขที่: " + this.invID,
-                  "วันที่: " + this.invDate,
-                  "ผู้ขาย: " + this.invSeller,
-                  "เบอร์: " + this.invSellerTel,
+                  "เลขที่: " + this.reID,
+                  "วันที่: " + this.reDate,
+                  "ผู้ขาย: " + this.reSeller,
+                  "เบอร์: " + this.reSellerTel,
                 ],
               },
             ],
@@ -275,7 +275,6 @@ export default {
                   "ราคาก่อนภาษี : " + this.price + " บาท",
                   "ภาษี 7% : " + this.tax7 + " บาท",
                   "ราคารวมภาษีมูลค่าเพิ่ม 7% : " + this.priceaftertax7 + " บาท",
-                  "หัก ณ ที่จ่าย 3% : " + this.withholding3 + " บาท",
                   "รวมเงินสุทธิ : " + this.netprice + " บาท",
                 ],
                 style: {
@@ -297,18 +296,7 @@ export default {
             columns: [
               {
                 width: 1,
-                canvas: [
-                  {
-                    type: "rect",
-                    x: 5,
-                    y: 4,
-                    w: 10,
-                    h: 10,
-                    /* color: "#7a7a7a", */
-                    border: 'black',
-                    fillOpacity: 0.5,
-                  },
-                ],
+                text: "  ",
               },
               {
                 width: "*",
@@ -317,28 +305,7 @@ export default {
                 fontSize: 10,
                 bold: false,
                 text: [
-                  {
-                    text: "โอนผ่าน",
-                    bold: true,
-                  },
-                  {
-                    text: this.bankName,
-                  },
-                  {
-                    text: "\nเลขบัญชี ",
-                    bold: true,
-                  },
-                  {
-                    text: this.bankNumber,
-                  },
-                  {
-                    text: "\nชื่อบัญชี ",
-                    bold: true,
-                  },
-                  {
-                    text: this.bankAccName,
-                  },
-                  
+                  ""
                 ],
               },
               {
@@ -365,7 +332,7 @@ export default {
                   },
                   {
                    alignment: "center",
-                    text: "\nผู้รับเงิน ",
+                    text: "\nผู้อนุมัติ ",
                     bold: true,
                     margin: [ 0, 5, 0, 0 ],
                   },
@@ -377,7 +344,7 @@ export default {
                   },
                   {
                     alignment: "center",
-                    text: "\n" + this.invDate,
+                    text: "\n" + this.reDate,
                   },
                 ],
                 style: {

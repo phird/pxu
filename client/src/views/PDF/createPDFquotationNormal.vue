@@ -25,8 +25,7 @@ export default {
 
       price: "1,588,785.05",
       tax7: "111,214,95",
-      vat7: "1,700,000",
-      withholding3: "47,663.55",
+      priceaftertax7: "1,700,000",
       netprice: "1,652,336.45",
     };
   },
@@ -289,8 +288,8 @@ export default {
                 ol: [
                   "ราคาก่อนภาษี : " + this.price + " บาท",
                   "ภาษี 7% : " + this.tax7 + " บาท",
-                  "ราคารวมภาษีมูลค่าเพิ่ม 7% : " + this.vat7 + " บาท",
-                  "หัก ณ ที่จ่าย 3% : " + this.withholding3 + " บาท",
+                  "ราคารวมภาษีมูลค่าเพิ่ม 7% : " + this.priceaftertax7 + " บาท",
+                  
                   "รวมเงินสุทธิ : " + this.netprice + " บาท",
                 ],
                 style: {
