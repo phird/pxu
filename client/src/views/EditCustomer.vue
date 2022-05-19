@@ -70,7 +70,7 @@
                 <div class="error" v-if="$v.companyNumber.$error">
                   <template v-if="!$v.companyNumber.$invalid"> </template>
                   <template v-else-if="!$v.companyNumber.required"> โปรดใส่เบอร์บริษัท </template>
-                    <template v-else-if="!!$v.companyNumber.minLength || !$v.companyNumber.maxLength || !$v.companyNumber.numeric"> เบอร์บริษัทต้องเป็นตัวเลข9-10หลัก </template>
+                    <template v-else-if="!$v.companyNumber.minLength || !$v.companyNumber.maxLength || !$v.companyNumber.numeric"> เบอร์บริษัทต้องเป็นตัวเลข9-10หลัก </template>
                 </div>
               </div>
               <!-- /COMPANY TEL. -->

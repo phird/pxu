@@ -83,5 +83,22 @@ router.post('/', (req, res) => {
         })
 })
 
+router.post('/:id', (req, res) => {
+    const inID = req.params.id;
+    const bID = req.body.bankID;
+    const dateinv = req.body.dateinv;
+    const sqlInvoice = "UPDATE `invoice` SET bankID=?,dateinvoice=? WHERE invoiceID=?";
+    db.query(sqlInvoice, [
+        bID,
+        dateinv,
+        inID,
+    ], (err, sqlInvoiceRe) => {
+
+            if (err) 
+            console.log(err);
+            console.log(sqlInvoiceRe);
+            res.send(sqlInvoiceRe);
+        })
+})
 
 export default router;

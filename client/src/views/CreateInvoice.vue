@@ -24,7 +24,8 @@
               </span>
               <span
                 >อ.{{ invoice.district }} จ.{{ invoice.province }}
-                {{ invoice.postcode }} , เบอร์มือถือ {{ invoice.wcompanyNumber }}</span
+                {{ invoice.postcode }} , เบอร์มือถือ
+                {{ invoice.wcompanyNumber }}</span
               >
               <span>เลขผู้เสียภาษี : {{ invoice.taxNumber }} </span>
               <span>อีเมล์ : {{ invoice.employeeEmail }}</span>
@@ -32,15 +33,15 @@
             <div class="invoice-detail">
               <div class="id-box">
                 <span>เลขที่ INV{{ invoice.invoiceID }}</span>
-                 <div class="date-section hbox">
-              <span>วันที่ </span>
-              <span
-                ><date-picker
-                  v-model="dateinv"
-                  valueType="format"
-                ></date-picker>
-              </span>
-            </div>
+                <div class="date-section hbox">
+                  <span>วันที่ </span>
+                  <span
+                    ><date-picker
+                      v-model="dateinv"
+                      valueType="format"
+                    ></date-picker>
+                  </span>
+                </div>
                 <span>ผู้ขาย {{ invoice.employeeName }}</span>
                 <span>เบอร์ {{ invoice.employeeNumber }}</span>
               </div>
@@ -48,59 +49,195 @@
           </div>
           <div class="header-bott">
             <div class="customer-section">
-              <div class="cs-box">
+              <div v-if="invoice.customerstatus == 'นิติบุคคล'" class="cs-box">
+                <span>ลูกค้า {{ invoice.companyName }}</span
+                ><span
+                  >ที่อยู่ {{ invoice.caddress }} ต.{{ invoice.csubdistrict }}
+                </span>
                 <span
-                  >ลูกค้า วิสาหกิจชุมชนเกษตรผสมผสานสู่การแปรรูปเชิงนวัตกรรม
-                  (ข้าวน้ำจำ)</span
+                  >อ.{{ invoice.cdistrict }} จ.{{ invoice.cprovince }}
+                  {{ invoice.cpostcode }} , เบอร์มือถือ
+                  {{ invoice.companyNumber }}</span
                 >
-                <span>โทร 090-973-2379 (นางสาวธัญลักษณ์ ปิงเมือง)</span>
+                <span>({{ invoice.contactName }})</span>
+              </div>
+              <div
+                v-if="invoice.customerstatus == 'บุคคลธรรมดา'"
+                class="cs-box"
+              >
+                <span
+                  >ลูกค้า {{ invoice.companyName }}, เบอร์มือถือ
+                  {{ invoice.companyNumber }}</span
+                >
               </div>
             </div>
           </div>
         </div>
         <div class="body">
-          <div class="table-container">
-            <table class="table">
-              <thead class="table-dark">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">รายละเอียด</th>
-                  <th scope="col">จำนวน</th>
-                  <th scope="col">ราคาต่อหน่วย</th>
-                  <th scope="col">ราคารวม</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Cloud Hosting (เดือนตุลาคม 2564)</td>
-                  <td>1</td>
-                  <td>-</td>
-                  <td>-</td>
-                </tr>
-              </tbody>
+          <div class="todo-form">
+            <table class="table-detail">
+              <tr class="container-todo-header">
+                <th class="cbox">
+                  <span>รายละเอียด</span>
+                </th>
+                <th class="cbox">
+                  <span>จำนวน</span>
+                </th>
+                <th class="cbox">
+                  <span>ราคาต่อหน่วย</span>
+                </th>
+                <th class="cbox"></th>
+              </tr>
+              <tr class="container-todo borderbox">
+                <td class="cbox">
+                  <input
+                    v-model="newTodo"
+                    type="text"
+                    placeholder="กรอกรายละเอียด"
+                    class="form-control form-input me-3"
+                  />
+                </td>
+                <td class="cbox">
+                  <input
+                    v-model="newquantity"
+                    type="number"
+                    min="1"
+                    class="form-control form-input me-3"
+                    style="width: 133px"
+                  />
+                </td>
+                <td class="cbox">
+                  <input
+                    v-model="newprice"
+                    type="number"
+                    min="0"
+                    class="form-control form-input me-3"
+                    style="width: 133px"
+                  />
+                </td>
+                <td class="cbox">
+                  <a-tooltip>
+                    <template slot="title"> เพิ่มรายละเอียด </template>
+                    <button type="submit" class="submit-btn" @click="addTodo()">
+                      + Add
+                    </button>
+                  </a-tooltip>
+                </td>
+              </tr>
+              <tr
+                class="container-todo-list"
+                v-for="(todo, index) in todos"
+                :key="index"
+              >
+                <!-- /card-todo-container -->
+                <div class="card-todo-container">
+                  <td class="text-start cbox" style="width: 20%">
+                    <span>
+                      {{ todo.name }}
+                    </span>
+                  </td>
+
+                  <td class="cbox">
+                    <div
+                      class="d-flex justify-content-start align-items-center"
+                    >
+                      <div>
+                        {{ todo.quantity }}
+                      </div>
+                    </div>
+                    <link
+                      rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                    />
+                  </td>
+
+                  <td class="cbox">
+                    <div
+                      class="d-flex justify-content-start align-items-center"
+                    >
+                      <div>
+                        {{ todo.price }}
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="cbox text-end action-btn">
+                    <div class="d-flex justify-content-end">
+                      <div class="" @click="upTodo(index)">
+                        <i class="fa fa-angle-up"></i>
+                      </div>
+                      <div class="" @click="downTodo(index)">
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                      </div>
+                      <div class="" @click="editTodo(index)">
+                        <i class="fa fa-edit"></i>
+                      </div>
+                      <div class="" @click="deleteTodo(index)">
+                        <i class="fa fa-close"></i>
+                      </div>
+                    </div>
+                  </td>
+                </div>
+                <!-- /card-todo-container -->
+              </tr>
             </table>
           </div>
 
           <div class="payment-section">
             <div class="ps-left">
-              <span>(สามร้อยบาทถ้วน)</span>
+              <span></span>
             </div>
             <div class="ps-right">
-              <div class="ps-right-box">
-                <span>รวมเป็นเงิน - บาท</span>
-                <span>ภาษี 7% - บาท</span>
-                <span>หัก ณ ที่จ่าย 3% - บาท</span>
-                <span>จำนวนเงินรวมทั้งสิ้น - บาท</span>
+              <div
+                v-if="invoice.customerstatus == 'นิติบุคคล'"
+                class="ps-right-box"
+              >
+                <span>รวมเป็นเงิน {{ total }} บาท</span>
+                <span>ภาษี 7% {{ vat7 }} บาท</span>
+                <span>หัก ณ ที่จ่าย 3% {{ tax3 }} บาท</span>
+                <span>จำนวนเงินรวมทั้งสิ้น {{ invoice.priceINV }} บาท</span>
+              </div>
+              <div
+                v-if="invoice.customerstatus == 'บุคคลธรรมดา'"
+                class="ps-right-box"
+              >
+                <span>รวมเป็นเงิน {{ total }} บาท</span>
+                <span>ภาษี 7% {{ vat7 }} บาท</span>
+                <span>จำนวนเงินรวมทั้งสิ้น {{ invoice.priceINV }} บาท</span>
               </div>
             </div>
           </div>
         </div>
         <div class="sign-section">
           <div class="sign-left">
-            <span> <b-icon icon="square"></b-icon> โอนผ่านธนาคารกสิกรไทย </span>
-            <span> เลขบัญชี 0-5438-7366-7 </span>
-            <span> ชื่อบัญชี หจก.อินฟินิตี้ ฟิโนมีนอล ซอฟท์แวร์ </span>
+            <span>ธนาคาร </span>
+            <span>
+              <a-select
+                id="customer-select"
+                v-model="bankID"
+                style="width: 120px"
+                default-value="5"
+              >
+                <a-select-option value="" disable>
+                  เลือกธนาคาร
+                </a-select-option>
+                <a-select-option
+                  v-for="ba in bank"
+                  :key="ba.bankID"
+                  :value="ba.bankID"
+                  @click="
+                    choosebank(ba.bankName, ba.bankAccount, ba.accountName)
+                  "
+                >
+                  {{ ba.accountName }}
+                </a-select-option>
+              </a-select>
+            </span>
+            <span>
+              <b-icon icon="square"></b-icon> โอนผ่าน{{ bankch.bname }}
+            </span>
+            <span> เลขบัญชี {{ bankch.accnum }} </span>
+            <span> ชื่อบัญชี {{ bankch.accname }}</span>
           </div>
           <div class="sign-right">
             <div class="s-container">
@@ -113,7 +250,7 @@
                     style="width: 120px"
                   />
                 </span>
-                <span> ในนาม หจก.อินฟินิตี้ ฟีโนมีนอล ซอฟท์แวร์</span>
+                <span> ในนาม {{ invoice.wcompanyName }}</span>
               </div>
               <div class="sign">
                 <div class="sign-l">
@@ -121,11 +258,11 @@
                     >ลงชื่อ
                     <div id="signbox"></div
                   ></span>
-                  <span> (นายมิกิ อาษาวงค์) </span>
+                  <span> ({{ invoice.employeeName }}) </span>
                   <span> ผู้รับเงิน </span>
                 </div>
                 <div class="sign-r">
-                  <span>01/11/2564</span>
+                  <span>{{ dateinv }}</span>
                   <span> วันที่ </span>
                 </div>
               </div>
@@ -142,9 +279,9 @@
       <div class="right-layout-panel">
         <div class="container-panel">
           <div>
-            งวดที่{{ invoice.numberinstallment }}  : {{ invoice.priceINV }}  บาท
+            งวดที่{{ invoice.numberinstallment }} : {{ invoice.priceINV }} บาท
           </div>
-          <button type="button" class="btn btn-outline-success">
+          <button type="button" class="btn btn-outline-success" @click="submit">
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
           </button>
@@ -161,29 +298,162 @@
 
 <script>
 import axios from "axios";
+import moment from "moment";
 export default {
   data() {
     return {
+      inID: "",
       invoice: [],
-      emID: "",
-      cusID: "",
-      employee: [],
-      customer: [],
+      //
+      todos: [],
+      newprice: 0,
+      newquantity: 1,
+      newTodo: "",
+      indexEditTodo: null,
+      tempNameTodo: "",
+      tempquantityTodo: "",
+      temppriceTodo: "",
+      //
       bank: [],
-      dateinv:'',
+      dateinv: "",
+      vat7: 0,
+      tax3: 0,
+      total: 0,
+      bankID: "",
+      bankch: {
+        bname: "",
+        accname: "",
+        accnum: "",
+      },
     };
   },
   created() {
     this.inID = this.$route.params.id;
     this.getinv(this.inID);
+    this.getbank();
+    axios.delete(`http://localhost:5000/scope/${this.inID}`);
   },
   methods: {
+    choosebank(bn, ac, an) {
+      this.bankch.bname = bn;
+      this.bankch.accname = ac;
+      this.bankch.accnum = an;
+    },
+    addTodo() {
+      if (this.newTodo.length === 0) return;
+      if (this.indexEditTodo === null) {
+        this.todos.push({
+          name: this.newTodo,
+          quantity: this.newquantity,
+          price: this.newprice,
+        });
+      } else {
+        this.todos[this.indexEditTodo].name = this.newTodo;
+        this.todos[this.indexEditTodo].quantity = this.newquantity;
+        this.todos[this.indexEditTodo].price = this.newprice;
+        this.indexEditTodo = null;
+      }
+      this.newTodo = "";
+      this.newquantity = 1;
+      this.newprice = 0;
+    },
+    editTodo(index) {
+      this.newTodo = this.todos[index].name;
+      this.newquantity = this.todos[index].quantity;
+      this.newprice = this.todos[index].price;
+      this.indexEditTodo = index;
+    },
+    deleteTodo(index) {
+      this.newTodo = this.todos[index].name;
+      this.newquantity = this.todos[index].quantity;
+      this.newprice = this.todos[index].price;
+      this.todos.splice(index, 1);
+      this.newTodo = "";
+      this.newquantity = 1;
+      this.newprice = 0;
+    },
+    upTodo(index) {
+      if (index === 0) return;
+      this.tempNameTodo = this.todos[index].name;
+      this.tempquantityTodo = this.todos[index].quantity;
+      this.temppriceTodo = this.todos[index].price;
+      this.todos[index].name = this.todos[index - 1].name;
+      this.todos[index].quantity = this.todos[index - 1].quantity;
+      this.todos[index].price = this.todos[index - 1].price;
+      this.todos[index - 1].name = this.tempNameTodo;
+      this.todos[index - 1].quantity = this.tempquantityTodo;
+      this.todos[index - 1].price = this.temppriceTodo;
+    },
+    downTodo(index) {
+      if (index === this.todos.length - 1) return;
+      this.tempNameTodo = this.todos[index].name;
+      this.tempquantityTodo = this.todos[index].quantity;
+      this.temppriceTodo = this.todos[index].price;
+      this.todos[index].name = this.todos[index + 1].name;
+      this.todos[index].quantity = this.todos[index + 1].quantity;
+      this.todos[index].price = this.todos[index + 1].price;
+      this.todos[index + 1].name = this.tempNameTodo;
+      this.todos[index + 1].quantity = this.tempquantityTodo;
+      this.todos[index + 1].price = this.temppriceTodo;
+    },
+    submit() {
+      const requestone = [];
+      for (let i = 0; i < this.todos.length; i++) {
+        requestone[i] = axios.post("http://localhost:5000/scope", {
+          qID: this.inID,
+          name: this.todos[i].name,
+          price: this.todos[i].price,
+          quantity: this.todos[i].quantity,
+        });
+      }
+      axios.all([requestone]).then(
+        axios
+          .post(`http://localhost:5000/invoice/${this.inID}`, {
+            bankID: this.bankID,
+            dateinv: this.dateinv,
+          })
+          .then(() => {
+            alert("บันทึกข้อมูลสำเร็จ");
+            history.back();
+          })
+      );
+    },
     async getinv(id) {
       try {
         const response = await axios.get(
           `http://localhost:5000/invoice/in/${id}`
         );
         this.invoice = response.data[0];
+        if (this.invoice.customerstatus == "นิติบุคคล") {
+          if (this.invoice.vatstatus == "vatนอก") {
+            this.total = (this.invoice.priceINV * 100) / 110;
+            this.vat7 = this.total * 0.07;
+            this.tax3 = this.total * 0.03;
+          } else if (this.invoice.vatstatus == "vatใน") {
+            this.total = (this.invoice.priceINV * 100) / 103;
+            this.vat7 = this.total * 0.07;
+            this.tax3 = this.total * 0.03;
+          }
+        } else {
+          if (this.invoice.vatstatus == "vatนอก") {
+            this.total = (this.invoice.priceINV * 100) / 107;
+            this.vat7 = this.total * 0.07;
+            this.tax3 = 0;
+          } else if (this.invoice.vatstatus == "vatใน") {
+            this.total = this.invoice.priceINV * 0.93;
+            this.vat7 = this.invoice.priceINV - this.total;
+            this.tax3 = 0;
+          }
+        }
+
+        this.dateinv = moment(String(this.invoice.dateinvoice)).format(
+          "YYYY-MM-DD"
+        );
+        if (this.invoice.bankID != "0") {
+          this.bankID = this.invoice.bankID;
+          this.getbankid(this.bankID);
+        }
+
         console.log(this.invoice);
       } catch (err) {
         console.log(err);
@@ -191,16 +461,25 @@ export default {
     },
     async getbank() {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/bank`
-        );
+        const response = await axios.get(`http://localhost:5000/bank`);
         this.bank = response.data;
         console.log(this.bank);
       } catch (err) {
         console.log(err);
       }
     },
-
+    async getbankid(id) {
+      try {
+        const response = await axios.get(`http://localhost:5000/bank/${id}`);
+        this.bankch.bname = response.data[0].bankName;
+        this.bankch.accname = response.data[0].accountName;
+        this.bankch.accnum = response.data[0].bankAccount;
+        console.log("ddsfsdf");
+        console.log(this.bankch);
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 };
 </script>
