@@ -26,9 +26,9 @@
       <!-- step pills -->
       <!-- add detail section -->
       <div v-if="check == '0'" class="form-group detail-section">
-        <todo :todos="todos" :sumtodo="sumtodo" :qID="qID" :inv="inv" />
+        <todo :todos="todos" :sumtodo="sumtodo" :qID="qID" :inv="inv" :changein="changein" @updatechan="updatechan"/>
         <div class="nav-section">
-          <button @click="goa(1)" class="nav-but">
+          <button @click="goa(1),deleteq()" class="nav-but">
             ต่อไป <b-icon icon="chevron-right"></b-icon>
           </button>
         </div>
@@ -44,10 +44,10 @@
             @update-status="updateestatus"
           />
           <div class="nav-section">
-            <button @click="goa(0)" class="nav-but nav-but-back">
+            <button @click="goa(0),deleteq()" class="nav-but nav-but-back">
               ก่อนหน้า
             </button>
-            <button @click="goa(2)" class="nav-but">ต้อไป</button>
+            <button @click="goa(2),deleteq()" class="nav-but">ต้อไป</button>
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@
       <div v-if="check == '2'" class="form-group detail-section">
         <summernote :sumnote="sumnote" @update-text="updatesum" />
         <div class="nav-section">
-          <button @click="goa(1)" class="nav-but nav-but-back">ก่อนหน้า</button>
+          <button @click="goa(1),deleteq()" class="nav-but nav-but-back">ก่อนหน้า</button>
         </div>
       </div>
 
@@ -110,8 +110,6 @@ export default {
     this.qID = this.$route.params.id;
     this.getid(this.qID);
     this.getscope(this.qID);
-    axios.delete(`http://localhost:5000/invoice/${this.qID}`);
-    axios.delete(`http://localhost:5000/scope/${this.qID}`);
   },
   data() {
     return {
@@ -147,6 +145,7 @@ export default {
       },
       inID: "",
       numindex: 0,
+      changein:false,
     };
   },
   methods: {
@@ -176,6 +175,15 @@ export default {
     updateestatus(estatus) {
       this.estatus = estatus;
     },
+    updatechan(changein) {
+      this.changein = changein;
+    },
+    deleteq(){
+      console.log('change-in');
+      console.log(this.changein);
+     
+     
+    },
     submitquo() {
       axios
         .post(`http://localhost:5000/quotation/${this.qID}`, {
@@ -195,6 +203,10 @@ export default {
         });
     },
     submit() {
+       if(this.changein){
+         axios.delete(`http://localhost:5000/invoice/${this.qID}`);
+      axios.delete(`http://localhost:5000/scope/${this.qID}`);
+      }
       const requestone = [];
       console.log(this.todos);
       let j = 0;

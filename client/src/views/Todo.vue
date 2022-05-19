@@ -253,7 +253,7 @@
         <div class="installment-box">
           <span> รูปแบบการชำระเงิน </span>
           <div class="installment-box-sl">
-            <a-tabs v-model="qIN" @change="auth()">
+            <a-tabs v-model="qIN" @change="auth(),changeofin();">
               <a-tab-pane key="1" value="1" tab="ชำระเต็มจำนวน"> </a-tab-pane>
               <a-tab-pane key="2" value="2" tab="ผ่อนจ่าย 2 งวด" force-render>
                 <div>
@@ -363,7 +363,7 @@
 import axios from "axios";
 export default {
   name: "ToDo",
-  props: ["todos", "sumtodo", "qID", "inv"],
+  props: ["todos", "sumtodo", "qID", "inv","changein"],
   data() {
     return {
       //   statusvat:'1',
@@ -401,6 +401,7 @@ export default {
       IN1: this.inv.IN1,
       IN2: this.inv.IN2,
       IN3: this.inv.IN3,
+      //
     };
   },
   created() {
@@ -498,6 +499,7 @@ export default {
       this.newquantity = 1;
       this.newprice = 0;
       this.totalprice();
+      this.changeofin();
     },
     editTodo(index) {
       this.total = 0;
@@ -505,6 +507,7 @@ export default {
       this.newquantity = this.todos[index].quantity;
       this.newprice = this.todos[index].price;
       this.indexEditTodo = index;
+      this.changeofin();
     },
     deleteTodo(index) {
       this.newTodo = this.todos[index].name;
@@ -516,6 +519,7 @@ export default {
       this.newquantity = 1;
       this.newprice = 0;
       this.totalprice();
+      this.changeofin();
     },
     upTodo(index) {
       if (index === 0) return;
@@ -528,6 +532,7 @@ export default {
       this.todos[index - 1].name = this.tempNameTodo;
       this.todos[index - 1].quantity = this.tempquantityTodo;
       this.todos[index - 1].price = this.temppriceTodo;
+      this.changeofin();
     },
     downTodo(index) {
       if (index === this.todos.length - 1) return;
@@ -540,6 +545,11 @@ export default {
       this.todos[index + 1].name = this.tempNameTodo;
       this.todos[index + 1].quantity = this.tempquantityTodo;
       this.todos[index + 1].price = this.temppriceTodo;
+      this.changeofin();
+    },
+    changeofin(){
+      this.changein=true;
+      this.$emit("updatechan",this.changein);
     },
     async getcus() {
       console.log("get-cus");
