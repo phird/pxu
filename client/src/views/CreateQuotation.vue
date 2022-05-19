@@ -211,7 +211,10 @@ export default {
         });
     },
     submit() {
-
+      console.log(this.sumtodo.total);
+      if(this.sumtodo.total==0 || this.sumtodo.customerID=="" || this.sumtodo.quoname=="" || this.sumtodo.dateq==""){
+        alert("can't submit");
+      }else{
         const requestone = [];
         console.log(this.todos);
         let j = 0;
@@ -262,6 +265,8 @@ export default {
         }
 
         axios.all([requestone]).then(this.submitquo());
+      }
+        
 
     },
     async getid() {
