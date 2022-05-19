@@ -34,10 +34,6 @@ let routes = [
 		name: 'ใบเสนอราคา',
 		layout: "dashboard",
 		component: () => import('../views/PDF/Pdf.vue'),
-	},	{
-		path: '/createpdf',
-		name: 'createpdf',
-		component: () => import('../views/PDF/createPDF.vue'),
 	},
 	{
 		path: '/Invoice/:id',
@@ -57,18 +53,48 @@ let routes = [
 		layout: "dashboard",
 		component: () => import('../views/CreateQuotation.vue'),
 	},
+	
 	{
 		path: '/Editinvoice/:id',
 		name: 'แก้ไขใบวางบิล',
 		layout: "dashboard",
 		component: () => import('../views/CreateInvoice.vue'),
-	},
-	
+	},	
 	{
-		path: '/createInvoice',
+		path: '/createPDFquotation/:id',
+		name: 'createpdf',
+		layout: "dashboard",
+		component: () => import('../views/PDF/createPDFquotation.vue'),
+	},
+	{
+		path: '/createpdfNormal/:id',
+		name: 'createpdf บุคคลธรรมดา',
+		layout: "dashboard",
+		component: () => import('../views/PDF/createPDFquotationNormal.vue'),
+	},
+	{
+		path: '/createInvoice/:id',
 		name: 'สร้าง Invoice',
 		layout: "dashboard",
 		component: () => import('../views/PDF/createPDFInvoice.vue'),
+	},
+	{
+		path: '/createInvoice/:id',
+		name: 'สร้าง Invoice บุคคลธรรมดา',
+		layout: "dashboard",
+		component: () => import('../views/PDF/createPDFInvoiceNormal.vue'),
+	},
+	{
+		path: '/createReceipt/:id',
+		name: 'สร้างใบเสร็จ',
+		layout: "dashboard",
+		component: () => import('../views/PDF/createPDFreceipt.vue'),
+	},
+	{
+		path: '/createReceiptNormal/:id',
+		name: 'สร้างใบเสร็จ บุคคลธรรมดา',
+		layout: "dashboard",
+		component: () => import('../views/PDF/createPDFreceiptNormal.vue'),
 	},
 	{
 		path: '/Customers',

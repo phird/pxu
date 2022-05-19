@@ -66,8 +66,10 @@
         <a>{{ val }}</a>
       </template>
       <template slot="act" slot-scope="quotationID"> 
+        <b-icon icon="file-earmark-pdf" @click="createpdf({quotationID})"   style="width:20px; height:20px; margin: 0px .7em  0px  .5em;">
+        </b-icon>
 		  <a-dropdown>
-              <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
+              <a class="ant-dropdown-link" @click="(e) => e.preventDefault()" style="width:20px; height:20px;">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -193,6 +195,9 @@ export default {
     this.getquotation();
   },
   methods: {
+    createpdf(id){
+      console.log("im gonna create pdf");
+    },
     async getquotation() {
       console.log("get-quo");
       try {

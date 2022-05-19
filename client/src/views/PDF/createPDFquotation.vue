@@ -1,7 +1,3 @@
-/* ==================================================
- นิติบุคคล
-==================================================
- */
 <template>
   <div id="app"></div>
 </template>
@@ -9,27 +5,33 @@
 <script>
 import pdfMake from "pdfmake";
 import pdfFonts from "../../assets/custom-fonts.js"; // 1. import custom fonts
+import axios from "axios";
 export default {
   name: "App",
   data() {
     return {
-      comName: "หจก.อินฟินิตี้ฟีโนมีนอลซอฟท์แวร์",
-      comAddr: "633/144หมู่บ้านกาญจน์กนกทาวน์โฮม4",
-      comTel: "052-005-509",
-      comTaxNum: "0503561005794",
+      quotation: [],
+      comName: "" /* done */,
+      comAddr: "",
+      comSubdis: "",
+      comDistrct: "",
+      comProvice: "",
+      comPostcode: "",
+      comTel: "" /* done */,
+      comTaxNum: "",
       comEmail: "infinityp.soft@gmail.com",
-      invID: "INVYYMM-XXX",
-      invDate: "17/05/2022",
-      invSeller: "Phirachat",
-      invSellerTel: "087-5458849",
+      quoID: "",
+      quoDate: "",
+      quoSeller: "",
+      quoSellerTel: "",
 
-      cusName: "บริษัท ชิปโปรมาโคร จำกัด",
-      cusAddr: "226/1 หมู่ 2 ต.สันผักหวาน อ.หางดง จ.เชียงใหม่",
+      cusName: "",
+      cusAddr: "",
+      cusSubdis: "",
+      cusDistrct: "",
+      cusProvice: "",
+      cusPostcode: "",
       cusTax: "0605558001296",
-
-      bankName: "ธนาคารกสิกรไทย",
-      bankNumber: "0-5438-7366-7",
-      bankAccName: "หจก.อินฟินิตี้ ฟิโนมีนอล ซอฟท์แวร์",
 
       price: "1,588,785.05",
       tax7: "111,214,95",
@@ -38,11 +40,78 @@ export default {
       netprice: "1,652,336.45",
     };
   },
+  create() {
+    this.quoID = this.$route.params.id;
+    this.getquo(this.quoID);
+  },
+
   mounted() {
     this.export();
   },
   methods: {
+    async getquo(id) {
+      
+    },
+    toDataURL(src, callback, outputFormat) {
+      let image = new Image();
+      image.crossOrigin = "Anonymous";
+      image.onload = function () {
+        let canvas = document.createElement("canvas");
+        let ctx = canvas.getContext("2d");
+        let dataURL;
+        canvas.height = this.naturalHeight;
+        canvas.width = this.naturalWidth;
+        ctx.drawImage(this, 0, 0);
+        dataURL = canvas.toDataURL(outputFormat);
+        callback(dataURL);
+      };
+      image.src = src;
+      if (image.complete || image.complete === undefined) {
+        image.src =
+          "data:image/gif;base64, R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+        image.src = src;
+      }
+    },
     export() {
+      this.quoID = this.$route.params.id;
+      /* this.getquo(this.quoID); */
+      console.log("get-quotation-pdf");
+      try {
+        console.log("now im try");
+        const response = axios.get(
+          `http://localhost:5000/quotation/quo/${this.quoID}`
+        );
+        this.quotation = response.data[0];
+        console.log("data from response");
+        console.log(this.quotation.wcompanyName);
+        console.log(this.quotation);
+        
+        this.comName = this.quotation.wcompanyName;
+        this.comAddr = this.quotation.address;
+        this.comSubdis = this.quotation.subdistrict;
+        this.comDistrct = this.quotation.district;
+        this.comProvice = this.quotation.province;
+        this.comPostcode = this.quotation.postcode;
+        this.comTel = this.quotation.wcompanyNumber;
+        this.comTaxNum = this.quotation.taxNumber;
+
+        this.quoID = this.quotation.quotationID;
+        this.quoDate = this.quotation.datequotation;
+        this.quoSeller = this.quotation.employeeName;
+        this.quoSellerTel = this.quotation.employeeNumber;
+
+        this.cusName = this.quotation.companyName;
+        this.cusAddr = this.quotation.caddress;
+        this.cusSubdis = this.quotation.csubdistrict;
+        this.cusDistrct = this.quotation.cdistrict;
+        this.cusProvice = this.quotation.cprovince;
+        this.cusPostcode = this.quotation.cpostcode;
+        this.cusTax = this.quotation.ctaxNumber;
+
+        this.price = this.quotation.paymentPrice;
+      } catch (err) {
+        console.log(err);
+      }
       pdfMake.vfs = pdfFonts.pdfMake.vfs;
       pdfMake.fonts = {
         // download default Roboto font from cdnjs.com
@@ -95,7 +164,7 @@ export default {
                 width: 130,
                 fontSize: 20,
                 alignment: "left",
-                text: "ใบวางบิล",
+                text: "ใบเสนอราคา",
               },
             ],
           },
@@ -108,9 +177,9 @@ export default {
                 fontSize: 10,
                 bold: false,
                 text: [
-                  this.comName +
+                  this.quotation.wcompanyName +
                     "\nที่อยู่: " +
-                    this.comAddr +
+                    /* this.comAddr */ this.quotation.address +
                     "\nเบอร์โทร: " +
                     this.comTel +
                     "\nเลขผู้เสียภาษี: " +
@@ -129,10 +198,10 @@ export default {
                 fontSize: 10,
                 type: "none",
                 ol: [
-                  "เลขที่: " + this.invID,
-                  "วันที่: " + this.invDate,
-                  "ผู้ขาย: " + this.invSeller,
-                  "เบอร์: " + this.invSellerTel,
+                  "เลขที่: " + "QA" + this.quoID,
+                  "วันที่: " + this.quoDate,
+                  "ผู้ขาย: " + this.quoSeller,
+                  "เบอร์: " + this.quoSellerTel,
                 ],
               },
             ],
@@ -291,63 +360,50 @@ export default {
           /*           =============================================
           sign section 
           ============================================= */
+
           {
             height: "*",
             alignment: "justify",
             columns: [
               {
-                width: 1,
-                canvas: [
-                  {
-                    type: "rect",
-                    x: 5,
-                    y: 4,
-                    w: 10,
-                    h: 10,
-                    /* color: "#7a7a7a", */
-                    border: 'black',
-                    fillOpacity: 0.5,
-                  },
-                ],
-              },
-              {
                 width: "*",
-                alignment: "left",
-                margin: [20,2,0,0],
+                alignment: "center",
                 fontSize: 10,
                 bold: false,
                 text: [
                   {
-                    text: "โอนผ่าน",
+                    text: "ในนามของ ",
                     bold: true,
                   },
                   {
-                    text: this.bankName,
+                    text: this.cusName,
+                    lineHeight: 6,
                   },
                   {
-                    text: "\nเลขบัญชี ",
+                    canvas: [
+                      {
+                        type: "line",
+                        x1: 0,
+                        y1: 280,
+                        x2: 700,
+                        y2: 280,
+                        dash: { length: 5, space: 10 },
+                      },
+                    ],
+                  },
+                  {
+                    text: "\nผู้ว่าจ้าง ",
+                    margin: [30, 0],
                     bold: true,
                   },
                   {
-                    text: this.bankNumber,
+                    text: "\n" + this.quoDate,
                   },
-                  {
-                    text: "\nชื่อบัญชี ",
-                    bold: true,
-                  },
-                  {
-                    text: this.bankAccName,
-                  },
-                  
                 ],
               },
               {
-                width:120,
-                text: "",
-              },
-              {
                 width: "*",
-                alignment: "left",
+                alignment: "center",
                 fontSize: 10,
                 type: "none",
                 text: [
@@ -357,27 +413,16 @@ export default {
                   },
                   {
                     text: this.comName,
+                    lineHeight: 6,
                   },
+                  {},
                   {
-                    alignment: "center",
-                    lineHeight:5,
-                    text:" ",
-                  },
-                  {
-                   alignment: "center",
-                    text: "\nผู้รับเงิน ",
+                    text: "\nอนุมัติ ",
+                    margin: [30, 0],
                     bold: true,
-                    margin: [ 0, 5, 0, 0 ],
                   },
                   {
-                   alignment: "center",
-                    text: "\n(                                               ) ",
-                    bold: true,
-                    margin: [ 0, 5, 0, 0 ],
-                  },
-                  {
-                    alignment: "center",
-                    text: "\n" + this.invDate,
+                    text: "\n" + this.quoDate,
                   },
                 ],
                 style: {
@@ -385,7 +430,7 @@ export default {
                   bold: false,
                   border: [false, false, false, true],
                 },
-              },      
+              },
             ],
             style: "lineSpacing",
           },
@@ -438,7 +483,7 @@ export default {
         },
       };
       pdfMake.createPdf(dd).open();
-      /*  pdfMake.createPdf(dd).open({}, window) */
+      /* pdfMake.createPdf(dd).open({}, window) */
       const getBase64Image = (url) => {
         const img = new Image();
         img.setAttribute("crossOrigin", "anonymous");
