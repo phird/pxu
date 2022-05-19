@@ -172,7 +172,7 @@ export default {
         );
         this.employee = response.data[0];
         this.role = this.employee.role;
-        this.statustest = this.employee.status;
+        this.statustest = this.employee.employeestatus;
         this.employeeName = this.employee.employeeName;
         this.employeeNumber = this.employee.employeeNumber;
         this.employeeEmail = this.employee.employeeEmail;

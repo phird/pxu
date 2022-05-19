@@ -213,8 +213,8 @@
                     <template v-else-if="!$v.companyNumber.required">
                       โปรดใส่เบอร์บริษัท
                     </template>
-                    <template v-else-if="!$v.companyNumber.validFormat">
-                      เบอร์บริษัทต้องเป็นตัวเลข10หลัก
+                    <template v-else-if="!$v.companyNumber.minLength || !$v.companyNumber.maxLength || !$v.companyNumber.numeric">
+                      เบอร์บริษัทต้องเป็นตัวเลข9-10หลัก
                     </template>
                   </div>
                 </div>
@@ -525,6 +525,7 @@ import {
   maxLength,
   alpha,
   email,
+  numeric,
 } from "vuelidate/lib/validators";
 import ThailandAutoComplete from "vue-thailand-address-autocomplete";
 import axios from "axios";
@@ -573,7 +574,7 @@ export default {
         },
         {
           title: "STATUS",
-          dataIndex: "status",
+          dataIndex: "customerstatus",
           scopedSlots: { customRender: "status" },
         },
         {
@@ -617,7 +618,9 @@ export default {
   validations: {
     companyNumber: {
       required,
-      validFormat: (val) => /^\d{10}$/.test(val),
+      minLength:minLength(9),
+      maxLength:maxLength(10),
+      numeric,
     },
     contactNumber: {
       required,

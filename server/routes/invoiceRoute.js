@@ -15,6 +15,16 @@ router.get('/:id', (req, res) => {
     })
 })
 
+router.get('/in/:id', (req, res) => {
+    const qID=req.params.id;
+    const sqlInvoice = "SELECT * FROM invoice as inv JOIN customer as c ON inv.customerID=c.customerID JOIN employee as em ON inv.employeeID=em.employeeID WHERE invoiceID=? ";
+    db.query(sqlInvoice,[qID], (err, result) => {
+        console.log(err);
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
 router.delete('/:id', (req, res) => {
     const qID=req.params.id;
     const sqlInvoice = "DELETE FROM invoice WHERE quotationID=? ";
@@ -42,8 +52,9 @@ router.post('/', (req, res) => {
     const postcode = req.body.postcode;
     const taxNumber = req.body.taxNumber;
     const companyName = req.body.companyName;
+    const companyNumber = req.body.companyNumber;
     const estatus = req.body.estatus;
-    const sqlInvoice = "INSERT INTO `invoice`(`invoiceID`,`quotationID`, `customerID`, `employeeID`,`statusinvoice`, `numberinstallment`, `vatstatus`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `customerstatus`, `companyName`, `priceINV`, `estatus`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    const sqlInvoice = "INSERT INTO `invoice`(`invoiceID`,`quotationID`, `customerID`, `employeeID`,`statusinvoice`, `numberinstallment`, `vatstatus`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `customerstatus`, `wcompanyName`,`wcompanyNumber`, `priceINV`, `estatus`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     db.query(sqlInvoice, [
         inID,
         qID,
@@ -60,6 +71,7 @@ router.post('/', (req, res) => {
         taxNumber,
         customerstatus,
         companyName,
+        companyNumber,
         payment,
         estatus
     ], (err, sqlInvoiceRe) => {
