@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
 
-    const sqlSelect = "SELECT * FROM bank order by status DESC,bankID DESC;"
+    const sqlSelect = "SELECT * FROM bank order by bankstatus DESC,bankID DESC;"
     db.query(sqlSelect, (err, result) => {
         // console.log(result);
         res.send(result);
@@ -22,9 +22,9 @@ router.post('/', (req, res) => {
     const status = req.body.status;
     const image = req.body.img;
 
-    const sqlInsert = "INSERT INTO bank (bankName,bankAccount,accountName,status,img) VALUES (?,?,?,?,?);"
+    const sqlInsert = "INSERT INTO bank (bankName,bankAccount,accountName,bankstatus,img) VALUES (?,?,?,?,?);"
     if(status=='default'){
-        const sqlsearch = "UPDATE bank set status='-' WHERE status='default';"
+        const sqlsearch = "UPDATE bank set bankstatus='-' WHERE bankstatus='default';"
         db.query(sqlsearch, (err, research) => {
             db.query(sqlInsert, [bankName, bankAccount, accountName, status, image], (err, result) => {
                 console.log(err);
@@ -65,9 +65,9 @@ router.post('/:id', (req, res)=> {
     const accountName = req.body.accountName
     const image = req.body.img;
 
-    const sqlupdate = "UPDATE `bank` SET `bankName`=?,`bankAccount`=?,`accountName`=?,`status`=?,img=? WHERE bankID=?"
+    const sqlupdate = "UPDATE `bank` SET `bankName`=?,`bankAccount`=?,`accountName`=?,`bankstatus`=?,img=? WHERE bankID=?"
     if(status=='default'){
-        const sqlsearch = "UPDATE bank set status='-' WHERE status='default';"
+        const sqlsearch = "UPDATE bank set bankstatus='-' WHERE bankstatus='default';"
         db.query(sqlsearch, (err, research) => {
             db.query(sqlupdate, [bankName,bankAccount,accountName,status,image,bID], (err,result)=>{
                 // console.log(err);

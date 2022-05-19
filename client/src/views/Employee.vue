@@ -269,7 +269,7 @@ export default {
         },
         {
           title: "",
-          dataIndex: "status",
+          dataIndex: "employeestatus",
           scopedSlots: { customRender: "status" },
         },
         {

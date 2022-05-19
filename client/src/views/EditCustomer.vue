@@ -70,7 +70,7 @@
                 <div class="error" v-if="$v.companyNumber.$error">
                   <template v-if="!$v.companyNumber.$invalid"> </template>
                   <template v-else-if="!$v.companyNumber.required"> โปรดใส่เบอร์บริษัท </template>
-                    <template v-else-if="!$v.companyNumber.validFormat"> เบอร์บริษัทต้องเป็นตัวเลข10หลัก </template>
+                    <template v-else-if="!!$v.companyNumber.minLength || !$v.companyNumber.maxLength || !$v.companyNumber.numeric"> เบอร์บริษัทต้องเป็นตัวเลข9-10หลัก </template>
                 </div>
               </div>
               <!-- /COMPANY TEL. -->
@@ -342,6 +342,7 @@ import {
   maxLength,
   alpha,
   email,
+  numeric,
 } from "vuelidate/lib/validators";
 import axios from "axios";
 import ThailandAutoComplete from "vue-thailand-address-autocomplete";
@@ -384,7 +385,9 @@ export default {
   validations: {
     companyNumber: {
       required,
-      validFormat: (val) => /^\d{10}$/.test(val),
+      minLength:minLength(9),
+      maxLength:maxLength(10),
+      numeric,
     },
     contactNumber: {
       required,
@@ -487,18 +490,18 @@ export default {
         );
         this.customer = response.data[0];
         // console.log(this.customer);
-        this.status= this.customer.status;
+        this.status= this.customer.customerstatus;
         this.contactName = this.customer.contactName;
         this.contactNumber = this.customer.contactNumber;
         this.companyName = this.customer.companyName;
         this.companyNumber = this.customer.companyNumber;
-        this.taxNumber = this.customer.taxNumber;
+        this.taxNumber = this.customer.ctaxNumber;
         this.contactEmail = this.customer.contactEmail;
-        this.Address = this.customer.address;
-        this.subdis = this.customer.subdistrict;
-        this.dis = this.customer.district;
-        this.province = this.customer.province;
-        this.postcode = this.customer.postcode;
+        this.Address = this.customer.caddress;
+        this.subdis = this.customer.csubdistrict;
+        this.dis = this.customer.cdistrict;
+        this.province = this.customer.cprovince;
+        this.postcode = this.customer.cpostcode;
       } catch (err) {
         console.log(err);
       }

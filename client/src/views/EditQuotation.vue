@@ -229,7 +229,8 @@ export default {
           prov: this.quotation.province,
           postcode: this.quotation.postcode,
           taxNumber: this.quotation.taxNumber,
-          companyName: this.quotation.companyName,
+          companyName: this.quotation.wcompanyName,
+          companyNumber: this.quotation.wcompanyNumber,
           estatus: this.estatus,
         });
         j = i;

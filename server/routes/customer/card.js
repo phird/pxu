@@ -22,8 +22,8 @@ router.get('/', (req, res)=> {
 });
 
 router.put('/', (req, res)=> {
-    const sqlSelectNT = "SELECT COUNT(customerID) as c FROM customer WHERE status='นิติบุคคล';"
-    const sqlSelectP = "SELECT COUNT(customerID) as c FROM customer WHERE status='บุคคลธรรมดา';"
+    const sqlSelectNT = "SELECT COUNT(customerID) as c FROM customer WHERE customerstatus='นิติบุคคล';"
+    const sqlSelectP = "SELECT COUNT(customerID) as c FROM customer WHERE customerstatus='บุคคลธรรมดา';"
     db.query(sqlSelectNT,(err, NT) => {
         db.query(sqlSelectP,(err, P) => {
             // console.log(NT);

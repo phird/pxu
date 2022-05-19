@@ -12,7 +12,7 @@ router.get('/', (req, res)=> {
 });
 
 router.get('/name', (req, res)=> {
-    const sqlSelect = "SELECT customerID,companyName,status FROM customer order by customerID DESC"
+    const sqlSelect = "SELECT customerID,companyName,customerstatus FROM customer order by customerID DESC"
     db.query(sqlSelect, (err, result) => {
         // console.log(result);
         res.send(result);
@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
     const contactEmail = req.body.contactEmail
     const taxNumber = req.body.taxNumber
 
-    const sqlInsert = "INSERT INTO customer (companyName,companyNumber,status,address,subdistrict,district,province,postcode,taxNumber,contactName,contactNumber,contactEmail) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);"
+    const sqlInsert = "INSERT INTO customer (companyName,companyNumber,customerstatus,caddress,csubdistrict,cdistrict,cprovince,cpostcode,ctaxNumber,contactName,contactNumber,contactEmail) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);"
     db.query(sqlInsert, [companyName,companyNumber,status,address,subdis,dis,province,postcode,taxNumber,contactName,contactNumber,contactEmail], (err,result)=>{
         // console.log(err);
         // console.log(result);
@@ -73,7 +73,7 @@ router.post('/:id', (req, res)=> {
     const contactEmail = req.body.contactEmail
     const taxNumber = req.body.taxNumber
 
-    const sqlupdate = "UPDATE `customer` SET `companyName`=?,`companyNumber`=?,`status`=?,`address`=?,`subdistrict`=?,`district`=?,`province`=?,`postcode`=?,`taxNumber`=?,`contactName`=?,`contactNumber`=?,`contactEmail`=? WHERE customerID=?"
+    const sqlupdate = "UPDATE `customer` SET `companyName`=?,`companyNumber`=?,`customerstatus`=?,`caddress`=?,`csubdistrict`=?,`cdistrict`=?,`cprovince`=?,`cpostcode`=?,`ctaxNumber`=?,`contactName`=?,`contactNumber`=?,`contactEmail`=? WHERE customerID=?"
     db.query(sqlupdate, [companyName,companyNumber,status,address,subdis,dis,province,postcode,taxNumber,contactName,contactNumber,contactEmail,cusid], (err,result)=>{
         // console.log(err);
         // console.log(result);

@@ -4,7 +4,7 @@ import db from "../../config/database.js";
 const router = express.Router();
 
 router.get('/', (req, res)=> {
-    const sqlSelectem = "SELECT employeeName,employeeEmail FROM `employee` WHERE status = 'DEFAULT';"
+    const sqlSelectem = "SELECT employeeName,employeeEmail FROM `employee` WHERE employeestatus = 'DEFAULT';"
     db.query(sqlSelectem, (err, result) => {
         // console.log(result);
         res.send(result);
@@ -12,7 +12,7 @@ router.get('/', (req, res)=> {
 });
 
 router.get('/bank', (req, res)=> {
-    const sqlSelectbank = "SELECT bankName,img FROM `bank` WHERE status = 'DEFAULT';"
+    const sqlSelectbank = "SELECT bankName,img FROM `bank` WHERE bankstatus = 'DEFAULT';"
     db.query(sqlSelectbank, (err, result) => {
         // console.log(result);
         res.send(result);
@@ -21,8 +21,8 @@ router.get('/bank', (req, res)=> {
 
 
 router.put('/', (req, res)=> {
-    const sqlSelectNT = "SELECT COUNT(customerID) as c FROM customer WHERE status='นิติบุคคล';"
-    const sqlSelectP = "SELECT COUNT(customerID) as c FROM customer WHERE status='บุคคลธรรมดา';"
+    const sqlSelectNT = "SELECT COUNT(customerID) as c FROM customer WHERE bankstatus='นิติบุคคล';"
+    const sqlSelectP = "SELECT COUNT(customerID) as c FROM customer WHERE bankstatus='บุคคลธรรมดา';"
     db.query(sqlSelectNT,(err, NT) => {
         db.query(sqlSelectP,(err, P) => {
             // console.log(NT);

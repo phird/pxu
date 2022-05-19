@@ -268,7 +268,7 @@ export default {
         this.bankNameau = this.bankName;
         this.bankAccount = response.data[0].bankAccount;
         this.accountName = response.data[0].accountName;
-        this.statustest = response.data[0].status;
+        this.statustest = response.data[0].bankstatus;
         this.imageName = response.data[0].img;
         if(this.statustest=='default'){
           this.status=this.statustest;

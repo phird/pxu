@@ -36,8 +36,34 @@
       <template slot="val" slot-scope="val">
         <a>{{ val }}</a>
       </template>
-      <template slot="act" >
+      <template slot="act" slot-scope="id">
+ <a-dropdown>
+              <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-three-dots-vertical"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                  />
+                </svg>
+              </a>
+	   <a-menu slot="overlay">
+                <a-menu-item>
+                  <router-link
+                    :to="`/Editinvoice/${id}`"
+                    style="text-decoration: none"
+                  >
+                    <a style="text-decoration: none">แก้ไขใบวางบิล</a>
+                  </router-link>
+                </a-menu-item>
 
+              </a-menu>
+			   </a-dropdown>
       </template>
 
 
@@ -96,6 +122,7 @@ export default {
         },
         {
           title: "Action",
+          dataIndex: "invoiceID",
           scopedSlots: { customRender: "act" },
         },
       ],

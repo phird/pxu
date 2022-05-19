@@ -55,7 +55,7 @@
                 >
                   <figure class="snip1577">
                     <div
-                      v-if="item.status == 'default'"
+                      v-if="item.bankstatus == 'default'"
                       style="
                         z-index: 50;
                         position: absolute;

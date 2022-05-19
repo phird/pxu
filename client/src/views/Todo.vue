@@ -33,7 +33,7 @@
               v-for="cus in customer"
               :key="cus.customerID"
               :value="cus.customerID"
-              @click="cusstatus = cus.status"
+              @click="cusstatus = cus.customerstatus"
             >
               {{ cus.companyName }}
             </a-select-option>
@@ -53,7 +53,7 @@
               v-for="cus in customer"
               :key="cus.customerID"
               :value="cus.customerID"
-              @click="cusstatus = cus.status"
+              @click="cusstatus = cus.customerstatus"
             >
               {{ cus.companyName }}
             </a-select-option>

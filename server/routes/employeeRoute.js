@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', (req, res)=> {
 
-    const sqlSelect = "SELECT * FROM employee order by status DESC,employeeID DESC"
+    const sqlSelect = "SELECT * FROM employee order by employeestatus DESC,employeeID DESC"
     db.query(sqlSelect, (err, result) => {
         // console.log(result);
         res.send(result);
@@ -15,7 +15,7 @@ router.get('/', (req, res)=> {
 
 router.get('/name', (req, res)=> {
 
-    const sqlSelect = "SELECT employeeName,employeeID,employeeNumber FROM employee order by status DESC,employeeID DESC"
+    const sqlSelect = "SELECT employeeName,employeeID,employeeNumber FROM employee order by employeestatus DESC,employeeID DESC"
     db.query(sqlSelect, (err, result) => {
         // console.log(result);
         res.send(result);
@@ -40,10 +40,10 @@ router.post('/', (req, res) => {
     const employeeEmail = req.body.employeeEmail
     const status = req.body.status
 
-    const sqlInsert = "INSERT INTO employee (role,employeeName,employeeNumber,employeeEmail,status) VALUES (?,?,?,?,?);"
+    const sqlInsert = "INSERT INTO employee (role,employeeName,employeeNumber,employeeEmail,employeestatus) VALUES (?,?,?,?,?);"
     
     if(status=='default'){
-        const sqlsearch = "UPDATE employee set status='-' WHERE status='default';"
+        const sqlsearch = "UPDATE employee set employeestatus='-' WHERE employeestatus='default';"
         db.query(sqlsearch, (err, research) => {
             db.query(sqlInsert, [role,employeeName,employeeNumber,employeeEmail,status], (err,result)=>{
                 console.log(err);
@@ -79,9 +79,9 @@ router.post('/:id', (req, res)=> {
     const employeeEmail = req.body.employeeEmail
     const role = req.body.role
 
-    const sqlupdate = "UPDATE `employee` SET `employeeName`=?,`employeeNumber`=?,`status`=?,`employeeEmail`=?,`role`=? WHERE employeeID=?"
+    const sqlupdate = "UPDATE `employee` SET `employeeName`=?,`employeeNumber`=?,`employeestatus`=?,`employeeEmail`=?,`role`=? WHERE employeeID=?"
     if(status=='default'){
-        const sqlsearch = "UPDATE employee set status='-' WHERE status='default';"
+        const sqlsearch = "UPDATE employee set employeestatus='-' WHERE employeestatus='default';"
         db.query(sqlsearch, (err, research) => {
             db.query(sqlupdate, [employeeName,employeeNumber,status,employeeEmail,role,empid], (err,result)=>{
                 console.log(err);

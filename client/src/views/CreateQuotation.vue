@@ -202,6 +202,7 @@ export default {
           postcode: this.web.postcode,
           taxNumber: this.web.taxNumber,
           companyName: this.web.companyName,
+          companyNumber: this.web.companyNumber,
           estatus: this.estatus,
           summernote: this.sumnote,
         })
@@ -250,6 +251,7 @@ export default {
             postcode: this.web.postcode,
             taxNumber: this.web.taxNumber,
             companyName: this.web.companyName,
+            companyNumber: this.web.companyNumber,
             estatus: this.estatus,
           });
           j = i;

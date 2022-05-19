@@ -59,9 +59,10 @@ router.post('/', (req, res) => {
     const postcode = req.body.postcode;
     const taxNumber = req.body.taxNumber;
     const companyName = req.body.companyName;
+    const companyNumber = req.body.companyNumber;
     const estatus = req.body.estatus;
     const summernote = req.body.summernote;
-    const sqlQuotation = "INSERT INTO `quotation`(`quotationID`, `customerID`, `employeeID`,`quotationName`,`statusquotation`, `datequotation`, `notequotation`, `statuswork`, `quantityinstallment`, `vatstatus`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `customerstatus`, `companyName`, `paymentPrice`, `summernote`, `estatus`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    const sqlQuotation = "INSERT INTO `quotation`(`quotationID`, `customerID`, `employeeID`,`quotationName`,`statusquotation`, `datequotation`, `notequotation`, `statuswork`, `quantityinstallment`, `vatstatus`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `customerstatus`, `wcompanyName`,`wcompanyNumber`, `paymentPrice`, `summernote`, `estatus`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     db.query(sqlQuotation, [qID,
         cID,
         eID,
@@ -80,6 +81,7 @@ router.post('/', (req, res) => {
         taxNumber,
         customerstatus,
         companyName,
+        companyNumber,
         payment,
         summernote,
         estatus
@@ -151,8 +153,6 @@ router.post('/:id', (req, res) => {
     ], (err, sqlQuotationRe) => {
     
                 if (err) {console.log(err); throw err;}
-                console.log('สัสเอ้ย');
-                console.log(qID);
                 console.log(sqlQuotationRe);
                 res.send(sqlQuotationRe);
         })

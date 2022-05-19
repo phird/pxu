@@ -58,8 +58,8 @@ let routes = [
 		component: () => import('../views/CreateQuotation.vue'),
 	},
 	{
-		path: '/quotations/invoice',
-		name: 'สร้าง Invoice',
+		path: '/Editinvoice/:id',
+		name: 'แก้ไขใบวางบิล',
 		layout: "dashboard",
 		component: () => import('../views/CreateInvoice.vue'),
 	},	

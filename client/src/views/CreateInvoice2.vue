@@ -6,11 +6,7 @@
         <div class="header">
           <div class="header-top">
             <div class="ht-left">
-              <img
-                src="http://localhost:5000/stamp/stamp.png"
-                alt=""
-                style="width: 140px"
-              />
+              <img src="../assets/logo.jpg" alt="" style="width: 140px" />
             </div>
             <div class="ht-right">
               <p style="font-size: 20px">ใบวางบิล</p>
@@ -18,31 +14,25 @@
           </div>
           <div class="header-mid">
             <div class="company-detail">
-              <span>{{ invoice.wcompanyName }}</span>
               <span
-                >ที่อยู่ {{ invoice.address }} ต.{{ invoice.subdistrict }}
+                >หจก.อินฟินิตี้ ฟีโนมีนอล ซอฟท์แวร์ (Infinity Phenomenal
+                Software)</span
+              >
+              <span
+                >ที่อยู่ 633/144 หมู่บ้านกาญจน์กนกทาวน์โฮม4 ต.หนองจ๊อม
               </span>
               <span
-                >อ.{{ invoice.district }} จ.{{ invoice.province }}
-                {{ invoice.postcode }} , เบอร์มือถือ {{ invoice.wcompanyNumber }}</span
+                >อ.สันทราย จ.เชียงใหม่ 50210 , เบอร์มือถือ 061-809-6661</span
               >
-              <span>เลขผู้เสียภาษี : {{ invoice.taxNumber }} </span>
-              <span>อีเมล์ : {{ invoice.employeeEmail }}</span>
+              <span>เลขผู้เสียภาษี : 0503561005794 </span>
+              <span>อีเมล์ : infinityp.soft@gmail.com</span>
             </div>
             <div class="invoice-detail">
               <div class="id-box">
-                <span>เลขที่ INV{{ invoice.invoiceID }}</span>
-                 <div class="date-section hbox">
-              <span>วันที่ </span>
-              <span
-                ><date-picker
-                  v-model="dateinv"
-                  valueType="format"
-                ></date-picker>
-              </span>
-            </div>
-                <span>ผู้ขาย {{ invoice.employeeName }}</span>
-                <span>เบอร์ {{ invoice.employeeNumber }}</span>
+                <span>เลขที่ DEPA020211130</span>
+                <span>วันที่ 01/11/64</span>
+                <span>ผู้ขาย นายมิกิ อาษาวงค์</span>
+                <span>เบอร์ 0618096661</span>
               </div>
             </div>
           </div>
@@ -117,16 +107,13 @@
               </div>
               <div class="sign">
                 <div class="sign-l">
-                  <span style="display: flex"
-                    >ลงชื่อ
-                    <div id="signbox"></div
-                  ></span>
-                  <span> (นายมิกิ อาษาวงค์) </span>
-                  <span> ผู้รับเงิน </span>
+                    <span style="display:flex">ลงชื่อ <div id="signbox"></div></span>
+                    <span> (นายมิกิ อาษาวงค์) </span>
+                    <span> ผู้รับเงิน </span>
                 </div>
                 <div class="sign-r">
-                  <span>01/11/2564</span>
-                  <span> วันที่ </span>
+                    <span>01/11/2564</span>
+                    <span> วันที่ </span>
                 </div>
               </div>
             </div>
@@ -141,9 +128,10 @@
     <div class="right-layout">
       <div class="right-layout-panel">
         <div class="container-panel">
-          <div>
-            งวดที่{{ invoice.numberinstallment }}  : {{ invoice.priceINV }}  บาท
-          </div>
+          <button type="button" class="btn btn-outline-primary" disabled>
+            <!-- <b-icon icon="file-earmark-pdf" style="color: blue; font-size:24px;"></b-icon> -->
+            ดาวน์โหลดเป็น PDF
+          </button>
           <button type="button" class="btn btn-outline-success">
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
@@ -160,49 +148,7 @@
 </template>
 
 <script>
-import axios from "axios";
-export default {
-  data() {
-    return {
-      invoice: [],
-      emID: "",
-      cusID: "",
-      employee: [],
-      customer: [],
-      bank: [],
-      dateinv:'',
-    };
-  },
-  created() {
-    this.inID = this.$route.params.id;
-    this.getinv(this.inID);
-  },
-  methods: {
-    async getinv(id) {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/invoice/in/${id}`
-        );
-        this.invoice = response.data[0];
-        console.log(this.invoice);
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    async getbank() {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/bank`
-        );
-        this.bank = response.data;
-        console.log(this.bank);
-      } catch (err) {
-        console.log(err);
-      }
-    },
-
-  },
-};
+export default {};
 </script>
 
 <style scoped>
@@ -221,6 +167,7 @@ export default {
   width: 30%;
   /* background-color: tan; */
 }
+
 /* right layout */
 .right-layout-panel {
   margin-top: 0;
@@ -378,28 +325,28 @@ right layout
 }
 
 .sign {
-  display: flex;
-  flex-direction: row;
-  padding: 2em;
-  width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 2em;
+    width: 100%;
 }
-.sign-l {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
+.sign-l{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
-.sign-r {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  text-align: center;
+.sign-r{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    text-align: center;
 }
 
-#signbox {
-  display: flex;
-  width: 100%;
-  border-bottom: 1px solid black;
+#signbox{
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid black ;
 }
 
 /* =================
