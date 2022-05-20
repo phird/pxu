@@ -28,7 +28,7 @@ router.get('/res', (req, res) => {
 
 router.put('/qid', (req, res) => {
     const to = '%'+req.body.to+'%';
-    const sqlQuotation = "SELECT COUNT(quotationID) as num FROM quotation WHERE quotationID LIKE ? order by quotationID DESC";
+    const sqlQuotation = "SELECT COUNT(quotationID) as num FROM quotation WHERE quotationID LIKE ? order by id DESC";
 
     db.query(sqlQuotation,[to], (err, sqlQuotationRe) => {
         console.log(err);
