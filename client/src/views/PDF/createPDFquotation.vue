@@ -279,7 +279,7 @@ export default {
                 table: {
                   widths: [30, "*", 30, 100, 100],
                   fontSize: 10,
-                  headerRows: 1,
+                  
                   body:this.quoDetail.map(function(item,key){
                       let neteach = item.quantity * item.price;
                       return [{text:key+1},{text: item.name}, {text: item.quantity}, {text: item.price}, {text: neteach}]
