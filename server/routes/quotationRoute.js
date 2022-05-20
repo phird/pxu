@@ -5,7 +5,7 @@ import db from "../config/database.js";
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    const sqlQuotation = "SELECT * FROM quotation WHERE statusquotation != 'Rescinding' order by quotationID DESC";
+    const sqlQuotation = "SELECT * FROM quotation WHERE statusquotation != 'Rescinding' order by id DESC";
 
     db.query(sqlQuotation, (err, sqlQuotationRe) => {
         console.log(err);
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/res', (req, res) => {
-    const sqlQuotation = "SELECT * FROM quotation WHERE statusquotation = 'Rescinding' order by quotationID DESC";
+    const sqlQuotation = "SELECT * FROM quotation WHERE statusquotation = 'Rescinding' order by id DESC";
 
     db.query(sqlQuotation, (err, sqlQuotationRe) => {
         console.log(err);
