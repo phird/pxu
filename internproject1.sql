@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2022 at 09:41 AM
+-- Generation Time: May 20, 2022 at 08:05 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `internproject`
+-- Database: `internproject1`
 --
 
 -- --------------------------------------------------------
@@ -41,12 +41,12 @@ CREATE TABLE `bank` (
 --
 
 INSERT INTO `bank` (`bankID`, `bankName`, `bankAccount`, `accountName`, `bankstatus`, `img`) VALUES
-(35, 'ธนาคารทหารไทยธนชาต', '0000000002', 'คนแจ๋ว', '-', 'ทหารไทยธนชาต.jpg'),
-(38, 'ธนาคารกรุงเทพ', '0000000003', 'คนหล่อ', 'default', 'กรุงเทพ.jpg'),
-(40, 'ธนาคารไทยพาณิชย์', '0000000000', 'คนเทพ', '-', 'ไทยพาณิชย์.jpg'),
-(44, 'ธนาคารกรุงศรีอยุธยา', '0000000000', 'asaregrgrhbw', '-', 'กรุงศรี.png'),
-(45, 'ธนาคารกรุงไทย', '0000000000', 'asa', '-', 'กรุงไทย.png'),
-(58, 'ธนาคารกสิกรไทย', '0000000000', 'asaregrgrhbw', '-', 'กสิกรไทย.jpg');
+(35, 'ธนาคารทหารไทยธนชาต', '0000000002', 'นายเมธา ไพจิตร', '-', 'ทหารไทยธนชาต.jpg'),
+(38, 'ธนาคารกรุงเทพ', '0000000003', 'นายกรภัทร ไพจิตร', 'default', 'กรุงเทพ.jpg'),
+(40, 'ธนาคารไทยพาณิชย์', '0000000000', 'นายสุเมธ ไพจิตร', '-', 'ไทยพาณิชย์.jpg'),
+(44, 'ธนาคารกรุงศรีอยุธยา', '0000000000', 'นายแสวง ไพจิตร', '-', 'กรุงศรี.png'),
+(45, 'ธนาคารกรุงไทย', '0000000000', 'นายกำพล ไพจิตร', '-', 'กรุงไทย.png'),
+(58, 'ธนาคารกสิกรไทย', '0000000000', 'นายจินตนา ไพจิตร', '-', 'กสิกรไทย.jpg');
 
 -- --------------------------------------------------------
 
@@ -134,7 +134,8 @@ CREATE TABLE `invoice` (
   `taxNumber` varchar(100) NOT NULL,
   `wcompanyName` varchar(500) NOT NULL,
   `wcompanyNumber` varchar(100) NOT NULL,
-  `priceINV` int(11) NOT NULL,
+  `priceINV` double NOT NULL,
+  `totalpriceinv` double NOT NULL,
   `datereceipt` date NOT NULL,
   `estatus` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -143,9 +144,10 @@ CREATE TABLE `invoice` (
 -- Dumping data for table `invoice`
 --
 
-INSERT INTO `invoice` (`id`, `invoiceID`, `quotationID`, `customerID`, `employeeID`, `bankID`, `statusinvoice`, `dateinvoice`, `noteinvoice`, `imgslip`, `numberinstallment`, `vatstatus`, `customerstatus`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `wcompanyName`, `wcompanyNumber`, `priceINV`, `datereceipt`, `estatus`) VALUES
-(130, '22-05-001-1', '22-05-001', 27, 6, 0, 'INCOMPLETE', '0000-00-00', '', '', 1, 'vatนอก', 'นิติบุคคล', '633/144 หมู่บ้านกาญจน์กนกทาวน์โฮม4 ', 'หนองจ๊อม', 'สันทราย', 'เชียงใหม่', '50210', '0503561005794', 'หจก.อินฟินิตี้ ฟีโนมีนอล ซอฟท์แวร์ (Infinity Phenomenal Software)', '052005509', 35200, '0000-00-00', '0'),
-(131, '22-05-001-2', '22-05-001', 27, 6, 0, 'INCOMPLETE', '0000-00-00', '', '', 2, 'vatนอก', 'นิติบุคคล', '633/144 หมู่บ้านกาญจน์กนกทาวน์โฮม4 ', 'หนองจ๊อม', 'สันทราย', 'เชียงใหม่', '50210', '0503561005794', 'หจก.อินฟินิตี้ ฟีโนมีนอล ซอฟท์แวร์ (Infinity Phenomenal Software)', '052005509', 35200, '0000-00-00', '0');
+INSERT INTO `invoice` (`id`, `invoiceID`, `quotationID`, `customerID`, `employeeID`, `bankID`, `statusinvoice`, `dateinvoice`, `noteinvoice`, `imgslip`, `numberinstallment`, `vatstatus`, `customerstatus`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `wcompanyName`, `wcompanyNumber`, `priceINV`, `totalpriceinv`, `datereceipt`, `estatus`) VALUES
+(258, '22-05-003-1', '22-05-003', 26, 6, 0, 'INCOMPLETE', '0000-00-00', '', '', 1, 'vatนอก', 'นิติบุคคล', '633/144 หมู่บ้านกาญจน์กนกทาวน์โฮม4 ', 'หนองจ๊อม', 'สันทราย', 'เชียงใหม่', '50210', '0503561005794', 'หจก.อินฟินิตี้ ฟีโนมีนอล ซอฟท์แวร์ (Infinity Phenomenal Software)', '052005509', 33280, 32000, '0000-00-00', '0'),
+(259, '22-05-003-3', '22-05-003', 26, 6, 0, 'INCOMPLETE', '0000-00-00', '', '', 3, 'vatนอก', 'นิติบุคคล', '633/144 หมู่บ้านกาญจน์กนกทาวน์โฮม4 ', 'หนองจ๊อม', 'สันทราย', 'เชียงใหม่', '50210', '0503561005794', 'หจก.อินฟินิตี้ ฟีโนมีนอล ซอฟท์แวร์ (Infinity Phenomenal Software)', '052005509', 13312, 12800, '0000-00-00', '0'),
+(260, '22-05-003-2', '22-05-003', 26, 6, 0, 'INCOMPLETE', '0000-00-00', '', '', 2, 'vatนอก', 'นิติบุคคล', '633/144 หมู่บ้านกาญจน์กนกทาวน์โฮม4 ', 'หนองจ๊อม', 'สันทราย', 'เชียงใหม่', '50210', '0503561005794', 'หจก.อินฟินิตี้ ฟีโนมีนอล ซอฟท์แวร์ (Infinity Phenomenal Software)', '052005509', 19968, 19200, '0000-00-00', '0');
 
 -- --------------------------------------------------------
 
@@ -174,7 +176,8 @@ CREATE TABLE `quotation` (
   `customerstatus` varchar(100) NOT NULL,
   `wcompanyName` varchar(500) NOT NULL,
   `wcompanyNumber` varchar(100) NOT NULL,
-  `paymentPrice` int(11) NOT NULL,
+  `paymentPrice` double NOT NULL,
+  `totalpricequo` double NOT NULL,
   `summernote` longtext NOT NULL,
   `estatus` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -183,8 +186,10 @@ CREATE TABLE `quotation` (
 -- Dumping data for table `quotation`
 --
 
-INSERT INTO `quotation` (`id`, `quotationID`, `customerID`, `employeeID`, `quotationName`, `statusquotation`, `datequotation`, `notequotation`, `statuswork`, `quantityinstallment`, `vatstatus`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `customerstatus`, `wcompanyName`, `wcompanyNumber`, `paymentPrice`, `summernote`, `estatus`) VALUES
-(72, '22-05-001', 27, 6, 'charlotte', 'Negotiation', '2022-05-20', '', 'On-Going', 2, 'vatนอก', '633/144 หมู่บ้านกาญจน์กนกทาวน์โฮม4 ', 'หนองจ๊อม', 'สันทราย', 'เชียงใหม่', '50210', '0503561005794', 'นิติบุคคล', 'หจก.อินฟินิตี้ ฟีโนมีนอล ซอฟท์แวร์ (Infinity Phenomenal Software)', '052005509', 70400, '', '0');
+INSERT INTO `quotation` (`id`, `quotationID`, `customerID`, `employeeID`, `quotationName`, `statusquotation`, `datequotation`, `notequotation`, `statuswork`, `quantityinstallment`, `vatstatus`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `customerstatus`, `wcompanyName`, `wcompanyNumber`, `paymentPrice`, `totalpricequo`, `summernote`, `estatus`) VALUES
+(77, '22-05-001', 26, 6, 'pharmacare', 'Negotiation', '2022-05-21', '', 'On-Going', 2, 'vatนอก', '633/144 หมู่บ้านกาญจน์กนกทาวน์โฮม4 ', 'หนองจ๊อม', 'สันทราย', 'เชียงใหม่', '50210', '0503561005794', 'นิติบุคคล', 'หจก.อินฟินิตี้ ฟีโนมีนอล ซอฟท์แวร์ (Infinity Phenomenal Software)', '052005509', 52000, 50000, '', '0'),
+(78, '22-05-002', 27, 6, 'chalot', 'Negotiation', '2022-05-27', '', 'On-Going', 2, 'vatใน', '633/144 หมู่บ้านกาญจน์กนกทาวน์โฮม4 ', 'หนองจ๊อม', 'สันทราย', 'เชียงใหม่', '50210', '0503561005794', 'นิติบุคคล', 'หจก.อินฟินิตี้ ฟีโนมีนอล ซอฟท์แวร์ (Infinity Phenomenal Software)', '052005509', 62080, 64000, '', '0'),
+(79, '22-05-003', 26, 6, 'dfsdfs', 'Negotiation', '2022-05-21', '', 'On-Going', 3, 'vatนอก', '633/144 หมู่บ้านกาญจน์กนกทาวน์โฮม4 ', 'หนองจ๊อม', 'สันทราย', 'เชียงใหม่', '50210', '0503561005794', 'นิติบุคคล', 'หจก.อินฟินิตี้ ฟีโนมีนอล ซอฟท์แวร์ (Infinity Phenomenal Software)', '052005509', 66560, 64000, '', '0');
 
 -- --------------------------------------------------------
 
@@ -205,14 +210,10 @@ CREATE TABLE `scope` (
 --
 
 INSERT INTO `scope` (`scopeID`, `workID`, `name`, `price`, `quantity`) VALUES
-(74, '22-05-002', 'ค่าไฟ', 65000, 1),
-(75, '22-05-003', 'ค่าน้ำ', 5000, 1),
-(76, '22-05-003', 'ค่าไฟ', 5000, 1),
-(77, '22-05-004', 'cloud server', 52000, 1),
-(78, '22-05-004', 'hardware', 14000, 1),
-(79, '22-05-004', 'could server', 65000, 1),
-(80, '22-05-001', 'could server', 60000, 1),
-(81, '22-05-001', 'harddrive', 4000, 1);
+(329, '22-05-001', 'dfsfsdf', 50000, 1),
+(330, '22-05-002', 'dfdfdsf', 50000, 1),
+(331, '22-05-002', 'sdsdf', 14000, 1),
+(334, '22-05-003', 'dfsdf', 64000, 1);
 
 -- --------------------------------------------------------
 
@@ -307,19 +308,19 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=261;
 
 --
 -- AUTO_INCREMENT for table `quotation`
 --
 ALTER TABLE `quotation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `scope`
 --
 ALTER TABLE `scope`
-  MODIFY `scopeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `scopeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=335;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
