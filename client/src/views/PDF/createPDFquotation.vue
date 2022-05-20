@@ -278,8 +278,7 @@ export default {
                 alignment: "center",
                 table: {
                   widths: [30, "*", 30, 100, 100],
-                  fontSize: 10,
-                  
+                  fontSize: 10,  
                   body:this.quoDetail.map(function(item,key){
                       let neteach = item.quantity * item.price;
                       return [{text:key+1},{text: item.name}, {text: item.quantity}, {text: item.price}, {text: neteach}]
@@ -370,12 +369,13 @@ export default {
                       ),
                   },
                 ],
-              },{
+              },
+              {
                 width: "*",
                 text: " "
               },
               {
-                width: "auto",
+                widths: "*",
                 alignment: "center",
                 fontSize: 10,
                 type: "none",
@@ -386,9 +386,11 @@ export default {
                   },
                   {
                     text: this.quotation.wcompanyName,
-                    lineHeight: 6,
                   },
-                  {},
+                  {
+                    lineHeight: 6,
+                    text: " ",
+                  },
                   {
                     text: "\nอนุมัติ ",
                     margin: [30, 0],
