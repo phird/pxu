@@ -75,20 +75,23 @@ export default {
         );
         /* นิติบุคคคล */
         if (this.quotation.vatstatus == "vatนอก") {
-          this.price = (this.quotation.paymentPrice * 100) / 110;
+          this.price = this.quotation.totalpricequo ;
           this.totalprice = this.price;
-          this.vat7 = this.price * 0.07;
+          this.vat7 = this.totalprice * 0.07;
           this.priceAfter7 = this.totalprice + this.vat7;
           this.withholding3 = this.price * 0.03;
           this.totalprice = this.priceAfter7 - this.withholding3;
         } else {
           /* vat ใน */
-          this.price = (this.quotation.paymentPrice * 100) / 103;
-          this.totalprice = this.price;
-          this.vat7 = this.netprice * 0.07;
-          this.priceAfter7 = this.totalprice - this.vat7;
-          this.withholding3 = this.price * 0.03;
-          this.totalprice = this.priceAfter7 - this.withholding3;
+          
+          this.totalprice = this.quotation.totalpricequo ;
+          
+          this.vat7 = this.totalprice * 0.07;
+          this.price = this.totalprice - this.vat7;
+          this.priceAfter7 = this.totalprice; 
+          /* this.priceAfter7 = this.totalprice + this.vat7; */
+          this.withholding3 = this.priceAfter7 * 0.03;
+          this.totalprice =this.quotation.paymentPrice;
         }
       } catch (err) {
         console.log(err);
@@ -344,7 +347,7 @@ export default {
                 ol: [
                   "ราคาก่อนภาษี : " + this.price.toFixed(2) + " บาท",
                   "ภาษี 7% : " + this.vat7.toFixed(2) + " บาท",
-                  "ราคารวมภาษีมูลค่าเพิ่ม 7% : " +
+                  "ราคาหลังภาษีมูลค่าเพิ่ม 7% : " +
                     this.priceAfter7.toFixed(2) +
                     " บาท",
                   "หัก ณ ที่จ่าย 3% : " + this.withholding3.toFixed(2) + " บาท",
