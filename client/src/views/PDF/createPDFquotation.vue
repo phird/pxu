@@ -11,12 +11,15 @@ export default {
   name: "App",
   data() {
     return {
-      quoDate:"",
+      quoDate: "",
       quotation: [],
-      tax7: "111,214,95",
-      priceaftertax7: "1,700,000",
-      withholding3: "47,663.55",
-      netprice: "1,652,336.45",
+      price: 0,
+      totalprice: 0,
+      netprice: 0,
+      vat7: 0,
+      priceAfter7: 0,
+      withholding3: 0,
+      
     };
   },
   create() {
@@ -28,9 +31,6 @@ export default {
     this.export();
   },
   methods: {
-    async getquo(id) {
-      
-    },
     toDataURL(src, callback, outputFormat) {
       let image = new Image();
       image.crossOrigin = "Anonymous";
@@ -56,17 +56,33 @@ export default {
       /* this.getquo(this.quoID); */
       console.log("get-quotation-pdf");
       try {
-        console.log("now im try"); 
+        console.log("now im try");
         const response = await axios.get(
           `http://localhost:5000/quotation/quo/${this.quoID}`
         );
         console.log(response.data[0]);
         this.quotation = response.data[0];
         console.log("data from response");
-        console.log(this.quotation.wcompanyName);   
-        this.quoDate = moment(
-          String(this.quotation.datequotation)
-          ).format("YYYY-MM-DD");
+        console.log(this.quotation.wcompanyName);
+        this.quoDate = moment(String(this.quotation.datequotation)).format(
+          "YYYY-MM-DD"
+        ); 
+        /* นิติบุคคคล */
+        if (this.quotation.vatstatus == "vatนอก") {
+          this.price = (this.quotation.paymentPrice * 100) / 110;
+          this.totalprice = this.price;
+          this.vat7 = this.price * 0.07;
+          this.priceAfter7 = this.totalprice + this.vat7;
+          this.withholding3 = this.price * 0.03;
+          this.totalprice = this.priceAfter7 - this.withholding3;
+        } else {   /* vat ใน */
+          this.price = (this.quotation.paymentPrice * 100) / 103;
+          this.totalprice = this.price;
+          this.vat7 = this.netprice * 0.07;
+          this.priceAfter7 = this.totalprice - this.vat7;
+          this.withholding3 = this.price * 0.03;
+          this.totalprice = this.priceAfter7 - this.withholding3;
+        }
       } catch (err) {
         console.log(err);
       }
@@ -90,7 +106,7 @@ export default {
           bolditalics: "Kanit-MediumItalic.ttf",
         },
       };
-      const dd = {
+      const niti = {
         pageSize: "A4",
         background: [
           {
@@ -137,7 +153,15 @@ export default {
                 text: [
                   this.quotation.wcompanyName +
                     "\nที่อยู่: " +
-                    /* this.comAddr */ this.quotation.address + "ต." + this.quotation.subdistrict + "อ." + this.quotation.district +"\nจ." + this.quotation.province + " " +this.quotation.postcode + 
+                    /* this.comAddr */ this.quotation.address +
+                    "ต." +
+                    this.quotation.subdistrict +
+                    "อ." +
+                    this.quotation.district +
+                    "\nจ." +
+                    this.quotation.province +
+                    " " +
+                    this.quotation.postcode +
                     ", เบอร์โทร: " +
                     this.quotation.wcompanyNumber +
                     "\nเลขผู้เสียภาษี: " +
@@ -157,7 +181,10 @@ export default {
                 type: "none",
                 ol: [
                   "เลขที่: " + "QA" + this.quotation.quotationID,
-                  "วันที่: " + moment(String(this.quotation.datequotation)).format("DD-MM-YYYY"),
+                  "วันที่: " +
+                    moment(String(this.quotation.datequotation)).format(
+                      "DD-MM-YYYY"
+                    ),
                   "ผู้ขาย: " + this.quotation.employeeName,
                   "เบอร์: " + this.quotation.employeeNumber,
                 ],
@@ -189,7 +216,16 @@ export default {
                     bold: true,
                   },
                   {
-                    text:  this.quotation.caddress + " ต." + this.quotation.csubdistrict + " อ." + this.quotation.cdistrict +" จ." + this.quotation.cprovince + " " +this.quotation.cpostcode ,
+                    text:
+                      this.quotation.caddress +
+                      " ต." +
+                      this.quotation.csubdistrict +
+                      " อ." +
+                      this.quotation.cdistrict +
+                      " จ." +
+                      this.quotation.cprovince +
+                      " " +
+                      this.quotation.cpostcode,
                   },
                   {
                     text: "\nเลขทะเบียนนิติบุคคล: ",
@@ -299,11 +335,11 @@ export default {
                 fontSize: 10,
                 type: "none",
                 ol: [
-                  "ราคาก่อนภาษี : " + this.quotation.paymentPrice + " บาท",
-                  "ภาษี 7% : " + this.tax7 + " บาท",
-                  "ราคารวมภาษีมูลค่าเพิ่ม 7% : " + this.priceaftertax7 + " บาท",
+                  "ราคาก่อนภาษี : " +  this.price + " บาท",
+                  "ภาษี 7% : " + this.vat7 + " บาท",
+                  "ราคารวมภาษีมูลค่าเพิ่ม 7% : " + this.priceAfter7  + " บาท",
                   "หัก ณ ที่จ่าย 3% : " + this.withholding3 + " บาท",
-                  "รวมเงินสุทธิ : " + this.netprice + " บาท",
+                  "รวมเงินสุทธิ : " + this.totalprice + " บาท",
                 ],
                 style: {
                   lineHeight: 1.2,
@@ -345,7 +381,11 @@ export default {
                     bold: true,
                   },
                   {
-                    text: "\n" + moment(String(this.quotation.datequotation)).format("DD-MM-YYYY"),
+                    text:
+                      "\n" +
+                      moment(String(this.quotation.datequotation)).format(
+                        "DD-MM-YYYY"
+                      ),
                   },
                 ],
               },
@@ -355,6 +395,7 @@ export default {
                 fontSize: 10,
                 type: "none",
                 text: [
+                  
                   {
                     text: "ในนามของ ",
                     bold: true,
@@ -370,7 +411,11 @@ export default {
                     bold: true,
                   },
                   {
-                    text: "\n" + moment(String(this.quotation.datequotation)).format("DD-MM-YYYY"),
+                    text:
+                      "\n" +
+                      moment(String(this.quotation.datequotation)).format(
+                        "DD-MM-YYYY"
+                      ),
                   },
                 ],
                 style: {
@@ -430,9 +475,14 @@ export default {
           // alignment: 'justify'
         },
       };
-      pdfMake.createPdf(dd).open();
+
+      if(this.quotation.customerstatus == "นิติบุคคล"){
+        pdfMake.createPdf(dd).open();
+      }else{
+        alert("here come normal person");
+        }
       /* pdfMake.createPdf(dd).open({}, window) */
-    },
+    }, 
   },
 };
 </script>
