@@ -192,18 +192,18 @@
                 v-if="invoice.customerstatus == 'นิติบุคคล'"
                 class="ps-right-box"
               >
-                <span>รวมเป็นเงิน {{ total }} บาท</span>
-                <span>ภาษี 7% {{ vat7 }} บาท</span>
-                <span>หัก ณ ที่จ่าย 3% {{ tax3 }} บาท</span>
-                <span>จำนวนเงินรวมทั้งสิ้น {{ invoice.priceINV }} บาท</span>
+                <span>รวมเป็นเงิน {{ total.toFixed(2) }} บาท</span>
+                <span>ภาษี 7% {{ vat7.toFixed(2) }} บาท</span>
+                <span>หัก ณ ที่จ่าย 3% {{ tax3.toFixed(2) }} บาท</span>
+                <span>จำนวนเงินรวมทั้งสิ้น {{ invoice.priceINV.toFixed(2) }} บาท</span>
               </div>
               <div
                 v-if="invoice.customerstatus == 'บุคคลธรรมดา'"
                 class="ps-right-box"
               >
-                <span>รวมเป็นเงิน {{ total }} บาท</span>
-                <span>ภาษี 7% {{ vat7 }} บาท</span>
-                <span>จำนวนเงินรวมทั้งสิ้น {{ invoice.priceINV }} บาท</span>
+                <span>รวมเป็นเงิน {{ total.toFixed(2) }} บาท</span>
+                <span>ภาษี 7% {{ vat7.toFixed(2) }} บาท</span>
+                <span>จำนวนเงินรวมทั้งสิ้น {{ invoice.priceINV.toFixed(2) }} บาท</span>
               </div>
             </div>
           </div>
@@ -320,6 +320,7 @@ export default {
       tax3: 0,
       total: 0,
       bankID: "",
+      changein:false,
       bankch: {
         bname: "",
         accname: "",
@@ -331,7 +332,7 @@ export default {
     this.inID = this.$route.params.id;
     this.getinv(this.inID);
     this.getbank();
-    axios.delete(`http://localhost:5000/scope/${this.inID}`);
+    this.getscope(this.inID);
   },
   methods: {
     choosebank(bn, ac, an) {
@@ -356,12 +357,14 @@ export default {
       this.newTodo = "";
       this.newquantity = 1;
       this.newprice = 0;
+      this.changein=true;
     },
     editTodo(index) {
       this.newTodo = this.todos[index].name;
       this.newquantity = this.todos[index].quantity;
       this.newprice = this.todos[index].price;
       this.indexEditTodo = index;
+       this.changein=true;
     },
     deleteTodo(index) {
       this.newTodo = this.todos[index].name;
@@ -371,6 +374,7 @@ export default {
       this.newTodo = "";
       this.newquantity = 1;
       this.newprice = 0;
+       this.changein=true;
     },
     upTodo(index) {
       if (index === 0) return;
@@ -383,6 +387,7 @@ export default {
       this.todos[index - 1].name = this.tempNameTodo;
       this.todos[index - 1].quantity = this.tempquantityTodo;
       this.todos[index - 1].price = this.temppriceTodo;
+       this.changein=true;
     },
     downTodo(index) {
       if (index === this.todos.length - 1) return;
@@ -395,8 +400,12 @@ export default {
       this.todos[index + 1].name = this.tempNameTodo;
       this.todos[index + 1].quantity = this.tempquantityTodo;
       this.todos[index + 1].price = this.temppriceTodo;
+      this.changein=true;
     },
     submit() {
+      if(this.changein){
+axios.delete(`http://localhost:5000/scope/${this.inID}`);
+      }
       const requestone = [];
       for (let i = 0; i < this.todos.length; i++) {
         requestone[i] = axios.post("http://localhost:5000/scope", {
@@ -464,6 +473,15 @@ export default {
         const response = await axios.get(`http://localhost:5000/bank`);
         this.bank = response.data;
         console.log(this.bank);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getscope(id) {
+      try {
+        const response = await axios.get(`http://localhost:5000/scope/${id}`);
+        this.todos = response.data;
+        console.log(this.todos);
       } catch (err) {
         console.log(err);
       }
