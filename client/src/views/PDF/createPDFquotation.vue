@@ -1,11 +1,15 @@
 <template>
   <div id="app">
-    <div style="
-    display: flex; 
-    font-size: 40px; 
-    text-align: center;
-    justify-content: center;"
-    >LOADING ....</div>
+    <div
+      style="
+        display: flex;
+        font-size: 40px;
+        text-align: center;
+        justify-content: center;
+      "
+    >
+      LOADING ....
+    </div>
   </div>
 </template>
 
@@ -20,6 +24,7 @@ export default {
     return {
       quoDate: "",
       quotation: [],
+      quoDetail: [],
       price: 0,
       totalprice: 0,
       netprice: 0,
@@ -66,29 +71,37 @@ export default {
         const response = await axios.get(
           `http://localhost:5000/quotation/quo/${this.quoID}`
         );
+        const response2 = await axios.get(
+           `http://localhost:5000/quotation/quo/detail/${this.quoID}`
+        )
         console.log(response.data[0]);
         this.quotation = response.data[0];
-        console.log("data from response");
-        console.log(this.quotation.wcompanyName);
+        this.quoDetail = response2.data;
+        console.log(quoDetail)
+/*         console.log("data from response");
+        console.log(this.quotation.wcompanyName); */
         this.quoDate = moment(String(this.quotation.datequotation)).format(
           "YYYY-MM-DD"
         );
         /* นิติบุคคคล */
         if (this.quotation.vatstatus == "vatนอก") {
-          this.price = (this.quotation.paymentPrice * 100) / 110;
+          this.price = this.quotation.totalpricequo;
           this.totalprice = this.price;
-          this.vat7 = this.price * 0.07;
+          this.vat7 = this.totalprice * 0.07;
           this.priceAfter7 = this.totalprice + this.vat7;
           this.withholding3 = this.price * 0.03;
           this.totalprice = this.priceAfter7 - this.withholding3;
         } else {
           /* vat ใน */
-          this.price = (this.quotation.paymentPrice * 100) / 103;
-          this.totalprice = this.price;
-          this.vat7 = this.netprice * 0.07;
-          this.priceAfter7 = this.totalprice - this.vat7;
-          this.withholding3 = this.price * 0.03;
-          this.totalprice = this.priceAfter7 - this.withholding3;
+
+          this.totalprice = this.quotation.totalpricequo;
+
+          this.vat7 = this.totalprice * 0.07;
+          this.price = this.totalprice - this.vat7;
+          this.priceAfter7 = this.totalprice;
+          /* this.priceAfter7 = this.totalprice + this.vat7; */
+          this.withholding3 = this.priceAfter7 * 0.03;
+          this.totalprice = this.quotation.paymentPrice;
         }
       } catch (err) {
         console.log(err);
@@ -334,7 +347,7 @@ export default {
                 alignment: "center",
                 fontSize: 10,
                 bold: false,
-                text: "(หนึ่งล้านหกแสนหาหมื่นสองพันสามร้อยสามสิบหกจุดสี่สิบห้าสตางค์)",
+                text: " ( " + this.ThaiBaht(this.totalprice.toFixed(2)) + " ) ",
               },
               {
                 width: "*",
@@ -344,7 +357,7 @@ export default {
                 ol: [
                   "ราคาก่อนภาษี : " + this.price.toFixed(2) + " บาท",
                   "ภาษี 7% : " + this.vat7.toFixed(2) + " บาท",
-                  "ราคารวมภาษีมูลค่าเพิ่ม 7% : " +
+                  "ราคาหลังภาษีมูลค่าเพิ่ม 7% : " +
                     this.priceAfter7.toFixed(2) +
                     " บาท",
                   "หัก ณ ที่จ่าย 3% : " + this.withholding3.toFixed(2) + " บาท",
@@ -492,6 +505,83 @@ export default {
         alert("here come normal person");
       }
       /* pdfMake.createPdf(dd).open({}, window) */
+    },
+    ThaiBaht(Number) {
+      //สร้างอะเรย์เก็บค่าที่ต้องการใช้เอาไว้
+      var TxtNumArr = new Array(
+        "ศูนย์",
+        "หนึ่ง",
+        "สอง",
+        "สาม",
+        "สี่",
+        "ห้า",
+        "หก",
+        "เจ็ด",
+        "แปด",
+        "เก้า",
+        "สิบ"
+      );
+      var TxtDigitArr = new Array(
+        "",
+        "สิบ",
+        "ร้อย",
+        "พัน",
+        "หมื่น",
+        "แสน",
+        "ล้าน"
+      );
+      var BahtText = "";
+      if (isNaN(Number)) {
+        return "ข้อมูลนำเข้าไม่ถูกต้อง";
+      } else {
+        if (Number - 0 > 9999999.9999) {
+          return "ข้อมูลนำเข้าเกินขอบเขตที่ตั้งไว้";
+        } else {
+          Number = Number.split(".");
+          if (Number[1].length > 0) {
+            Number[1] = Number[1].substring(0, 2);
+          }
+          var NumberLen = Number[0].length - 0;
+          for (var i = 0; i < NumberLen; i++) {
+            var tmp = Number[0].substring(i, i + 1) - 0;
+            if (tmp != 0) {
+              if (i == NumberLen - 1 && tmp == 1) {
+                BahtText += "เอ็ด";
+              } else if (i == NumberLen - 2 && tmp == 2) {
+                BahtText += "ยี่";
+              } else if (i == NumberLen - 2 && tmp == 1) {
+                BahtText += "";
+              } else {
+                BahtText += TxtNumArr[tmp];
+              }
+              BahtText += TxtDigitArr[NumberLen - i - 1];
+            }
+          }
+          BahtText += "บาท";
+          if (Number[1] == "0" || Number[1] == "00") {
+            BahtText += "ถ้วน";
+          } else {
+            DecimalLen = Number[1].length - 0;
+            for (var i = 0; i < DecimalLen; i++) {
+              var tmp = Number[1].substring(i, i + 1) - 0;
+              if (tmp != 0) {
+                if (i == DecimalLen - 1 && tmp == 1) {
+                  BahtText += "เอ็ด";
+                } else if (i == DecimalLen - 2 && tmp == 2) {
+                  BahtText += "ยี่";
+                } else if (i == DecimalLen - 2 && tmp == 1) {
+                  BahtText += "";
+                } else {
+                  BahtText += TxtNumArr[tmp];
+                }
+                BahtText += TxtDigitArr[DecimalLen - i - 1];
+              }
+            }
+            BahtText += "สตางค์";
+          }
+          return BahtText;
+        }
+      }
     },
   },
 };
