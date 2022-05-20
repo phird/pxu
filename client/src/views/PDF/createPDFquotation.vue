@@ -124,6 +124,14 @@ export default {
           bolditalics: "Kanit-MediumItalic.ttf",
         },
       };
+
+/*       var titlearray = new Array([{text:"#"}, {text: "รายละเอียด"}, {text:"จำนวน"}, {text: "ราคาต่อหน่วย"}, {text: "ราคารวม"}]);
+      this.quoDetail.map(function(item,key){
+          titlearray.push([{text:key+1},{text: item.name},{text: item.quantity},{text: item.price},{text: " "}]
+                    )});
+      console.log("this is whgat i push");
+      console.log(titlearray)  */
+      
       const niti = {
         pageSize: "A4",
         background: [
@@ -257,9 +265,7 @@ export default {
             ],
             style: "lineSpacing2",
           },
-
           /* customer end */
-
           /* ============================================
           detail section place here 
           ============================================ */
@@ -270,70 +276,26 @@ export default {
               {
                 style: "tableExample",
                 alignment: "center",
-
                 table: {
                   widths: [30, "*", 30, 100, 100],
                   fontSize: 10,
-                  body: [
-                    /* table header */
-                    [
-                      {
-                        fontSize: 10,
-                        border: [false, false, false, true],
-                        fillColor: "#4E4D4D",
-                        text: "#",
-                        color: "white",
-                      },
-                      {
-                        fontSize: 10,
-                        border: [false, false, false, true],
-                        fillColor: "#4E4D4D",
-                        color: "white",
-                        text: "รายละเอียด",
-                      },
-                      {
-                        fontSize: 10,
-                        border: [false, false, false, true],
-                        fillColor: "#4E4D4D",
-                        text: "จำนวน",
-                        color: "white",
-                      },
-                      {
-                        fontSize: 10,
-                        border: [false, false, false, true],
-                        fillColor: "#4E4D4D",
-                        text: "ราคาต่อหน่วย",
-                        color: "white",
-                      },
-                      {
-                        fontSize: 10,
-                        border: [false, false, false, true],
-                        fillColor: "#4E4D4D",
-                        text: "ราคารวม",
-                        color: "white",
-                      },
-                    ],
-                    /* here where to put data  */
-                    [
-                      "1",
-                      "ค่าบริการพัฒนาระบบศูนย์ไตเทียม",
-                      "1 ",
-                      "1,700,000",
-                      "1,700,000",
-                    ],
-                  ],
+                  headerRows: 1,
+                  body:this.quoDetail.map(function(item,key){
+                      let neteach = item.quantity * item.price;
+                      return [{text:key+1},{text: item.name}, {text: item.quantity}, {text: item.price}, {text: neteach}]
+                    })    
                 },
-                layout: "lightHorizontalLines" /* {
+                layout: "headerLineOnly", /* {
                   defaultBorder: false,
-                }, */,
+                }, */
               },
               /*  { width: "*", text: "" }, */
             ],
             style: "lineSpacing3",
-          } /* ============================================
+          } ,/* ============================================
           detail section end here 
-          ============================================ */,
-
+          ============================================ */
+        
           /* ============================================
           Payment section place here 
           ============================================ */
@@ -408,6 +370,9 @@ export default {
                       ),
                   },
                 ],
+              },{
+                width: "*",
+                text: " "
               },
               {
                 width: "auto",
@@ -494,7 +459,6 @@ export default {
           // alignment: 'justify'
         },
       };
-
       if (this.quotation.customerstatus == "นิติบุคคล") {
         console.log("open create pdf");
         pdfMake.createPdf(niti).open({}, window);
@@ -504,6 +468,11 @@ export default {
       }
       /* pdfMake.createPdf(dd).open({}, window) */
     },
+    /* =================================================================== */
+
+
+
+/* ======================================================================= */
     ThaiBaht(Number) {
       var TxtNumArr = new Array(
         "ศูนย์",
