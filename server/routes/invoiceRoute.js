@@ -25,11 +25,21 @@ router.get('/in/:id', (req, res) => {
     })
 })
 
+router.get('/re/:id', (req, res) => {
+    const qID=req.params.id;
+    const sqlInvoice = "SELECT imgslip,datereceipt FROM invoice WHERE invoiceID=? ";
+    db.query(sqlInvoice,[qID], (err, result) => {
+        console.log(err);
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
 router.delete('/:id', (req, res) => {
     const qID=req.params.id;
-    const inID='%'+req.params.id+'-'+'%';
+    const inID=req.params.id+'-%';
     const sqlInvoice = "DELETE FROM invoice WHERE quotationID=? ";
-    const sqlscope = "DELETE FROM scope WHERE workID=? ";
+    const sqlscope = "DELETE FROM scope WHERE workID LIKE ? ";
     db.query(sqlInvoice,[qID], (err, resultinv) => {
         db.query(sqlscope,[inID], (err, resultsc) => {
         if (err) throw err;
@@ -107,4 +117,20 @@ router.post('/:id', (req, res) => {
         })
 })
 
+router.post('/re/:id', (req, res) => {
+    const inID = req.params.id;
+    const imgslip = req.body.imgslip;
+    const daterec = req.body.daterec;
+    const sqlInvoice = "UPDATE `invoice` SET imgslip=?,datereceipt=? WHERE invoiceID=?";
+    db.query(sqlInvoice, [
+        imgslip,
+        daterec,
+        inID,
+    ], (err, sqlInvoiceRe) => {
+
+            if (err) 
+            console.log(err);
+            res.send(sqlInvoiceRe);
+        })
+})
 export default router;

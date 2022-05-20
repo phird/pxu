@@ -61,6 +61,14 @@
                     <a style="text-decoration: none">แก้ไขใบวางบิล</a>
                   </router-link>
                 </a-menu-item>
+                <a-menu-item>
+                  <router-link
+                    :to="`/receipt/${id}`"
+                    style="text-decoration: none"
+                  >
+                    <a style="text-decoration: none">ข้อมูลของslip</a>
+                  </router-link>
+                </a-menu-item>
 
               </a-menu>
 			   </a-dropdown>
