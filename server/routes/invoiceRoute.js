@@ -45,6 +45,7 @@ router.post('/', (req, res) => {
     const customerstatus = req.body.customerstatus;
     const num = req.body.num;
     const vatstatus = req.body.vatstatus;
+    const total = req.body.total;
     const payment = req.body.payment;
     const address = req.body.address;
     const subd = req.body.subd;
@@ -55,7 +56,7 @@ router.post('/', (req, res) => {
     const companyName = req.body.companyName;
     const companyNumber = req.body.companyNumber;
     const estatus = req.body.estatus;
-    const sqlInvoice = "INSERT INTO `invoice`(`invoiceID`,`quotationID`, `customerID`, `employeeID`,`statusinvoice`, `numberinstallment`, `vatstatus`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `customerstatus`, `wcompanyName`,`wcompanyNumber`, `priceINV`, `estatus`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    const sqlInvoice = "INSERT INTO `invoice`(`invoiceID`,`quotationID`, `customerID`, `employeeID`,`statusinvoice`, `numberinstallment`, `vatstatus`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `customerstatus`, `wcompanyName`,`wcompanyNumber`, `priceINV`,`totalpriceinv`, `estatus`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     db.query(sqlInvoice, [
         inID,
         qID,
@@ -74,6 +75,7 @@ router.post('/', (req, res) => {
         companyName,
         companyNumber,
         payment,
+        total,
         estatus
     ], (err, sqlInvoiceRe) => {
 

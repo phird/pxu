@@ -52,6 +52,7 @@ router.post('/', (req, res) => {
     const qIN = req.body.qIN;
     const vatstatus = req.body.vatstatus;
     const payment = req.body.payment;
+    const total = req.body.total;
     const address = req.body.address;
     const subd = req.body.subd;
     const d = req.body.d;
@@ -62,7 +63,7 @@ router.post('/', (req, res) => {
     const companyNumber = req.body.companyNumber;
     const estatus = req.body.estatus;
     const summernote = req.body.summernote;
-    const sqlQuotation = "INSERT INTO `quotation`(`quotationID`, `customerID`, `employeeID`,`quotationName`,`statusquotation`, `datequotation`, `notequotation`, `statuswork`, `quantityinstallment`, `vatstatus`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `customerstatus`, `wcompanyName`,`wcompanyNumber`, `paymentPrice`, `summernote`, `estatus`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    const sqlQuotation = "INSERT INTO `quotation`(`quotationID`, `customerID`, `employeeID`,`quotationName`,`statusquotation`, `datequotation`, `notequotation`, `statuswork`, `quantityinstallment`, `vatstatus`, `address`, `subdistrict`, `district`, `province`, `postcode`, `taxNumber`, `customerstatus`, `wcompanyName`,`wcompanyNumber`, `paymentPrice`,`totalpricequo`, `summernote`, `estatus`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     db.query(sqlQuotation, [qID,
         cID,
         eID,
@@ -83,6 +84,7 @@ router.post('/', (req, res) => {
         companyName,
         companyNumber,
         payment,
+        total,
         summernote,
         estatus
     ], (err, sqlQuotationRe) => {
@@ -146,10 +148,11 @@ router.post('/:id', (req, res) => {
     const noteq = req.body.noteq;
     const qIN = req.body.qIN;
     const vatstatus = req.body.vatstatus;
+    const total = req.body.total;
     const payment = req.body.payment;
     const estatus = req.body.estatus;
     const summernote = req.body.summernote;
-    const sqlQuotation = "UPDATE `quotation` SET `employeeID`=?,`quotationName`=?, `datequotation`=?, `notequotation`=?, `quantityinstallment`=?,`vatstatus`=?, `paymentPrice`=?, `summernote`=?, `estatus`=? WHERE quotationID=?";
+    const sqlQuotation = "UPDATE `quotation` SET `employeeID`=?,`quotationName`=?, `datequotation`=?, `notequotation`=?, `quantityinstallment`=?,`vatstatus`=?, `paymentPrice`=?,`totalpricequo`=?, `summernote`=?, `estatus`=? WHERE quotationID=?";
     db.query(sqlQuotation, [
         eID,
         qName,
@@ -158,6 +161,7 @@ router.post('/:id', (req, res) => {
         qIN,
         vatstatus,
         payment,
+        total,
         summernote,
         estatus,
         qID,

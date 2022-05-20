@@ -459,22 +459,22 @@ export default {
         this.invoice = response.data[0];
         if (this.invoice.customerstatus == "นิติบุคคล") {
           if (this.invoice.vatstatus == "vatนอก") {
-            this.total = (this.invoice.priceINV * 100) / 110;
+            this.total = this.invoice.totalpriceinv;
             this.vat7 = this.total * 0.07;
             this.tax3 = this.total * 0.03;
           } else if (this.invoice.vatstatus == "vatใน") {
-            this.total = (this.invoice.priceINV * 100) / 103;
-            this.vat7 = this.total * 0.07;
+            this.vat7 = this.invoice.totalpriceinv * 0.07;
+            this.total = this.invoice.totalpriceinv-this.vat7;
             this.tax3 = this.total * 0.03;
           }
         } else {
           if (this.invoice.vatstatus == "vatนอก") {
-            this.total = (this.invoice.priceINV * 100) / 107;
+            this.total = this.invoice.totalpriceinv;
             this.vat7 = this.total * 0.07;
             this.tax3 = 0;
           } else if (this.invoice.vatstatus == "vatใน") {
-            this.total = this.invoice.priceINV * 0.93;
-            this.vat7 = this.invoice.priceINV - this.total;
+            this.vat7 = this.invoice.totalpriceinv * 0.07;
+            this.total = this.invoice.totalpriceinv-this.vat7;
             this.tax3 = 0;
           }
         }

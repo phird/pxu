@@ -1,9 +1,10 @@
 <template>
   <div class="whole-site">
-    
     <!-- Left layput for website  -->
     <div class="left-layout">
-      <div style="color:red"> ***จำเป็นต้องกำหนดจำนวนใบวางบิลทุกครั้งที่ทำการแก้ไข</div>
+      <div style="color: red">
+        ***จำเป็นต้องกำหนดจำนวนใบวางบิลทุกครั้งที่ทำการแก้ไข
+      </div>
       <!-- step pills -->
       <div class="step-pills">
         <div class="step-item" :class="{ active: isOne }" @click="goa(0)">
@@ -26,9 +27,16 @@
       <!-- step pills -->
       <!-- add detail section -->
       <div v-if="check == '0'" class="form-group detail-section">
-        <todo :todos="todos" :sumtodo="sumtodo" :qID="qID" :inv="inv" :changein="changein" @updatechan="updatechan"/>
+        <todo
+          :todos="todos"
+          :sumtodo="sumtodo"
+          :qID="qID"
+          :inv="inv"
+          :changein="changein"
+          @updatechan="updatechan"
+        />
         <div class="nav-section">
-          <button @click="goa(1),deleteq()" class="nav-but">
+          <button @click="goa(1), deleteq()" class="nav-but">
             ต่อไป <b-icon icon="chevron-right"></b-icon>
           </button>
         </div>
@@ -44,10 +52,10 @@
             @update-status="updateestatus"
           />
           <div class="nav-section">
-            <button @click="goa(0),deleteq()" class="nav-but nav-but-back">
+            <button @click="goa(0), deleteq()" class="nav-but nav-but-back">
               ก่อนหน้า
             </button>
-            <button @click="goa(2),deleteq()" class="nav-but">ต้อไป</button>
+            <button @click="goa(2), deleteq()" class="nav-but">ต้อไป</button>
           </div>
         </div>
       </div>
@@ -73,15 +81,30 @@
             <!-- <b-icon icon="file-earmark-pdf" style="color: blue; font-size:24px;"></b-icon> -->
             ดาวน์โหลดเป็น PDF
           </button>
-           <button v-if="check=='2'" type="button" class="btn btn-outline-success" disabled>
+          <button
+            v-if="check == '2'"
+            type="button"
+            class="btn btn-outline-success"
+            disabled
+          >
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
           </button>
-          <button v-if="check=='1'" type="button" class="btn btn-outline-success" disabled>
+          <button
+            v-if="check == '1'"
+            type="button"
+            class="btn btn-outline-success"
+            disabled
+          >
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
           </button>
-          <button v-if="check=='0'" type="button" class="btn btn-outline-success" @click="submit">
+          <button
+            v-if="check == '0'"
+            type="button"
+            class="btn btn-outline-success"
+            @click="submit"
+          >
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
           </button>
@@ -145,7 +168,7 @@ export default {
       },
       inID: "",
       numindex: 0,
-      changein:false,
+      changein: false,
     };
   },
   methods: {
@@ -179,7 +202,7 @@ export default {
       this.changein = changein;
     },
     submitquo() {
-      console.log('payment');
+      console.log("payment");
       console.log(this.sumtodo.payment);
       axios
         .post(`http://localhost:5000/quotation/${this.qID}`, {
@@ -189,7 +212,8 @@ export default {
           qName: this.sumtodo.quoname,
           qIN: this.sumtodo.qIN,
           vatstatus: this.sumtodo.statusvat,
-          payment: this.sumtodo.payment,
+          total: this.sumtodo.total.toFixed(2),
+          payment: this.sumtodo.payment.toFixed(2),
           estatus: this.estatus,
           summernote: this.sumnote,
         })
@@ -198,72 +222,70 @@ export default {
           history.back();
         });
     },
-  //   async delq(){
-  //     const request = [];
-  //  request[0] =  axios.delete(`http://localhost:5000/invoice/${this.qID}`);
-  //  request[1]  =  axios.delete(`http://localhost:5000/scope/${this.qID}`);
-  //       await axios.all([request]);
-  //   },
+    //   async delq(){
+    //     const request = [];
+    //  request[0] =  axios.delete(`http://localhost:5000/invoice/${this.qID}`);
+    //  request[1]  =  axios.delete(`http://localhost:5000/scope/${this.qID}`);
+    //       await axios.all([request]);
+    //   },
     async submit() {
-       if(this.changein){
-   await axios.delete(`http://localhost:5000/scope/${this.qID}`);
-   axios.delete(`http://localhost:5000/invoice/${this.qID}`);
-         const requestone = [];
-      console.log(this.todos);
-      for (let i = 1; i <= this.sumtodo.qIN; i++) {
-        this.inID = this.qID + "-" + i;
-        let test;
-        if (this.sumtodo.qIN == 1 && i == 1) {
-          test = this.inv.IN1 / 100;
-        } else if (this.sumtodo.qIN == 2 && i == 1) {
-          test = this.inv.IN1 / 100;
-        } else if (this.sumtodo.qIN == 2 && i == 2) {
-          test = this.inv.IN2 / 100;
-        } else if (this.sumtodo.qIN == 3 && i == 1) {
-          test = this.inv.IN1 / 100;
-        } else if (this.sumtodo.qIN == 3 && i == 2) {
-          test = this.inv.IN2 / 100;
-        } else if (this.sumtodo.qIN == 3 && i == 3) {
-          test = this.inv.IN3 / 100;
+      if (this.changein) {
+        await axios.delete(`http://localhost:5000/scope/${this.qID}`);
+        await axios.delete(`http://localhost:5000/invoice/${this.qID}`);
+        const requestone = [];
+        console.log(this.todos);
+        for (let i = 1; i <= this.sumtodo.qIN; i++) {
+          this.inID = this.qID + "-" + i;
+          let test;
+          if (this.sumtodo.qIN == 1 && i == 1) {
+            test = this.inv.IN1 / 100;
+          } else if (this.sumtodo.qIN == 2 && i == 1) {
+            test = this.inv.IN1 / 100;
+          } else if (this.sumtodo.qIN == 2 && i == 2) {
+            test = this.inv.IN2 / 100;
+          } else if (this.sumtodo.qIN == 3 && i == 1) {
+            test = this.inv.IN1 / 100;
+          } else if (this.sumtodo.qIN == 3 && i == 2) {
+            test = this.inv.IN2 / 100;
+          } else if (this.sumtodo.qIN == 3 && i == 3) {
+            test = this.inv.IN3 / 100;
+          }
+          requestone[i - 1] = axios.post("http://localhost:5000/invoice", {
+            inID: this.inID,
+            qID: this.qID,
+            cID: this.sumtodo.customerID,
+            eID: this.sumtodo.employeeID,
+            num: i,
+            vatstatus: this.sumtodo.statusvat,
+            customerstatus: this.sumtodo.cusstatus,
+            total: (this.sumtodo.total * test).toFixed(2),
+            payment: (this.sumtodo.payment * test).toFixed(2),
+            address: this.quotation.address,
+            subd: this.quotation.subdistrict,
+            d: this.quotation.district,
+            prov: this.quotation.province,
+            postcode: this.quotation.postcode,
+            taxNumber: this.quotation.taxNumber,
+            companyName: this.quotation.wcompanyName,
+            companyNumber: this.quotation.wcompanyNumber,
+            estatus: this.estatus,
+          });
         }
-        requestone[i - 1] = axios.post("http://localhost:5000/invoice", {
-          inID: this.inID,
-          qID: this.qID,
-          cID: this.sumtodo.customerID,
-          eID: this.sumtodo.employeeID,
-          num: i,
-          vatstatus: this.sumtodo.statusvat,
-          customerstatus: this.sumtodo.cusstatus,
-          payment: this.sumtodo.payment * test,
-          address: this.quotation.address,
-          subd: this.quotation.subdistrict,
-          d: this.quotation.district,
-          prov: this.quotation.province,
-          postcode: this.quotation.postcode,
-          taxNumber: this.quotation.taxNumber,
-          companyName: this.quotation.wcompanyName,
-          companyNumber: this.quotation.wcompanyNumber,
-          estatus: this.estatus,
-        });
-      }
-      const requesttwo = [];
-      for (let i = 0; i < this.todos.length; i++) {
-        requesttwo[i] = axios.post("http://localhost:5000/scope", {
-          qID: this.qID,
-          name: this.todos[i].name,
-          price: this.todos[i].price,
-          quantity: this.todos[i].quantity,
-        });
-        console.log(this.todos.length);
-        console.log(requesttwo[i]);
-      }
-      axios.all([requestone,requesttwo]).then(this.submitquo());
-      }else{
+        const requesttwo = [];
+        for (let i = 0; i < this.todos.length; i++) {
+          requesttwo[i] = axios.post("http://localhost:5000/scope", {
+            qID: this.qID,
+            name: this.todos[i].name,
+            price: this.todos[i].price,
+            quantity: this.todos[i].quantity,
+          });
+          console.log(this.todos.length);
+          console.log(requesttwo[i]);
+        }
+        axios.all([requestone, requesttwo]).then(this.submitquo());
+      } else {
         this.submitquo();
       }
-       
-      
-      
     },
     async getid(id) {
       try {
@@ -279,6 +301,7 @@ export default {
         ).format("YYYY-MM-DD");
         this.sumnote = this.quotation.summernote;
         this.sumtodo.payment = this.quotation.paymentPrice;
+        this.sumtodo.total = this.quotation.totalpricequo;
         this.sumtodo.cusstatus = this.quotation.customerstatus;
         this.sumtodo.statusvat = this.quotation.vatstatus;
         if (this.quotation.estatus == "0") {
@@ -288,26 +311,22 @@ export default {
         }
         if (this.sumtodo.cusstatus == "นิติบุคคล") {
           if (this.sumtodo.statusvat == "vatนอก") {
-            this.sumtodo.total = (this.sumtodo.payment * 100) / 110;
             this.sumtodo.totalnow = this.sumtodo.total;
             this.sumtodo.vat7 = this.sumtodo.total * 0.07;
             this.sumtodo.tax3 = this.sumtodo.total * 0.03;
           } else if (this.sumtodo.statusvat == "vatใน") {
-            this.sumtodo.total = (this.sumtodo.payment * 100) / 103;
             this.sumtodo.vat7 = this.sumtodo.total * 0.07;
             this.sumtodo.tax3 = this.sumtodo.total * 0.03;
             this.sumtodo.totalnow = this.sumtodo.total - this.sumtodo.vat7;
           }
         } else {
           if (this.sumtodo.statusvat == "vatนอก") {
-            this.sumtodo.total = (this.sumtodo.payment * 100) / 107;
             this.sumtodo.totalnow = this.sumtodo.total;
             this.sumtodo.vat7 = this.sumtodo.total * 0.07;
             this.sumtodo.tax3 = 0;
           } else if (this.sumtodo.statusvat == "vatใน") {
-            this.sumtodo.total = this.sumtodo.payment;
-            this.sumtodo.totalnow = this.sumtodo.total * 0.93;
-            this.sumtodo.vat7 = this.sumtodo.total - this.sumtodo.totalnow;
+            this.sumtodo.vat7 = this.sumtodo.total * 0.07;
+            this.sumtodo.totalnow = this.sumtodo.total - this.sumtodo.vat7;
             this.sumtodo.tax3 = 0;
           }
         }
