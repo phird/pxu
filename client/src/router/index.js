@@ -63,7 +63,7 @@ let routes = [
 	{
 		path: '/createPDFquotation/:id',
 		name: 'createpdf',
-		layout: "dashboard",
+		
 		component: () => import('../views/PDF/createPDFquotation.vue'),
 	},
 	{

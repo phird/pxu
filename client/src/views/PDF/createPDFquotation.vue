@@ -1,5 +1,12 @@
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <div style="
+    display: flex; 
+    font-size: 40px; 
+    text-align: center;
+    justify-content: center;"
+    >LOADING ....</div>
+  </div>
 </template>
 
 <script>
@@ -19,7 +26,6 @@ export default {
       vat7: 0,
       priceAfter7: 0,
       withholding3: 0,
-      
     };
   },
   create() {
@@ -66,7 +72,7 @@ export default {
         console.log(this.quotation.wcompanyName);
         this.quoDate = moment(String(this.quotation.datequotation)).format(
           "YYYY-MM-DD"
-        ); 
+        );
         /* นิติบุคคคล */
         if (this.quotation.vatstatus == "vatนอก") {
           this.price = (this.quotation.paymentPrice * 100) / 110;
@@ -75,7 +81,8 @@ export default {
           this.priceAfter7 = this.totalprice + this.vat7;
           this.withholding3 = this.price * 0.03;
           this.totalprice = this.priceAfter7 - this.withholding3;
-        } else {   /* vat ใน */
+        } else {
+          /* vat ใน */
           this.price = (this.quotation.paymentPrice * 100) / 103;
           this.totalprice = this.price;
           this.vat7 = this.netprice * 0.07;
@@ -335,9 +342,11 @@ export default {
                 fontSize: 10,
                 type: "none",
                 ol: [
-                  "ราคาก่อนภาษี : " +  this.price.toFixed(2) + " บาท",
+                  "ราคาก่อนภาษี : " + this.price.toFixed(2) + " บาท",
                   "ภาษี 7% : " + this.vat7.toFixed(2) + " บาท",
-                  "ราคารวมภาษีมูลค่าเพิ่ม 7% : " + this.priceAfter7.toFixed(2)  + " บาท",
+                  "ราคารวมภาษีมูลค่าเพิ่ม 7% : " +
+                    this.priceAfter7.toFixed(2) +
+                    " บาท",
                   "หัก ณ ที่จ่าย 3% : " + this.withholding3.toFixed(2) + " บาท",
                   "รวมเงินสุทธิ : " + this.totalprice.toFixed(2) + " บาท",
                 ],
@@ -395,7 +404,6 @@ export default {
                 fontSize: 10,
                 type: "none",
                 text: [
-                  
                   {
                     text: "ในนามของ ",
                     bold: true,
@@ -476,15 +484,15 @@ export default {
         },
       };
 
-      if(this.quotation.customerstatus =="นิติบุคคล"){
+      if (this.quotation.customerstatus == "นิติบุคคล") {
         console.log("open create pdf");
-        pdfMake.createPdf(niti).open();
-      }else{
+        pdfMake.createPdf(niti).open({}, window);
+      } else {
         console.log("lemme go idiot!");
         alert("here come normal person");
-        }
+      }
       /* pdfMake.createPdf(dd).open({}, window) */
-    }, 
+    },
   },
 };
 </script>

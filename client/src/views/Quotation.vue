@@ -66,8 +66,14 @@
         <a>{{ val }}</a>
       </template>
       <template slot="act" slot-scope="quotationID"> 
-        <b-icon icon="file-earmark-pdf" @click="createpdf({quotationID})"   style="width:20px; height:20px; margin: 0px .7em  0px  .5em;">
+        <router-link
+                    :to="`/createPDFquotation/${quotationID}`" 
+                    target="_blank"
+                    style="text-decoration: none"
+                  >
+        <b-icon icon="file-earmark-pdf"  style="width:20px; height:20px; margin: 0px .7em  0px  .5em;">
         </b-icon>
+        </router-link>
 		  <a-dropdown>
               <a class="ant-dropdown-link" @click="(e) => e.preventDefault()" style="width:20px; height:20px;">
                 <svg
