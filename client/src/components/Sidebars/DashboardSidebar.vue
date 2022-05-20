@@ -22,7 +22,7 @@
         <img :src="`http://localhost:5000/logo/logo.png`" alt="" />
       </div>
       <div class="brand-name">
-        <span style="font-size: 24px; margin-left: auto; margin-right: auto">
+        <span style="font-size: 20px; margin-left: auto; margin-right: auto">
           {{name}}
         </span>
       </div>
