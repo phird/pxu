@@ -335,11 +335,11 @@ export default {
                 fontSize: 10,
                 type: "none",
                 ol: [
-                  "ราคาก่อนภาษี : " +  this.price + " บาท",
-                  "ภาษี 7% : " + this.vat7 + " บาท",
-                  "ราคารวมภาษีมูลค่าเพิ่ม 7% : " + this.priceAfter7  + " บาท",
-                  "หัก ณ ที่จ่าย 3% : " + this.withholding3 + " บาท",
-                  "รวมเงินสุทธิ : " + this.totalprice + " บาท",
+                  "ราคาก่อนภาษี : " +  this.price.toFixed(2) + " บาท",
+                  "ภาษี 7% : " + this.vat7.toFixed(2) + " บาท",
+                  "ราคารวมภาษีมูลค่าเพิ่ม 7% : " + this.priceAfter7.toFixed(2)  + " บาท",
+                  "หัก ณ ที่จ่าย 3% : " + this.withholding3.toFixed(2) + " บาท",
+                  "รวมเงินสุทธิ : " + this.totalprice.toFixed(2) + " บาท",
                 ],
                 style: {
                   lineHeight: 1.2,
@@ -476,9 +476,11 @@ export default {
         },
       };
 
-      if(this.quotation.customerstatus == "นิติบุคคล"){
-        pdfMake.createPdf(dd).open();
+      if(this.quotation.customerstatus =="นิติบุคคล"){
+        console.log("open create pdf");
+        pdfMake.createPdf(niti).open();
       }else{
+        console.log("lemme go idiot!");
         alert("here come normal person");
         }
       /* pdfMake.createPdf(dd).open({}, window) */
