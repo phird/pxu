@@ -57,7 +57,7 @@
       <div v-if="check == '2'" class="form-group detail-section">
         <summernote :sumnote="sumnote" @update-text="updatesum" />
         <div class="nav-section">
-          <button @click="goa(1),deleteq()" class="nav-but nav-but-back">ก่อนหน้า</button>
+          <button @click="goa(1)" class="nav-but nav-but-back">ก่อนหน้า</button>
         </div>
       </div>
 
@@ -163,11 +163,11 @@ export default {
         this.isOne = false;
         this.isTwo = false;
       }
-      console.log(this.isOne);
-      console.log(this.isTwo);
-      console.log(this.isThree);
+      // console.log(this.isOne);
+      // console.log(this.isTwo);
+      // console.log(this.isThree);
       this.check = numf;
-      console.log(this.check);
+      // console.log(this.check);
     },
     updatesum(sumnote) {
       this.sumnote = sumnote;
@@ -178,13 +178,9 @@ export default {
     updatechan(changein) {
       this.changein = changein;
     },
-    deleteq(){
-      console.log('change-in');
-      console.log(this.changein);
-     
-     
-    },
     submitquo() {
+      console.log('payment');
+      console.log(this.sumtodo.payment);
       axios
         .post(`http://localhost:5000/quotation/${this.qID}`, {
           eID: this.sumtodo.employeeID,
@@ -202,14 +198,18 @@ export default {
           history.back();
         });
     },
-    submit() {
+  //   async delq(){
+  //     const request = [];
+  //  request[0] =  axios.delete(`http://localhost:5000/invoice/${this.qID}`);
+  //  request[1]  =  axios.delete(`http://localhost:5000/scope/${this.qID}`);
+  //       await axios.all([request]);
+  //   },
+    async submit() {
        if(this.changein){
-         axios.delete(`http://localhost:5000/invoice/${this.qID}`);
-      axios.delete(`http://localhost:5000/scope/${this.qID}`);
-      }
-      const requestone = [];
+   await axios.delete(`http://localhost:5000/scope/${this.qID}`);
+   axios.delete(`http://localhost:5000/invoice/${this.qID}`);
+         const requestone = [];
       console.log(this.todos);
-      let j = 0;
       for (let i = 1; i <= this.sumtodo.qIN; i++) {
         this.inID = this.qID + "-" + i;
         let test;
@@ -245,18 +245,25 @@ export default {
           companyNumber: this.quotation.wcompanyNumber,
           estatus: this.estatus,
         });
-        j = i;
-        console.log(j);
       }
+      const requesttwo = [];
       for (let i = 0; i < this.todos.length; i++) {
-        requestone[j + i] = axios.post("http://localhost:5000/scope", {
+        requesttwo[i] = axios.post("http://localhost:5000/scope", {
           qID: this.qID,
           name: this.todos[i].name,
           price: this.todos[i].price,
           quantity: this.todos[i].quantity,
         });
+        console.log(this.todos.length);
+        console.log(requesttwo[i]);
       }
-      axios.all([requestone]).then(this.submitquo());
+      axios.all([requestone,requesttwo]).then(this.submitquo());
+      }else{
+        this.submitquo();
+      }
+       
+      
+      
     },
     async getid(id) {
       try {
@@ -304,8 +311,9 @@ export default {
             this.sumtodo.tax3 = 0;
           }
         }
-        console.log(this.quotation);
-        console.log(this.sumtodo);
+        this.sumtodo.qIN = this.quotation.quantityinstallment.toString();
+        // console.log(this.quotation);
+        // console.log(this.sumtodo);
       } catch (err) {
         console.log(err);
       }

@@ -459,12 +459,12 @@ export default {
           this.totalnow = this.total;
           this.vat7 = this.total * 0.07;
           this.tax3 = this.total * 0.03;
-          this.payment = this.total + this.vat7 + this.tax3;
+          this.payment = this.total + this.vat7 - this.tax3;
         } else if (statusvat == "vatใน") {
           this.tax3 = this.total * 0.03;
           this.vat7 = this.total * 0.07;
           this.totalnow = this.total - this.vat7;
-          this.payment = this.total+this.tax3;
+          this.payment = this.total-this.tax3;
         }
       } else {
         if (statusvat == "vatนอก") {

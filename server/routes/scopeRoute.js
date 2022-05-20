@@ -20,6 +20,7 @@ router.delete('/:id', (req, res) => {
     db.query(sql, [qID], (err, result) => {
         console.log(err);
         if (err) throw err;
+        console.log('delete scope');
         res.send(result);
     })
 })
@@ -39,6 +40,8 @@ router.post('/', (req, res) => {
 
         if (err)
             console.log(err);
+            console.log('post scope');
+            console.log(text);
         res.send(sqlRe);
     })
 })

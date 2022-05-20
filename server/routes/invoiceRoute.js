@@ -31,6 +31,7 @@ router.delete('/:id', (req, res) => {
     db.query(sqlInvoice,[qID], (err, result) => {
         console.log(err);
         if (err) throw err;
+        console.log('delete invoice');
         res.send(result);
     })
 })
@@ -78,7 +79,7 @@ router.post('/', (req, res) => {
 
             if (err) 
             console.log(err);
-            console.log(sqlInvoiceRe);
+            console.log('post invoice');
             res.send(sqlInvoiceRe);
         })
 })

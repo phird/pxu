@@ -422,21 +422,8 @@ export default {
       this.todos[index + 1].price = this.temppriceTodo;
       this.changein = true;
     },
-    submit() {
-      if (this.changein) {
-        axios.delete(`http://localhost:5000/scope/${this.inID}`);
-      }
-      const requestone = [];
-      for (let i = 0; i < this.todos.length; i++) {
-        requestone[i] = axios.post("http://localhost:5000/scope", {
-          qID: this.inID,
-          name: this.todos[i].name,
-          price: this.todos[i].price,
-          quantity: this.todos[i].quantity,
-        });
-      }
-      axios.all([requestone]).then(
-        axios
+    subinv(){
+      axios
           .post(`http://localhost:5000/invoice/${this.inID}`, {
             bankID: this.bankID,
             dateinv: this.dateinv,
@@ -445,7 +432,24 @@ export default {
             alert("บันทึกข้อมูลสำเร็จ");
             history.back();
           })
-      );
+    },
+    async submit() {
+      if (this.changein) {
+        await axios.delete(`http://localhost:5000/scope/${this.inID}`); 
+        const requestone = [];
+      for (let i = 0; i < this.todos.length; i++) {
+        requestone[i] = axios.post("http://localhost:5000/scope", {
+          qID: this.inID,
+          name: this.todos[i].name,
+          price: this.todos[i].price,
+          quantity: this.todos[i].quantity,
+        });
+      }
+      axios.all([requestone]).then(this.subinv());
+      }else{
+        this.subinv();
+      }
+     
     },
     async getinv(id) {
       try {

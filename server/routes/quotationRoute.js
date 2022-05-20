@@ -88,6 +88,7 @@ router.post('/', (req, res) => {
     ], (err, sqlQuotationRe) => {
     
                 if (err) {console.log(err); throw err;}
+                console.log(payment);
                 res.send(sqlQuotationRe);
         })
 })
@@ -164,6 +165,7 @@ router.post('/:id', (req, res) => {
     
                 if (err) {console.log(err); throw err;}
                 console.log(sqlQuotationRe);
+                console.log(payment);
                 res.send(sqlQuotationRe);
         })
 })
