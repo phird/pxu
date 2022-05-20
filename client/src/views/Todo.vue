@@ -461,9 +461,9 @@ export default {
           this.tax3 = this.total * 0.03;
           this.payment = this.total + this.vat7 - this.tax3;
         } else if (statusvat == "vatใน") {
-          this.tax3 = this.total * 0.03;
-          this.vat7 = this.total * 0.07;
-          this.totalnow = this.total - this.vat7;
+          this.totalnow = (this.total * 100)/107;
+          this.tax3 = this.totalnow * 0.03;
+          this.vat7 = this.total - this.totalnow;
           this.payment = this.total-this.tax3;
         }
       } else {
@@ -473,7 +473,7 @@ export default {
           this.payment = this.total + this.vat7;
           this.tax3 = 0;
         } else if (statusvat == "vatใน") {
-          this.totalnow = this.total * 0.93;
+          this.totalnow = (this.total * 100)/107;
           this.vat7 = this.total - this.totalnow;
           this.payment = this.total;
           this.tax3 = 0;
