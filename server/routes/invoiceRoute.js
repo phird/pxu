@@ -27,12 +27,15 @@ router.get('/in/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const qID=req.params.id;
+    const inID='%'+req.params.id+'-'+'%';
     const sqlInvoice = "DELETE FROM invoice WHERE quotationID=? ";
-    db.query(sqlInvoice,[qID], (err, result) => {
-        console.log(err);
+    const sqlscope = "DELETE FROM scope WHERE workID=? ";
+    db.query(sqlInvoice,[qID], (err, resultinv) => {
+        db.query(sqlscope,[inID], (err, resultsc) => {
         if (err) throw err;
         console.log('delete invoice');
-        res.send(result);
+        res.send([resultinv,resultsc]);
+    })
     })
 })
 
