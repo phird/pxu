@@ -97,6 +97,12 @@ let routes = [
 		component: () => import('../views/PDF/createPDFreceiptNormal.vue'),
 	},
 	{
+		path: '/receipt/:id',
+		name: 'แนปสลิปการโอน',
+		layout: "dashboard",
+		component: () => import('../views/Setreceipt.vue'),
+	},
+	{
 		path: '/Customers',
 		name: 'ลูกค้า',
 		layout: "dashboard",
