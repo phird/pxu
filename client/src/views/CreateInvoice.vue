@@ -74,6 +74,7 @@
           </div>
         </div>
         <div class="body">
+          <div class="add-detail">
           <div class="todo-form">
             <table class="table-detail">
               <tr class="container-todo-header">
@@ -124,63 +125,67 @@
                   </a-tooltip>
                 </td>
               </tr>
-              <tr
-                class="container-todo-list"
-                v-for="(todo, index) in todos"
-                :key="index"
-              >
-                <!-- /card-todo-container -->
-                <div class="card-todo-container">
-                  <td class="text-start cbox" style="width: 20%">
-                    <span>
-                      {{ todo.name }}
-                    </span>
-                  </td>
+              <div class="div-of-todocontainer">
+                <tr
+                  class="container-todo-list"
+                  v-for="(todo, index) in todos"
+                  :key="index"
+                  style="width:100%"
+                >
+                  <!-- /card-todo-container -->
+                  <div class="card-todo-container">
+                    <td class="text-start cbox">
+                      <span>
+                        {{ todo.name }}
+                      </span>
+                    </td>
 
-                  <td class="cbox">
-                    <div
-                      class="d-flex justify-content-start align-items-center"
-                    >
-                      <div>
-                        {{ todo.quantity }}
+                    <td class="cbox">
+                      <div
+                        class="d-flex justify-content-start align-items-center"
+                      >
+                        <div>
+                          {{ todo.quantity }}
+                        </div>
                       </div>
-                    </div>
-                    <link
-                      rel="stylesheet"
-                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-                    />
-                  </td>
+                      <link
+                        rel="stylesheet"
+                        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                      />
+                    </td>
 
-                  <td class="cbox">
-                    <div
-                      class="d-flex justify-content-start align-items-center"
-                    >
-                      <div>
-                        {{ todo.price }}
+                    <td class="cbox">
+                      <div
+                        class="d-flex justify-content-start align-items-center"
+                      >
+                        <div>
+                          {{ todo.price }}
+                        </div>
                       </div>
-                    </div>
-                  </td>
+                    </td>
 
-                  <td class="cbox text-end action-btn">
-                    <div class="d-flex justify-content-end">
-                      <div class="" @click="upTodo(index)">
-                        <i class="fa fa-angle-up"></i>
+                    <td class="cbox text-end action-btn">
+                      <div class="d-flex justify-content-end">
+                        <div class="" @click="upTodo(index)">
+                          <i class="fa fa-angle-up"></i>
+                        </div>
+                        <div class="" @click="downTodo(index)">
+                          <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </div>
+                        <div class="" @click="editTodo(index)">
+                          <i class="fa fa-edit"></i>
+                        </div>
+                        <div class="" @click="deleteTodo(index)">
+                          <i class="fa fa-close"></i>
+                        </div>
                       </div>
-                      <div class="" @click="downTodo(index)">
-                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                      </div>
-                      <div class="" @click="editTodo(index)">
-                        <i class="fa fa-edit"></i>
-                      </div>
-                      <div class="" @click="deleteTodo(index)">
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>
-                  </td>
-                </div>
-                <!-- /card-todo-container -->
-              </tr>
+                    </td>
+                  </div>
+                  <!-- /card-todo-container -->
+                </tr>
+              </div>
             </table>
+          </div>
           </div>
 
           <div class="payment-section">
@@ -195,7 +200,10 @@
                 <span>รวมเป็นเงิน {{ total.toFixed(2) }} บาท</span>
                 <span>ภาษี 7% {{ vat7.toFixed(2) }} บาท</span>
                 <span>หัก ณ ที่จ่าย 3% {{ tax3.toFixed(2) }} บาท</span>
-                <span>จำนวนเงินรวมทั้งสิ้น {{ invoice.priceINV.toFixed(2) }} บาท</span>
+                <span
+                  >จำนวนเงินรวมทั้งสิ้น
+                  {{ invoice.priceINV.toFixed(2) }} บาท</span
+                >
               </div>
               <div
                 v-if="invoice.customerstatus == 'บุคคลธรรมดา'"
@@ -203,36 +211,17 @@
               >
                 <span>รวมเป็นเงิน {{ total.toFixed(2) }} บาท</span>
                 <span>ภาษี 7% {{ vat7.toFixed(2) }} บาท</span>
-                <span>จำนวนเงินรวมทั้งสิ้น {{ invoice.priceINV.toFixed(2) }} บาท</span>
+                <span
+                  >จำนวนเงินรวมทั้งสิ้น
+                  {{ invoice.priceINV.toFixed(2) }} บาท</span
+                >
               </div>
             </div>
           </div>
         </div>
         <div class="sign-section">
           <div class="sign-left">
-            <span>ธนาคาร </span>
-            <span>
-              <a-select
-                id="customer-select"
-                v-model="bankID"
-                style="width: 120px"
-                default-value="5"
-              >
-                <a-select-option value="" disable>
-                  เลือกธนาคาร
-                </a-select-option>
-                <a-select-option
-                  v-for="ba in bank"
-                  :key="ba.bankID"
-                  :value="ba.bankID"
-                  @click="
-                    choosebank(ba.bankName, ba.bankAccount, ba.accountName)
-                  "
-                >
-                  {{ ba.accountName }}
-                </a-select-option>
-              </a-select>
-            </span>
+            
             <span>
               <b-icon icon="square"></b-icon> โอนผ่าน{{ bankch.bname }}
             </span>
@@ -291,9 +280,40 @@
           </button>
         </div>
       </div>
+
+      <div class="right-layout-panel">
+        <div class="container-panel">
+          <span style="margin-bottom:1em;">ธนาคาร</span>
+            <span class="bank-selected">
+              <a-select
+                id="customer-select"
+                v-model="bankID"
+                default-value="5"
+              >
+                <a-select-option value="" disable>
+                  เลือกธนาคาร
+                </a-select-option>
+                <a-select-option
+                  v-for="ba in bank"
+                  :key="ba.bankID"
+                  :value="ba.bankID"
+                  @click="
+                    choosebank(ba.bankName, ba.bankAccount, ba.accountName)
+                  "
+                >
+                  {{ ba.accountName }}
+                </a-select-option>
+              </a-select>
+            </span>
+        </div>
+      </div>
+
+
     </div>
     <!-- RIGHT LAYOUT END HERE -->
   </div>
+
+  
 </template>
 
 <script>
@@ -320,7 +340,7 @@ export default {
       tax3: 0,
       total: 0,
       bankID: "",
-      changein:false,
+      changein: false,
       bankch: {
         bname: "",
         accname: "",
@@ -357,14 +377,14 @@ export default {
       this.newTodo = "";
       this.newquantity = 1;
       this.newprice = 0;
-      this.changein=true;
+      this.changein = true;
     },
     editTodo(index) {
       this.newTodo = this.todos[index].name;
       this.newquantity = this.todos[index].quantity;
       this.newprice = this.todos[index].price;
       this.indexEditTodo = index;
-       this.changein=true;
+      this.changein = true;
     },
     deleteTodo(index) {
       this.newTodo = this.todos[index].name;
@@ -374,7 +394,7 @@ export default {
       this.newTodo = "";
       this.newquantity = 1;
       this.newprice = 0;
-       this.changein=true;
+      this.changein = true;
     },
     upTodo(index) {
       if (index === 0) return;
@@ -387,7 +407,7 @@ export default {
       this.todos[index - 1].name = this.tempNameTodo;
       this.todos[index - 1].quantity = this.tempquantityTodo;
       this.todos[index - 1].price = this.temppriceTodo;
-       this.changein=true;
+      this.changein = true;
     },
     downTodo(index) {
       if (index === this.todos.length - 1) return;
@@ -400,11 +420,11 @@ export default {
       this.todos[index + 1].name = this.tempNameTodo;
       this.todos[index + 1].quantity = this.tempquantityTodo;
       this.todos[index + 1].price = this.temppriceTodo;
-      this.changein=true;
+      this.changein = true;
     },
     submit() {
-      if(this.changein){
-axios.delete(`http://localhost:5000/scope/${this.inID}`);
+      if (this.changein) {
+        axios.delete(`http://localhost:5000/scope/${this.inID}`);
       }
       const requestone = [];
       for (let i = 0; i < this.todos.length; i++) {
@@ -526,6 +546,7 @@ axios.delete(`http://localhost:5000/scope/${this.inID}`);
   margin: auto;
   width: 70%;
   border-radius: 14px;
+  margin-bottom:2em;
   align-content: center;
   background-color: white;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
@@ -538,6 +559,18 @@ axios.delete(`http://localhost:5000/scope/${this.inID}`);
 .container-panel button {
   margin: 10px;
 }
+
+.bank-selected a-select{
+  display: flex;
+  width:100%
+}
+
+.ant-select {
+    font-weight: 600;
+    color: #575454;
+    width: 100% !important; 
+}
+
 /* =================
 right layout
 ================= */
@@ -702,4 +735,116 @@ right layout
 /* =================
 left layout
 ================= */
+
+/* to do layout*/
+.submit-btn {
+  width: 134px;
+  height: 26px;
+  background-color: #1890ff;
+  border-radius: 14px;
+  border: none;
+  font-size: 10px;
+  font-weight: 500;
+  color: white;
+}
+
+
+.add-detail {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+.todo-form {
+  width: 100%;
+  padding: 1em 1em 2em 1em;
+  border-bottom: 1px solid rgba(141, 141, 141, 0.527);
+}
+.borderbox {
+  border-bottom: 1px solid rgba(141, 141, 141, 0.527);
+}
+.table-detail {
+  width: 100%;
+}
+.container-todo-header {
+  background-color: black;
+  color: white;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  vertical-align: middle;
+}
+.box-inside {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  vertical-align: middle;
+}
+.cbox {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.container-todo {
+  padding: 1em;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+/* card */
+.container-todo-list {
+  padding: 0.6em 1em 0em 1em;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+/* card */
+.card-todo-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgba(59, 59, 59, 0.562);
+  padding: 0.4em;
+  border-radius: 14px;
+  justify-content: center;
+}
+
+.form-input {
+  border: 1px solid rgb(168, 167, 167);
+  border-radius: 14px;
+  height: 30px;
+}
+.form-control:focus {
+  box-shadow: none;
+  /* border: none; */
+}
+.submit-btn {
+  width: 134px;
+  height: 26px;
+  background-color: #1890ff;
+  border-radius: 14px;
+  border: none;
+  font-size: 10px;
+  font-weight: 500;
+  color: white;
+}
+.todo-list {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.action-btn i {
+  font-size: 25px;
+  cursor: pointer;
+  padding: 0 0.2em 0 0.2em;
+}
+
+
+/* to-do layout end  */
 </style>

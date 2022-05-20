@@ -638,7 +638,6 @@ export default {
 }
 /* #header */
 
-/* style to do by up */
 .add-detail {
   display: flex;
   width: 100%;
