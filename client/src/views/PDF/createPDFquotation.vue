@@ -77,8 +77,8 @@ export default {
         console.log(response.data[0]);
         this.quotation = response.data[0];
         this.quoDetail = response2.data;
-        console.log(quoDetail)
-/*         console.log("data from response");
+        console.log(this.quoDetail)
+/*      console.log("data from response");
         console.log(this.quotation.wcompanyName); */
         this.quoDate = moment(String(this.quotation.datequotation)).format(
           "YYYY-MM-DD"
@@ -93,9 +93,7 @@ export default {
           this.totalprice = this.priceAfter7 - this.withholding3;
         } else {
           /* vat ใน */
-
           this.totalprice = this.quotation.totalpricequo;
-
           this.vat7 = this.totalprice * 0.07;
           this.price = this.totalprice - this.vat7;
           this.priceAfter7 = this.totalprice;
@@ -347,7 +345,7 @@ export default {
                 alignment: "center",
                 fontSize: 10,
                 bold: false,
-                text: " ( " + this.ThaiBaht(this.totalprice.toFixed(2)) + " ) ",
+                text: " ( " + this.ThaiBaht(this.totalprice.toFixed(2)) + " ) "  ,
               },
               {
                 width: "*",
@@ -507,7 +505,6 @@ export default {
       /* pdfMake.createPdf(dd).open({}, window) */
     },
     ThaiBaht(Number) {
-      //สร้างอะเรย์เก็บค่าที่ต้องการใช้เอาไว้
       var TxtNumArr = new Array(
         "ศูนย์",
         "หนึ่ง",
@@ -531,6 +528,7 @@ export default {
         "ล้าน"
       );
       var BahtText = "";
+      var DecimalLen= "";
       if (isNaN(Number)) {
         return "ข้อมูลนำเข้าไม่ถูกต้อง";
       } else {
@@ -583,6 +581,9 @@ export default {
         }
       }
     },
+
+
+    
   },
 };
 </script>

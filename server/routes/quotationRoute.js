@@ -125,7 +125,6 @@ router.get('/quo/detail/:id', (req, res)=>{
     db.query(sqlDetail,[qID], (err, result) =>{
         console.log(err);
         if (err ) throw err;
-        
         res.send(result);
     })
 })
