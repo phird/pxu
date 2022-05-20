@@ -111,10 +111,21 @@ router.delete('/:id', (req, res) => {
 
 router.get('/quo/:id', (req, res) => {
     const qID=req.params.id;
-    const sqlQuotation = "SELECT * FROM quotation as quo JOIN customer as c ON quo.customerID=c.customerID  JOIN employee as em ON quo.employeeID=em.employeeID WHERE quotationID=? ";
+    const sqlQuotation = "SELECT * FROM quotation as quo JOIN customer as c ON quo.customerID=c.customerID  JOIN employee as em ON quo.employeeID=em.employeeID  WHERE quotationID=? ";
     db.query(sqlQuotation,[qID], (err, result) => {
         console.log(err);
         if (err) throw err;
+        res.send(result);
+    })
+})
+
+router.get('/quo/detail/:id', (req, res)=>{
+    const qID = req.params.id;
+    const sqlDetail = "SELECT name, quantity, price  FROM scope as sc WHERE sc.workID=?"
+    db.query(sqlDetail,[qID], (err, result) =>{
+        console.log(err);
+        if (err ) throw err;
+        
         res.send(result);
     })
 })
