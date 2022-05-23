@@ -566,7 +566,9 @@ export default {
       try {
         const response = await axios.get("http://localhost:5000/employee/name");
         this.employee = response.data;
-        this.employeeID=this.employee[0].employeeID;
+        if(!this.checkedit){
+             this.employeeID=this.employee[0].employeeID;
+        }
         console.log(this.employee);
       } catch (err) {
         console.log(err);
