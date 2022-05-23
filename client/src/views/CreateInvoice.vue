@@ -3,6 +3,7 @@
     <!-- left layout start here -->
     <div class="left-layout">
       <div class="l-container">
+        <b-icon icon="chevron-left" @click="backward"> </b-icon>
         <div class="header">
           <div class="header-top">
             <div class="ht-left">
@@ -298,7 +299,6 @@
             "
             type="button"
             class="btn btn-outline-secondary"
-            
           >
             <router-link
               :to="`/createInvoice/${invoice.invoiceID}`"
@@ -374,6 +374,9 @@ export default {
     this.getscope(this.inID);
   },
   methods: {
+    backward() {
+      history.back();
+    },
     choosebank(bn, ac, an) {
       this.bankch.bname = bn;
       this.bankch.accname = ac;

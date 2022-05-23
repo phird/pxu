@@ -1,12 +1,7 @@
 <template>
   <div class="whole-site">
     <div class="header-site">
-      <router-link
-        :to="`/quotations`"
-        style="text-decoration: none; color: black"
-      >
-        <b-icon icon="chevron-left"> </b-icon>
-      </router-link>
+        <b-icon icon="chevron-left" @click="backward"> </b-icon>
     </div>
     <div class="body-section">
       <div class="previewimg-section">
@@ -16,7 +11,7 @@
           :style="{ 'background-image': `url(${previewImage})` }"
           @click="selectImage"
         >
-          <b-icon icon="card-image" style="color: black; z-index: 10"> </b-icon>
+          <b-icon icon="card-image" style="color: black;"> </b-icon>
         </div>
         <div v-else>
           <img
@@ -64,19 +59,22 @@ export default {
     this.getimg(this.inID);
   },
   methods: {
+    backward(){
+      history.back()
+    },
     submit() {
       let formData = new FormData();
       formData.append("files", this.fileimg);
       axios.post("http://localhost:5000/uploadslip", formData, {});
-      axios
-        .post(`http://localhost:5000/invoice/re/${this.inID}`, {
+      axios.post(`http://localhost:5000/invoice/re/changestatus/${this.inID}`);
+      axios.post(`http://localhost:5000/invoice/re/${this.inID}`, {
           imgslip: this.imgslip,
           daterec: this.daterec,
-        })
-        .then(() => {
+        }).then(() => {
           alert("บันทึกข้อมูลสำเร็จ");
           history.back();
         });
+      
     },
     selectImage() {
       this.$refs.fileInput.click();

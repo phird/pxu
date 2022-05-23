@@ -238,24 +238,6 @@ export default {
         window.location.reload(false);
       }
     },
-
-    async isNego(id) {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/quotation/quo/checkstatus/${id}`
-        );
-        this.contract = response.data[0];
-        console.log("check status pls");
-        console.log(this.contract);
-        if (this.contract == "Negotiation") {
-          return false;
-        } else {
-          return true;
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    },
     contractedquo(id) {
       console.log(id);
       axios.put(`http://localhost:5000/quotation/${id}`, {
