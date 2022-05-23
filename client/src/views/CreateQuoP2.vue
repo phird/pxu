@@ -113,7 +113,6 @@ export default {
       preview: null,
       file:[],
       image: null,
-      estatus: this.estatus,
     };
   },
   methods: {

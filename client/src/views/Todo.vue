@@ -348,7 +348,7 @@
     <div class="note-section">
       <div class="note-container">
         <span>หมายเหตุ </span>
-        <input v-model="noteq" @change="auth()" class="note-box" type="text" />
+        <input v-model="sumtodo.noteq" @change="auth()" class="note-box" type="text" />
       </div>
     </div>
 
