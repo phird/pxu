@@ -19,6 +19,18 @@ router.get('/bank', (req, res)=> {
     }) 
 });
 
+router.get('/count', (req, res)=> {
+    const sqlSelectcus = "SELECT COUNT(*) as ccus FROM `customer`"
+    const sqlSelectquo = "SELECT COUNT(*) as cquo,SUM(paymentPrice) as p FROM `quotation`"
+    db.query(sqlSelectcus, (err, result1) => {
+        // console.log(result);
+        db.query(sqlSelectquo, (err, result2) => {
+            // console.log(result);
+            res.send([result1,result2]);
+        }) 
+    }) 
+});
+
 
 router.put('/', (req, res)=> {
     const sqlSelectNT = "SELECT COUNT(customerID) as c FROM customer WHERE bankstatus='นิติบุคคล';"
