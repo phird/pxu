@@ -58,7 +58,7 @@ export default {
         this.invoiceDetail = response2.data;
         console.log(this.invoice);
         console.log(this.invoiceDetail);
-        this.invDate =  moment(String(this.invoice.dateinvoice)).format(
+        this.invDate =  moment(String(this.invoice.dateinvoice)).add(543,'year').format(
           "YYYY-MM-DD"
         );
 
