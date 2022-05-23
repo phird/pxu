@@ -53,6 +53,7 @@
               :to="`/createInvoice/${id.invoiceID}`"
               target="_blank"
               style="text-decoration: none"
+               v-if="id.imgslip != ''"
         >
           <b-icon
             icon="file-earmark-pdf"
@@ -78,7 +79,7 @@
           <a-menu slot="overlay">
             <a-menu-item>
               <router-link
-              v-if="id.imgslip == null"
+              v-if="id.imgslip == ''"
                 :to="`/Editinvoice/${id.invoiceID}`"
                 style="text-decoration: none">
                 <a style="text-decoration: none">แก้ไขใบวางบิล</a>
@@ -86,7 +87,7 @@
             </a-menu-item>
             <a-menu-item>
               <router-link :to="`/receipt/${id.invoiceID}`" style="text-decoration: none">
-                <a v-if="id.imgslip == null" style="text-decoration: none">แนบสลิป</a>
+                <a v-if="id.imgslip == ''" style="text-decoration: none">แนบสลิป</a>
                 <a v-else style="text-decoration: none">แก้ไขสลิป</a>
               </router-link>
             </a-menu-item>
