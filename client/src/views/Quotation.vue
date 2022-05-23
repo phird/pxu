@@ -92,6 +92,7 @@
 	   <a-menu slot="overlay">
                 <a-menu-item>
                   <router-link
+                    
                     :to="`/Invoice/${quotationID}`"
                     style="text-decoration: none"
                   >
@@ -200,6 +201,7 @@ export default {
   created() {
     this.getquotation();
   },
+  
   methods: {
     createpdf(id){
       console.log("im gonna create pdf");
@@ -222,14 +224,13 @@ export default {
         });
         window.location.reload(false);
       }
-    },
+    }, 
 	contractedquo(id) {
       console.log(id);
-
         axios.put(`http://localhost:5000/quotation/${id}`,{
 			quostatus:'Contracted',
 	  });
-        window.location.reload(false);
+      window.location.reload(false);
     },
   },
 };
