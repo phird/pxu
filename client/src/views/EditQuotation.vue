@@ -85,6 +85,7 @@
             v-if="check == '2'"
             type="button"
             class="btn btn-outline-success"
+            @click="submit"
           >
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
@@ -102,7 +103,6 @@
             v-if="check == '0'"
             type="button"
             class="btn btn-outline-success"
-            @click="submit"
             disabled
           >
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
@@ -309,6 +309,7 @@ export default {
           String(this.quotation.datequotation)
         ).format("YYYY-MM-DD");
         this.sumnote = this.quotation.summernote;
+        this.sumtodo.noteq = this.quotation.notequotation;
         this.sumtodo.payment = this.quotation.paymentPrice;
         this.sumtodo.total = this.quotation.totalpricequo;
         this.sumtodo.cusstatus = this.quotation.customerstatus;
