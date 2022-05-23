@@ -17,27 +17,25 @@
         >
           <div class="table-upload-btn">
             <router-link to="/Quotations/CreateQuotation">
-            <a-tooltip>
-              <template slot="title"> สร้างใบเสนอราคา </template>
-              <a-button type="primary" style="color: white">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M3 17C3 16.4477 3.44772 16 4 16H16C16.5523 16 17 16.4477 17 17C17 17.5523 16.5523 18 16 18H4C3.44772 18 3 17.5523 3 17ZM6.29289 6.70711C5.90237 6.31658 5.90237 5.68342 6.29289 5.29289L9.29289 2.29289C9.48043 2.10536 9.73478 2 10 2C10.2652 2 10.5196 2.10536 10.7071 2.29289L13.7071 5.29289C14.0976 5.68342 14.0976 6.31658 13.7071 6.70711C13.3166 7.09763 12.6834 7.09763 12.2929 6.70711L11 5.41421L11 13C11 13.5523 10.5523 14 10 14C9.44771 14 9 13.5523 9 13L9 5.41421L7.70711 6.70711C7.31658 7.09763 6.68342 7.09763 6.29289 6.70711Z"
-                    fill="#111827"
-                  />
-                </svg>
-                <span>
-                    สร้างใบเสนอราคา
-                </span>
-              </a-button>
+              <a-tooltip>
+                <template slot="title"> สร้างใบเสนอราคา </template>
+                <a-button type="primary" style="color: white">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M3 17C3 16.4477 3.44772 16 4 16H16C16.5523 16 17 16.4477 17 17C17 17.5523 16.5523 18 16 18H4C3.44772 18 3 17.5523 3 17ZM6.29289 6.70711C5.90237 6.31658 5.90237 5.68342 6.29289 5.29289L9.29289 2.29289C9.48043 2.10536 9.73478 2 10 2C10.2652 2 10.5196 2.10536 10.7071 2.29289L13.7071 5.29289C14.0976 5.68342 14.0976 6.31658 13.7071 6.70711C13.3166 7.09763 12.6834 7.09763 12.2929 6.70711L11 5.41421L11 13C11 13.5523 10.5523 14 10 14C9.44771 14 9 13.5523 9 13L9 5.41421L7.70711 6.70711C7.31658 7.09763 6.68342 7.09763 6.29289 6.70711Z"
+                      fill="#111827"
+                    />
+                  </svg>
+                  <span> สร้างใบเสนอราคา </span>
+                </a-button>
               </a-tooltip>
             </router-link>
           </div>
@@ -65,67 +63,77 @@
       <template slot="val" slot-scope="val">
         <a>{{ val }}</a>
       </template>
-      <template slot="act" slot-scope="quotationID"> 
+      <template slot="act-1" slot-scope="row">
+        <a-menu-item v-if="row.statusquotation == 'Contracted'">
+              <router-link
+                :to="`/Invoice/${row.quotationID}`"
+                style="text-decoration: none"
+              >
+                <a style="text-decoration: none">ใบวางบิล</a>
+              </router-link>
+        </a-menu-item>
+      </template>
+      <template slot="act" slot-scope="quoID">
         <router-link
-                    :to="`/createPDFquotation/${quotationID}`" 
-                    target="_blank"
-                    style="text-decoration: none"
-                  >
-        <b-icon icon="file-earmark-pdf"  style="width:20px; height:20px; margin: 0px .7em  0px  .5em;">
-        </b-icon>
+          :to="`/createPDFquotation/${quoID.quotationID}`"
+          target="_blank"
+          style="text-decoration: none"
+        >
+          <b-icon
+            icon="file-earmark-pdf"
+            style="width: 20px; height: 20px; margin: 0px 0.7em 0px 0.5em"
+          >
+          </b-icon>
         </router-link>
-		  <a-dropdown>
-              <a class="ant-dropdown-link" @click="(e) => e.preventDefault()" style="width:20px; height:20px;">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-three-dots-vertical"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
-                  />
-                </svg>
+        <a-dropdown>
+          <a
+            class="ant-dropdown-link"
+            @click="(e) => e.preventDefault()"
+            style="width: 20px; height: 20px"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-three-dots-vertical"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+              />
+            </svg>
+          </a>
+          <a-menu slot="overlay">
+            
+            <a-menu-item>
+              <router-link
+              v-if="quoID.statusquotation == 'Negotiation'"
+                :to="`/Quotations/Editquotation/${quoID.quotationID}`"
+                style="text-decoration: none"
+              >
+                <a style="text-decoration: none">แก้ไข</a>
+              </router-link>
+            </a-menu-item>
+            <a-menu-item v-if="quoID.statusquotation == 'Negotiation'">
+              <a
+                style="text-decoration: none"
+                @click="contractedquo(quoID.quotationID)"
+              >
+                ทำสัญญาแล้ว
               </a>
-	   <a-menu slot="overlay">
-                <a-menu-item>
-                  <router-link
-                    
-                    :to="`/Invoice/${quotationID}`"
-                    style="text-decoration: none"
-                  >
-                    <a style="text-decoration: none">ใบวางบิล</a>
-                  </router-link>
-                </a-menu-item>
-                <a-menu-item>
-                  <router-link
-                    :to="`/Quotations/Editquotation/${quotationID}`"
-                    style="text-decoration: none"
-                  >
-                    <a style="text-decoration: none">แก้ไข</a>
-                  </router-link>
-                </a-menu-item>
-				<a-menu-item>
-                  <a
-                    style="text-decoration: none"
-                    @click="contractedquo(quotationID)"
-                  >
-                    ทำสัญญาแล้ว
-                  </a>
-                </a-menu-item>
-                <a-menu-item>
-                  <a
-                    style="text-decoration: none"
-                    @click="rescindingquo(quotationID)"
-                  >
-                    ยกเลิกสัญญา
-                  </a>
-                </a-menu-item>
-              </a-menu>
-			   </a-dropdown>
-		</template>
+            </a-menu-item>
+            <a-menu-item>
+              <a
+                style="text-decoration: none"
+                @click="rescindingquo(quoID.quotationID)"
+              >
+                ยกเลิกสัญญา
+              </a>
+            </a-menu-item>
+          </a-menu>
+        </a-dropdown>
+      </template>
     </a-table>
   </a-card>
   <!-- / Projects Table Column -->
@@ -183,9 +191,13 @@ export default {
           dataIndex: "paymentPrice",
           scopedSlots: { customRender: "val" },
         },
+        {  
+          title: " ",
+          scopedSlots: { customRender: "act-1" },
+        },
         {
           title: "Action",
-          dataIndex: "quotationID",
+          
           scopedSlots: { customRender: "act" },
         },
       ],
@@ -196,14 +208,15 @@ export default {
       // Active button for the "Projects" table's card header radio button group.
       projectHeaderBtns: "all",
       quotation: [],
+      contract: "",
     };
   },
   created() {
     this.getquotation();
   },
-  
+
   methods: {
-    createpdf(id){
+    createpdf(id) {
       console.log("im gonna create pdf");
     },
     async getquotation() {
@@ -224,12 +237,31 @@ export default {
         });
         window.location.reload(false);
       }
-    }, 
-	contractedquo(id) {
+    },
+
+    async isNego(id) {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/quotation/quo/checkstatus/${id}`
+        );
+        this.contract = response.data[0];
+        console.log("check status pls");
+        console.log(this.contract);
+        if (this.contract == "Negotiation") {
+          return false;
+        } else {
+          return true;
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    contractedquo(id) {
       console.log(id);
-        axios.put(`http://localhost:5000/quotation/${id}`,{
-			quostatus:'Contracted',
-	  });
+      axios.put(`http://localhost:5000/quotation/${id}`, {
+        quostatus: "Contracted",
+      });
+      this.isContracted = true;
       window.location.reload(false);
     },
   },
@@ -248,5 +280,4 @@ export default {
 .quotation-table .ant-table-wrapper {
   padding: 2em;
 }
-
 </style>
