@@ -17,7 +17,7 @@ import JwPagination from 'jw-vue-pagination';
 import { BTabs } from 'bootstrap-vue'
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
-DatePicker.locale('th')
+DatePicker.locale('TH')
 Vue.use(DatePicker)
 
 Vue.component('b-tabs', BTabs)
