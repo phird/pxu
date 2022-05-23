@@ -72,22 +72,10 @@ let routes = [
 		component: () => import('../views/PDF/createPDFInvoice.vue'),
 	},
 	{
-		path: '/createInvoice/:id',
-		name: 'สร้าง Invoice บุคคลธรรมดา',
-		layout: "dashboard",
-		component: () => import('../views/PDF/createPDFInvoiceNormal.vue'),
-	},
-	{
 		path: '/createReceipt/:id',
 		name: 'สร้างใบเสร็จ',
 		layout: "dashboard",
 		component: () => import('../views/PDF/createPDFreceipt.vue'),
-	},
-	{
-		path: '/createReceiptNormal/:id',
-		name: 'สร้างใบเสร็จ บุคคลธรรมดา',
-		layout: "dashboard",
-		component: () => import('../views/PDF/createPDFreceiptNormal.vue'),
 	},
 	{
 		path: '/receipt/:id',

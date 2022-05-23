@@ -129,6 +129,12 @@ router.get('/quo/detail/:id', (req, res)=>{
     })
 })
 
+router.get('/quo/checkstatus/:id', (req,res) =>{
+    const qID = req.params.id;
+    const sqlStatus = "SELECT * FROM quotation"
+})
+
+
 router.put('/:id', (req, res) => {
     const id = req.params.id;
     const qstatus = req.body.quostatus;
