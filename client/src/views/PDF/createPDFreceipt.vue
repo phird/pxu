@@ -387,18 +387,7 @@ export default {
             columns: [
               {
                 width: 1,
-                canvas: [
-                  {
-                    type: "rect",
-                    x: 5,
-                    y: 4,
-                    w: 10,
-                    h: 10,
-                    /* color: "#7a7a7a", */
-                    border: 'black',
-                    fillOpacity: 0.5,
-                  },
-                ],
+                text: " ",
               },
               {
                 width: "*",
@@ -504,6 +493,9 @@ export default {
           // alignment: 'justify'
         },
       };
+
+
+
       const normal = {
         pageSize: "A4",
         background: [
@@ -529,7 +521,7 @@ export default {
                 width: 130,
                 fontSize: 20,
                 alignment: "left",
-                text: "ใบวางบิล",
+                text: "ใบเสร็จรับเงิน",
               },
             ],
           },
@@ -571,7 +563,7 @@ export default {
                 fontSize: 10,
                 type: "none",
                 ol: [
-                  "เลขที่: " + "INV"+ this.invoice.invoiceID,
+                  "เลขที่: " + "bill"+ this.invoice.invoiceID,
                   "วันที่: " + moment(String(this.invoice.dateinvoice)).format(
                       "DD-MM-YYYY"
                     ),
@@ -755,18 +747,7 @@ export default {
             columns: [
               {
                 width: 1,
-                canvas: [
-                  {
-                    type: "rect",
-                    x: 5,
-                    y: 4,
-                    w: 10,
-                    h: 10,
-                    /* color: "#7a7a7a", */
-                    border: 'black',
-                    fillOpacity: 0.5,
-                  },
-                ],
+                text: " ",
               },
               {
                 width: "*",
@@ -800,7 +781,7 @@ export default {
                   },
                   {
                    alignment: "center",
-                    text: "\nผู้รับเงิน ",
+                    text: "\nผู้อนุมัติ ",
                     bold: true,
                     margin: [ 0, 5, 0, 0 ],
                   },
