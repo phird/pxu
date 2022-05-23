@@ -67,15 +67,8 @@ let routes = [
 		component: () => import('../views/PDF/createPDFquotation.vue'),
 	},
 	{
-		path: '/createpdfNormal/:id',
-		name: 'createpdf บุคคลธรรมดา',
-		layout: "dashboard",
-		component: () => import('../views/PDF/createPDFquotationNormal.vue'),
-	},
-	{
 		path: '/createInvoice/:id',
 		name: 'สร้าง Invoice',
-		layout: "dashboard",
 		component: () => import('../views/PDF/createPDFInvoice.vue'),
 	},
 	{

@@ -75,117 +75,129 @@
         </div>
         <div class="body">
           <div class="add-detail">
-          <div class="todo-form">
-            <table class="table-detail">
-              <tr class="container-todo-header">
-                <th class="cbox">
-                  <span>รายละเอียด</span>
-                </th>
-                <th class="cbox">
-                  <span>จำนวน</span>
-                </th>
-                <th class="cbox">
-                  <span>ราคาต่อหน่วย</span>
-                </th>
-                <th class="cbox"></th>
-              </tr>
-              <tr class="container-todo borderbox">
-                <td class="cbox">
-                  <input
-                    v-model="newTodo"
-                    type="text"
-                    placeholder="กรอกรายละเอียด"
-                    class="form-control form-input me-3"
-                  />
-                </td>
-                <td class="cbox">
-                  <input
-                    v-model="newquantity"
-                    type="number"
-                    min="1"
-                    class="form-control form-input me-3"
-                    style="width: 133px"
-                  />
-                </td>
-                <td class="cbox">
-                  <input
-                    v-model="newprice"
-                    type="number"
-                    min="0"
-                    class="form-control form-input me-3"
-                    style="width: 133px"
-                  />
-                </td>
-                <td class="cbox">
-                  <a-tooltip>
-                    <template slot="title"> เพิ่มรายละเอียด </template>
-                    <button type="submit" class="submit-btn" @click="addTodo()">
-                      + Add
-                    </button>
-                  </a-tooltip>
-                </td>
-              </tr>
-              <div class="div-of-todocontainer">
-                <tr
-                  class="container-todo-list"
-                  v-for="(todo, index) in todos"
-                  :key="index"
-                  style="width:100%"
-                >
-                  <!-- /card-todo-container -->
-                  <div class="card-todo-container">
-                    <td class="text-start cbox">
-                      <span>
-                        {{ todo.name }}
-                      </span>
-                    </td>
-
-                    <td class="cbox">
-                      <div
-                        class="d-flex justify-content-start align-items-center"
-                      >
-                        <div>
-                          {{ todo.quantity }}
-                        </div>
-                      </div>
-                      <link
-                        rel="stylesheet"
-                        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-                      />
-                    </td>
-
-                    <td class="cbox">
-                      <div
-                        class="d-flex justify-content-start align-items-center"
-                      >
-                        <div>
-                          {{ todo.price }}
-                        </div>
-                      </div>
-                    </td>
-
-                    <td class="cbox text-end action-btn">
-                      <div class="d-flex justify-content-end">
-                        <div class="" @click="upTodo(index)">
-                          <i class="fa fa-angle-up"></i>
-                        </div>
-                        <div class="" @click="downTodo(index)">
-                          <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </div>
-                        <div class="" @click="editTodo(index)">
-                          <i class="fa fa-edit"></i>
-                        </div>
-                        <div class="" @click="deleteTodo(index)">
-                          <i class="fa fa-close"></i>
-                        </div>
-                      </div>
-                    </td>
-                  </div>
-                  <!-- /card-todo-container -->
+            <div class="todo-form">
+              <table class="table-detail">
+                <tr class="container-todo-header">
+                  <th class="cbox">
+                    <span>รายละเอียด</span>
+                  </th>
+                  <th class="cbox">
+                    <span>จำนวน</span>
+                  </th>
+                  <th class="cbox">
+                    <span>ราคาต่อหน่วย</span>
+                  </th>
+                  <th class="cbox"></th>
                 </tr>
-              </div>
-            </table>
-          </div>
+                <tr class="container-todo borderbox">
+                  <td class="cbox">
+                    <input
+                      v-model="newTodo"
+                      type="text"
+                      placeholder="กรอกรายละเอียด"
+                      class="form-control form-input me-3"
+                    />
+                  </td>
+                  <td class="cbox">
+                    <input
+                      v-model="newquantity"
+                      type="number"
+                      min="1"
+                      class="form-control form-input me-3"
+                      style="width: 133px"
+                    />
+                  </td>
+                  <td class="cbox">
+                    <input
+                      v-model="newprice"
+                      type="number"
+                      min="0"
+                      class="form-control form-input me-3"
+                      style="width: 133px"
+                    />
+                  </td>
+                  <td class="cbox">
+                    <a-tooltip>
+                      <template slot="title"> เพิ่มรายละเอียด </template>
+                      <button
+                        type="submit"
+                        class="submit-btn"
+                        @click="addTodo()"
+                      >
+                        + Add
+                      </button>
+                    </a-tooltip>
+                  </td>
+                </tr>
+                <div class="div-of-todocontainer">
+                  <tr
+                    class="container-todo-list"
+                    v-for="(todo, index) in todos"
+                    :key="index"
+                    style="width: 100%"
+                  >
+                    <!-- /card-todo-container -->
+                    <div class="card-todo-container">
+                      <td class="text-start cbox">
+                        <span>
+                          {{ todo.name }}
+                        </span>
+                      </td>
+
+                      <td class="cbox">
+                        <div
+                          class="
+                            d-flex
+                            justify-content-start
+                            align-items-center
+                          "
+                        >
+                          <div>
+                            {{ todo.quantity }}
+                          </div>
+                        </div>
+                        <link
+                          rel="stylesheet"
+                          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                        />
+                      </td>
+
+                      <td class="cbox">
+                        <div
+                          class="
+                            d-flex
+                            justify-content-start
+                            align-items-center
+                          "
+                        >
+                          <div>
+                            {{ todo.price }}
+                          </div>
+                        </div>
+                      </td>
+
+                      <td class="cbox text-end action-btn">
+                        <div class="d-flex justify-content-end">
+                          <div class="" @click="upTodo(index)">
+                            <i class="fa fa-angle-up"></i>
+                          </div>
+                          <div class="" @click="downTodo(index)">
+                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                          </div>
+                          <div class="" @click="editTodo(index)">
+                            <i class="fa fa-edit"></i>
+                          </div>
+                          <div class="" @click="deleteTodo(index)">
+                            <i class="fa fa-close"></i>
+                          </div>
+                        </div>
+                      </td>
+                    </div>
+                    <!-- /card-todo-container -->
+                  </tr>
+                </div>
+              </table>
+            </div>
           </div>
 
           <div class="payment-section">
@@ -221,7 +233,6 @@
         </div>
         <div class="sign-section">
           <div class="sign-left">
-            
             <span>
               <b-icon icon="square"></b-icon> โอนผ่าน{{ bankch.bname }}
             </span>
@@ -274,46 +285,53 @@
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
           </button>
-          <button type="button" class="btn btn-outline-danger">
+
+          <button type="button" class="btn btn-outline-danger" @click="cancle">
             <!-- <b-icon icon="x-square" style="color: red; font-size:24px;"></b-icon> -->
             ยกเลิก
           </button>
+
+          <router-link
+            :to="`/createInvoice/${invoice.invoiceID}`"
+            target="_blank"
+            style="text-decoration: none"
+          >
+            <button
+              v-if="
+                this.invoice.dateinvoice != '0000-00-00' &&
+                this.invoice.bankID != '0'
+              "
+              type="button"
+              class="btn btn-outline-secondary"
+            >
+              <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
+              PDF
+            </button>
+          </router-link>
         </div>
       </div>
 
       <div class="right-layout-panel">
         <div class="container-panel">
-          <span style="margin-bottom:1em;">ธนาคาร</span>
-            <span class="bank-selected">
-              <a-select
-                id="customer-select"
-                v-model="bankID"
-                default-value="5"
+          <span style="margin-bottom: 1em">ธนาคาร</span>
+          <span class="bank-selected">
+            <a-select id="customer-select" v-model="bankID" default-value="5">
+              <a-select-option value="" disable> เลือกธนาคาร </a-select-option>
+              <a-select-option
+                v-for="ba in bank"
+                :key="ba.bankID"
+                :value="ba.bankID"
+                @click="choosebank(ba.bankName, ba.bankAccount, ba.accountName)"
               >
-                <a-select-option value="" disable>
-                  เลือกธนาคาร
-                </a-select-option>
-                <a-select-option
-                  v-for="ba in bank"
-                  :key="ba.bankID"
-                  :value="ba.bankID"
-                  @click="
-                    choosebank(ba.bankName, ba.bankAccount, ba.accountName)
-                  "
-                >
-                  {{ ba.accountName }}
-                </a-select-option>
-              </a-select>
-            </span>
+                {{ ba.accountName }}
+              </a-select-option>
+            </a-select>
+          </span>
         </div>
       </div>
-
-
     </div>
     <!-- RIGHT LAYOUT END HERE -->
   </div>
-
-  
 </template>
 
 <script>
@@ -335,7 +353,7 @@ export default {
       temppriceTodo: "",
       //
       bank: [],
-      dateinv: "",
+      dateinv: null,
       vat7: 0,
       tax3: 0,
       total: 0,
@@ -422,34 +440,38 @@ export default {
       this.todos[index + 1].price = this.temppriceTodo;
       this.changein = true;
     },
-    subinv(){
+    cancle(){
+      history.back();
+    },
+    subinv() {
       axios
-          .post(`http://localhost:5000/invoice/${this.inID}`, {
-            bankID: this.bankID,
-            dateinv: this.dateinv,
-          })
-          .then(() => {
-            alert("บันทึกข้อมูลสำเร็จ");
-            history.back();
-          })
+        .post(`http://localhost:5000/invoice/${this.inID}`, {
+          bankID: this.bankID,
+          dateinv: this.dateinv,
+        })
+        .then(() => {
+          alert("บันทึกข้อมูลสำเร็จ");
+          /* history.back(); */
+          this.$router.go(0);
+        });
     },
     async submit() {
       if (this.changein) {
-        await axios.delete(`http://localhost:5000/scope/${this.inID}`); 
+        await axios.delete(`http://localhost:5000/scope/${this.inID}`);
         const requestone = [];
-      for (let i = 0; i < this.todos.length; i++) {
-        requestone[i] = axios.post("http://localhost:5000/scope", {
-          qID: this.inID,
-          name: this.todos[i].name,
-          price: this.todos[i].price,
-          quantity: this.todos[i].quantity,
-        });
+        for (let i = 0; i < this.todos.length; i++) {
+          requestone[i] = axios.post("http://localhost:5000/scope", {
+            qID: this.inID,
+            name: this.todos[i].name,
+            price: this.todos[i].price,
+            quantity: this.todos[i].quantity,
+          });
+        }
+        axios.all([requestone]).then(this.subinv());
+      } else {
+        is;
+        th.subinv();
       }
-      axios.all([requestone]).then(this.subinv());
-      }else{
-        this.subinv();
-      }
-     
     },
     async getinv(id) {
       try {
@@ -463,7 +485,7 @@ export default {
             this.vat7 = this.total * 0.07;
             this.tax3 = this.total * 0.03;
           } else if (this.invoice.vatstatus == "vatใน") {
-            this.total = (this.invoice.totalpriceinv *100)/107;
+            this.total = (this.invoice.totalpriceinv * 100) / 107;
             this.vat7 = this.invoice.totalpriceinv - this.total;
             this.tax3 = this.total * 0.03;
           }
@@ -473,7 +495,7 @@ export default {
             this.vat7 = this.total * 0.07;
             this.tax3 = 0;
           } else if (this.invoice.vatstatus == "vatใน") {
-            this.total = (this.invoice.totalpriceinv *100)/107;
+            this.total = (this.invoice.totalpriceinv * 100) / 107;
             this.vat7 = this.invoice.totalpriceinv - this.total;
             this.tax3 = 0;
           }
@@ -550,7 +572,7 @@ export default {
   margin: auto;
   width: 70%;
   border-radius: 14px;
-  margin-bottom:2em;
+  margin-bottom: 2em;
   align-content: center;
   background-color: white;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
@@ -564,15 +586,15 @@ export default {
   margin: 10px;
 }
 
-.bank-selected a-select{
+.bank-selected a-select {
   display: flex;
-  width:100%
+  width: 100%;
 }
 
 .ant-select {
-    font-weight: 600;
-    color: #575454;
-    width: 100% !important; 
+  font-weight: 600;
+  color: #575454;
+  width: 100% !important;
 }
 
 /* =================
@@ -752,7 +774,6 @@ left layout
   color: white;
 }
 
-
 .add-detail {
   display: flex;
   width: 100%;
@@ -848,7 +869,6 @@ left layout
   cursor: pointer;
   padding: 0 0.2em 0 0.2em;
 }
-
 
 /* to-do layout end  */
 </style>
