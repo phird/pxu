@@ -470,8 +470,7 @@ export default {
         }
         axios.all([requestone]).then(this.subinv());
       } else {
-        is;
-        th.subinv();
+        this.subinv();
       }
     },
     async getinv(id) {

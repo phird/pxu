@@ -170,7 +170,7 @@ export default {
                 fontSize: 10,
                 bold: false,
                 text: [
-                  this.comName +
+                  this.invoice.wcompanyName +
                    "\nที่อยู่: " +
                     /* this.comAddr */ this.invoice.address +
                     "ต." +
