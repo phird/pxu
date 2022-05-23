@@ -14,7 +14,7 @@
         <b-icon icon="chevron-left"> </b-icon>
       </router-link>
         <a-col :span="24" :md="12">
-          <h5 class="font-semibold m-0">ใบวางบิล</h5>
+          <h5 class="font-semibold m-0" style="margin-left: 2em;">ใบวางบิล</h5>
         </a-col>
       </a-row>
     </template>

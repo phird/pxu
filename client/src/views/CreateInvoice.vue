@@ -291,23 +291,24 @@
             ยกเลิก
           </button>
 
-          <router-link
-            :to="`/createInvoice/${invoice.invoiceID}`"
-            target="_blank"
-            style="text-decoration: none"
+          <button
+            v-if="
+              this.invoice.dateinvoice != '0000-00-00' &&
+              this.invoice.bankID != '0'
+            "
+            type="button"
+            class="btn btn-outline-secondary"
+            
           >
-            <button
-              v-if="
-                this.invoice.dateinvoice != '0000-00-00' &&
-                this.invoice.bankID != '0'
-              "
-              type="button"
-              class="btn btn-outline-secondary"
+            <router-link
+              :to="`/createInvoice/${invoice.invoiceID}`"
+              target="_blank"
+              style="text-decoration: none"
             >
               <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
               PDF
-            </button>
-          </router-link>
+            </router-link>
+          </button>
         </div>
       </div>
 
@@ -440,7 +441,7 @@ export default {
       this.todos[index + 1].price = this.temppriceTodo;
       this.changein = true;
     },
-    cancle(){
+    cancle() {
       history.back();
     },
     subinv() {
@@ -583,6 +584,10 @@ export default {
   flex-direction: column;
 }
 .container-panel button {
+  margin: 10px;
+}
+
+.container-panel router-link {
   margin: 10px;
 }
 

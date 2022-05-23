@@ -108,6 +108,10 @@
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
           </button>
+           <button type="button" class="btn btn-outline-danger" @click="cancel">
+            <!-- <b-icon icon="x-square" style="color: red; font-size:24px;"></b-icon> -->
+            ยกเลิก
+          </button>
         </div>
       </div>
     </div>
@@ -172,6 +176,11 @@ export default {
     };
   },
   methods: {
+    cancel() {
+      if (window.confirm("คุณแน่ใจใช่ไหมที่จะยกเลิกรายการนี้")) {
+        history.back();
+      }
+    },
     goa(numf) {
       if (numf == "0") {
         this.isOne = true;
