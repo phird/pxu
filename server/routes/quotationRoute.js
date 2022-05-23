@@ -131,9 +131,13 @@ router.get('/quo/detail/:id', (req, res)=>{
 
 router.get('/quo/checkstatus/:id', (req,res) =>{
     const qID = req.params.id;
-    const sqlStatus = "SELECT * FROM quotation"
+    const sqlStatus = "SELECT statusquotation FROM quotation as quo WHERE quo.quotationID =? ";
+    db.query(sqlStatus, [qID], (err, result) =>{
+        console.log(err);
+        if(err) throw err;
+        res.send(result);
+    })
 })
-
 
 router.put('/:id', (req, res) => {
     const id = req.params.id;
