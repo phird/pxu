@@ -40,6 +40,7 @@
                     ><date-picker
                       v-model="dateinv"
                       valueType="format"
+                      :lang="th-th"
                     ></date-picker>
                   </span>
                 </div>

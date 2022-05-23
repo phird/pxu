@@ -16,8 +16,10 @@ import 'vuetify/dist/vuetify.min.css'
 import JwPagination from 'jw-vue-pagination';
 import { BTabs } from 'bootstrap-vue'
 import DatePicker from 'vue2-datepicker';
-Vue.use(DatePicker)
 import 'vue2-datepicker/index.css';
+DatePicker.locale('th')
+Vue.use(DatePicker)
+
 Vue.component('b-tabs', BTabs)
 import { TabsPlugin } from 'bootstrap-vue'
 Vue.use(TabsPlugin)
