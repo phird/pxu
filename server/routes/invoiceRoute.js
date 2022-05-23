@@ -25,6 +25,27 @@ router.get('/in/:id', (req, res) => {
     })
 })
 
+
+router.get('/createInvoicePDF/:id', (req, res) =>{
+    const qID = req.params.id;
+    const sqlPDFInvoce = "SELECT * FROM invoice as inv JOIN customer as c ON inv.customerID = c.customerID JOIN employee as em ON inv.employeeID = em.employeeID JOIN bank as b ON inv.bankID = b.bankID WHERE invoiceID = ? ";
+    db.query(sqlPDFInvoce, [qID], (err, result) => {
+        console.log(err);
+        if(err) throw err;
+        res.send(result);
+    })
+})
+
+router.get('/createInvoicePDF/detail/:id', (req, res)=>{
+    const qID = req.params.id;
+    const sqlInvoiceDetail = "SELECT name, quantity, price  FROM scope as sc WHERE sc.workID=?"
+    db.query(sqlInvoiceDetail,[qID], (err, result) =>{
+        console.log(err);
+        if (err ) throw err;
+        res.send(result);
+    })
+})
+
 router.get('/re/:id', (req, res) => {
     const qID=req.params.id;
     const sqlInvoice = "SELECT imgslip,datereceipt FROM invoice WHERE invoiceID=? ";
