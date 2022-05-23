@@ -100,7 +100,7 @@ export default {
           this.price = this.totalprice - this.vat7;
           this.priceAfter7 = this.totalprice;
           /* this.priceAfter7 = this.totalprice + this.vat7; */
-          this.withholding3 = this.priceAfter7 * 0.03;
+          this.withholding3 = this.price * 0.03;
           this.totalprice = this.quotation.paymentPrice;
 
 
