@@ -102,7 +102,7 @@ import QuotatuinPage2 from "./CreateQuoP2.vue";
 import moment from "moment";
 import axios from "axios";
 const today = new Date();
-const tous = moment(today).format("YY-MM-");
+const tous = moment(today).add(543, 'year').format("YY-MM-");
 export default {
   //component code
   name: "Quotation",
