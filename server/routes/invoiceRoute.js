@@ -70,6 +70,17 @@ router.delete('/:id', (req, res) => {
     })
 })
 
+router.post('/re/changestatus/:id', (req,res) =>{
+    const qID = req.params.id;
+    const sqlSetStatus = "UPDATE `invoice` SET statusinvoice='COMPLETE' WHERE invoiceID=?";
+    db.query(sqlSetStatus,[qID], (err,result)=>{
+        if(err) throw err;
+        console.log("update status");
+        res.send(result)
+    })
+})
+
+
 router.post('/', (req, res) => {
     const inID = req.body.inID;
     const qID = req.body.qID;

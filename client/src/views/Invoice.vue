@@ -7,14 +7,14 @@
   >
     <template #title>
       <a-row type="flex" align="middle">
-         <router-link
-        :to="`/quotations`"
-        style="text-decoration: none; color: black "
-      >
-        <b-icon icon="chevron-left"> </b-icon>
-      </router-link>
+        <router-link
+          :to="`/quotations`"
+          style="text-decoration: none; color: black"
+        >
+          <b-icon icon="chevron-left"> </b-icon>
+        </router-link>
         <a-col :span="24" :md="12">
-          <h5 class="font-semibold m-0" style="margin-left: 2em;">ใบวางบิล</h5>
+          <h5 class="font-semibold m-0" style="margin-left: 2em">ใบวางบิล</h5>
         </a-col>
       </a-row>
     </template>
@@ -27,7 +27,7 @@
       <template slot="inID" slot-scope="inID">
         <a>INV{{ inID }}</a>
       </template>
-    <template slot="installment" slot-scope="installment">
+      <template slot="installment" slot-scope="installment">
         <a>งวดที่ {{ installment }}</a>
       </template>
       <template slot="status" slot-scope="status">
@@ -36,46 +36,63 @@
       <template slot="val" slot-scope="val">
         <a>{{ val }}</a>
       </template>
-      <template slot="act" slot-scope="id">
- <a-dropdown>
-              <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-three-dots-vertical"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
-                  />
-                </svg>
-              </a>
-	   <a-menu slot="overlay">
-                <a-menu-item>
-                  <router-link
-                    :to="`/Editinvoice/${id}`"
-                    style="text-decoration: none"
-                  >
-                    <a style="text-decoration: none">แก้ไขใบวางบิล</a>
-                  </router-link>
-                </a-menu-item>
-                <a-menu-item>
-                  <router-link
-                    :to="`/receipt/${id}`"
-                    style="text-decoration: none"
-                  >
-                    <a style="text-decoration: none">ข้อมูลของslip</a>
-                  </router-link>
-                </a-menu-item>
-
-              </a-menu>
-			   </a-dropdown>
+      <template slot="act-1" slot-scope="row">
+        <a-menu-item>
+          <router-link
+            :to="`/createReceipt/${row.invoiceID}`"
+            style="text-decoration: none"
+            target="_blank"
+            v-if="row.imgslip!= ''">
+            <a style="text-decoration: none">ใบเสร็จ</a>
+          </router-link>
+        </a-menu-item>
       </template>
 
-
-      
+      <template slot="act" slot-scope="id">
+         <router-link
+              :to="`/createInvoice/${id.invoiceID}`"
+              target="_blank"
+              style="text-decoration: none"
+        >
+          <b-icon
+            icon="file-earmark-pdf"
+            style="width: 20px; height: 20px; margin: 0px 0.7em 0px 0.5em"
+          >
+          </b-icon>
+        </router-link>
+        <a-dropdown>
+          <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-three-dots-vertical"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+              />
+            </svg>
+          </a>
+          <a-menu slot="overlay">
+            <a-menu-item>
+              <router-link
+              v-if="id.imgslip == null"
+                :to="`/Editinvoice/${id.invoiceID}`"
+                style="text-decoration: none">
+                <a style="text-decoration: none">แก้ไขใบวางบิล</a>
+              </router-link>
+            </a-menu-item>
+            <a-menu-item>
+              <router-link :to="`/receipt/${id.invoiceID}`" style="text-decoration: none">
+                <a v-if="id.imgslip == null" style="text-decoration: none">แนบสลิป</a>
+                <a v-else style="text-decoration: none">แก้ไขสลิป</a>
+              </router-link>
+            </a-menu-item>
+          </a-menu>
+        </a-dropdown>
+      </template>
     </a-table>
   </a-card>
   <!-- / Projects Table Column -->
@@ -129,8 +146,11 @@ export default {
           scopedSlots: { customRender: "val" },
         },
         {
+          title: "",
+          scopedSlots: { customRender: "act-1" },
+        },
+        {
           title: "Action",
-          dataIndex: "invoiceID",
           scopedSlots: { customRender: "act" },
         },
       ],
@@ -141,7 +161,7 @@ export default {
       // Active button for the "Projects" table's card header radio button group.
       projectHeaderBtns: "all",
       invoice: [],
-      inID:'',
+      inID: "",
     };
   },
   created() {

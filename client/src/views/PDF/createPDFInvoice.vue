@@ -29,6 +29,7 @@ export default {
       inID: "",
       invoice: [],
       invoiceDetail: [],
+      invDate:"",
       price: 0,
       totalprice: 0,
       netprice: 0,
@@ -60,6 +61,8 @@ export default {
         this.invDate =  moment(String(this.invoice.dateinvoice)).format(
           "YYYY-MM-DD"
         );
+
+
         if (this.invoice.customerstatus == "นิติบุคคล" && this.invoice.vatstatus == "vatนอก") {
           console.log("niti outvat");
           this.price = this.quotation.totalpriceinv;
@@ -172,7 +175,7 @@ export default {
                 text: [
                   this.invoice.wcompanyName +
                    "\nที่อยู่: " +
-                    /* this.comAddr */ this.invoice.address +
+                    this.invoice.address +
                     "ต." +
                     this.invoice.subdistrict +
                     "อ." +
@@ -534,13 +537,6 @@ export default {
             absolutePosition: { x: 20, y: 150 },
           },
         ],
-
-        /* text: "test watermark", */
-
-        /* color: "black", */
-        /* opacity: 0.8, */
-        /* bold: true, */
-        /* italics: false, */
         content: [
           {
             alignment: "justify",
