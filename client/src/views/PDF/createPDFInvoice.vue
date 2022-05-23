@@ -76,7 +76,7 @@ export default {
           this.vat7 = this.totalprice * 0.07;
           this.price = this.totalprice - this.vat7;
           this.priceAfter7 = this.totalprice;
-          this.withholding3 = this.priceAfter7 * 0.03;
+          this.withholding3 = this.price * 0.03;
           this.totalprice = this.invoice.priceINV;
 
         } else if(this.invoice.customerstatus == "บุคคลธรรมดา" &&  this.invoice.vatstatus == "vatนอก"){
