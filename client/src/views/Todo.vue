@@ -13,37 +13,37 @@
         <div class="project-name">
           <span for="customer-select"> ชื่อโปรเจก: </span>
           <input
-            v-model="quoname"
+            v-model="sumtodo.quoname"
             class="project-name-input"
             type="text"
             @change="auth()"
           />
         </div>
 
-        <div v-if="!checkedit" class="select-left-section">
+        <div v-if="!sumtodo.checkedit" class="select-left-section">
           <span for="customer-select"> ลูกค้า: </span>
           <a-select
             id="customer-select"
-            v-model="customerID"
+            v-model="sumtodo.customerID"
             style="width: 120px"
-            @change="auth(), calc(statusvat)"
+            @change="auth(), calc(sumtodo.statusvat)"
           >
             <a-select-option value="" disable> เลือกลูกค้า </a-select-option>
             <a-select-option
               v-for="cus in customer"
               :key="cus.customerID"
               :value="cus.customerID"
-              @click="cusstatus = cus.customerstatus"
+              @click="sumtodo.cusstatus = cus.customerstatus"
             >
               {{ cus.companyName }}
             </a-select-option>
           </a-select>
         </div>
-        <div v-if="checkedit" class="select-left-section">
+        <div v-if="sumtodo.checkedit" class="select-left-section">
           <span for="customer-select"> ลูกค้า: </span>
           <a-select
             id="customer-select"
-            v-model="customerID"
+            v-model="sumtodo.customerID"
             style="width: 120px"
             @change="auth(), calc(statusvat)"
             disabled
@@ -53,7 +53,7 @@
               v-for="cus in customer"
               :key="cus.customerID"
               :value="cus.customerID"
-              @click="cusstatus = cus.customerstatus"
+              @click="sumtodo.cusstatus = cus.customerstatus"
             >
               {{ cus.companyName }}
             </a-select-option>
@@ -71,7 +71,7 @@
               <span>วันที่ </span>
               <span
                 ><date-picker
-                  v-model="dateq"
+                  v-model="sumtodo.dateq"
                   valueType="format"
                   @change="auth()"
                 ></date-picker>
@@ -82,7 +82,7 @@
               <span>
                 <a-select
                   id="customer-select"
-                  v-model="employeeID"
+                  v-model="sumtodo.employeeID"
                   @change="auth()"
                   style="width: 120px"
                   default-value="5"
@@ -165,7 +165,7 @@
                 <button
                   type="submit"
                   class="submit-btn"
-                  @click="addTodo(), calc(statusvat)"
+                  @click="addTodo(), calc(sumtodo.statusvat)"
                 >
                   + Add
                 </button>
@@ -216,7 +216,7 @@
                   <div class="" @click="editTodo(index)">
                     <i class="fa fa-edit"></i>
                   </div>
-                  <div class="" @click="deleteTodo(index), calc(statusvat)">
+                  <div class="" @click="deleteTodo(index), calc(sumtodo.statusvat)">
                     <i class="fa fa-close"></i>
                   </div>
                 </div>
@@ -253,7 +253,7 @@
         <div class="installment-box">
           <span> รูปแบบการชำระเงิน </span>
           <div class="installment-box-sl">
-            <a-tabs v-model="qIN" @change="auth(),changeofin();">
+            <a-tabs v-model="sumtodo.qIN" @change="auth(),changeofin();">
               <a-tab-pane key="1" value="1" tab="ชำระเต็มจำนวน"> </a-tab-pane>
               <a-tab-pane key="2" value="2" tab="ผ่อนจ่าย 2 งวด" force-render>
                 <div>
@@ -264,7 +264,7 @@
                         class="intstallment_input"
                         id="installment1"
                         type="text"
-                        v-model="IN1"
+                        v-model="inv.IN1"
                         @change="auth()"
                       />
                     </div>
@@ -274,7 +274,7 @@
                         class="intstallment_input"
                         id="installment2"
                         type="text"
-                        v-model="IN2"
+                        v-model="inv.IN2"
                         @change="auth()"
                       />
                     </div>
@@ -289,7 +289,7 @@
                       class="intstallment_input"
                       id="installment1"
                       type="text"
-                      v-model="IN1"
+                      v-model="inv.IN1"
                       @change="auth()"
                     />
                   </div>
@@ -299,7 +299,7 @@
                       class="intstallment_input"
                       id="installment2"
                       type="text"
-                      v-model="IN2"
+                      v-model="inv.IN2"
                       @change="auth()"
                     />
                   </div>
@@ -309,7 +309,7 @@
                       class="intstallment_input"
                       id="installment3"
                       type="text"
-                      v-model="IN3"
+                      v-model="inv.IN3"
                       @change="auth()"
                     />
                   </div>
@@ -322,17 +322,17 @@
       <div class="sum-payment-right-section">
         <div>
           รวมเป็นเงิน (ก่อนคิดภาษี)
-          <select v-model="statusvat" @change="calc(statusvat)">
+          <select v-model="sumtodo.statusvat" @change="calc(sumtodo.statusvat)">
             <option value="vatใน">vatใน</option>
             <option value="vatนอก">vatนอก</option>
           </select>
-          : {{ this.totalnow.toFixed(2) }} บาท
+          : {{ this.sumtodo.totalnow.toFixed(2) }} บาท
         </div>
-        <div step="0.01">vat 7% : {{ this.vat7.toFixed(2) }} บาท</div>
-        <div v-if="cusstatus == 'นิติบุคคล'" step="0.01">
-          ภาษี ณ ที่จ่าย 3% : {{ this.tax3.toFixed(2) }} บาท
+        <div step="0.01">vat 7% : {{ this.sumtodo.vat7.toFixed(2) }} บาท</div>
+        <div v-if="sumtodo.cusstatus == 'นิติบุคคล'" step="0.01">
+          ภาษี ณ ที่จ่าย 3% : {{ this.sumtodo.tax3.toFixed(2) }} บาท
         </div>
-        <div step="0.01">รวมเป็นเงิน : {{ this.payment.toFixed(2) }} บาท</div>
+        <div step="0.01">รวมเป็นเงิน : {{ this.sumtodo.payment.toFixed(2) }} บาท</div>
       </div>
     </div>
 
@@ -378,29 +378,15 @@ export default {
       tempNameTodo: "",
       tempquantityTodo: "",
       temppriceTodo: "",
-      statusvat: this.sumtodo.statusvat,
-      totalnow: this.sumtodo.totalnow,
-      total: this.sumtodo.total,
-      vat7: this.sumtodo.vat7,
-      payment: this.sumtodo.payment,
-      tax3: this.sumtodo.tax3,
       //   todos: [],
       customer: [],
-      cusstatus: this.sumtodo.cusstatus,
+
       //
       employee: [],
       //
-      quoname: this.sumtodo.quoname,
-      customerID: this.sumtodo.customerID,
-      employeeID: this.sumtodo.employeeID,
-      dateq: this.sumtodo.dateq,
-      noteq: this.sumtodo.noteq,
-      qIN: this.sumtodo.qIN,
-      checkedit: this.sumtodo.checkedit,
-      //
-      IN1: this.inv.IN1,
-      IN2: this.inv.IN2,
-      IN3: this.inv.IN3,
+  IN1:100,
+  IN2:0,
+  IN3:0,
       //
     };
   },
@@ -413,70 +399,57 @@ export default {
       console.log(e.data.value);
     },
     auth() {
-      this.sumtodo.statusvat = this.statusvat;
-      this.sumtodo.totalnow = this.totalnow;
-      this.sumtodo.total = this.total;
-      this.sumtodo.vat7 = this.vat7;
-      this.sumtodo.payment = this.payment;
-      this.sumtodo.tax3 = this.tax3;
-      this.sumtodo.cusstatus = this.cusstatus;
-      this.sumtodo.quoname = this.quoname;
-      this.sumtodo.customerID = this.customerID;
-      this.sumtodo.employeeID = this.employeeID;
-      this.sumtodo.dateq = this.dateq;
-      this.sumtodo.noteq = this.noteq;
-      this.sumtodo.qIN = this.qIN;
-      if(this.qIN==1){
-        this.IN1=100
-        this.IN2=0;
-        this.IN3=0;
-      }else if(this.qIN==2 && this.IN1!=this.inv.IN1){
-        this.IN2=100-this.IN1;
-        this.IN3=0;
-      }else if(this.qIN==2 && this.IN2!=this.inv.IN2){
-        this.IN1=100-this.IN2;
-        this.IN3=0;
-      }else if(this.qIN==3 && this.IN2!=this.inv.IN2 || this.IN1!=this.inv.IN1){
-        this.IN3=100-this.IN2-this.IN1;
-      }else if(this.qIN==3 && this.IN3!=this.inv.IN3 || this.IN1!=this.inv.IN1){
-        this.IN2=100-this.IN1-this.IN3;
-      }else if(this.qIN==3 && this.IN3!=this.inv.IN3 || this.IN2!=this.inv.IN2){
-        this.IN1=100-this.IN2-this.IN3;
+      if(this.sumtodo.qIN=='1'){
+        this.inv.IN1=100
+        this.inv.IN2=0;
+        this.inv.IN3=0;
+      }else if(this.sumtodo.qIN=='2' && this.inv.IN1!=this.IN1){
+        this.inv.IN2=100-this.inv.IN1;
+        this.inv.IN3=0;
+      }else if(this.sumtodo.qIN=='2' && this.inv.IN2!=this.IN2){
+        this.inv.IN1=100-this.inv.IN2;
+        this.inv.IN3=0;
+      }else if(this.sumtodo.qIN=='3' && this.inv.IN2!=this.IN2 || this.inv.IN1!=this.IN1){
+        this.inv.IN3=100-this.inv.IN2-this.inv.IN1;
+      }else if(this.sumtodo.qIN=='3' && this.inv.IN3!=this.IN3 || this.inv.IN1!=this.IN1){
+        this.inv.IN2=100-this.inv.IN1-this.inv.IN3;
+      }else if(this.sumtodo.qIN=='3' && this.inv.IN3!=this.IN3 || this.inv.IN2!=this.IN2){
+        this.inv.IN1=100-this.inv.IN2-this.inv.IN3;
       }
-      this.inv.IN1 = this.IN1;
-      this.inv.IN2 = this.IN2;
-      this.inv.IN3 = this.IN3;
+      this.IN1=this.inv.IN1;
+      this.IN2=this.inv.IN2;
+      this.IN3=this.inv.IN3;
     },
     totalprice() {
-      this.total = 0;
+      this.sumtodo.total = 0;
       for (let i = 0; i < this.todos.length; i++) {
-        this.total = this.total + this.todos[i].quantity * this.todos[i].price;
+        this.sumtodo.total = this.sumtodo.total + this.todos[i].quantity * this.todos[i].price;
       }
     },
     calc(statusvat) {
-      if (this.cusstatus == "นิติบุคคล") {
+      if (this.sumtodo.cusstatus == "นิติบุคคล") {
         if (statusvat == "vatนอก") {
-          this.totalnow = this.total;
-          this.vat7 = this.total * 0.07;
-          this.tax3 = this.total * 0.03;
-          this.payment = this.total + this.vat7 - this.tax3;
+          this.sumtodo.totalnow = this.sumtodo.total;
+          this.sumtodo.vat7 = this.sumtodo.total * 0.07;
+          this.sumtodo.tax3 = this.sumtodo.total * 0.03;
+          this.sumtodo.payment = this.sumtodo.total + this.sumtodo.vat7 - this.sumtodo.tax3;
         } else if (statusvat == "vatใน") {
-          this.totalnow = (this.total * 100)/107;
-          this.tax3 = this.totalnow * 0.03;
-          this.vat7 = this.total - this.totalnow;
-          this.payment = this.total-this.tax3;
+          this.sumtodo.totalnow = (this.sumtodo.total * 100)/107;
+          this.sumtodo.tax3 = this.sumtodo.totalnow * 0.03;
+          this.sumtodo.vat7 = this.sumtodo.total - this.sumtodo.totalnow;
+          this.sumtodo.payment = this.sumtodo.total-this.sumtodo.tax3;
         }
       } else {
         if (statusvat == "vatนอก") {
-          this.totalnow = this.total;
-          this.vat7 = this.total * 0.07;
-          this.payment = this.total + this.vat7;
-          this.tax3 = 0;
+          this.sumtodo.totalnow = this.sumtodo.total;
+          this.sumtodo.vat7 = this.sumtodo.total * 0.07;
+          this.sumtodo.payment = this.sumtodo.total + this.sumtodo.vat7;
+          this.sumtodo.tax3 = 0;
         } else if (statusvat == "vatใน") {
-          this.totalnow = (this.total * 100)/107;
-          this.vat7 = this.total - this.totalnow;
-          this.payment = this.total;
-          this.tax3 = 0;
+          this.sumtodo.totalnow = (this.sumtodo.total * 100)/107;
+          this.sumtodo.vat7 = this.sumtodo.total - this.sumtodo.totalnow;
+          this.sumtodo.payment = this.sumtodo.total;
+          this.sumtodo.tax3 = 0;
         }
       }
       this.auth();
@@ -502,7 +475,7 @@ export default {
       this.changeofin();
     },
     editTodo(index) {
-      this.total = 0;
+      this.sumtodo.total = 0;
       this.newTodo = this.todos[index].name;
       this.newquantity = this.todos[index].quantity;
       this.newprice = this.todos[index].price;
@@ -513,7 +486,7 @@ export default {
       this.newTodo = this.todos[index].name;
       this.newquantity = this.todos[index].quantity;
       this.newprice = this.todos[index].price;
-      this.total = this.total - this.newquantity * this.newprice;
+      this.sumtodo.total = this.sumtodo.total - this.newquantity * this.newprice;
       this.todos.splice(index, 1);
       this.newTodo = "";
       this.newquantity = 1;
@@ -566,7 +539,9 @@ export default {
       try {
         const response = await axios.get("http://localhost:5000/employee/name");
         this.employee = response.data;
-        this.employeeID=this.employee[0].employeeID;
+        if(!this.sumtodo.checkedit){
+             this.sumtodo.employeeID=this.employee[0].employeeID;
+        }
         console.log(this.employee);
       } catch (err) {
         console.log(err);
