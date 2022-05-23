@@ -96,7 +96,7 @@ export default {
           console.log("niti innervat");
           /* vat ใน */
           this.totalprice = this.quotation.totalpricequo;
-          this.vat7 = this.totalprice * 0.07;
+          this.vat7 = this.totalprice-(this.totalprice * 100)/107;
           this.price = this.totalprice - this.vat7;
           this.priceAfter7 = this.totalprice;
           /* this.priceAfter7 = this.totalprice + this.vat7; */
@@ -115,7 +115,7 @@ export default {
           /* vat ใน */
           console.log("niti innervat");
           this.totalprice = this.quotation.totalpricequo;
-          this.vat7 = this.totalprice * 0.07;
+          this.vat7 = this.totalprice-(this.totalprice * 100)/107;
           this.price = this.totalprice - this.vat7;
           this.priceAfter7 = this.totalprice;
           this.totalprice = this.quotation.paymentPrice;
