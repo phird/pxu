@@ -36,7 +36,7 @@
           @updatechan="updatechan"
         />
         <div class="nav-section">
-          <button @click="goa(1), deleteq()" class="nav-but">
+          <button @click="goa(1)" class="nav-but">
             ต่อไป <b-icon icon="chevron-right"></b-icon>
           </button>
         </div>
@@ -52,10 +52,10 @@
             @update-status="updateestatus"
           />
           <div class="nav-section">
-            <button @click="goa(0), deleteq()" class="nav-but nav-but-back">
+            <button @click="goa(0)" class="nav-but nav-but-back">
               ก่อนหน้า
             </button>
-            <button @click="goa(2), deleteq()" class="nav-but">ต้อไป</button>
+            <button @click="goa(2)" class="nav-but">ต้อไป</button>
           </div>
         </div>
       </div>
@@ -85,7 +85,6 @@
             v-if="check == '2'"
             type="button"
             class="btn btn-outline-success"
-            disabled
           >
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
@@ -104,6 +103,7 @@
             type="button"
             class="btn btn-outline-success"
             @click="submit"
+            disabled
           >
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
@@ -159,12 +159,12 @@ export default {
         checkedit: true,
       },
       sumnote: "",
-      isOne: false,
+      isOne: true,
       isTwo: false,
-      isThree: true,
+      isThree: false,
       qID: "",
       estatus: false,
-      check: "2",
+      check: "0",
       inv: {
         IN1: 100,
         IN2: 0,
