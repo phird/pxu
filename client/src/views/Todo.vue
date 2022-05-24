@@ -190,7 +190,7 @@
               <td class="cbox">
                 <div class="d-flex justify-content-start align-items-center">
                   <div>
-                    {{ todo.quantity }}
+                    {{ todo.quantity.replace(/\d(?=(\d{3})+\.)/g, '$&,')  }}
                   </div>
                 </div>
                 <link
@@ -202,7 +202,7 @@
               <td class="cbox">
                 <div class="d-flex justify-content-start align-items-center">
                   <div>
-                    {{ todo.price }}
+                    {{ todo.price.replace(/\d(?=(\d{3})+\.)/g, '$&,')  }}
                   </div>
                 </div>
               </td>
@@ -324,17 +324,17 @@
       <div class="sum-payment-right-section">
         <div>
           รวมเป็นเงิน (ก่อนคิดภาษี)
-          <select v-model="sumtodo.statusvat" @change="calc(sumtodo.statusvat)">
+          <select class="vatalbe" v-model="sumtodo.statusvat" @change="calc(sumtodo.statusvat)">
             <option value="vatใน">vatใน</option>
             <option value="vatนอก">vatนอก</option>
           </select>
-          : {{ this.sumtodo.totalnow.toFixed(2) }} บาท
+          : {{ this.sumtodo.totalnow.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท
         </div>
-        <div step="0.01">vat 7% : {{ this.sumtodo.vat7.toFixed(2) }} บาท</div>
+        <div step="0.01">vat 7% : {{ this.sumtodo.vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</div>
         <div v-if="sumtodo.cusstatus == 'นิติบุคคล'" step="0.01">
-          ภาษี ณ ที่จ่าย 3% : {{ this.sumtodo.tax3.toFixed(2) }} บาท
+          ภาษี ณ ที่จ่าย 3% : {{ this.sumtodo.tax3.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท
         </div>
-        <div step="0.01">รวมเป็นเงิน : {{ this.sumtodo.payment.toFixed(2) }} บาท</div>
+        <div step="0.01">รวมเป็นเงิน : {{ this.sumtodo.payment.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</div>
       </div>
     </div>
 
@@ -568,6 +568,10 @@ export default {
 </script>
 
 <style scoped>
+.vatable{
+  border: 1px solid black;
+  padding: .2em;
+}
 /* header  */
 .header {
   width: 100%;

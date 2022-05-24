@@ -61,7 +61,7 @@
         <a>{{ statusw }}</a>
       </template>
       <template slot="val" slot-scope="val">
-        <a>{{ val }}</a>
+        <a>{{ val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }}</a>
       </template>
       <template slot="act-1" slot-scope="row">
         <a-menu-item v-if="row.statusquotation == 'Contracted'">
@@ -254,6 +254,7 @@ export default {
 <style scoped>
 .header-solid {
   font-family: "Mitr", sans-serif;
+  padding: 2em;
 }
 .ant-card-body {
   padding: 2em;
@@ -261,5 +262,8 @@ export default {
 
 .quotation-table .ant-table-wrapper {
   padding: 2em;
+}
+#app >>> .layout-dashboard .ant-layout-content{
+  margin-bottom: 2em !important;
 }
 </style>

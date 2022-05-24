@@ -211,23 +211,23 @@
                 v-if="invoice.customerstatus == 'นิติบุคคล'"
                 class="ps-right-box"
               >
-                <span>รวมเป็นเงิน {{ total.toFixed(2) }} บาท</span>
-                <span>ภาษี 7% {{ vat7.toFixed(2) }} บาท</span>
-                <span>หัก ณ ที่จ่าย 3% {{ tax3.toFixed(2) }} บาท</span>
+                <span>รวมเป็นเงิน {{total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }} บาท</span>
+                <span>ภาษี 7% {{ vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</span>
+                <span>หัก ณ ที่จ่าย 3% {{ tax3.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</span>
                 <span
                   >จำนวนเงินรวมทั้งสิ้น
-                  {{ invoice.priceINV.toFixed(2) }} บาท</span
+                  {{ invoice.priceINV.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</span
                 >
               </div>
               <div
                 v-if="invoice.customerstatus == 'บุคคลธรรมดา'"
                 class="ps-right-box"
               >
-                <span>รวมเป็นเงิน {{ total.toFixed(2) }} บาท</span>
-                <span>ภาษี 7% {{ vat7.toFixed(2) }} บาท</span>
+                <span>รวมเป็นเงิน {{ total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</span>
+                <span>ภาษี 7% {{ vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</span>
                 <span
                   >จำนวนเงินรวมทั้งสิ้น
-                  {{ invoice.priceINV.toFixed(2) }} บาท</span
+                  {{ invoice.priceINV.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</span
                 >
               </div>
             </div>
@@ -517,7 +517,7 @@ export default {
           }
         } else {
           if (this.invoice.vatstatus == "vatนอก") {
-            this.total = this.invoice.totalpriceinv;
+            this.total = this.invoice.totalpriceinv;    
             this.vat7 = this.total * 0.07;
             this.tax3 = 0;
             this.newprice=this.total.toFixed(2);

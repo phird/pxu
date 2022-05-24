@@ -34,7 +34,7 @@
         <a>{{ status }}</a>
       </template>
       <template slot="val" slot-scope="val">
-        <a>{{ val }}</a>
+        <a>{{ val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }}</a>
       </template>
       <template slot="act-1" slot-scope="row">
         <a-menu-item>
@@ -54,7 +54,7 @@
           :to="`/createInvoice/${id.invoiceID}`"
           target="_blank"
           style="text-decoration: none"
-          v-if="id.imgslip != ''"
+          v-if="id.dateinvoice != '0000-00-00' && id.bankID != '0' "
         >
           <b-icon
             icon="file-earmark-pdf"
