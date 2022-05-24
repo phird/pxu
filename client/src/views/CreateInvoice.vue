@@ -246,11 +246,7 @@
               <!-- flex-d => column -->
               <div class="c-stamp">
                 <span>
-                  <img
-                    src="../assets/images/stamp-com.png"
-                    alt="company-stamp"
-                    style="width: 120px"
-                  />
+
                 </span>
                 <span> ในนาม {{ invoice.wcompanyName }}</span>
               </div>
