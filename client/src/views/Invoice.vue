@@ -163,11 +163,14 @@ export default {
       projectHeaderBtns: "all",
       invoice: [],
       inID: "",
+      cc:0,
+      qin:0,
     };
   },
   created() {
     this.inID = this.$route.params.id;
     this.getinv(this.inID);
+    this.getstatus(this.inID);
   },
   methods: {
     async getinv(id) {
@@ -180,6 +183,25 @@ export default {
         console.log(err);
       }
     },
+    async getstatus(id) {
+      console.log("get-invoice");
+      try {
+        const response = await axios.get(`http://localhost:5000/invoice/status/${id}`);
+        this.cc = response.data[0][0].cc;
+        this.qin = response.data[1][0].qin;
+        console.log(response.data);
+        console.log(this.cc);
+        console.log(this.qin);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    putstatus(){
+      if(this.cc==this.qin){
+      console.log('putstatus');
+       axios.post(`http://localhost:5000/invoice/quostatus/${this.inID}`);
+       }
+    }
   },
 };
 </script>

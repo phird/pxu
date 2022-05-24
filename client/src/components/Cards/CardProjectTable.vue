@@ -24,7 +24,53 @@
       </a-row>
     </template>
 
-    <a-table :columns="columns" :data-source="quotation" :pagination="true">
+    <a-table v-if="projectHeaderBtns=='all'" :columns="columns" :data-source="quotationall" :pagination="true">
+      <template slot="qName" slot-scope="qName">
+        <div class="table-avatar-info">
+          <div class="avatar-info">
+           <a> {{ qName }}</a>
+          </div>
+        </div>
+      </template>
+      <template slot="status" slot-scope="status">
+        <a-tag
+          class="tag-status"
+          :class="status ? 'ant-tag-primary' : 'ant-tag-muted'"
+        >
+          {{ status ? "On-Going" : "Done" }}
+        </a-tag>
+      </template>
+
+      <template slot="val" slot-scope="val">
+        <div class="val-info">
+          <h6 class="m-0">{{ val }}</h6>
+        </div>
+      </template>
+    </a-table>
+     <a-table v-if="projectHeaderBtns=='On-Going'" :columns="columns" :data-source="quotationongoing" :pagination="true">
+      <template slot="qName" slot-scope="qName">
+        <div class="table-avatar-info">
+          <div class="avatar-info">
+           <a> {{ qName }}</a>
+          </div>
+        </div>
+      </template>
+      <template slot="status" slot-scope="status">
+        <a-tag
+          class="tag-status"
+          :class="status ? 'ant-tag-primary' : 'ant-tag-muted'"
+        >
+          {{ status ? "On-Going" : "Done" }}
+        </a-tag>
+      </template>
+
+      <template slot="val" slot-scope="val">
+        <div class="val-info">
+          <h6 class="m-0">{{ val }}</h6>
+        </div>
+      </template>
+    </a-table>
+     <a-table v-if="projectHeaderBtns=='Done'" :columns="columns" :data-source="quotationdone" :pagination="true">
       <template slot="qName" slot-scope="qName">
         <div class="table-avatar-info">
           <div class="avatar-info">
@@ -74,21 +120,45 @@ const columns = [
 export default {
   data() {
     return {
-      quotation: [],
+      quotationall: [],
+      quotationdone: [],
+      quotationongoing: [],
       columns,
 	  projectHeaderBtns: 'all',
     };
   },
   created() {
-    this.getquotation();
+    this.getquotationall();
+    this.getquotationongoing();
+    this.getquotationdone();
   },
   methods: {
-    async getquotation() {
+    async getquotationall() {
       console.log("get-quo");
       try {
         const response = await axios.get("http://localhost:5000/quotation");
-        this.quotation = response.data;
-        console.log(this.quotation);
+        this.quotationall = response.data;
+        console.log(this.quotationall);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getquotationongoing() {
+      console.log("get-quo");
+      try {
+        const response = await axios.get("http://localhost:5000/quotation/ongoing");
+        this.quotationongoing = response.data;
+        console.log(this.quotationongoing);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getquotationdone() {
+      console.log("get-quo");
+      try {
+        const response = await axios.get("http://localhost:5000/quotation/done");
+        this.quotationdone = response.data;
+        console.log(this.quotationdone);
       } catch (err) {
         console.log(err);
       }
