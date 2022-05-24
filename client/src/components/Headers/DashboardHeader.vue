@@ -30,44 +30,7 @@
 				<!-- Header Control Column -->
 				<a-col :span="24" :md="18" class="header-control">
 
-					<!--   NOTIFICATION SECTION  --> 
-					<a-dropdown :trigger="['click']" overlayClassName="header-notifications-dropdown" :getPopupContainer="() => wrapper">
-						<a-badge count="!">
-							<a class="ant-dropdown-link" @click="e => e.preventDefault()">
-								<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M10 2C6.68632 2 4.00003 4.68629 4.00003 8V11.5858L3.29292 12.2929C3.00692 12.5789 2.92137 13.009 3.07615 13.3827C3.23093 13.7564 3.59557 14 4.00003 14H16C16.4045 14 16.7691 13.7564 16.9239 13.3827C17.0787 13.009 16.9931 12.5789 16.7071 12.2929L16 11.5858V8C16 4.68629 13.3137 2 10 2Z" fill="#111827"/>
-									<path d="M10 18C8.34315 18 7 16.6569 7 15H13C13 16.6569 11.6569 18 10 18Z" fill="#111827"/>
-								</svg>
-							</a>
-						</a-badge>
-						
 
-						
-						<a-list item-layout="horizontal" class="header-notifications-list" :data-source="notificationsData" slot="overlay">
-							<a-list-item slot="renderItem" slot-scope="item">
-								<a-list-item-meta>
-									<template #description>
-										<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM11 6C11 5.44772 10.5523 5 10 5C9.44772 5 9 5.44772 9 6V10C9 10.2652 9.10536 10.5196 9.29289 10.7071L12.1213 13.5355C12.5118 13.9261 13.145 13.9261 13.5355 13.5355C13.9261 13.145 13.9261 12.5118 13.5355 12.1213L11 9.58579V6Z" fill="#111827"/>
-										</svg>
-										<span>{{ item.time }}</span>
-									</template>
-									<a slot="title" href="#">{{ item.title }}</a>
-									<a-avatar v-if="item.img"
-										slot="avatar"
-										shape="square"
-										:src="item.img"
-									/>
-									<a-avatar v-else
-										shape="square"
-										slot="avatar"  v-html="item.svg"/>
-									
-								</a-list-item-meta>
-							</a-list-item>
-						</a-list>
-						
-					</a-dropdown>
-					<!-- /Notification -->
 
 					<!-- hamburgur menu  -->
 					<a-button type="link" class="sidebar-toggler" @click="$emit('toggleSidebar', ! sidebarCollapsed) , resizeEventHandler()">
@@ -76,12 +39,7 @@
 					<!--/ hamburgur menu  -->
 
 
-					<!-- Header Search Input -->
-					<a-input-search class="header-search" :class="searchLoading ? 'loading' : ''" placeholder="Type here…" @search="onSearch" :loading='searchLoading' onkeyup="myFunction()">
-						<svg slot="prefix" width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C5.79086 4 4 5.79086 4 8C4 10.2091 5.79086 12 8 12C10.2091 12 12 10.2091 12 8C12 5.79086 10.2091 4 8 4ZM2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8C14 9.29583 13.5892 10.4957 12.8907 11.4765L17.7071 16.2929C18.0976 16.6834 18.0976 17.3166 17.7071 17.7071C17.3166 18.0976 16.6834 18.0976 16.2929 17.7071L11.4765 12.8907C10.4957 13.5892 9.29583 14 8 14C4.68629 14 2 11.3137 2 8Z" fill="#111827"/>
-						</svg>
-					</a-input-search>
+
 					<!-- / Header Search Input -->
 				</a-col>
 				<!-- / Header Control Column -->

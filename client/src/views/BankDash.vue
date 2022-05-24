@@ -362,7 +362,7 @@ export default {
             this.success=true;
             setTimeout(() => {
               window.location.reload(false);
-            }, 2500);
+            }, 500);
         
           });
       }
