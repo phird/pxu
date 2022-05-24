@@ -473,7 +473,7 @@ export default {
           this.success = true;
             setTimeout(() => {
               this.$router.back();
-            }, 2500);
+            }, 500);
         });
     },
     async submit() {
