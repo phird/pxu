@@ -31,6 +31,7 @@ export default {
       inID: "",
       invoice: [],
       invoiceDetail: [],
+      dateRe: [],
       invDate:"",
       price: 0,
       totalprice: 0,
@@ -55,14 +56,15 @@ export default {
         console.log("now im trying");
         const response = await axios.get(`http://localhost:5000/invoice/createInvoicePDF/${this.inID}`);
         const response2 = await axios.get(`http://localhost:5000/invoice/createInvoicePDF/detail/${this.inID}`)
+        const dataReceipt = await axios.get(`http://localhost:5000/invoice/receipt/${this.inID}`)
         console.log(response.data[0]);
         this.invoice = response.data[0];
         this.invoiceDetail = response2.data;
+        this.dateRe = dataReceipt.data[0];
         console.log(this.invoice);
         console.log(this.invoiceDetail);
-        this.invDate =  moment(String(this.invoice.dateinvoice)).format(
-          "DD/MM/YYYY"
-        );
+        this.invDate =  moment(String(this.dateRe.datereceipt)).format(
+          "DD/MM/YYYY");
 
 
 
@@ -203,9 +205,7 @@ export default {
                 type: "none",
                 ol: [
                   "เลขที่: " + "bill"+ this.invoice.invoiceID,
-                  "วันที่: " + moment(String(this.invoice.dateinvoice)).format(
-                      "DD/MM/YYYY"
-                    ),
+                  "วันที่: " + moment(String(this.dateRe.datereceipt)).format("DD/MM/YYYY"),
                   "ผู้ขาย: " + this.invoice.employeeName,
                   "เบอร์: " + this.invoice.employeeNumber,
                 ],
@@ -331,7 +331,7 @@ export default {
                   fontSize: 10,  
                   body:this.invoiceDetail.map(function(item,key){
                       let neteach = item.quantity * item.price;
-                      return [{text:key+1},{text: item.name}, {text: item.quantity}, {text: item.price}, {text: neteach}]
+                      return [{text:key+1},{alignment: "left" ,text: item.name}, {text: item.quantity}, {text: item.price}, {text: neteach}]
                     })    
                 },
                 layout: "headerLineOnly", 
@@ -564,9 +564,7 @@ export default {
                 type: "none",
                 ol: [
                   "เลขที่: " + "bill"+ this.invoice.invoiceID,
-                  "วันที่: " + moment(String(this.invoice.dateinvoice)).format(
-                      "DD/MM/YYYY"
-                    ),
+                  "วันที่: " + moment(String(this.dateRe.datereceipt)).format("DD/MM/YYYY"),
                   "ผู้ขาย: " + this.invoice.employeeName,
                   "เบอร์: " + this.invoice.employeeNumber,
                 ],
@@ -692,7 +690,7 @@ export default {
                   fontSize: 10,  
                   body:this.invoiceDetail.map(function(item,key){
                       let neteach = item.quantity * item.price;
-                      return [{text:key+1},{text: item.name}, {text: item.quantity}, {text: item.price}, {text: neteach}]
+                      return [{text:key+1},{alignment: "left" ,text: item.name}, {text: item.quantity}, {text: item.price}, {text: neteach}]
                     })    
                 },
                 layout: "headerLineOnly", 

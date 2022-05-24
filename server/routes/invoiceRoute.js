@@ -43,8 +43,18 @@ router.get('/in/:id', (req, res) => {
 
 router.get('/createInvoicePDF/:id', (req, res) =>{
     const qID = req.params.id;
-    const sqlPDFInvoce = "SELECT * FROM invoice as inv JOIN customer as c ON inv.customerID = c.customerID JOIN employee as em ON inv.employeeID = em.employeeID JOIN bank as b ON inv.bankID = b.bankID WHERE invoiceID = ? ";
+    const sqlPDFInvoce = "SELECT * FROM invoice as inv JOIN customer as c ON inv.customerID = c.customerID JOIN employee as em ON inv.employeeID = em.employeeID JOIN bank as b ON inv.bankID = b.bankID WHERE inv.invoiceID = ? ";
     db.query(sqlPDFInvoce, [qID], (err, result) => {
+        console.log(err);
+        if(err) throw err;
+        res.send(result);
+    })
+})
+
+router.get('/receipt/:id', (req, res) =>{
+    const qID = req.params.id;
+    const sqlGetDate = "SELECT datereceipt from invoice as inv WHERE inv.invoiceID = ?"
+    db.query(sqlGetDate, [qID], (err, result) => {
         console.log(err);
         if(err) throw err;
         res.send(result);
