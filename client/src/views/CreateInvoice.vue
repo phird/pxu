@@ -512,8 +512,8 @@ export default {
             this.total = (this.invoice.totalpriceinv * 100) / 107;
             this.vat7 = this.invoice.totalpriceinv - this.total;
             this.tax3 = this.total * 0.03;
-            this.newprice=this.total.toFixed(2);
-            this.tempprice=this.total.toFixed(2);
+            this.newprice=this.invoice.totalpriceinv.toFixed(2);
+            this.tempprice=this.invoice.totalpriceinv.toFixed(2);
           }
         } else {
           if (this.invoice.vatstatus == "vatนอก") {
@@ -526,8 +526,8 @@ export default {
             this.total = (this.invoice.totalpriceinv * 100) / 107;
             this.vat7 = this.invoice.totalpriceinv - this.total;
             this.tax3 = 0;
-            this.newprice=this.total.toFixed(2);
-            this.tempprice=this.total.toFixed(2);
+            this.newprice=this.invoice.totalpriceinv.toFixed(2);
+            this.tempprice=this.invoice.totalpriceinv.toFixed(2);
           }
         }
 
