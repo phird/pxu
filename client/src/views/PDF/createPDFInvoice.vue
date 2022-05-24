@@ -55,7 +55,7 @@ export default {
     this.export();
   },
   methods: {
-        async getBase64FromUrl(url){
+      async getBase64FromUrl(url){
       const data = await fetch(url);
       const blob = await data.blob();
       try{
@@ -71,6 +71,7 @@ export default {
       }
       
     },
+
     async export() {
       this.inID = this.$route.params.id;
       console.log(this.inID);
@@ -91,7 +92,7 @@ export default {
 
         if (this.invoice.customerstatus == "นิติบุคคล" && this.invoice.vatstatus == "vatนอก") {
           console.log("niti outvat");
-          this.price = this.quotation.totalpriceinv;
+          this.price = this.invoice.totalpriceinv;
           this.totalprice = this.price;
           this.vat7 = this.totalprice * 0.07;
           this.priceAfter7 = this.totalprice + this.vat7;
@@ -742,7 +743,11 @@ export default {
                   fontSize: 10,  
                   body:this.invoiceDetail.map(function(item,key){
                       let neteach = item.quantity * item.price;
-                      return [{text:key+1},{alignment: "left" ,text: item.name}, {text: item.quantity.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }, {text: item.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }, {text: neteach.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }]
+                      return [{text:key+1},
+                      {alignment: "left" ,text: item.name}, 
+                      {text: item.quantity.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }, 
+                      {text: item.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }, 
+                      {text: neteach.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }]
                     })    
                 },
                 layout: "headerLineOnly", 
@@ -939,14 +944,15 @@ export default {
       };
       if (this.invoice.customerstatus == "นิติบุคคล") {
         console.log("open create pdf");
-        pdfMake.createPdf(niti).open({}, window);
+        pdfMake.createPdf(niti).open();
       } else {
         console.log("lemme go idiot!");
         cosole.log("here come normal person");
-        pdfMake.createPdf(normal).open({}, window);
+        pdfMake.createPdf(normal).open();
       }
       /*  pdfMake.createPdf(dd).open({}, window) */
     },
+
       ThaiBaht(Number) {
       var TxtNumArr = new Array(
         "ศูนย์",
