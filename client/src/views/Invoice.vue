@@ -171,9 +171,6 @@ export default {
     this.inID = this.$route.params.id;
     this.getinv(this.inID);
     this.getstatus(this.inID);
-    if(this.cc==this.qin){
-      this.putstatus(this.inID);
-    }
   },
   methods: {
     async getinv(id) {
@@ -193,12 +190,17 @@ export default {
         this.cc = response.data[0][0].cc;
         this.qin = response.data[1][0].qin;
         console.log(response.data);
+        console.log(this.cc);
+        console.log(this.qin);
       } catch (err) {
         console.log(err);
       }
     },
-    putstatus(id){
-       axios.post(`http://localhost:5000/invoice/quostatus/${id}`);
+    putstatus(){
+      if(this.cc==this.qin){
+      console.log('putstatus');
+       axios.post(`http://localhost:5000/invoice/quostatus/${this.inID}`);
+       }
     }
   },
 };
