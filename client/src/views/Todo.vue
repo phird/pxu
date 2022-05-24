@@ -72,10 +72,10 @@
               <span
                 >
                 <date-picker
-                  v-model="dateqq"
+                  v-model="sumtodo.dateq"
                   valueType="format"
                   :format = "thFormat"
-                  @change="keepdate"
+  
                 ></date-picker>
               </span>
             </div>
@@ -405,11 +405,11 @@ export default {
   created() {
     this.getcus();
     this.getem();
-    this.dateqq = this.sumtodo.dateq;
+    // this.dateqq = this.sumtodo.dateq;
   },
   methods: {
     keepdate(){
-      this.sumtodo.dateq = this.dateqq
+      // this.sumtodo.dateq = this.dateqq
     },
     invpush(e) {
       console.log(e.data.value);
