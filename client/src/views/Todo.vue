@@ -70,10 +70,12 @@
             <div class="date-section hbox">
               <span>วันที่ </span>
               <span
-                ><date-picker
-                  v-model="sumtodo.dateq"
+                >
+                <date-picker
+                  v-model="dateqq"
                   valueType="format"
-                  @change="auth()"
+                  :format = "thFormat"
+                  @change="keepdate"
                 ></date-picker>
               </span>
             </div>
@@ -361,16 +363,27 @@
 
 <script>
 import axios from "axios";
+import moment from "moment";
 export default {
   name: "ToDo",
   props: ["todos", "sumtodo", "qID", "inv","changein"],
   data() {
     return {
+      thFormat: {
+        stringify: (date) => {
+          return date ? moment(date).add(543, 'year').format('YYYY-MM-DD') : null
+        },
+        parse: (dateqq) => {
+
+          return dateqq ? moment(dateqq, 'YYYY-MM-DD').subtract(543, 'year').toDate() : null
+        }
+      }, 
       //   statusvat:'1',
       //   totalnow: 0,
       //   total: 0,
       //   vat7: 0,
       //   payment: 0,
+      dateqq: '',
       newprice: 0,
       newquantity: 1,
       newTodo: "",
@@ -380,7 +393,6 @@ export default {
       temppriceTodo: "",
       //   todos: [],
       customer: [],
-
       //
       employee: [],
       //
@@ -393,8 +405,12 @@ export default {
   created() {
     this.getcus();
     this.getem();
+    this.dateqq = this.sumtodo.dateq;
   },
   methods: {
+    keepdate(){
+      this.sumtodo.dateq = this.dateqq
+    },
     invpush(e) {
       console.log(e.data.value);
     },

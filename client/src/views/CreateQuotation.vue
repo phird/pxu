@@ -117,6 +117,7 @@ export default {
   },
   data() {
     return {
+
       todos: [],
       sumtodo: {
         statusvat: "vatใน",

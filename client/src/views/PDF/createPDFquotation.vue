@@ -81,7 +81,7 @@ export default {
 /*      console.log("data from response");
         console.log(this.quotation.wcompanyName); */
         this.quoDate = moment(String(this.quotation.datequotation)).format(
-          "YYYY-MM-DD"
+          "DD/MM/YYYY"
         );
         /* นิติบุคคคล */
         if (this.quotation.customerstatus == "นิติบุคคล" && this.quotation.vatstatus == "vatนอก") {
@@ -216,7 +216,7 @@ export default {
                   "เลขที่: " + "QA" + this.quotation.quotationID,
                   "วันที่: " +
                     moment(String(this.quotation.datequotation)).format(
-                      "DD-MM-YYYY"
+                      "DD/MM/YYYY"
                     ),
                   "ผู้ขาย: " + this.quotation.employeeName,
                   "เบอร์: " + this.quotation.employeeNumber,
@@ -341,7 +341,7 @@ export default {
                   fontSize: 10,  
                   body:this.quoDetail.map(function(item,key){
                       let neteach = item.quantity * item.price;
-                      return [{text:key+1},{text: item.name}, {text: item.quantity}, {text: item.price}, {text: neteach}]
+                      return [{text:key+1},{alignment: "left", text: item.name}, {text: item.quantity}, {text: item.price}, {text: neteach}]
                     })    
                 },
                 layout: "headerLineOnly", 
@@ -422,7 +422,7 @@ export default {
                     text:
                       "\n" +
                       moment(String(this.quotation.datequotation)).format(
-                        "DD-MM-YYYY"
+                        "DD/MM/YYYY"
                       ),
                   },
                 ],
@@ -432,7 +432,7 @@ export default {
                 text: " "
               },
               {
-                widths: "*",
+                width: "auto",
                 alignment: "center",
                 fontSize: 10,
                 type: "none",
@@ -457,7 +457,7 @@ export default {
                     text:
                       "\n" +
                       moment(String(this.quotation.datequotation)).format(
-                        "DD-MM-YYYY"
+                        "DD/MM/YYYY"
                       ),
                   },
                 ],
