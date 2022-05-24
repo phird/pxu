@@ -944,11 +944,11 @@ export default {
       };
       if (this.invoice.customerstatus == "นิติบุคคล") {
         console.log("open create pdf");
-        pdfMake.createPdf(niti).open();
+        pdfMake.createPdf(niti).open({}, window);
       } else {
         console.log("lemme go idiot!");
         cosole.log("here come normal person");
-        pdfMake.createPdf(normal).open();
+        pdfMake.createPdf(normal).open({}, window);
       }
       /*  pdfMake.createPdf(dd).open({}, window) */
     },

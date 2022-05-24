@@ -92,7 +92,7 @@ export default {
 
         if (this.invoice.customerstatus == "นิติบุคคล" && this.invoice.vatstatus == "vatนอก") {
           console.log("niti outvat");
-          this.price = this.quotation.totalpriceinv;
+          this.price = this.invoice.totalpriceinv;
           this.totalprice = this.price;
           this.vat7 = this.totalprice * 0.07;
           this.priceAfter7 = this.totalprice + this.vat7;
