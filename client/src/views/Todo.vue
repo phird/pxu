@@ -190,7 +190,7 @@
               <td class="cbox">
                 <div class="d-flex justify-content-start align-items-center">
                   <div>
-                    {{ todo.quantity.replace(/\d(?=(\d{3})+\.)/g, '$&,')  }}
+                    {{ todo.quantity }}
                   </div>
                 </div>
                 <link
@@ -202,7 +202,7 @@
               <td class="cbox">
                 <div class="d-flex justify-content-start align-items-center">
                   <div>
-                    {{ todo.price.replace(/\d(?=(\d{3})+\.)/g, '$&,')  }}
+                    {{ todo.price  }}
                   </div>
                 </div>
               </td>
