@@ -141,6 +141,16 @@ router.get('/quo/:id', (req, res) => {
     })
 })
 
+router.get('/quoScope/:id', (req, res) => {
+    const qID=req.params.id;
+    const sqlQuotation = "SELECT summernote FROM quotation as quo WHERE quotationID=? ";
+    db.query(sqlQuotation,[qID], (err, result) => {
+        console.log(err);
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
 router.get('/quo/detail/:id', (req, res)=>{
     const qID = req.params.id;
     const sqlDetail = "SELECT name, quantity, price  FROM scope as sc WHERE sc.workID=?"
