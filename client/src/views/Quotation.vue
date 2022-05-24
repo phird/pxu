@@ -61,29 +61,45 @@
         <a>{{ statusw }}</a>
       </template>
       <template slot="val" slot-scope="val">
-        <a>{{ val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }}</a>
+        <a>{{ val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") }}</a>
       </template>
       <template slot="act-1" slot-scope="row">
         <a-menu-item v-if="row.statusquotation == 'Contracted'">
-              <router-link
-                :to="`/Invoice/${row.quotationID}`"
-                style="text-decoration: none"
-              >
-                <a style="text-decoration: none">ใบวางบิล</a>
-              </router-link>
+          <router-link
+            :to="`/Invoice/${row.quotationID}`"
+            style="text-decoration: none"
+          >
+            <a style="text-decoration: none">ใบวางบิล</a>
+          </router-link>
         </a-menu-item>
       </template>
       <template slot="act" slot-scope="quoID">
         <router-link
           :to="`/createPDFquotation/${quoID.quotationID}`"
           target="_blank"
+          style="text-decoration: none">
+          <a-tooltip>
+            <template slot="title"> PDF ของใบเสนอราคา  </template>
+            <b-icon
+              icon="file-earmark-pdf"
+              style="width: 20px; height: 20px; margin: 0px 0.7em 0px 0.5em; color:red;"
+            >
+            </b-icon>
+          </a-tooltip>
+        </router-link>
+        <router-link
+          :to="`/Quotations/CreateScope/${quoID.quotationID}`"
+          target="_blank"
           style="text-decoration: none"
         >
+        <a-tooltip>
+            <template slot="title"> PDF ของรายละเอียดเพิ่มเติม  </template>
           <b-icon
             icon="file-earmark-pdf"
-            style="width: 20px; height: 20px; margin: 0px 0.7em 0px 0.5em"
+            style="width: 20px; height: 20px; margin: 0px 0.7em 0px 0.5em; "
           >
           </b-icon>
+          </a-tooltip>
         </router-link>
         <a-dropdown>
           <a
@@ -105,10 +121,9 @@
             </svg>
           </a>
           <a-menu slot="overlay">
-            
             <a-menu-item>
               <router-link
-              v-if="quoID.statusquotation == 'Negotiation'"
+                v-if="quoID.statusquotation == 'Negotiation'"
                 :to="`/Quotations/Editquotation/${quoID.quotationID}`"
                 style="text-decoration: none"
               >
@@ -191,13 +206,13 @@ export default {
           dataIndex: "paymentPrice",
           scopedSlots: { customRender: "val" },
         },
-        {  
+        {
           title: " ",
           scopedSlots: { customRender: "act-1" },
         },
         {
           title: "Action",
-          
+
           scopedSlots: { customRender: "act" },
         },
       ],
@@ -263,7 +278,7 @@ export default {
 .quotation-table .ant-table-wrapper {
   padding: 2em;
 }
-#app >>> .layout-dashboard .ant-layout-content{
+#app >>> .layout-dashboard .ant-layout-content {
   margin-bottom: 2em !important;
 }
 </style>

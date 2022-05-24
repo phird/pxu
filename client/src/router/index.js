@@ -30,12 +30,6 @@ let routes = [
 		component: () => import('../views/Quotation.vue'),
 	},
 	{
-		path: '/pdf',
-		name: 'ใบเสนอราคา',
-		layout: "dashboard",
-		component: () => import('../views/PDF/Pdf.vue'),
-	},
-	{
 		path: '/Invoice/:id',
 		name: 'ใบวางบิล',
 		layout: "dashboard",
@@ -53,7 +47,12 @@ let routes = [
 		layout: "dashboard",
 		component: () => import('../views/CreateQuotation.vue'),
 	},
-	
+	{
+		path: '/Quotations/CreateScope/:id',
+		name: 'รายละเอียดเพิ่มเติม',
+		layout: "dashboard",
+		component: () => import('../views/PDF/createPDFscope.vue'),
+	},
 	{
 		path: '/Editinvoice/:id',
 		name: 'แก้ไขใบวางบิล',

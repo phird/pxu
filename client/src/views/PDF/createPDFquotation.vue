@@ -67,7 +67,6 @@ export default {
       });}catch(err){
         console.log(err);
       }
-      
     },
     async export() {
       this.quoID = this.$route.params.id;
@@ -80,7 +79,7 @@ export default {
         );
         const response2 = await axios.get(
            `http://localhost:5000/quotation/quo/detail/${this.quoID}`
-        )
+        );
         console.log(response.data[0]);
         this.quotation = response.data[0];
         this.quoDetail = response2.data;
@@ -152,7 +151,7 @@ export default {
           bolditalics: "Kanit-MediumItalic.ttf",
         },
       };
-      
+
       const niti = {
         pageSize: "A4",
         background: [
