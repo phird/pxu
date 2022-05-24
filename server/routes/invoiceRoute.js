@@ -15,6 +15,21 @@ router.get('/:id', (req, res) => {
     })
 })
 
+
+router.get('/status/:id', (req, res) => {
+    const qID=req.params.id;
+    const sqlInvoice = "SELECT COUNT(*) as cc FROM `quotation` as q,invoice as inv WHERE q.quotationID=inv.quotationID AND inv.statusinvoice = 'COMPLETE' AND q.quotationID=?";
+    const sqlInvoice2 = "SELECT quantityinstallment as qin FROM `quotation` as q WHERE q.quotationID=?";
+    db.query(sqlInvoice,[qID], (err, result1) => {
+        db.query(sqlInvoice2,[qID], (err, result2) => {
+            console.log(err);
+            if (err) throw err;
+            res.send([result1,result2]);
+        })
+    })
+})
+
+
 router.get('/in/:id', (req, res) => {
     const qID=req.params.id;
     const sqlInvoice = "SELECT * FROM invoice as inv JOIN customer as c ON inv.customerID=c.customerID JOIN employee as em ON inv.employeeID=em.employeeID WHERE invoiceID=? ";
@@ -79,6 +94,16 @@ router.post('/re/changestatus/:id', (req,res) =>{
         res.send(result)
     })
 })
+
+router.post('/quostatus/:id', (req, res) => {
+    const id = req.params.id;
+    const sqlDelete = "UPDATE quotation SET statuswork='Done' WHERE quotationID=?";
+    db.query(sqlDelete, [id], (err, result) => {
+        if(err) throw err;
+        console.log("update status");
+        res.send(result)
+    })
+});
 
 
 router.post('/', (req, res) => {

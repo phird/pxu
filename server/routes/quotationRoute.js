@@ -15,6 +15,28 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/ongoing', (req, res) => {
+    const sqlQuotation = "SELECT * FROM quotation WHERE statuswork = 'On-Going' order by id DESC";
+
+    db.query(sqlQuotation, (err, sqlQuotationRe) => {
+        console.log(err);
+        if (err) throw err;
+        // console.log(sqlQuotationRe);
+        res.send(sqlQuotationRe);
+    })
+})
+
+router.get('/done', (req, res) => {
+    const sqlQuotation = "SELECT * FROM quotation WHERE statuswork = 'Done' order by id DESC";
+
+    db.query(sqlQuotation, (err, sqlQuotationRe) => {
+        console.log(err);
+        if (err) throw err;
+        // console.log(sqlQuotationRe);
+        res.send(sqlQuotationRe);
+    })
+})
+
 router.get('/res', (req, res) => {
     const sqlQuotation = "SELECT * FROM quotation WHERE statusquotation = 'Rescinding' order by id DESC";
 
@@ -194,12 +216,5 @@ router.post('/:id', (req, res) => {
         })
 })
 
-// router.delete('/:id', (req, res) => {
-//     const qID = req.params.id;
-//     const sqlDelete = "DELETE FROM quotation WHERE quotationID=?";
-//     db.query(sqlDelete,[qID],(err, sqlQuotation) => {
-//         if(err) throw err;
-//     })
-// })
 
 export default router;
