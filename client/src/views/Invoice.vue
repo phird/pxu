@@ -42,18 +42,19 @@
             :to="`/createReceipt/${row.invoiceID}`"
             style="text-decoration: none"
             target="_blank"
-            v-if="row.imgslip!= ''">
+            v-if="row.imgslip != ''"
+          >
             <a style="text-decoration: none">ใบเสร็จ</a>
           </router-link>
         </a-menu-item>
       </template>
 
       <template slot="act" slot-scope="id">
-         <router-link
-              :to="`/createInvoice/${id.invoiceID}`"
-              target="_blank"
-              style="text-decoration: none"
-               v-if="id.imgslip != ''"
+        <router-link
+          :to="`/createInvoice/${id.invoiceID}`"
+          target="_blank"
+          style="text-decoration: none"
+          v-if="id.imgslip != ''"
         >
           <b-icon
             icon="file-earmark-pdf"
@@ -79,15 +80,21 @@
           <a-menu slot="overlay">
             <a-menu-item>
               <router-link
-              v-if="id.imgslip == ''"
+                v-if="id.imgslip == ''"
                 :to="`/Editinvoice/${id.invoiceID}`"
-                style="text-decoration: none">
+                style="text-decoration: none"
+              >
                 <a style="text-decoration: none">แก้ไขใบวางบิล</a>
               </router-link>
             </a-menu-item>
             <a-menu-item>
-              <router-link :to="`/receipt/${id.invoiceID}`" style="text-decoration: none">
-                <a v-if="id.imgslip == ''" style="text-decoration: none">แนบสลิป</a>
+              <router-link
+                :to="`/receipt/${id.invoiceID}`"
+                style="text-decoration: none"
+              >
+                <a v-if="id.imgslip == ''" style="text-decoration: none"
+                  >แนบสลิป</a
+                >
                 <a v-else style="text-decoration: none">แก้ไขสลิป</a>
               </router-link>
             </a-menu-item>
@@ -163,8 +170,8 @@ export default {
       projectHeaderBtns: "all",
       invoice: [],
       inID: "",
-      cc:0,
-      qin:0,
+      cc: 0,
+      qin: 0,
     };
   },
   created() {
@@ -186,22 +193,25 @@ export default {
     async getstatus(id) {
       console.log("get-invoice");
       try {
-        const response = await axios.get(`http://localhost:5000/invoice/status/${id}`);
-        this.cc = response.data[0][0].cc;
-        this.qin = response.data[1][0].qin;
-        console.log(response.data);
-        console.log(this.cc);
-        console.log(this.qin);
+        await axios
+          .get(`http://localhost:5000/invoice/status/${id}`)
+          .then((response) => {
+            this.cc = response.data[0][0].cc;
+            this.qin = response.data[1][0].qin;
+            console.log(response.data);
+            console.log(this.cc);
+            console.log(this.qin);
+            if (this.cc == this.qin) {
+              console.log("putstatus");
+              axios.post(
+                `http://localhost:5000/invoice/quostatus/${this.inID}`
+              );
+            }
+          });
       } catch (err) {
         console.log(err);
       }
     },
-    putstatus(){
-      if(this.cc==this.qin){
-      console.log('putstatus');
-       axios.post(`http://localhost:5000/invoice/quostatus/${this.inID}`);
-       }
-    }
   },
 };
 </script>
