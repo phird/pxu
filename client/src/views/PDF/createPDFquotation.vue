@@ -716,7 +716,7 @@ export default {
                   fontSize: 10,  
                   body:this.quoDetail.map(function(item,key){
                       let neteach = item.quantity * item.price;
-                      return [{text:key+1},{text: item.name}, {text: item.quantity}, {text: item.price}, {text: neteach}]
+                      return [{text:key+1},{alignment: "left" ,text: item.name}, {text: item.quantity}, {text: item.price}, {text: neteach}]
                     })    
                 },
                 layout: "headerLineOnly", 

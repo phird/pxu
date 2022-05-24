@@ -1,7 +1,7 @@
 <template>
   <div class="whole-site">
     <div class="header-site">
-        <b-icon icon="chevron-left" @click="backward"> </b-icon>
+      <b-icon icon="chevron-left" @click="backward"> </b-icon>
     </div>
     <div class="body-section">
       <div class="previewimg-section">
@@ -11,7 +11,7 @@
           :style="{ 'background-image': `url(${previewImage})` }"
           @click="selectImage"
         >
-          <b-icon icon="card-image" style="color: black;"> </b-icon>
+          <b-icon icon="card-image" style="color: black"> </b-icon>
         </div>
         <div v-else>
           <img
@@ -25,7 +25,11 @@
       <div class="date-section">
         <span>วันที่ </span>
         <span
-          ><date-picker v-model="daterec" valueType="format"></date-picker>
+          ><date-picker
+            v-model="daterec"
+            valueType="format"
+            :format="thFormat"
+          ></date-picker>
         </span>
       </div>
 
@@ -43,9 +47,22 @@
 
 <script>
 import axios from "axios";
+import moment from "moment";
 export default {
   data() {
     return {
+      thFormat: {
+        stringify: (date) => {
+          return date
+            ? moment(date).add(543, "year").format("YYYY-MM-DD")
+            : null;
+        },
+        parse: (daterec) => {
+          return daterec
+            ? moment(daterec, "YYYY-MM-DD").subtract(543, "year").toDate()
+            : null;
+        },
+      },
       previewImage: "../../public/images/istockphoto-1147544806-170667a.jpg",
       daterec: "",
       fileimg: [],
@@ -59,22 +76,23 @@ export default {
     this.getimg(this.inID);
   },
   methods: {
-    backward(){
-      history.back()
+    backward() {
+      history.back();
     },
     submit() {
       let formData = new FormData();
       formData.append("files", this.fileimg);
       axios.post("http://localhost:5000/uploadslip", formData, {});
       axios.post(`http://localhost:5000/invoice/re/changestatus/${this.inID}`);
-      axios.post(`http://localhost:5000/invoice/re/${this.inID}`, {
+      axios
+        .post(`http://localhost:5000/invoice/re/${this.inID}`, {
           imgslip: this.imgslip,
           daterec: this.daterec,
-        }).then(() => {
+        })
+        .then(() => {
           alert("บันทึกข้อมูลสำเร็จ");
           history.back();
         });
-      
     },
     selectImage() {
       this.$refs.fileInput.click();
@@ -99,7 +117,9 @@ export default {
         const response = await axios.get(
           `http://localhost:5000/invoice/re/${id}`
         );
-        this.daterec = response.data[0].datereceipt;
+        this.daterec = moment(String(response.data[0].datereceipt)).format(
+          "YYYY-MM-DD"
+        );
         this.imgslip = response.data[0].imgslip;
         this.tempimgslip = response.data[0].imgslip;
       } catch (err) {
@@ -124,7 +144,7 @@ export default {
   -webkit-box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
   box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
 }
-.header-site{
+.header-site {
   display: flex;
 }
 .body-section {
