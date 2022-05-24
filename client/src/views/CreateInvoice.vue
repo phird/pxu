@@ -361,6 +361,7 @@ export default {
       tempNameTodo: "",
       tempquantityTodo: "",
       temppriceTodo: "",
+      tempprice:0,  
       //
       bank: [],
       dateinv: '',
@@ -391,15 +392,17 @@ export default {
       this.bankch.accname = ac;
       this.bankch.accnum = an;
     },
-    addTodo() {
+    addTodo() { 
       if (this.newTodo.length === 0) return;
       if (this.indexEditTodo === null) {
+        if(this.newprice>this.tempprice) return;
         this.todos.push({
           name: this.newTodo,
           quantity: this.newquantity,
           price: this.newprice,
         });
       } else {
+        if(this.newprice>this.tempprice) return;
         this.todos[this.indexEditTodo].name = this.newTodo;
         this.todos[this.indexEditTodo].quantity = this.newquantity;
         this.todos[this.indexEditTodo].price = this.newprice;
@@ -407,13 +410,15 @@ export default {
       }
       this.newTodo = "";
       this.newquantity = 1;
-      this.newprice = 0;
+      this.newprice = (this.tempprice-this.newprice).toFixed(2);
+      this.tempprice = this.newprice;
       this.changein = true;
     },
     editTodo(index) {
       this.newTodo = this.todos[index].name;
       this.newquantity = this.todos[index].quantity;
       this.newprice = this.todos[index].price;
+      this.tempprice = Number(this.tempprice)+Number(this.todos[index].price);
       this.indexEditTodo = index;
       this.changein = true;
     },
@@ -424,7 +429,8 @@ export default {
       this.todos.splice(index, 1);
       this.newTodo = "";
       this.newquantity = 1;
-      this.newprice = 0;
+      this.newprice = Number(this.tempprice)+Number(this.newprice);
+      this.tempprice = this.newprice;
       this.changein = true;
     },
     upTodo(index) {
@@ -469,6 +475,9 @@ export default {
         });
     },
     async submit() {
+      if(this.newprice!=0 || this.bankID=='' || this.dateinv==''){
+        alert('โปรดใส่ข้อมูลให้ครบถ้วน');
+      }else{
       if (this.changein) {
         await axios.delete(`http://localhost:5000/scope/${this.inID}`);
         const requestone = [];
@@ -484,6 +493,7 @@ export default {
       } else {
         this.subinv();
       }
+    }
     },
     async getinv(id) {
       try {
@@ -496,20 +506,28 @@ export default {
             this.total = this.invoice.totalpriceinv;
             this.vat7 = this.total * 0.07;
             this.tax3 = this.total * 0.03;
+            this.newprice=this.total.toFixed(2);
+            this.tempprice=this.total.toFixed(2);
           } else if (this.invoice.vatstatus == "vatใน") {
             this.total = (this.invoice.totalpriceinv * 100) / 107;
             this.vat7 = this.invoice.totalpriceinv - this.total;
             this.tax3 = this.total * 0.03;
+            this.newprice=this.total.toFixed(2);
+            this.tempprice=this.total.toFixed(2);
           }
         } else {
           if (this.invoice.vatstatus == "vatนอก") {
             this.total = this.invoice.totalpriceinv;
             this.vat7 = this.total * 0.07;
             this.tax3 = 0;
+            this.newprice=this.total.toFixed(2);
+            this.tempprice=this.total.toFixed(2);
           } else if (this.invoice.vatstatus == "vatใน") {
             this.total = (this.invoice.totalpriceinv * 100) / 107;
             this.vat7 = this.invoice.totalpriceinv - this.total;
             this.tax3 = 0;
+            this.newprice=this.total.toFixed(2);
+            this.tempprice=this.total.toFixed(2);
           }
         }
 
@@ -539,6 +557,10 @@ export default {
       try {
         const response = await axios.get(`http://localhost:5000/scope/${id}`);
         this.todos = response.data;
+        if(this.todos.length!=0){
+          this.newprice=0;
+          this.tempprice=this.newprice;
+        }
         console.log(this.todos);
       } catch (err) {
         console.log(err);
