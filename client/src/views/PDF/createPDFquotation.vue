@@ -341,7 +341,7 @@ export default {
                   fontSize: 10,  
                   body:this.quoDetail.map(function(item,key){
                       let neteach = item.quantity * item.price;
-                      return [{text:key+1},{alignment: "left", text: item.name}, {text: item.quantity}, {text: item.price}, {text: neteach}]
+                      return [{text:key+1},{alignment: "left", text: item.name}, {text: item.quantity.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }, {text: item.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }, {text: neteach.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }]
                     })    
                 },
                 layout: "headerLineOnly", 
@@ -373,11 +373,11 @@ export default {
                 fontSize: 10,
                 type: "none",
                 ol: [
-                  "ราคาก่อนภาษี : " + this.price.toFixed(2) + " บาท",
-                  "ภาษี 7% : " + this.vat7.toFixed(2) + " บาท",
-                  "ราคาหลังภาษีมูลค่าเพิ่ม 7% : " + this.priceAfter7.toFixed(2) +" บาท",
-                  "หัก ณ ที่จ่าย 3% : " + this.withholding3.toFixed(2) + " บาท",
-                  "รวมเงินสุทธิ : " + this.totalprice.toFixed(2) + " บาท",
+                  "ราคาก่อนภาษี : " + this.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  + " บาท",
+                  "ภาษี 7% : " + this.vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  + " บาท",
+                  "ราคาหลังภาษีมูลค่าเพิ่ม 7% : " + this.priceAfter7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  +" บาท",
+                  "หัก ณ ที่จ่าย 3% : " + this.withholding3.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  + " บาท",
+                  "รวมเงินสุทธิ : " + this.totalprice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  + " บาท",
                 ],
                 style: {
                   lineHeight: 1.2,
@@ -716,7 +716,7 @@ export default {
                   fontSize: 10,  
                   body:this.quoDetail.map(function(item,key){
                       let neteach = item.quantity * item.price;
-                      return [{text:key+1},{alignment: "left" ,text: item.name}, {text: item.quantity}, {text: item.price}, {text: neteach}]
+                      return [{text:key+1},{alignment: "left" ,text: item.name}, {text: item.quantity.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }, {text: item.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }, {text: neteach.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }]
                     })    
                 },
                 layout: "headerLineOnly", 
@@ -748,10 +748,10 @@ export default {
                 fontSize: 10,
                 type: "none",
                 ol: [
-                  "ราคาก่อนภาษี : " + this.price.toFixed(2) + " บาท",
-                  "ภาษี 7% : " + this.vat7.toFixed(2) + " บาท",
-                  "ราคาหลังภาษีมูลค่าเพิ่ม 7% : " +this.priceAfter7.toFixed(2) +" บาท",
-                  "รวมเงินสุทธิ : " + this.totalprice.toFixed(2) + " บาท",
+                  "ราคาก่อนภาษี : " + this.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  + " บาท",
+                  "ภาษี 7% : " + this.vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  + " บาท",
+                  "ราคาหลังภาษีมูลค่าเพิ่ม 7% : " +this.priceAfter7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  +" บาท",
+                  "รวมเงินสุทธิ : " + this.totalprice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  + " บาท",
                 ],
                 style: {
                   lineHeight: 1.2,

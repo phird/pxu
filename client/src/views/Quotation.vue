@@ -61,7 +61,7 @@
         <a>{{ statusw }}</a>
       </template>
       <template slot="val" slot-scope="val">
-        <a>{{ val }}</a>
+        <a>{{ val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }}</a>
       </template>
       <template slot="act-1" slot-scope="row">
         <a-menu-item v-if="row.statusquotation == 'Contracted'">

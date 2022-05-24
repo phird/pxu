@@ -43,7 +43,7 @@
 
       <template slot="val" slot-scope="val">
         <div class="val-info">
-          <h6 class="m-0">{{ val }}</h6>
+          <h6 class="m-0">{{ val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }}</h6>
         </div>
       </template>
     </a-table>
