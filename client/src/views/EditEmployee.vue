@@ -1,5 +1,6 @@
 <template>
   <div class="whole-site">
+     <a-alert v-if="success" message="บันทึกข้อมูลสำเร็จ" type="success" show-icon />
     <form @submit.prevent="submitForm(empid)" class="form-for-employee">
       <div class="main-form">
         <div
@@ -102,6 +103,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      success:false,
       empid: "",
       employee: [],
       status: "-",
@@ -159,9 +161,11 @@ export default {
             employeeEmail: this.employeeEmail,
             status: this.status,
           })
-          .then(function () {
-            alert("บันทึกข้อมูลสำเร็จ");
-            history.back();
+          .then(()=> {
+             this.success = true;
+            setTimeout(() => {
+              this.$router.back();
+            }, 2500);
           });
       }
     },

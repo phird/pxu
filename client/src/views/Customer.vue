@@ -142,6 +142,12 @@
         <div class="title-modal">
           <p>CUSTOMER</p>
         </div>
+         <a-alert
+          v-if="success"
+          message="บันทึกข้อมูลสำเร็จ"
+          type="success"
+          show-icon
+        />
         <form @submit.prevent="submitForm()" class="form-for-customer">
           <div class="toggle-type-customer">
             <div class="radio-selected">
@@ -597,8 +603,6 @@ export default {
   },
   data() {
     return {
-      // Active button for the "Projects" table's card header radio button group.
-      projectHeaderBtns: "all",
       customer: [],
       visible: false,
       status: "",
@@ -613,6 +617,7 @@ export default {
       dis: "",
       province: "",
       postcode: "",
+      success: false,
     };
   },
   validations: {
@@ -715,10 +720,11 @@ export default {
             contactEmail: this.contactEmail,
             taxNumber: this.taxNumber,
           })
-          .then(function (e) {
-            console.log(e);
-            alert("บันทึกข้อมูลสำเร็จ");
-            window.location.reload(false);
+          .then(()=> {
+            this.success=true;
+            setTimeout(() => {
+              window.location.reload(false);
+            }, 2500);
           });
       }
     },
