@@ -163,13 +163,6 @@ export default {
             absolutePosition: { x: 20, y: 150 },
           },
         ],
-
-        /* text: "test watermark", */
-
-        /* color: "black", */
-        /* opacity: 0.8, */
-        /* bold: true, */
-        /* italics: false, */
         content: [
           {
             alignment: "justify",
