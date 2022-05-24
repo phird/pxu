@@ -3,6 +3,8 @@
     <!-- Left layput for website  -->
     <div class="left-layout">
       <!-- step pills -->
+      <a-alert v-if="success" message="บันทึกข้อมูลสำเร็จ" type="success" show-icon />
+      <a-alert v-if="nerror" message="โปรดใส่ข้อมูลให้ครบถ้วน" type="error" show-icon />
       <div class="step-pills">
         <div class="step-item" :class="{ active: isOne }" @click="goa(0)">
           <div class="num-pill"><span>1</span></div>
@@ -149,6 +151,8 @@ export default {
       },
       inID: "",
       web: [],
+      success:false,
+      nerror:false,
     };
   },
   methods: {
@@ -208,15 +212,17 @@ export default {
           estatus: this.estatus,
           summernote: this.sumnote,
         })
-        .then(() => {
-          alert("บันทึกข้อมูลสำเร็จ");
-          history.back();
-        });
+        .then(()=>{
+            this.success=true;
+            setTimeout(() => {
+               this.$router.back();
+            }, 2500);
+          });
     },
     submit() {
       console.log(this.sumtodo.total);
       if(this.sumtodo.total==0 || this.sumtodo.customerID=="" || this.sumtodo.quoname=="" || this.sumtodo.dateq==""){
-        alert("can't submit");
+        this.nerror=true;
       }else{
         const requestone = [];
         console.log(this.todos);

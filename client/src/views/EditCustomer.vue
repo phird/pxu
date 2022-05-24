@@ -4,6 +4,7 @@
       <div class="title-modal">
         <p>CUSTOMER</p>
       </div>
+      <a-alert v-if="success" message="บันทึกข้อมูลสำเร็จ" type="success" show-icon />
       <form @submit.prevent="submitForm(cusid)" class="form-for-customer">
         <div class="toggle-type-customer">
           <div class="radio-selected">
@@ -367,6 +368,7 @@ export default {
       dis: "",
       province: "",
       postcode: "",
+      success:false,
       // status: this.customer.status,
       // contactName: this.customer.contactName,
       // contactNumber: this.customer.contactNumber,
@@ -471,9 +473,11 @@ export default {
             contactEmail: this.contactEmail,
             taxNumber: this.taxNumber,
           })
-          .then(function () {
-            alert("บันทึกข้อมูลสำเร็จ");
-            history.back();
+          .then(()=> {
+            this.success = true;
+            setTimeout(() => {
+              this.$router.back();
+            }, 2500);
           });
       }
     },

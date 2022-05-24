@@ -115,6 +115,7 @@
       @ok="handleOk"
     >
       <div>
+        <a-alert v-if="success"  message="บันทึกข้อมูลสำเร็จ" type="success" show-icon />
         <form @submit.prevent="submitForm()">
           <div class="wrapper">
             <div class="left-wrapper">
@@ -274,6 +275,7 @@ export default {
       visible: false,
       customLabels,
       pageOfItems: [],
+      success:false,
       imageName: "default.png",
     };
   },
@@ -357,8 +359,11 @@ export default {
             img: this.imageName,
           })
           .then(() => {
-            alert("บันทึกข้อมูลสำเร็จ");
-            window.location.reload(false);
+            this.success=true;
+            setTimeout(() => {
+              window.location.reload(false);
+            }, 2500);
+        
           });
       }
     },

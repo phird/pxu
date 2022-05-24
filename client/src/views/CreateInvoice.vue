@@ -1,8 +1,11 @@
 <template>
   <div class="whole-site">
     <!-- left layout start here -->
+    
     <div class="left-layout">
       <div class="l-container">
+        <a-alert v-if="nerror" message="โปรดใส่ข้อมูลให้ครบถ้วน" type="error" show-icon />
+        <a-alert v-if="success" message="บันทึกข้อมูลสำเร็จ" type="success" show-icon />
         <b-icon icon="chevron-left" @click="backward"> </b-icon>
         <div class="header">
           <div class="header-top">
@@ -371,6 +374,8 @@ export default {
         accname: "",
         accnum: "",
       },
+      success:false,
+      nerror:false,
     };
   },
   created() {
@@ -465,14 +470,15 @@ export default {
           dateinv: this.dateinv,
         })
         .then(() => {
-          alert("บันทึกข้อมูลสำเร็จ");
-          /* history.back(); */
-          this.$router.go(0);
+          this.success = true;
+            setTimeout(() => {
+              this.$router.back();
+            }, 2500);
         });
     },
     async submit() {
       if(this.newprice!=0 || this.bankID=='' || this.dateinv==''){
-        alert('โปรดใส่ข้อมูลให้ครบถ้วน');
+        this.nerror=true;
       }else{
       if (this.changein) {
         await axios.delete(`http://localhost:5000/scope/${this.inID}`);

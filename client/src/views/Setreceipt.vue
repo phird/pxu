@@ -1,5 +1,7 @@
 <template>
   <div class="whole-site">
+    <a-alert v-if="nerror" message="โปรดใส่ข้อมูลให้ครบถ้วน" type="error" show-icon />
+     <a-alert v-if="success" message="บันทึกข้อมูลสำเร็จ" type="success" show-icon />
     <div class="header-site">
       <b-icon icon="chevron-left" @click="backward"> </b-icon>
     </div>
@@ -69,6 +71,8 @@ export default {
       imgslip: "",
       tempimgslip: "",
       inID: "",
+      success:false,
+      nerror:false,
     };
   },
   created() {
@@ -80,7 +84,10 @@ export default {
       history.back();
     },
     submit() {
-      let formData = new FormData();
+      if(this.imgslip=='' || this.daterec==''){
+        this.nerror=true;
+      }else{
+        let formData = new FormData();
       formData.append("files", this.fileimg);
       axios.post("http://localhost:5000/uploadslip", formData, {});
       axios.post(`http://localhost:5000/invoice/re/changestatus/${this.inID}`);
@@ -90,9 +97,13 @@ export default {
           daterec: this.daterec,
         })
         .then(() => {
-          alert("บันทึกข้อมูลสำเร็จ");
-          history.back();
+          this.success = true;
+            setTimeout(() => {
+              this.$router.back();
+            }, 2500);
         });
+        }
+      
     },
     selectImage() {
       this.$refs.fileInput.click();

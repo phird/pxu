@@ -9,7 +9,14 @@
           <b-icon icon="chevron-left"></b-icon>
         </button>
         <span>แก้ไขธนาคาร</span>
+        
       </div>
+       <a-alert
+          v-if="success"
+          message="บันทึกข้อมูลสำเร็จ"
+          type="success"
+          show-icon
+        />
       <div class="wrapper">
         <div class="left-wrapper">
           <div class="bank-box">
@@ -34,7 +41,6 @@
                 <input type="file" @change="uploadFile" />
               </div> -->
         </div>
-
         <div class="right-wrapper">
           <div class="info-box">
             <div class="field">
@@ -161,13 +167,14 @@ import axios from "axios";
 export default {
   data() {
     return {
+      success: false,
       bID: "",
       bankNameau: "",
       bankName: "",
       bankAccount: "",
       accountName: null,
       status: "-",
-      checked:false,
+      checked: false,
       statustest: "",
       bank: [],
       imageName: "default.png",
@@ -197,10 +204,10 @@ export default {
   },
   methods: {
     checkstatus() {
-      if(this.checked){
-        this.status='default';
-      }else{
-        this.status='-';
+      if (this.checked) {
+        this.status = "default";
+      } else {
+        this.status = "-";
       }
     },
     checkname() {
@@ -255,8 +262,10 @@ export default {
             img: this.imageName,
           })
           .then(() => {
-            alert("บันทึกข้อมูลสำเร็จ");
-            history.back();
+            this.success = true;
+            setTimeout(() => {
+              this.$router.back();
+            }, 2500);
           });
       }
     },
@@ -270,8 +279,8 @@ export default {
         this.accountName = response.data[0].accountName;
         this.statustest = response.data[0].bankstatus;
         this.imageName = response.data[0].img;
-        if(this.statustest=='default'){
-          this.status=this.statustest;
+        if (this.statustest == "default") {
+          this.status = this.statustest;
         }
       } catch (err) {
         console.log(err);

@@ -127,6 +127,7 @@
       @ok="handleOk"
     >
       <div>
+         <a-alert v-if="success" message="บันทึกข้อมูลสำเร็จ" type="success" show-icon />
         <form @submit.prevent="submitForm()" class="form-for-employee">
           <div class="main-form">
             <div class="form-component max-len">
@@ -292,6 +293,7 @@ export default {
       employeeName: "",
       employeeNumber: "",
       employeeEmail: null,
+      success:false,
     };
   },
   created() {
@@ -335,9 +337,11 @@ export default {
             employeeEmail: this.employeeEmail,
             status: this.status,
           })
-          .then(function () {
-            alert("บันทึกข้อมูลสำเร็จ");
-            window.location.reload(false);
+          .then(()=>{
+            this.success=true;
+            setTimeout(() => {
+              window.location.reload(false);
+            }, 2500);
           });
       }
     },

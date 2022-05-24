@@ -2,8 +2,9 @@
   <div class="whole-site">
     <!-- Left layput for website  -->
     <div class="left-layout">
+       <a-alert v-if="success" message="บันทึกข้อมูลสำเร็จ" type="success" show-icon />
       <div style="color: red">
-        ***จำเป็นต้องกำหนดจำนวนใบวางบิลทุกครั้งที่ทำการแก้ไข
+        ***จำเป็นต้องกำหนดค่าใบวางบิลทุกครั้งที่ทำการแก้ไข
       </div>
       <!-- step pills -->
       <div class="step-pills">
@@ -173,6 +174,7 @@ export default {
       inID: "",
       numindex: 0,
       changein: false,
+      success:false,
     };
   },
   methods: {
@@ -227,8 +229,10 @@ export default {
           summernote: this.sumnote,
         })
         .then(() => {
-          alert("บันทึกข้อมูลสำเร็จ");
-          history.back();
+          this.success = true;
+            setTimeout(() => {
+              this.$router.back();
+            }, 2500);
         });
     },
     //   async delq(){
