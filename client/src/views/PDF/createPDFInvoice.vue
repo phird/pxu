@@ -58,8 +58,8 @@ export default {
         this.invoiceDetail = response2.data;
         console.log(this.invoice);
         console.log(this.invoiceDetail);
-        this.invDate =  moment(String(this.invoice.dateinvoice)).add(543,'year').format(
-          "YYYY-MM-DD"
+        this.invDate =  moment(String(this.invoice.dateinvoice)).format(
+          "DD/MM/YYYY"
         );
 
 
@@ -204,7 +204,7 @@ export default {
                 ol: [
                   "เลขที่: " + "INV"+ this.invoice.invoiceID,
                   "วันที่: " + moment(String(this.invoice.dateinvoice)).format(
-                      "DD-MM-YYYY"
+                      "DD/MM/YYYY"
                     ),
                   "ผู้ขาย: " + this.invoice.employeeName,
                   "เบอร์: " + this.invoice.employeeNumber,
