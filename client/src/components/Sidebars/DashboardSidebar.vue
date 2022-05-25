@@ -19,7 +19,7 @@
   >
     <div class="brand">
       <div class="brand-pic">
-        <img :src="`http://localhost:5000/logo/logo.png`" alt="" />
+        <img :src="`https://pxu-server.herokuapp.com/logo/logo.png`" alt="" />
       </div>
       <div class="brand-name">
         <span style="font-size: 20px; margin-left: auto; margin-right: auto">
@@ -247,7 +247,7 @@ export default {
   },
   methods: {
     async getweb() {
-      const response = await axios.get(`http://localhost:5000/website/img`);
+      const response = await axios.get(`https://pxu-server.herokuapp.com/website/img`);
       this.name = response.data[0].websiteName;
       this.logo = response.data[0].logo;
       console.log(this.logo);
