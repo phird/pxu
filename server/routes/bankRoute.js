@@ -41,7 +41,7 @@ router.post('/', (req, res) => {
 });
 router.delete('/:id', (req, res) => {
     const id = req.params.id;
-    const sqlDelete = "UPDATE bank set delstatus='del' WHERE bankID=?";
+    const sqlDelete = "UPDATE bank set delstatus='del',bankstatus='-' WHERE bankID=?";
     db.query(sqlDelete, [id], (err, result) => {
         console.log(err);
     })

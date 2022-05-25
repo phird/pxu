@@ -4,7 +4,7 @@ import db from "../config/database.js";
 const router = express.Router();
 
 router.get('/', (req, res)=> {
-    const sqlSelect = "SELECT * FROM customer order by customerID DESC"
+    const sqlSelect = "SELECT * FROM customer WHERE delstatus!='del' order by customerID DESC"
     db.query(sqlSelect, (err, result) => {
         // console.log(result);
         res.send(result);
@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const id = req.params.id;
-    const sqlDelete = "DELETE FROM customer WHERE customerID=?";
+    const sqlDelete = "UPDATE customer SET delstatus='del' WHERE customerID=?";
     db.query(sqlDelete, [id], (err, result) => {
         console.log(err);
     })

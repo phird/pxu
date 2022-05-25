@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', (req, res)=> {
 
-    const sqlSelect = "SELECT * FROM employee order by employeestatus DESC,employeeID DESC"
+    const sqlSelect = "SELECT * FROM employee WHERE delstatus!='del' order by employeestatus DESC,employeeID DESC"
     db.query(sqlSelect, (err, result) => {
         // console.log(result);
         res.send(result);
@@ -25,7 +25,7 @@ router.get('/name', (req, res)=> {
 
 router.delete('/:id', (req, res) => {
     const id = req.params.id;
-    const sqlDelete = "DELETE FROM employee WHERE employeeID=?";
+    const sqlDelete = "UPDATE employee SET delstatus='del',employeestatus='-' WHERE employeeID=?";
     db.query(sqlDelete, [id], (err, result) => {
         console.log(err);
     })
