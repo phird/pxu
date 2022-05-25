@@ -54,7 +54,7 @@
           :to="`/createInvoice/${id.invoiceID}`"
           target="_blank"
           style="text-decoration: none"
-          v-if="id.dateinvoice != '0000-00-00' && id.bankID != '0' "
+          v-if="id.dateinvoice != '' && id.bankID != '0' "
         >
           <b-icon
             icon="file-earmark-pdf"
@@ -87,7 +87,7 @@
                 <a style="text-decoration: none">แก้ไขใบวางบิล</a>
               </router-link>
             </a-menu-item>
-            <a-menu-item>
+            <a-menu-item v-if="id.dateinvoice != '' && id.bankID != '0' ">
               <router-link
                 :to="`/receipt/${id.invoiceID}`"
                 style="text-decoration: none"

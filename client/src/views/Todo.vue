@@ -75,7 +75,6 @@
                   v-model="sumtodo.dateq"
                   valueType="format"
                   :format = "thFormat"
-  
                 ></date-picker>
               </span>
             </div>
@@ -371,11 +370,11 @@ export default {
     return {
       thFormat: {
         stringify: (date) => {
-          return date ? moment(date).add(543, 'year').format('YYYY-MM-DD') : null
+          return date ? moment(date).add(543, 'year').format('DD/MM/YYYY') : null
         },
         parse: (dateqq) => {
 
-          return dateqq ? moment(dateqq, 'YYYY-MM-DD').subtract(543, 'year').toDate() : null
+          return dateqq ? moment(dateqq, 'DD-MM-YYYY').subtract(543, 'year').toDate() : null
         }
       }, 
       //   statusvat:'1',

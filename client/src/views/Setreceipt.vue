@@ -56,12 +56,12 @@ export default {
       thFormat: {
         stringify: (date) => {
           return date
-            ? moment(date).add(543, "year").format("YYYY-MM-DD")
+            ? moment(date).add(543, "year").format('DD/MM/YYYY')
             : null;
         },
         parse: (daterec) => {
           return daterec
-            ? moment(daterec, "YYYY-MM-DD").subtract(543, "year").toDate()
+            ? moment(daterec, 'DD/MM/YYYY').subtract(543, "year").toDate()
             : null;
         },
       },
@@ -128,9 +128,12 @@ export default {
         const response = await axios.get(
           `https://pxu-server.herokuapp.com/invoice/re/${id}`
         );
-        this.daterec = moment(String(response.data[0].datereceipt)).format(
-          "YYYY-MM-DD"
-        );
+        if (response.data[0].datereceipt == '') {
+          var today = new Date();
+          this.daterec = moment(today).add(543, 'year').format('DD/MM/YYYY');
+        }else{
+          this.daterec = response.data[0].datereceipt;
+        }
         this.imgslip = response.data[0].imgslip;
         this.tempimgslip = response.data[0].imgslip;
       } catch (err) {

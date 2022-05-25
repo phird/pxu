@@ -1,11 +1,21 @@
 <template>
   <div class="whole-site">
     <!-- left layout start here -->
-    
+
     <div class="left-layout">
       <div class="l-container">
-        <a-alert v-if="nerror" message="โปรดใส่ข้อมูลให้ครบถ้วน" type="error" show-icon />
-        <a-alert v-if="success" message="บันทึกข้อมูลสำเร็จ" type="success" show-icon />
+        <a-alert
+          v-if="nerror"
+          message="โปรดใส่ข้อมูลให้ครบถ้วน"
+          type="error"
+          show-icon
+        />
+        <a-alert
+          v-if="success"
+          message="บันทึกข้อมูลสำเร็จ"
+          type="success"
+          show-icon
+        />
         <b-icon icon="chevron-left" @click="backward"> </b-icon>
         <div class="header">
           <div class="header-top">
@@ -214,23 +224,63 @@
                 v-if="invoice.customerstatus == 'นิติบุคคล'"
                 class="ps-right-box"
               >
-                <span>รวมเป็นเงิน {{total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }} บาท</span>
-                <span>ภาษี 7% {{ vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</span>
-                <span>หัก ณ ที่จ่าย 3% {{ tax3.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</span>
+                <span
+                  >รวมเป็นเงิน
+                  {{
+                    total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
+                  }}
+                  บาท</span
+                >
+                <span
+                  >ภาษี 7%
+                  {{
+                    vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
+                  }}
+                  บาท</span
+                >
+                <span
+                  >หัก ณ ที่จ่าย 3%
+                  {{
+                    tax3.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
+                  }}
+                  บาท</span
+                >
                 <span
                   >จำนวนเงินรวมทั้งสิ้น
-                  {{ invoice.priceINV.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</span
+                  {{
+                    invoice.priceINV
+                      .toFixed(2)
+                      .replace(/\d(?=(\d{3})+\.)/g, "$&,")
+                  }}
+                  บาท</span
                 >
               </div>
               <div
                 v-if="invoice.customerstatus == 'บุคคลธรรมดา'"
                 class="ps-right-box"
               >
-                <span>รวมเป็นเงิน {{ total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</span>
-                <span>ภาษี 7% {{ vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</span>
+                <span
+                  >รวมเป็นเงิน
+                  {{
+                    total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
+                  }}
+                  บาท</span
+                >
+                <span
+                  >ภาษี 7%
+                  {{
+                    vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
+                  }}
+                  บาท</span
+                >
                 <span
                   >จำนวนเงินรวมทั้งสิ้น
-                  {{ invoice.priceINV.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</span
+                  {{
+                    invoice.priceINV
+                      .toFixed(2)
+                      .replace(/\d(?=(\d{3})+\.)/g, "$&,")
+                  }}
+                  บาท</span
                 >
               </div>
             </div>
@@ -248,9 +298,7 @@
             <div class="s-container">
               <!-- flex-d => column -->
               <div class="c-stamp">
-                <span>
-
-                </span>
+                <span> </span>
                 <span> ในนาม {{ invoice.wcompanyName }}</span>
               </div>
               <div class="sign">
@@ -343,12 +391,16 @@ export default {
     return {
       thFormat: {
         stringify: (date) => {
-          return date ? moment(date).add(543, 'year').format('YYYY-MM-DD') : null
+          return date
+            ? moment(date).add(543, "year").format("DD/MM/YYYY")
+            : null;
         },
         parse: (dateinv) => {
-          return dateinv ? moment(dateinv, 'YYYY-MM-DD').subtract(543, 'year').toDate() : null
-        }
-      }, 
+          return dateinv
+            ? moment(dateinv, "DD/MM/YYYY").subtract(543, "year").toDate()
+            : null;
+        },
+      },
       inID: "",
       invoice: [],
       //
@@ -360,10 +412,10 @@ export default {
       tempNameTodo: "",
       tempquantityTodo: "",
       temppriceTodo: "",
-      tempprice:0,  
+      tempprice: 0,
       //
       bank: [],
-      dateinv: '',
+      dateinv: "",
       vat7: 0,
       tax3: 0,
       total: 0,
@@ -374,8 +426,8 @@ export default {
         accname: "",
         accnum: "",
       },
-      success:false,
-      nerror:false,
+      success: false,
+      nerror: false,
     };
   },
   created() {
@@ -393,17 +445,17 @@ export default {
       this.bankch.accname = ac;
       this.bankch.accnum = an;
     },
-    addTodo() { 
+    addTodo() {
       if (this.newTodo.length === 0) return;
       if (this.indexEditTodo === null) {
-        if(this.newprice>this.tempprice) return;
+        if (this.newprice > this.tempprice) return;
         this.todos.push({
           name: this.newTodo,
           quantity: this.newquantity,
           price: this.newprice,
         });
       } else {
-        if(this.newprice>this.tempprice) return;
+        if (this.newprice > this.tempprice) return;
         this.todos[this.indexEditTodo].name = this.newTodo;
         this.todos[this.indexEditTodo].quantity = this.newquantity;
         this.todos[this.indexEditTodo].price = this.newprice;
@@ -411,7 +463,7 @@ export default {
       }
       this.newTodo = "";
       this.newquantity = 1;
-      this.newprice = (this.tempprice-this.newprice).toFixed(2);
+      this.newprice = (this.tempprice - this.newprice).toFixed(2);
       this.tempprice = this.newprice;
       this.changein = true;
     },
@@ -419,7 +471,7 @@ export default {
       this.newTodo = this.todos[index].name;
       this.newquantity = this.todos[index].quantity;
       this.newprice = this.todos[index].price;
-      this.tempprice = Number(this.tempprice)+Number(this.todos[index].price);
+      this.tempprice = Number(this.tempprice) + Number(this.todos[index].price);
       this.indexEditTodo = index;
       this.changein = true;
     },
@@ -430,7 +482,7 @@ export default {
       this.todos.splice(index, 1);
       this.newTodo = "";
       this.newquantity = 1;
-      this.newprice = Number(this.tempprice)+Number(this.newprice);
+      this.newprice = Number(this.tempprice) + Number(this.newprice);
       this.tempprice = this.newprice;
       this.changein = true;
     },
@@ -471,31 +523,37 @@ export default {
         })
         .then(() => {
           this.success = true;
-            setTimeout(() => {
-              this.$router.back();
-            }, 500);
+          setTimeout(() => {
+            this.$router.back();
+          }, 500);
         });
     },
     async submit() {
-      if(this.newprice!=0 || this.bankID=='' || this.dateinv==''){
-        this.nerror=true;
-      }else{
-      if (this.changein) {
-        await axios.delete(`https://pxu-server.herokuapp.com/scope/${this.inID}`);
-        const requestone = [];
-        for (let i = 0; i < this.todos.length; i++) {
-          requestone[i] = axios.post("https://pxu-server.herokuapp.com/scope", {
-            qID: this.inID,
-            name: this.todos[i].name,
-            price: this.todos[i].price,
-            quantity: this.todos[i].quantity,
-          });
-        }
-        axios.all([requestone]).then(this.subinv());
+      console.log(this.dateinv);
+      if (this.newprice != 0 || this.bankID == "" || this.dateinv == null) {
+        this.nerror = true;
       } else {
-        this.subinv();
+        if (this.changein) {
+          await axios.delete(
+            `https://pxu-server.herokuapp.com/scope/${this.inID}`
+          );
+          const requestone = [];
+          for (let i = 0; i < this.todos.length; i++) {
+            requestone[i] = axios.post(
+              "https://pxu-server.herokuapp.com/scope",
+              {
+                qID: this.inID,
+                name: this.todos[i].name,
+                price: this.todos[i].price,
+                quantity: this.todos[i].quantity,
+              }
+            );
+          }
+          axios.all([requestone]).then(this.subinv());
+        } else {
+          this.subinv();
+        }
       }
-    }
     },
     async getinv(id) {
       try {
@@ -508,34 +566,38 @@ export default {
             this.total = this.invoice.totalpriceinv;
             this.vat7 = this.total * 0.07;
             this.tax3 = this.total * 0.03;
-            this.newprice=this.total.toFixed(2);
-            this.tempprice=this.total.toFixed(2);
+            this.newprice = this.total.toFixed(2);
+            this.tempprice = this.total.toFixed(2);
           } else if (this.invoice.vatstatus == "vatใน") {
             this.total = (this.invoice.totalpriceinv * 100) / 107;
             this.vat7 = this.invoice.totalpriceinv - this.total;
             this.tax3 = this.total * 0.03;
-            this.newprice=this.invoice.totalpriceinv.toFixed(2);
-            this.tempprice=this.invoice.totalpriceinv.toFixed(2);
+            this.newprice = this.invoice.totalpriceinv.toFixed(2);
+            this.tempprice = this.invoice.totalpriceinv.toFixed(2);
           }
         } else {
           if (this.invoice.vatstatus == "vatนอก") {
-            this.total = this.invoice.totalpriceinv;    
+            this.total = this.invoice.totalpriceinv;
             this.vat7 = this.total * 0.07;
             this.tax3 = 0;
-            this.newprice=this.total.toFixed(2);
-            this.tempprice=this.total.toFixed(2);
+            this.newprice = this.total.toFixed(2);
+            this.tempprice = this.total.toFixed(2);
           } else if (this.invoice.vatstatus == "vatใน") {
             this.total = (this.invoice.totalpriceinv * 100) / 107;
             this.vat7 = this.invoice.totalpriceinv - this.total;
             this.tax3 = 0;
-            this.newprice=this.invoice.totalpriceinv.toFixed(2);
-            this.tempprice=this.invoice.totalpriceinv.toFixed(2);
+            this.newprice = this.invoice.totalpriceinv.toFixed(2);
+            this.tempprice = this.invoice.totalpriceinv.toFixed(2);
           }
         }
-
-        this.dateinv = moment(
-          String(this.invoice.dateinvoice)
-          ).format("YYYY-MM-DD");
+        console.log('this.invoice.dateinv');
+        console.log(this.invoice.dateinvoice);
+        if (this.invoice.dateinvoice == '') {
+          var today = new Date();
+          this.dateinv = moment(today).add(543, 'year').format('DD/MM/YYYY');
+        }else{
+          this.dateinv = this.invoice.dateinvoice;
+        }
         if (this.invoice.bankID != "0") {
           this.bankID = this.invoice.bankID;
           this.getbankid(this.bankID);
@@ -548,7 +610,9 @@ export default {
     },
     async getbank() {
       try {
-        const response = await axios.get(`https://pxu-server.herokuapp.com/bank`);
+        const response = await axios.get(
+          `https://pxu-server.herokuapp.com/bank`
+        );
         this.bank = response.data;
         console.log(this.bank);
       } catch (err) {
@@ -557,11 +621,13 @@ export default {
     },
     async getscope(id) {
       try {
-        const response = await axios.get(`https://pxu-server.herokuapp.com/scope/${id}`);
+        const response = await axios.get(
+          `https://pxu-server.herokuapp.com/scope/${id}`
+        );
         this.todos = response.data;
-        if(this.todos.length!=0){
-          this.newprice=0;
-          this.tempprice=this.newprice;
+        if (this.todos.length != 0) {
+          this.newprice = 0;
+          this.tempprice = this.newprice;
         }
         console.log(this.todos);
       } catch (err) {
@@ -570,7 +636,9 @@ export default {
     },
     async getbankid(id) {
       try {
-        const response = await axios.get(`https://pxu-server.herokuapp.com/bank/${id}`);
+        const response = await axios.get(
+          `https://pxu-server.herokuapp.com/bank/${id}`
+        );
         this.bankch.bname = response.data[0].bankName;
         this.bankch.accname = response.data[0].accountName;
         this.bankch.accnum = response.data[0].bankAccount;

@@ -291,6 +291,10 @@ export default {
         } else {
           this.qID = tous + "00" + (response.data[0].num + 1);
         }
+      
+          var today = new Date();
+          this.sumtodo.dateq = moment(today).add(543, 'year').format('DD/MM/YYYY');
+
       } catch (err) {
         console.log(err);
       }

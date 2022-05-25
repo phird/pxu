@@ -304,9 +304,7 @@ export default {
         this.sumtodo.quoname = this.quotation.quotationName;
         this.sumtodo.customerID = this.quotation.customerID;
         this.sumtodo.employeeID = this.quotation.employeeID;
-        this.sumtodo.dateq = moment(
-          String(this.quotation.datequotation)
-        ).format("YYYY-MM-DD");
+        this.sumtodo.dateq = this.quotation.datequotation;
         this.sumnote = this.quotation.summernote;
         this.sumtodo.noteq = this.quotation.notequotation;
         this.sumtodo.payment = this.quotation.paymentPrice;

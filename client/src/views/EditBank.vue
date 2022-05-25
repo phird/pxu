@@ -289,7 +289,9 @@ export default {
     deletebank(bID) {
       if (window.confirm("คุณต้องการลบธนาคารนี้ใช่หรือไม่ ?")) {
         axios.delete(`https://pxu-server.herokuapp.com/bank/${bID}`);
+        setTimeout(() => {
         history.back();
+         }, 500);
       }
     },
   },
