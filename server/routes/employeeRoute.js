@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
     const employeeEmail = req.body.employeeEmail
     const status = req.body.status
 
-    const sqlInsert = "INSERT INTO employee (role,employeeName,employeeNumber,employeeEmail,employeestatus) VALUES (?,?,?,?,?);"
+    const sqlInsert = "INSERT INTO employee (role,employeeName,employeeNumber,employeeEmail,employeestatus,delstatus) VALUES (?,?,?,?,?,'-');"
     
     if(status=='default'){
         const sqlsearch = "UPDATE employee set employeestatus='-' WHERE employeestatus='default';"
