@@ -3,7 +3,7 @@
           <!---- Query default banner of bank account here ---->
             <div class="profile-banner">
                 <img
-                    :src="`http://localhost:5000/bank/${bank.img}`"  
+                    :src="`https://pxu-server.herokuapp.com/bank/${bank.img}`"  
                     alt="Bank Cover Photo"
                 />
             </div>
@@ -35,7 +35,7 @@ export default {
   },
   methods:{
     getbank(){
-      axios.get("http://localhost:5000/carddash/bank",{
+      axios.get("https://pxu-server.herokuapp.com/carddash/bank",{
 
       }).then((res)=>{
         this.bank=res.data[0];
