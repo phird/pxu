@@ -18,7 +18,7 @@ import pdfMake from "pdfmake";
 import pdfFonts from "../../assets/custom-fonts.js"; // 1. import custom fonts
 import axios from "axios";
 import moment from "moment";
-let imgText = ""; 
+let imgText = "";
 export default {
   name: "App",
   data() {
@@ -37,34 +37,32 @@ export default {
   },
   create() {
     this.quoID = this.$route.params.id;
-
   },
 
   mounted() {
-    this.getBase64FromUrl('https://pxu-server.herokuapp.com/stamp/stamp.png').then(
-      function(data){
-        /* alert(data) */
-        imgText = data;
-        /* alert(data) */
-      }
-    );
+    this.getBase64FromUrl(
+      "https://pxu-server.herokuapp.com/stamp/stamp.png"
+    ).then(function (data) {
+      /* alert(data) */
+      imgText = data;
+      /* alert(data) */
+    });
     this.export();
-   
-
   },
   methods: {
-    async getBase64FromUrl(url){
+    async getBase64FromUrl(url) {
       const data = await fetch(url);
       const blob = await data.blob();
-      try{
+      try {
         return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(blob); 
-            reader.onloadend = () => {
-              const base64data = reader.result;   
-              resolve(base64data);
-            }
-      });}catch(err){
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = () => {
+            const base64data = reader.result;
+            resolve(base64data);
+          };
+        });
+      } catch (err) {
         console.log(err);
       }
     },
@@ -78,17 +76,20 @@ export default {
           `https://pxu-server.herokuapp.com/quotation/quo/${this.quoID}`
         );
         const response2 = await axios.get(
-           `https://pxu-server.herokuapp.com/quotation/quo/detail/${this.quoID}`
+          `https://pxu-server.herokuapp.com/quotation/quo/detail/${this.quoID}`
         );
         console.log(response.data[0]);
         this.quotation = response.data[0];
         this.quoDetail = response2.data;
-        console.log(this.quoDetail)
-/*      console.log("data from response");
+        console.log(this.quoDetail);
+        /*      console.log("data from response");
         console.log(this.quotation.wcompanyName); */
         this.quoDate = this.quotation.datequotation;
         /* นิติบุคคคล */
-        if (this.quotation.customerstatus == "นิติบุคคล" && this.quotation.vatstatus == "vatนอก") {
+        if (
+          this.quotation.customerstatus == "นิติบุคคล" &&
+          this.quotation.vatstatus == "vatนอก"
+        ) {
           console.log("niti outvat");
           this.price = this.quotation.totalpricequo;
           this.totalprice = this.price;
@@ -96,34 +97,41 @@ export default {
           this.priceAfter7 = this.totalprice + this.vat7;
           this.withholding3 = this.price * 0.03;
           this.totalprice = this.priceAfter7 - this.withholding3;
-        } else if(this.quotation.customerstatus == "นิติบุคคล" && this.quotation.vatstatus == "vatใน") {
+        } else if (
+          this.quotation.customerstatus == "นิติบุคคล" &&
+          this.quotation.vatstatus == "vatใน"
+        ) {
           console.log("niti innervat");
           /* vat ใน */
           this.totalprice = this.quotation.totalpricequo;
-          this.vat7 = this.totalprice-(this.totalprice * 100)/107;
+          this.vat7 = this.totalprice - (this.totalprice * 100) / 107;
           this.price = this.totalprice - this.vat7;
           this.priceAfter7 = this.totalprice;
           /* this.priceAfter7 = this.totalprice + this.vat7; */
           this.withholding3 = this.price * 0.03;
           this.totalprice = this.quotation.paymentPrice;
-
-
-        } else if(this.quotation.customerstatus == "บุคคลธรรมดา" && this.quotation.vatstatus == "vatนอก"){
+        } else if (
+          this.quotation.customerstatus == "บุคคลธรรมดา" &&
+          this.quotation.vatstatus == "vatนอก"
+        ) {
           console.log("normal outervat");
           this.price = this.quotation.totalpricequo;
           this.totalprice = this.price;
           this.vat7 = this.totalprice * 0.07;
           this.priceAfter7 = this.totalprice + this.vat7;
-          this.totalprice = this.priceAfter7 ;
-        }else if(this.quotation.customerstatus == "บุคคลธรรมดา" && this.quotation.vatstatus == "vatใน") {
+          this.totalprice = this.priceAfter7;
+        } else if (
+          this.quotation.customerstatus == "บุคคลธรรมดา" &&
+          this.quotation.vatstatus == "vatใน"
+        ) {
           /* vat ใน */
           console.log("niti innervat");
           this.totalprice = this.quotation.totalpricequo;
-          this.vat7 = this.totalprice-(this.totalprice * 100)/107;
+          this.vat7 = this.totalprice - (this.totalprice * 100) / 107;
           this.price = this.totalprice - this.vat7;
           this.priceAfter7 = this.totalprice;
           this.totalprice = this.quotation.paymentPrice;
-        }else{
+        } else {
           alert(" something went wrong ! please check quotation's detail ");
         }
       } catch (err) {
@@ -190,7 +198,7 @@ export default {
                 text: [
                   this.quotation.wcompanyName +
                     "\nที่อยู่: " +
-                    /* this.comAddr */ this.quotation.address +
+                     this.quotation.address +
                     "ต." +
                     this.quotation.subdistrict +
                     "อ." +
@@ -218,9 +226,7 @@ export default {
                 type: "none",
                 ol: [
                   "เลขที่: " + "QA" + this.quotation.quotationID,
-                  "วันที่: " +
-                    this.quotation.datequotation
-                  ,
+                  "วันที่: " + this.quotation.datequotation,
                   "ผู้ขาย: " + this.quotation.employeeName,
                   "เบอร์: " + this.quotation.employeeNumber,
                 ],
@@ -280,7 +286,6 @@ export default {
           detail section place here 
           ============================================ */
           {
-           
             alignment: "center",
             columns: [
               {
@@ -294,25 +299,25 @@ export default {
                     /* table header */
                     [
                       {
-                        fontSize: 10,                       
+                        fontSize: 10,
                         fillColor: "#4E4D4D",
                         text: "#",
                         color: "white",
                       },
                       {
-                        fontSize: 10,                       
+                        fontSize: 10,
                         fillColor: "#4E4D4D",
                         color: "white",
                         text: "รายละเอียด",
                       },
                       {
-                        fontSize: 10,                        
+                        fontSize: 10,
                         fillColor: "#4E4D4D",
                         text: "จำนวน",
                         color: "white",
                       },
                       {
-                        fontSize: 10,                        
+                        fontSize: 10,
                         fillColor: "#4E4D4D",
                         text: "ราคาต่อหน่วย",
                         color: "white",
@@ -327,36 +332,64 @@ export default {
                     /* here where to put data  */
                   ],
                 },
-                layout: "lightHorizontalLines"
+                layout: "lightHorizontalLines",
               },
             ],
             style: "lineSpacing3",
-          } ,
+          },
           {
-            margin:[0, -40, 0, 0],
+            margin: [0, -40, 0, 0],
             alignment: "center",
             columns: [
               {
                 style: "tableExample",
                 alignment: "center",
+
                 table: {
                   widths: [30, "*", 30, 100, 100],
-                  fontSize: 10,  
-                  body:this.quoDetail.map(function(item,key){
-                      let neteach = item.quantity * item.price;
-                      return [{text:key+1},{alignment: "left", text: item.name}, {text: item.quantity.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }, {text: item.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }, {text: neteach.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }]
-                    })    
+                  fontSize: 10,
+                  body: this.quoDetail.map(function (item, key) {
+                    let neteach = item.quantity * item.price;
+                    return [
+                      {
+                        fillColor: "#eeeeee",
+                        text: key + 1,
+                      },
+                      {
+                        fillColor: "#eeeeee",
+                        alignment: "left",
+                        text: item.name,
+                      },
+                      {
+                        fillColor: "#eeeeee",
+                        text: item.quantity
+                          .toFixed(2)
+                          .replace(/\d(?=(\d{3})+\.)/g, "$&,"),
+                      },
+                      {
+                        fillColor: "#eeeeee",
+                        text: item.price
+                          .toFixed(2)
+                          .replace(/\d(?=(\d{3})+\.)/g, "$&,"),
+                      },
+                      {
+                        fillColor: "#eeeeee",
+                        text: neteach
+                          .toFixed(2)
+                          .replace(/\d(?=(\d{3})+\.)/g, "$&,"),
+                      },
+                    ];
+                  }),
                 },
-                layout: "headerLineOnly", 
+                layout: "headerLineOnly",
               },
-            
             ],
             style: "lineSpacing3",
-          } ,
+          },
           /* ============================================
                       detail section end here 
           ============================================ */
-        
+
           /* ============================================
                       Payment section place here 
           ============================================ */
@@ -368,7 +401,14 @@ export default {
                 alignment: "center",
                 fontSize: 10,
                 bold: false,
-                text: " ( " + this.ThaiBaht(this.totalprice.toFixed(2)) + " ) "  ,
+                text: [
+                  {text: " ( " + this.ThaiBaht(this.totalprice.toFixed(2)) + " ) "},
+                  {alignment:"center",text: "\n\n"+ "note: " + this.quotation.notequotation },
+                ],
+              },
+              {
+                text: " ",
+                width: 10,
               },
               {
                 width: "*",
@@ -376,11 +416,30 @@ export default {
                 fontSize: 10,
                 type: "none",
                 ol: [
-                  "ราคาก่อนภาษี : " + this.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  + " บาท",
-                  "ภาษี 7% : " + this.vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  + " บาท",
-                  "ราคาหลังภาษีมูลค่าเพิ่ม 7% : " + this.priceAfter7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  +" บาท",
-                  "หัก ณ ที่จ่าย 3% : " + this.withholding3.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  + " บาท",
-                  "รวมเงินสุทธิ : " + this.totalprice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  + " บาท",
+                  "ราคาก่อนภาษี :" ,
+                  "ภาษี 7% :",
+                  "ราคาหลังภาษีมูลค่าเพิ่ม 7% :",
+                  "หัก ณ ที่จ่าย 3% :",
+                  "รวมเงินสุทธิ :",
+                ],
+                style: {
+                  lineHeight: 1.2,
+                  bold: false,
+                  border: [false, false, false, true],
+                },
+              },
+              {
+                width: "auto",
+                alignment: "right",
+                fontSize: 10,
+                type: "none",
+                ol: [
+                  this.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +" บาท",
+                  this.vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +" บาท",
+                  this.priceAfter7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +" บาท",
+                  ,
+                  this.withholding3.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +" บาท",
+                  this.totalprice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +" บาท",
                 ],
                 style: {
                   lineHeight: 1.2,
@@ -422,15 +481,13 @@ export default {
                     bold: true,
                   },
                   {
-                    text:
-                      "\n" +
-                     this.quotation.datequotation,
+                    text: "\n" + this.quotation.datequotation,
                   },
                 ],
               },
               {
                 width: "*",
-                text: " "
+                text: " ",
               },
               {
                 width: "auto",
@@ -455,9 +512,7 @@ export default {
                     bold: true,
                   },
                   {
-                    text:
-                      "\n" +
-                     this.quotation.datequotation,
+                    text: "\n" + this.quotation.datequotation,
                   },
                 ],
                 style: {
@@ -517,9 +572,7 @@ export default {
         },
       };
 
-
-
-      const normal ={
+      const normal = {
         pageSize: "A4",
         background: [
           {
@@ -559,7 +612,7 @@ export default {
                 text: [
                   this.quotation.wcompanyName +
                     "\nที่อยู่: " +
-                    /* this.comAddr */ this.quotation.address +
+                    this.quotation.address +
                     "ต." +
                     this.quotation.subdistrict +
                     "อ." +
@@ -588,9 +641,7 @@ export default {
                 ol: [
                   "เลขที่: " + "QA" + this.quotation.quotationID,
                   "วันที่: " +
-                    moment(String(this.quotation.datequotation)).format(
-                      "DD-MM-YYYY"
-                    ),
+                    this.quotation.datequotation,
                   "ผู้ขาย: " + this.quotation.employeeName,
                   "เบอร์: " + this.quotation.employeeNumber,
                 ],
@@ -650,7 +701,6 @@ export default {
           detail section place here 
           ============================================ */
           {
-           
             alignment: "center",
             columns: [
               {
@@ -664,25 +714,25 @@ export default {
                     /* table header */
                     [
                       {
-                        fontSize: 10,                       
+                        fontSize: 10,
                         fillColor: "#4E4D4D",
                         text: "#",
                         color: "white",
                       },
                       {
-                        fontSize: 10,                       
+                        fontSize: 10,
                         fillColor: "#4E4D4D",
                         color: "white",
                         text: "รายละเอียด",
                       },
                       {
-                        fontSize: 10,                        
+                        fontSize: 10,
                         fillColor: "#4E4D4D",
                         text: "จำนวน",
                         color: "white",
                       },
                       {
-                        fontSize: 10,                        
+                        fontSize: 10,
                         fillColor: "#4E4D4D",
                         text: "ราคาต่อหน่วย",
                         color: "white",
@@ -697,13 +747,13 @@ export default {
                     /* here where to put data  */
                   ],
                 },
-                layout: "lightHorizontalLines"
+                layout: "lightHorizontalLines",
               },
             ],
             style: "lineSpacing3",
-          } ,
+          },
           {
-            margin:[0, -40, 0, 0],
+            margin: [0, -40, 0, 0],
             alignment: "center",
             columns: [
               {
@@ -711,22 +761,49 @@ export default {
                 alignment: "center",
                 table: {
                   widths: [30, "*", 30, 100, 100],
-                  fontSize: 10,  
-                  body:this.quoDetail.map(function(item,key){
-                      let neteach = item.quantity * item.price;
-                      return [{text:key+1},{alignment: "left" ,text: item.name}, {text: item.quantity.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }, {text: item.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }, {text: neteach.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }]
-                    })    
+                  fontSize: 10,
+                  body: this.quoDetail.map(function (item, key) {
+                    let neteach = item.quantity * item.price;
+                    return [
+                      {
+                        fillColor: "#eeeeee",
+                        text: key + 1,
+                      },
+                      {
+                        fillColor: "#eeeeee",
+                        alignment: "left",
+                        text: item.name,
+                      },
+                      {
+                        fillColor: "#eeeeee",
+                        text: item.quantity
+                          .toFixed(2)
+                          .replace(/\d(?=(\d{3})+\.)/g, "$&,"),
+                      },
+                      {
+                        fillColor: "#eeeeee",
+                        text: item.price
+                          .toFixed(2)
+                          .replace(/\d(?=(\d{3})+\.)/g, "$&,"),
+                      },
+                      {
+                        fillColor: "#eeeeee",
+                        text: neteach
+                          .toFixed(2)
+                          .replace(/\d(?=(\d{3})+\.)/g, "$&,"),
+                      },
+                    ];
+                  }),
                 },
-                layout: "headerLineOnly", 
+                layout: "headerLineOnly",
               },
-            
             ],
             style: "lineSpacing3",
-          } ,
+          },
           /* ============================================
                       detail section end here 
           ============================================ */
-        
+
           /* ============================================
                       Payment section place here 
           ============================================ */
@@ -738,7 +815,10 @@ export default {
                 alignment: "center",
                 fontSize: 10,
                 bold: false,
-                text: " ( " + this.ThaiBaht(this.totalprice.toFixed(2)) + " ) "  ,
+               text: [
+                  {text: " ( " + this.ThaiBaht(this.totalprice.toFixed(2)) + " ) "},
+                  {alignment:"center",text: "\n\n"+ "note: " + this.quotation.notequotation },
+                ],
               },
               {
                 width: "*",
@@ -746,10 +826,33 @@ export default {
                 fontSize: 10,
                 type: "none",
                 ol: [
-                  "ราคาก่อนภาษี : " + this.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  + " บาท",
-                  "ภาษี 7% : " + this.vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  + " บาท",
-                  "ราคาหลังภาษีมูลค่าเพิ่ม 7% : " +this.priceAfter7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  +" บาท",
-                  "รวมเงินสุทธิ : " + this.totalprice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  + " บาท",
+                  "ราคาก่อนภาษี :",
+                  "ภาษี 7% :",
+                  "ราคาหลังภาษีมูลค่าเพิ่ม 7% :",
+                  "รวมเงินสุทธิ :",
+                ],
+                style: {
+                  lineHeight: 1.2,
+                  bold: false,
+                  border: [false, false, false, true],
+                },
+              },
+              {
+                width: "auto",
+                alignment: "right",
+                fontSize: 10,
+                type: "none",
+                ol: [
+                  this.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +
+                    " บาท",
+                  this.vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +
+                    " บาท",
+                  this.priceAfter7
+                    .toFixed(2)
+                    .replace(/\d(?=(\d{3})+\.)/g, "$&,") + " บาท",
+                  this.totalprice
+                    .toFixed(2)
+                    .replace(/\d(?=(\d{3})+\.)/g, "$&,") + " บาท",
                 ],
                 style: {
                   lineHeight: 1.2,
@@ -793,15 +896,14 @@ export default {
                   {
                     text:
                       "\n" +
-                      moment(String(this.quotation.datequotation)).format(
-                        "DD-MM-YYYY"
-                      ),
+                      this.quotation.datequotation
+                      
                   },
                 ],
               },
               {
-                width: "*",
-                text: " "
+                width: "auto",
+                text: " ",
               },
               {
                 widths: "*",
@@ -828,9 +930,7 @@ export default {
                   {
                     text:
                       "\n" +
-                      moment(String(this.quotation.datequotation)).format(
-                        "DD-MM-YYYY"
-                      ),
+                    this.quotation.datequotation
                   },
                 ],
                 style: {
@@ -848,10 +948,9 @@ export default {
           end of sign section
           ============================================ */
         ],
-        /// do not expand it cuz it long as hell 
+        /// do not expand it cuz it long as hell
         images: {
-          stamp:
-            imgText,
+          stamp: imgText,
         },
         styles: {
           header: {
@@ -892,8 +991,6 @@ export default {
         },
       };
 
-
-
       if (this.quotation.customerstatus == "นิติบุคคล") {
         console.log("open create pdf");
         pdfMake.createPdf(niti).open({}, window);
@@ -905,7 +1002,7 @@ export default {
       /* pdfMake.createPdf(dd).open({}, window) */
     },
     /* =================================================================== */
-/* ======================================================================= */
+    /* ======================================================================= */
     ThaiBaht(Number) {
       var TxtNumArr = new Array(
         "ศูนย์",
@@ -930,7 +1027,7 @@ export default {
         "ล้าน"
       );
       var BahtText = "";
-      var DecimalLen= "";
+      var DecimalLen = "";
       if (isNaN(Number)) {
         return "ข้อมูลนำเข้าไม่ถูกต้อง";
       } else {
@@ -983,11 +1080,6 @@ export default {
         }
       }
     },
-
-
-
-
-    
   },
 };
 </script>

@@ -85,9 +85,7 @@ export default {
         this.invoiceDetail = response2.data;
         console.log(this.invoice);
         console.log(this.invoiceDetail);
-        this.invDate =  moment(String(this.invoice.dateinvoice)).format(
-          "DD/MM/YYYY"
-        );
+        this.invDate =  this.invoice.dateinvoice;
 
 
         if (this.invoice.customerstatus == "นิติบุคคล" && this.invoice.vatstatus == "vatนอก") {
@@ -223,9 +221,7 @@ export default {
                 type: "none",
                 ol: [
                   "เลขที่: " + "INV"+ this.invoice.invoiceID,
-                  "วันที่: " + moment(String(this.invoice.dateinvoice)).format(
-                      "DD/MM/YYYY"
-                    ),
+                  "วันที่: " + this.invoice.dateinvoice,
                   "ผู้ขาย: " + this.invoice.employeeName,
                   "เบอร์: " + this.invoice.employeeNumber,
                 ],
@@ -585,9 +581,9 @@ export default {
                 fontSize: 10,
                 bold: false,
                 text: [
-                  this.comName +
+                  this.invoice.wcompanyName +
                    "\nที่อยู่: " +
-                    /* this.comAddr */ this.invoice.address +
+                    this.invoice.address +
                     "ต." +
                     this.invoice.subdistrict +
                     "อ." +
@@ -615,9 +611,7 @@ export default {
                 type: "none",
                 ol: [
                   "เลขที่: " + "INV"+ this.invoice.invoiceID,
-                  "วันที่: " + moment(String(this.invoice.dateinvoice)).format(
-                      "DD-MM-YYYY"
-                    ),
+                  "วันที่: " + this.invoice.dateinvoice,
                   "ผู้ขาย: " + this.invoice.employeeName,
                   "เบอร์: " + this.invoice.employeeNumber,
                 ],
@@ -947,7 +941,7 @@ export default {
         pdfMake.createPdf(niti).open({}, window);
       } else {
         console.log("lemme go idiot!");
-        cosole.log("here come normal person");
+        console.log("here come normal person");
         pdfMake.createPdf(normal).open({}, window);
       }
       /*  pdfMake.createPdf(dd).open({}, window) */

@@ -293,8 +293,8 @@ export default {
         }
       
           var today = new Date();
-          this.sumtodo.dateq = moment(today).add(543, 'year').format('DD/MM/YYYY');
-
+          this.sumtodo.dateq = String(moment(today).add(543, 'year').format('DD/MM/YYYY'));
+          alert(this.sumtodo.dateq)
       } catch (err) {
         console.log(err);
       }

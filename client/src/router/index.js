@@ -72,7 +72,6 @@ let routes = [
 	{
 		path: '/createReceipt/:id',
 		name: 'สร้างใบเสร็จ',
-		layout: "dashboard",
 		component: () => import('../views/PDF/createPDFreceipt.vue'),
 	},
 	{
