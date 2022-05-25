@@ -543,7 +543,7 @@ export default {
     async getcus() {
       console.log("get-cus");
       try {
-        const response = await axios.get("http://localhost:5000/customer/name");
+        const response = await axios.get("https://pxu-server.herokuapp.com/customer/name");
         this.customer = response.data;
         console.log(this.customer);
       } catch (err) {
@@ -553,7 +553,7 @@ export default {
     async getem() {
       console.log("get-em");
       try {
-        const response = await axios.get("http://localhost:5000/employee/name");
+        const response = await axios.get("https://pxu-server.herokuapp.com/employee/name");
         this.employee = response.data;
         if(!this.sumtodo.checkedit){
              this.sumtodo.employeeID=this.employee[0].employeeID;

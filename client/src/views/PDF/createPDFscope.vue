@@ -24,7 +24,7 @@ export default {
   },
 
   mounted() {
-    this.getBase64FromUrl("http://localhost:5000/stamp/stamp.png").then(
+    this.getBase64FromUrl("https://pxu-server.herokuapp.com/stamp/stamp.png").then(
         function (data) {
 
             Textimg = data;
@@ -55,7 +55,7 @@ export default {
       this.scID = this.$route.params.id;
       try {
         const response = await axios.get(
-          `http://localhost:5000/quotation/quoScope/${this.scID}`
+          `https://pxu-server.herokuapp.com/quotation/quoScope/${this.scID}`
         );
         this.scopeArr = response.data[0];
         /* console.log("response.data[0]"); */

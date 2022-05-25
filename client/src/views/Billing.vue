@@ -152,7 +152,7 @@ export default {
     async getquotation() {
       console.log("get-quo");
       try {
-        const response = await axios.get("http://localhost:5000/quotation/res");
+        const response = await axios.get("https://pxu-server.herokuapp.com/quotation/res");
         this.quotation = response.data;
         console.log(this.quotation);
       } catch (err) {
@@ -162,7 +162,7 @@ export default {
 	deletequo(id) {
       console.log(id);
       if (window.confirm("คุณต้องการจะลบลูกค้าคนนี้ใช่หรือไม่ ?")) {
-        axios.delete(`http://localhost:5000/quotation/${id}`);
+        axios.delete(`https://pxu-server.herokuapp.com/quotation/${id}`);
         window.location.reload(false);
       }
     },

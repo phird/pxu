@@ -333,10 +333,10 @@ export default {
     uploadsubmit() {
       let formDatalogo = new FormData();
       formDatalogo.append("files", this.filelogo);
-      axios.post("http://localhost:5000/uploadlogo", formDatalogo, {});
+      axios.post("https://pxu-server.herokuapp.com/uploadlogo", formDatalogo, {});
       let formDatastamp = new FormData();
       formDatastamp.append("files", this.filestamp);
-      axios.post("http://localhost:5000/uploadstamp", formDatastamp, {});
+      axios.post("https://pxu-server.herokuapp.com/uploadstamp", formDatastamp, {});
     },
     async submitForm() {
       this.$v.$touch();
@@ -344,7 +344,7 @@ export default {
         alert("can't submit");
       } else if (this.setstate == "false") {
         await axios
-          .post("http://localhost:5000/website", {
+          .post("https://pxu-server.herokuapp.com/website", {
             websiteName: this.websiteName,
             companyName: this.companyName,
             companyNumber: this.companyNumber,
@@ -363,7 +363,7 @@ export default {
           });
       } else {
         await axios
-          .put("http://localhost:5000/website", {
+          .put("https://pxu-server.herokuapp.com/website", {
             websiteName: this.websiteName,
             companyName: this.companyName,
             companyNumber: this.companyNumber,
@@ -385,7 +385,7 @@ export default {
     async getweb() {
       console.log("get-web");
       try {
-        const response = await axios.get("http://localhost:5000/website");
+        const response = await axios.get("https://pxu-server.herokuapp.com/website");
         this.websiteName = response.data[0].websiteName;
         this.companyName = response.data[0].companyName;
         this.companyNumber = response.data[0].companyNumber;

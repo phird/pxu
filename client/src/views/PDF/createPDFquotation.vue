@@ -41,7 +41,7 @@ export default {
   },
 
   mounted() {
-    this.getBase64FromUrl('http://localhost:5000/stamp/stamp.png').then(
+    this.getBase64FromUrl('https://pxu-server.herokuapp.com/stamp/stamp.png').then(
       function(data){
         /* alert(data) */
         imgText = data;
@@ -75,10 +75,10 @@ export default {
       try {
         console.log("now im try");
         const response = await axios.get(
-          `http://localhost:5000/quotation/quo/${this.quoID}`
+          `https://pxu-server.herokuapp.com/quotation/quo/${this.quoID}`
         );
         const response2 = await axios.get(
-           `http://localhost:5000/quotation/quo/detail/${this.quoID}`
+           `https://pxu-server.herokuapp.com/quotation/quo/detail/${this.quoID}`
         );
         console.log(response.data[0]);
         this.quotation = response.data[0];

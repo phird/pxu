@@ -22,6 +22,7 @@ app.use(express.json({limit: '25mb'}));
 app.use(express.urlencoded({limit: '25mb'}));
 app.use(express.json());
 
+let PORT = process.env.PORT || 5000;
 
 app.use("/scope", scopeRoute);
 app.use("/quotation", quotationRoute);
@@ -37,6 +38,6 @@ app.use("/uploadesignature",uploadesignatureRoute);
 app.use("/cardcustomer",cardcustomerRoute);
 app.use("/carddash",carddashRoute);
 
-app.listen(5000, () =>{
+app.listen(PORT, () =>{
     console.log("Running on port 5000");
 })

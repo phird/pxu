@@ -11,7 +11,7 @@
           <div class="header-top">
             <div class="ht-left">
               <img
-                src="http://localhost:5000/stamp/stamp.png"
+                src="https://pxu-server.herokuapp.com/stamp/stamp.png"
                 alt=""
                 style="width: 140px"
               />
@@ -465,7 +465,7 @@ export default {
     },
     subinv() {
       axios
-        .post(`http://localhost:5000/invoice/${this.inID}`, {
+        .post(`https://pxu-server.herokuapp.com/invoice/${this.inID}`, {
           bankID: this.bankID,
           dateinv: this.dateinv,
         })
@@ -481,10 +481,10 @@ export default {
         this.nerror=true;
       }else{
       if (this.changein) {
-        await axios.delete(`http://localhost:5000/scope/${this.inID}`);
+        await axios.delete(`https://pxu-server.herokuapp.com/scope/${this.inID}`);
         const requestone = [];
         for (let i = 0; i < this.todos.length; i++) {
-          requestone[i] = axios.post("http://localhost:5000/scope", {
+          requestone[i] = axios.post("https://pxu-server.herokuapp.com/scope", {
             qID: this.inID,
             name: this.todos[i].name,
             price: this.todos[i].price,
@@ -500,7 +500,7 @@ export default {
     async getinv(id) {
       try {
         const response = await axios.get(
-          `http://localhost:5000/invoice/in/${id}`
+          `https://pxu-server.herokuapp.com/invoice/in/${id}`
         );
         this.invoice = response.data[0];
         if (this.invoice.customerstatus == "นิติบุคคล") {
@@ -548,7 +548,7 @@ export default {
     },
     async getbank() {
       try {
-        const response = await axios.get(`http://localhost:5000/bank`);
+        const response = await axios.get(`https://pxu-server.herokuapp.com/bank`);
         this.bank = response.data;
         console.log(this.bank);
       } catch (err) {
@@ -557,7 +557,7 @@ export default {
     },
     async getscope(id) {
       try {
-        const response = await axios.get(`http://localhost:5000/scope/${id}`);
+        const response = await axios.get(`https://pxu-server.herokuapp.com/scope/${id}`);
         this.todos = response.data;
         if(this.todos.length!=0){
           this.newprice=0;
@@ -570,7 +570,7 @@ export default {
     },
     async getbankid(id) {
       try {
-        const response = await axios.get(`http://localhost:5000/bank/${id}`);
+        const response = await axios.get(`https://pxu-server.herokuapp.com/bank/${id}`);
         this.bankch.bname = response.data[0].bankName;
         this.bankch.accname = response.data[0].accountName;
         this.bankch.accnum = response.data[0].bankAccount;
