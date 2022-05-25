@@ -60,18 +60,18 @@
           <a-col :span="8">
             <div class="boxs-1">
               <div class="radio-selected">
-                <input
+                <!-- <input
                   v-model="estatus"
                   id="esign"
                   type="checkbox"
                   value="showpic"
                   @change="resetImage(),addtext()"
-                />
+                /> -->
                 <!-- e-signature -->
-                <label for="esign" style="margin-left: 10px">
+                <!-- <label for="esign" style="margin-left: 10px">
                   e-signature
-                </label>
-                <div v-if="estatus == true">
+                </label> -->
+                <!-- <div v-if="estatus == true">
                   <form>
                     <div class="form-group">
                       <label class="upload-sign" for="my-file">
@@ -92,8 +92,8 @@
                 </div>
                 <div v-else>
                   <div v-if="estatus == false"></div>
-                </div>
-              </div>
+                </div> -->
+           </div> 
             </div>
           </a-col>
         </div>
