@@ -1,139 +1,333 @@
 <template>
   <div class="whole-site">
     <div>
-      <button @click="window.history.back()" style="font-size:22px">
-        <b-icon icon="chevron-left"></b-icon>
-      </button>
-      <div class="title-modal">
-        <p>CUSTOMER</p>
-      </div>
-      <a-alert
-        v-if="success"
-        message="บันทึกข้อมูลสำเร็จ"
-        type="success"
-        show-icon
-      />
-      <form @submit.prevent="submitForm(cusid)" class="form-for-customer">
-        <div class="toggle-type-customer">
-          <div class="radio-selected">
-            <input
-              v-model="status"
-              id="individual"
-              type="radio"
-              value="บุคคลธรรมดา"
-              @change="checkcompany(status)"
-            />
-            <!-- บุคคลธรรมดา -->
-            <label for="individual">บุคคลธรรมดา</label>
+      <form @submit.prevent="submitForm(cusid)" style="width:100%">
+        <button @click="this.$router.back()" style="font-size: 22px">
+          <b-icon icon="chevron-left"></b-icon>
+        </button>
+        <div class="form-for-customer">
+          <div class="title-modal">
+            <p>CUSTOMER</p>
           </div>
-          <div class="radio-selected">
-            <input
-              v-model="status"
-              id="juristic"
-              type="radio"
-              value="นิติบุคคล"
-              @change="checkcompany(status)"
-            />
-            <!-- นิติบุคคล -->
-            <label for="juristic">นิติบุคคล</label>
+          <a-alert
+            v-if="success"
+            message="บันทึกข้อมูลสำเร็จ"
+            type="success"
+            show-icon
+          />
+
+          <div class="toggle-type-customer">
+            <div class="radio-selected">
+              <input
+                v-model="status"
+                id="individual"
+                type="radio"
+                value="บุคคลธรรมดา"
+                @change="checkcompany(status)"
+              />
+              <!-- บุคคลธรรมดา -->
+              <label for="individual">บุคคลธรรมดา</label>
+            </div>
+            <div class="radio-selected">
+              <input
+                v-model="status"
+                id="juristic"
+                type="radio"
+                value="นิติบุคคล"
+                @change="checkcompany(status)"
+              />
+              <!-- นิติบุคคล -->
+              <label for="juristic">นิติบุคคล</label>
+            </div>
+            <div class="error" v-if="$v.status.$error">
+              <template v-if="!$v.status.$invalid"> </template>
+              <template v-else style="color: red"> * </template>
+            </div>
           </div>
-          <div class="error" v-if="$v.status.$error">
-            <template v-if="!$v.status.$invalid"> </template>
-            <template v-else style="color: red"> * </template>
+          <!-- /toggle-type-customer -->
+          <!-- ==================================================================== -->
+          <div v-if="status == 'นิติบุคคล'">
+            <div class="contact-person-section">
+              <p class="icon" style="font-size: 18px; font-weight: 500">
+                <b-icon icon="person" style="color: #376303"></b-icon>
+                ข้อมูลผู้ติดต่อ
+              </p>
+              <!-- Name of company -->
+              <div class="field">
+                <input
+                  id="companyName"
+                  type="text"
+                  v-model="companyName"
+                  placeholder="ชื่อบริษัท/ลูกค้า"
+                  style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
+                />
+
+                <div class="error" v-if="$v.companyName.$error">
+                  <template v-if="!$v.companyName.$invalid"> </template>
+                  <template v-else style="color: red"> โปรดระบุชื่อ </template>
+                </div>
+              </div>
+              <!-- /Name of company -->
+              <div class="contact-person-section-buttom">
+                <!-- COMPANY TEL. -->
+                <div class="field contact-person-section-buttom-part">
+                  <input
+                    id="companyNumber"
+                    type="tel"
+                    v-model="companyNumber"
+                    placeholder="เบอร์สำนักงาน"
+                    style="
+                      text-indent: 8%;
+                      border: 1px solid rgb(211, 211, 211);
+                    "
+                  />
+                  <div class="error" v-if="$v.companyNumber.$error">
+                    <template v-if="!$v.companyNumber.$invalid"> </template>
+                    <template v-else-if="!$v.companyNumber.required">
+                      โปรดใส่เบอร์บริษัท
+                    </template>
+                    <template
+                      v-else-if="
+                        !$v.companyNumber.minLength ||
+                        !$v.companyNumber.maxLength ||
+                        !$v.companyNumber.numeric
+                      "
+                    >
+                      เบอร์บริษัทต้องเป็นตัวเลข9-10หลัก
+                    </template>
+                  </div>
+                </div>
+                <!-- /COMPANY TEL. -->
+
+                <!-- TAX NUM -->
+                <div class="field contact-person-section-buttom-part">
+                  <input
+                    id="taxNumber"
+                    type="text"
+                    v-model="taxNumber"
+                    placeholder="เลขทะเบียนนิติบุคคล"
+                    style="
+                      text-indent: 4%;
+                      border: 1px solid rgb(211, 211, 211);
+                    "
+                  />
+                  <div class="error" v-if="$v.taxNumber.$error">
+                    <template v-if="!$v.taxNumber.$invalid"> </template>
+                    <template v-else-if="!$v.taxNumber.required">
+                      โปรดใส่หมายเลขกำกับภาษี</template
+                    >
+                    <template v-else-if="!$v.taxNumber.validFormat">
+                      หมายเลขกำกับภาษีต้องเป็นตัวเลข13หลัก
+                    </template>
+                  </div>
+                </div>
+                <!-- TAX NUM -->
+              </div>
+            </div>
+            <!-- /contact-person-section -->
           </div>
-        </div>
-        <!-- /toggle-type-customer -->
-        <!-- ==================================================================== -->
-        <div v-if="status == 'นิติบุคคล'">
-          <div class="contact-person-section">
+          <!-- ==================================================================== -->
+          <!-- บุคคลธรรมดา -->
+          <div v-else>
             <p class="icon" style="font-size: 18px; font-weight: 500">
               <b-icon icon="person" style="color: #376303"></b-icon>
               ข้อมูลผู้ติดต่อ
             </p>
-            <!-- Name of company -->
             <div class="field">
-              <input
-                id="companyName"
-                type="text"
-                v-model="companyName"
-                placeholder="ชื่อบริษัท/ลูกค้า"
-                style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
-              />
-
-              <div class="error" v-if="$v.companyName.$error">
-                <template v-if="!$v.companyName.$invalid"> </template>
-                <template v-else style="color: red"> โปรดระบุชื่อ </template>
-              </div>
-            </div>
-            <!-- /Name of company -->
-            <div class="contact-person-section-buttom">
-              <!-- COMPANY TEL. -->
-              <div class="field contact-person-section-buttom-part">
+              <!-- ชื่อผู้ติดต่อ -->
+              <div class="field">
                 <input
-                  id="companyNumber"
-                  type="tel"
-                  v-model="companyNumber"
-                  placeholder="เบอร์สำนักงาน"
-                  style="text-indent: 8%; border: 1px solid rgb(211, 211, 211)"
-                />
-                <div class="error" v-if="$v.companyNumber.$error">
-                  <template v-if="!$v.companyNumber.$invalid"> </template>
-                  <template v-else-if="!$v.companyNumber.required">
-                    โปรดใส่เบอร์บริษัท
-                  </template>
-                  <template
-                    v-else-if="
-                      !$v.companyNumber.minLength ||
-                      !$v.companyNumber.maxLength ||
-                      !$v.companyNumber.numeric
-                    "
-                  >
-                    เบอร์บริษัทต้องเป็นตัวเลข9-10หลัก
-                  </template>
-                </div>
-              </div>
-              <!-- /COMPANY TEL. -->
-
-              <!-- TAX NUM -->
-              <div class="field contact-person-section-buttom-part">
-                <input
-                  id="taxNumber"
+                  id="contactName"
                   type="text"
-                  v-model="taxNumber"
-                  placeholder="เลขทะเบียนนิติบุคคล"
+                  v-model="contactName"
+                  placeholder="ชื่อบริษัท/ลูกค้า"
                   style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
                 />
-                <div class="error" v-if="$v.taxNumber.$error">
-                  <template v-if="!$v.taxNumber.$invalid"> </template>
-                  <template v-else-if="!$v.taxNumber.required">
-                    โปรดใส่หมายเลขกำกับภาษี</template
-                  >
-                  <template v-else-if="!$v.taxNumber.validFormat">
-                    หมายเลขกำกับภาษีต้องเป็นตัวเลข13หลัก
+                <div class="error" v-if="$v.contactName.$error">
+                  <template v-if="!$v.contactName.$invalid"> </template>
+                  <template v-else> โปรดระบุชื่อ </template>
+                </div>
+              </div>
+
+              <div class="contact-person-section-buttom">
+                <div class="field contact-person-section-buttom-part">
+                  <!-- เบอร์ผู้ติดต่อ -->
+
+                  <input
+                    id="contactNumber"
+                    type="tel"
+                    v-model="contactNumber"
+                    style="
+                      text-indent: 8%;
+                      border: 1px solid rgb(211, 211, 211);
+                    "
+                    placeholder="เบอร์โทร"
+                  />
+                  <div class="error" v-if="$v.contactNumber.$error">
+                    <template v-if="!$v.contactNumber.$invalid"> </template>
+                    <template v-else-if="!$v.contactNumber.required">
+                      โปรดใส่เบอร์ผู้ติดต่อ
+                    </template>
+                    <template v-else-if="!$v.contactNumber.validFormat">
+                      เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก
+                    </template>
+                  </div>
+                </div>
+                <!-- เลขกำกับภาษี -->
+                <div class="field contact-person-section-buttom-part">
+                  <input
+                    id="taxNumber"
+                    type="text"
+                    v-model="taxNumber"
+                    placeholder="เลขผู้เสียภาษี"
+                    style="
+                      text-indent: 4%;
+                      border: 1px solid rgb(211, 211, 211);
+                    "
+                  />
+                  <div class="error" v-if="$v.taxNumber.$error">
+                    <template v-if="!$v.taxNumber.$invalid"> </template>
+                    <template v-else-if="!$v.taxNumber.required">
+                      โปรดใส่หมายเลขกำกับภาษี</template
+                    >
+                    <template v-else-if="!$v.taxNumber.validFormat">
+                      หมายเลขกำกับภาษีต้องเป็นตัวเลข13หลัก
+                    </template>
+                  </div>
+                </div>
+              </div>
+              <!-- email -->
+              <div class="field">
+                <input
+                  id="contactEmail"
+                  type="text"
+                  v-model="contactEmail"
+                  placeholder="อีเมล"
+                  style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
+                />
+                <div class="error" v-if="$v.contactEmail.$error">
+                  <template v-if="!$v.contactEmail.$invalid"> </template>
+                  <template v-else-if="!$v.contactEmail.required">
+                    โปรดใส่อีเมล
+                  </template>
+                  <template v-else-if="!$v.contactEmail.email">
+                    ใส่อีเมลให้ถูกต้อง
                   </template>
                 </div>
               </div>
-              <!-- TAX NUM -->
             </div>
           </div>
-          <!-- /contact-person-section -->
-        </div>
-        <!-- ==================================================================== -->
-        <!-- บุคคลธรรมดา -->
-        <div v-else>
-          <p class="icon" style="font-size: 18px; font-weight: 500">
-            <b-icon icon="person" style="color: #376303"></b-icon>
-            ข้อมูลผู้ติดต่อ
-          </p>
-          <div class="field">
-            <!-- ชื่อผู้ติดต่อ -->
+          <br />
+          <!-- / บุคคลธรรมดา -->
+          <div class="address-info">
+            <p style="font-size: 18px; font-weight: 500">
+              <b-icon icon="house-door" style="color: #376303"></b-icon>
+              ที่อยู่ผู้ติดต่อ
+            </p>
+            <!-- ที่อยู่ -->
+            <div class="addr-detail-content">
+              <div class="addr-detail maxsize-input">
+                <label for="Address">ที่อยู่</label>
+                <input
+                  id="Address"
+                  class="inputbox"
+                  type="text"
+                  v-model="Address"
+                />
+                <div class="error" v-if="$v.Address.$error">
+                  <template v-if="!$v.Address.$invalid"> </template>
+                  <template v-else> โปรดใส่ที่อยู่ </template>
+                </div>
+              </div>
+
+              <!-- ตำบล -->
+              <div class="addr-detail" id="addr-box">
+                <label for="subdis">ตำบล</label>
+                <ThailandAutoComplete
+                  v-model="subdis"
+                  class="autofilladdr"
+                  id="subdis"
+                  type="district"
+                  @select="select"
+                  placeholder="ตำบล..."
+                />
+                <div class="error" v-if="$v.subdis.$error">
+                  <template v-if="!$v.subdis.$invalid"> </template>
+                  <template v-else> โปรดใส่ตำบล</template>
+                </div>
+              </div>
+              <!-- อำเภอ -->
+              <div class="addr-detail" id="addr-box">
+                <label for="dis">อำเภอ</label>
+                <ThailandAutoComplete
+                  v-model="dis"
+                  type="amphoe"
+                  class="autofilladdr"
+                  id="subdis"
+                  @select="select"
+                  placeholder="อำเภอ..."
+                />
+                <div class="error" v-if="$v.dis.$error">
+                  <template v-if="!$v.dis.$invalid"> </template>
+                  <template v-else> โปรดใส่อำเภอ</template>
+                </div>
+              </div>
+              <!-- จังหวัด -->
+              <div class="addr-detail" id="addr-box">
+                <label for="provice">จังหวัด</label>
+                <ThailandAutoComplete
+                  v-model="province"
+                  class="autofilladdr"
+                  type="province"
+                  id="subdis"
+                  @select="select"
+                  color="#35495e"
+                  placeholder="จังหวัด..."
+                />
+                <div class="error" v-if="$v.province.$error">
+                  <template v-if="!$v.province.$invalid"> </template>
+                  <template v-else> โปรดใส่จังหวัด</template>
+                </div>
+              </div>
+              <!-- zip code -->
+              <div class="addr-detail" id="addr-box">
+                <label for="postcode">รหัสไปรษณีย์</label>
+                <ThailandAutoComplete
+                  v-model="postcode"
+                  type="zipcode"
+                  id="subddis"
+                  class="autofilladdr"
+                  @select="select"
+                  color="#00a4e4"
+                  placeholder="รหัสไปรษณีย์..."
+                />
+                <div class="error" v-if="$v.postcode.$error">
+                  <template v-if="!$v.postcode.$invalid"> </template>
+                  <template v-else> โปรดใส่รหัสไปรษณีย์</template>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <!-- รายละเอียดผู้ติดต่อ -->
+          <div v-if="status == 'นิติบุคคล'">
+            <p style="font-size: 18px; font-weight: 500">
+              <b-icon icon="person" style="color: #376303"></b-icon>
+              รายละเอียดผู้ติดต่อ
+            </p>
+
             <div class="field">
+              <label for="contactName"> ชื่อผู้ติดต่อ</label>
               <input
                 id="contactName"
                 type="text"
                 v-model="contactName"
-                placeholder="ชื่อบริษัท/ลูกค้า"
-                style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
+                placeholder="ชื่อผู้ติดต่อ"
+                style="
+                  text-indent: 4%;
+                  border: 1px solid rgb(211, 211, 211);
+                  opacity: 0.5;
+                "
               />
               <div class="error" v-if="$v.contactName.$error">
                 <template v-if="!$v.contactName.$invalid"> </template>
@@ -141,55 +335,42 @@
               </div>
             </div>
 
-            <div class="contact-person-section-buttom">
-              <div class="field contact-person-section-buttom-part">
-                <!-- เบอร์ผู้ติดต่อ -->
-
-                <input
-                  id="contactNumber"
-                  type="tel"
-                  v-model="contactNumber"
-                  style="text-indent: 8%; border: 1px solid rgb(211, 211, 211)"
-                  placeholder="เบอร์โทร"
-                />
-                <div class="error" v-if="$v.contactNumber.$error">
-                  <template v-if="!$v.contactNumber.$invalid"> </template>
-                  <template v-else-if="!$v.contactNumber.required">
-                    โปรดใส่เบอร์ผู้ติดต่อ
-                  </template>
-                  <template v-else-if="!$v.contactNumber.validFormat">
-                    เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก
-                  </template>
-                </div>
-              </div>
-              <!-- เลขกำกับภาษี -->
-              <div class="field contact-person-section-buttom-part">
-                <input
-                  id="taxNumber"
-                  type="text"
-                  v-model="taxNumber"
-                  placeholder="เลขผู้เสียภาษี"
-                  style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
-                />
-                <div class="error" v-if="$v.taxNumber.$error">
-                  <template v-if="!$v.taxNumber.$invalid"> </template>
-                  <template v-else-if="!$v.taxNumber.required">
-                    โปรดใส่หมายเลขกำกับภาษี</template
-                  >
-                  <template v-else-if="!$v.taxNumber.validFormat">
-                    หมายเลขกำกับภาษีต้องเป็นตัวเลข13หลัก
-                  </template>
-                </div>
+            <div class="field">
+              <label for="contactNumber"> เบอร์โทร </label>
+              <input
+                id="contactNumber"
+                type="text"
+                v-model="contactNumber"
+                placeholder="เบอร์โทร"
+                style="
+                  text-indent: 4%;
+                  border: 1px solid rgb(211, 211, 211);
+                  opacity: 0.5;
+                "
+              />
+              <div class="error" v-if="$v.contactNumber.$error">
+                <template v-if="!$v.contactNumber.$invalid"> </template>
+                <template v-else-if="!$v.contactNumber.required">
+                  โปรดใส่เบอร์ผู้ติดต่อ
+                </template>
+                <template v-else-if="!$v.contactNumber.validFormat">
+                  เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก
+                </template>
               </div>
             </div>
-            <!-- email -->
+
             <div class="field">
+              <label for="contactEmail"> อีเมล </label>
               <input
                 id="contactEmail"
                 type="text"
                 v-model="contactEmail"
                 placeholder="อีเมล"
-                style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
+                style="
+                  text-indent: 4%;
+                  border: 1px solid rgb(211, 211, 211);
+                  opacity: 0.5;
+                "
               />
               <div class="error" v-if="$v.contactEmail.$error">
                 <template v-if="!$v.contactEmail.$invalid"> </template>
@@ -202,176 +383,10 @@
               </div>
             </div>
           </div>
-        </div>
-        <br />
-        <!-- / บุคคลธรรมดา -->
-        <div class="address-info">
-          <p style="font-size: 18px; font-weight: 500">
-            <b-icon icon="house-door" style="color: #376303"></b-icon>
-            ที่อยู่ผู้ติดต่อ
-          </p>
-          <!-- ที่อยู่ -->
-          <div class="addr-detail-content">
-            <div class="addr-detail maxsize-input">
-              <label for="Address">ที่อยู่</label>
-              <input
-                id="Address"
-                class="inputbox"
-                type="text"
-                v-model="Address"
-              />
-              <div class="error" v-if="$v.Address.$error">
-                <template v-if="!$v.Address.$invalid"> </template>
-                <template v-else> โปรดใส่ที่อยู่ </template>
-              </div>
-            </div>
-
-            <!-- ตำบล -->
-            <div class="addr-detail" id="addr-box">
-              <label for="subdis">ตำบล</label>
-              <ThailandAutoComplete
-                v-model="subdis"
-                class="autofilladdr"
-                id="subdis"
-                type="district"
-                @select="select"
-                placeholder="ตำบล..."
-              />
-              <div class="error" v-if="$v.subdis.$error">
-                <template v-if="!$v.subdis.$invalid"> </template>
-                <template v-else> โปรดใส่ตำบล</template>
-              </div>
-            </div>
-            <!-- อำเภอ -->
-            <div class="addr-detail" id="addr-box">
-              <label for="dis">อำเภอ</label>
-              <ThailandAutoComplete
-                v-model="dis"
-                type="amphoe"
-                class="autofilladdr"
-                id="subdis"
-                @select="select"
-                placeholder="อำเภอ..."
-              />
-              <div class="error" v-if="$v.dis.$error">
-                <template v-if="!$v.dis.$invalid"> </template>
-                <template v-else> โปรดใส่อำเภอ</template>
-              </div>
-            </div>
-            <!-- จังหวัด -->
-            <div class="addr-detail" id="addr-box">
-              <label for="provice">จังหวัด</label>
-              <ThailandAutoComplete
-                v-model="province"
-                class="autofilladdr"
-                type="province"
-                id="subdis"
-                @select="select"
-                color="#35495e"
-                placeholder="จังหวัด..."
-              />
-              <div class="error" v-if="$v.province.$error">
-                <template v-if="!$v.province.$invalid"> </template>
-                <template v-else> โปรดใส่จังหวัด</template>
-              </div>
-            </div>
-            <!-- zip code -->
-            <div class="addr-detail" id="addr-box">
-              <label for="postcode">รหัสไปรษณีย์</label>
-              <ThailandAutoComplete
-                v-model="postcode"
-                type="zipcode"
-                id="subddis"
-                class="autofilladdr"
-                @select="select"
-                color="#00a4e4"
-                placeholder="รหัสไปรษณีย์..."
-              />
-              <div class="error" v-if="$v.postcode.$error">
-                <template v-if="!$v.postcode.$invalid"> </template>
-                <template v-else> โปรดใส่รหัสไปรษณีย์</template>
-              </div>
-            </div>
+          <div v-else></div>
+          <div class="submit-but-section">
+            <button class="submit-button" type="submit">บันทึกข้อมูล</button>
           </div>
-        </div>
-        <br />
-        <!-- รายละเอียดผู้ติดต่อ -->
-        <div v-if="status == 'นิติบุคคล'">
-          <p style="font-size: 18px; font-weight: 500">
-            <b-icon icon="person" style="color: #376303"></b-icon>
-            รายละเอียดผู้ติดต่อ
-          </p>
-
-          <div class="field">
-            <label for="contactName"> ชื่อผู้ติดต่อ</label>
-            <input
-              id="contactName"
-              type="text"
-              v-model="contactName"
-              placeholder="ชื่อผู้ติดต่อ"
-              style="
-                text-indent: 4%;
-                border: 1px solid rgb(211, 211, 211);
-                opacity: 0.5;
-              "
-            />
-            <div class="error" v-if="$v.contactName.$error">
-              <template v-if="!$v.contactName.$invalid"> </template>
-              <template v-else> โปรดระบุชื่อ </template>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="contactNumber"> เบอร์โทร </label>
-            <input
-              id="contactNumber"
-              type="text"
-              v-model="contactNumber"
-              placeholder="เบอร์โทร"
-              style="
-                text-indent: 4%;
-                border: 1px solid rgb(211, 211, 211);
-                opacity: 0.5;
-              "
-            />
-            <div class="error" v-if="$v.contactNumber.$error">
-              <template v-if="!$v.contactNumber.$invalid"> </template>
-              <template v-else-if="!$v.contactNumber.required">
-                โปรดใส่เบอร์ผู้ติดต่อ
-              </template>
-              <template v-else-if="!$v.contactNumber.validFormat">
-                เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก
-              </template>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="contactEmail"> อีเมล </label>
-            <input
-              id="contactEmail"
-              type="text"
-              v-model="contactEmail"
-              placeholder="อีเมล"
-              style="
-                text-indent: 4%;
-                border: 1px solid rgb(211, 211, 211);
-                opacity: 0.5;
-              "
-            />
-            <div class="error" v-if="$v.contactEmail.$error">
-              <template v-if="!$v.contactEmail.$invalid"> </template>
-              <template v-else-if="!$v.contactEmail.required">
-                โปรดใส่อีเมล
-              </template>
-              <template v-else-if="!$v.contactEmail.email">
-                ใส่อีเมลให้ถูกต้อง
-              </template>
-            </div>
-          </div>
-        </div>
-        <div v-else></div>
-        <div class="submit-but-section">
-          <button class="submit-button" type="submit">บันทึกข้อมูล</button>
         </div>
       </form>
     </div>

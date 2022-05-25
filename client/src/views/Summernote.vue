@@ -12,30 +12,6 @@
       >
       </quill-editor>
     </div>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Srisakdi:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Square+Peg&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,600;1,300;1,600&display=swap"
-      rel="stylesheet"
-    />
   </div>
 </template>
 
@@ -69,12 +45,8 @@ function getFontName(font) {
 }
 // Specify Quill fonts
 const fontList = [
-  "Arial",
-  "Courier",
-  "Garamond",
+  "Arial",  
   "Kanit",
-  "Orbitron",
-  "Srisakdi",
 ];
 const fontNames = fontList.map((font) => getFontName(font));
 const fonts = Quill.import("formats/font");
@@ -206,6 +178,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.note-editable{ 
+    font-family: 'Kanit', sans-serif;
+    font-size: 15px !important; 
+    text-align: left !important; 
+    height: 350px !important;  
+}
 h3 {
   margin: 40px 0 0;
 }

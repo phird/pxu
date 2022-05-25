@@ -6,8 +6,7 @@
         font-size: 40px;
         text-align: center;
         justify-content: center;
-      "
-    >
+      ">
       LOADING ....
     </div>
   </div>
@@ -15,10 +14,8 @@
 
 <script>
 import pdfMake from "pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+import pdfFonts from "../../assets/custom-fonts.js";
 import axios from "axios";
-
-
 let Textimg = "";
 
 export default {
@@ -62,7 +59,6 @@ export default {
       }
     },
     async export() {
-   
       this.scID = this.$route.params.id;
       try {
         const response = await axios.get(

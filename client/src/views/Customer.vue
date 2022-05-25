@@ -963,7 +963,6 @@ export default {
   color: white;
   border-radius: 8px;
   border: 0;
-
   margin-left: auto;
   margin-right: auto;
 }
