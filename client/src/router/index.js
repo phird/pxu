@@ -50,7 +50,6 @@ let routes = [
 	{
 		path: '/Quotations/CreateScope/:id',
 		name: 'รายละเอียดเพิ่มเติม',
-		layout: "dashboard",
 		component: () => import('../views/PDF/createPDFscope.vue'),
 	},
 	{

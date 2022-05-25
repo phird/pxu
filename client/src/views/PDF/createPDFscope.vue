@@ -1,5 +1,16 @@
 <template>
-  <div class="wholescope">LOADING</div>
+  <div id="app">
+    <div
+      style="
+        display: flex;
+        font-size: 40px;
+        text-align: center;
+        justify-content: center;
+      "
+    >
+      LOADING ....
+    </div>
+  </div>
 </template>
 
 <script>
