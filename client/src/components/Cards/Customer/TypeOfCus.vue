@@ -39,7 +39,7 @@ export default {
   methods:{
     getcus(){
       console.log('get-ja');
-      axios.put("http://localhost:5000/cardcustomer",{
+      axios.put("https://pxu-server.herokuapp.com/cardcustomer",{
 
       }).then((res)=>{
           console.log(res.data);

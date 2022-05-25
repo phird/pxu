@@ -32,7 +32,7 @@ export default {
   methods:{
     getcus(){
       console.log('get-ja');
-      axios.get("http://localhost:5000/cardcustomer",{
+      axios.get("https://pxu-server.herokuapp.com/cardcustomer",{
 
       }).then((res)=>{
         console.log(res.data);

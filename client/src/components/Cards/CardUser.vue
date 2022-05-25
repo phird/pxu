@@ -52,7 +52,7 @@ export default {
   },
   methods:{
     getem(){
-      axios.get("http://localhost:5000/carddash",{
+      axios.get("https://pxu-server.herokuapp.com/carddash",{
 
       }).then((res)=>{
         this.em=res.data[0];

@@ -44,7 +44,7 @@ export default {
       const today = new Date();
       const monthnow = (today.getMonth()+1);
       console.log(monthnow);
-      axios.post("http://localhost:5000/cardcustomer",{
+      axios.post("https://pxu-server.herokuapp.com/cardcustomer",{
         month:monthnow
       }).then((res)=>{
         console.log(res);
