@@ -12,7 +12,7 @@ router.get('/', (req, res)=> {
 });
 
 router.get('/name', (req, res)=> {
-    const sqlSelect = "SELECT customerID,companyName,customerstatus FROM customer order by customerID DESC"
+    const sqlSelect = "SELECT customerID,companyName,customerstatus FROM customer WHERE delstatus!='del' order by customerID DESC"
     db.query(sqlSelect, (err, result) => {
         // console.log(result);
         res.send(result);
