@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/main.js",
-  "homepage": "https://demos.creative-tim.com/muse-ant-design-dashboard/",
-  "repository": "https://github.com/creativetimofficial/muse-ant-design-dashboard",
   "license": "MIT",
   "private": true,
   "scripts": {
