@@ -17,7 +17,7 @@
         </div>
         <div v-else>
           <img
-            :src="`http://localhost:5000/slip/${imgslip}`"
+            :src="`https://pxu-server.herokuapp.com/slip/${imgslip}`"
             alt=""
             class="imagePreviewWrapper"
           />
@@ -89,10 +89,10 @@ export default {
       }else{
         let formData = new FormData();
       formData.append("files", this.fileimg);
-      axios.post("http://localhost:5000/uploadslip", formData, {});
-      axios.post(`http://localhost:5000/invoice/re/changestatus/${this.inID}`);
+      axios.post("https://pxu-server.herokuapp.com/uploadslip", formData, {});
+      axios.post(`https://pxu-server.herokuapp.com/invoice/re/changestatus/${this.inID}`);
       axios
-        .post(`http://localhost:5000/invoice/re/${this.inID}`, {
+        .post(`https://pxu-server.herokuapp.com/invoice/re/${this.inID}`, {
           imgslip: this.imgslip,
           daterec: this.daterec,
         })
@@ -126,7 +126,7 @@ export default {
     async getimg(id) {
       try {
         const response = await axios.get(
-          `http://localhost:5000/invoice/re/${id}`
+          `https://pxu-server.herokuapp.com/invoice/re/${id}`
         );
         this.daterec = moment(String(response.data[0].datereceipt)).format(
           "YYYY-MM-DD"

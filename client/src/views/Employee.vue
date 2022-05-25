@@ -330,7 +330,7 @@ export default {
         alert("can't submit");
       } else {
         await axios
-          .post("http://localhost:5000/employee", {
+          .post("https://pxu-server.herokuapp.com/employee", {
             role: this.role,
             employeeName: this.employeeName,
             employeeNumber: this.employeeNumber,
@@ -348,7 +348,7 @@ export default {
     async getemployee() {
       console.log("get-em");
       try {
-        const response = await axios.get("http://localhost:5000/employee");
+        const response = await axios.get("https://pxu-server.herokuapp.com/employee");
         this.employee = response.data;
         for (let i = 0; i < response.data.length; i++) {
           this.employee[i].index = i + 1;
@@ -367,7 +367,7 @@ export default {
     deleteEmp(id) {
       console.log(id);
       if (window.confirm("คุณต้องการจะลบพนักงานคนนี้ใช่หรือไม่ ?")) {
-        axios.delete(`http://localhost:5000/employee/${id}`);
+        axios.delete(`https://pxu-server.herokuapp.com/employee/${id}`);
         window.location.reload(false);
       }
     },

@@ -687,7 +687,7 @@ export default {
     deletecus(id) {
       console.log(id);
       if (window.confirm("คุณต้องการจะลบลูกค้าคนนี้ใช่หรือไม่ ?")) {
-        axios.delete(`http://localhost:5000/customer/${id}`);
+        axios.delete(`https://pxu-server.herokuapp.com/customer/${id}`);
         window.location.reload(false);
       }
     },
@@ -706,7 +706,7 @@ export default {
         alert("can't submit");
       } else {
         await axios
-          .post("http://localhost:5000/customer", {
+          .post("https://pxu-server.herokuapp.com/customer", {
             companyName: this.companyName,
             companyNumber: this.companyNumber,
             status: this.status,
@@ -740,7 +740,7 @@ export default {
     async getcustomer() {
       console.log("get-cus");
       try {
-        const response = await axios.get("http://localhost:5000/customer");
+        const response = await axios.get("https://pxu-server.herokuapp.com/customer");
         this.customer = response.data;
         for (let i = 0; i < response.data.length; i++) {
           this.customer[i].index = i + 1;

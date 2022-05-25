@@ -237,7 +237,7 @@ export default {
     async getquotation() {
       console.log("get-quo");
       try {
-        const response = await axios.get("http://localhost:5000/quotation");
+        const response = await axios.get("https://pxu-server.herokuapp.com/quotation");
         this.quotation = response.data;
         console.log(this.quotation);
       } catch (err) {
@@ -247,7 +247,7 @@ export default {
     rescindingquo(id) {
       console.log(id);
       if (window.confirm("คุณต้องการจะลบลูกค้าคนนี้ใช่หรือไม่ ?")) {
-        axios.put(`http://localhost:5000/quotation/${id}`, {
+        axios.put(`https://pxu-server.herokuapp.com/quotation/${id}`, {
           quostatus: "Rescinding",
         });
         window.location.reload(false);
@@ -255,7 +255,7 @@ export default {
     },
     contractedquo(id) {
       console.log(id);
-      axios.put(`http://localhost:5000/quotation/${id}`, {
+      axios.put(`https://pxu-server.herokuapp.com/quotation/${id}`, {
         quostatus: "Contracted",
       });
       this.isContracted = true;
