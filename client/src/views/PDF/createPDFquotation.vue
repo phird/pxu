@@ -86,9 +86,7 @@ export default {
         console.log(this.quoDetail)
 /*      console.log("data from response");
         console.log(this.quotation.wcompanyName); */
-        this.quoDate = moment(String(this.quotation.datequotation)).format(
-          "DD/MM/YYYY"
-        );
+        this.quoDate = this.quotation.datequotation;
         /* นิติบุคคคล */
         if (this.quotation.customerstatus == "นิติบุคคล" && this.quotation.vatstatus == "vatนอก") {
           console.log("niti outvat");
@@ -221,9 +219,8 @@ export default {
                 ol: [
                   "เลขที่: " + "QA" + this.quotation.quotationID,
                   "วันที่: " +
-                    moment(String(this.quotation.datequotation)).format(
-                      "DD/MM/YYYY"
-                    ),
+                    this.quotation.datequotation
+                  ,
                   "ผู้ขาย: " + this.quotation.employeeName,
                   "เบอร์: " + this.quotation.employeeNumber,
                 ],
@@ -427,9 +424,7 @@ export default {
                   {
                     text:
                       "\n" +
-                      moment(String(this.quotation.datequotation)).format(
-                        "DD/MM/YYYY"
-                      ),
+                     this.quotation.datequotation,
                   },
                 ],
               },
@@ -462,9 +457,7 @@ export default {
                   {
                     text:
                       "\n" +
-                      moment(String(this.quotation.datequotation)).format(
-                        "DD/MM/YYYY"
-                      ),
+                     this.quotation.datequotation,
                   },
                 ],
                 style: {
