@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
 
-    const sqlSelect = "SELECT * FROM bank order by bankstatus DESC,bankID DESC;"
+    const sqlSelect = "SELECT * FROM bank WHERE delstatus!='del' order by bankstatus DESC,bankID DESC;"
     db.query(sqlSelect, (err, result) => {
         // console.log(result);
         res.send(result);
@@ -41,7 +41,7 @@ router.post('/', (req, res) => {
 });
 router.delete('/:id', (req, res) => {
     const id = req.params.id;
-    const sqlDelete = "DELETE FROM bank WHERE bankID=?";
+    const sqlDelete = "UPDATE bank set delstatus='del' WHERE bankID=?";
     db.query(sqlDelete, [id], (err, result) => {
         console.log(err);
     })
