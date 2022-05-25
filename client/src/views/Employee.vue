@@ -348,7 +348,7 @@ export default {
     async getemployee() {
       console.log("get-em");
       try {
-        const response = await axios.get("https://pxu-server.herokuapp.com/employee");
+        const response = await axios.get("http://localhost:5000/employee");
         this.employee = response.data;
         for (let i = 0; i < response.data.length; i++) {
           this.employee[i].index = i + 1;
@@ -450,10 +450,16 @@ export default {
 
 .whole-modal-body {
   font-family: "Mitr", sans-serif;
-  width: 100vw;
+  width: 50vw;
 }
 .whole-modal-body >>> .ant-modal {
-  width: 70% !important;
+   width: 50% !important;
+  top: 5%;
+}
+.whole-modal-body >>> .ant-modal-content {
+  width: 50vw default 0;
+  margin-left: auto;
+  margin-left: auto;
 }
 .whole-modal-body >>> .ant-modal-footer {
   display: none;

@@ -5,7 +5,7 @@
         class="header-site"
         style="display: flex; flex-direction: row; gap: 1em"
       >
-        <button @click="history.back()">
+        <button @click="history.back()" style="font-size:22px">
           <b-icon icon="chevron-left"></b-icon>
         </button>
         <span>แก้ไขธนาคาร</span>

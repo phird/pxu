@@ -25,7 +25,7 @@
             <span
 
               style="font-size: 24px"
-              >{{customer}}</span
+              >{{customer.toFixed(0).replace(/\d(?=(\d{3})+\.)/g, "$&,")}}</span
             >
             <br />
             <span id="text-stat">ลูกค้า</span>
@@ -44,7 +44,7 @@
 
 
               style="font-size: 24px"
-              >{{project}}</span
+              >{{project.toFixed(0).replace(/\d(?=(\d{3})+\.)/g, "$&,")}}</span
             >
             <br />
             <span id="text-stat">โปรเจค </span>
@@ -61,7 +61,7 @@
 
               style="font-size: 24px"
 
-              >{{payment}}</span
+              >{{payment.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}}</span
             >
             <br />
             <span id="text-stat">รายได้</span>

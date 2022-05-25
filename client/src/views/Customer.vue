@@ -47,9 +47,9 @@
               <div class="table-upload-btn" style="color:white">
                 <a-tooltip>
               <template slot="title"> เพิ่มลูกค้า </template>
-                <a-button type="primary" @click="showModal">
+                <a-button type="primary" @click="showModal" style="font-size:14px; font-weight: 500;">
                   <b-icon icon="plus-square-dotted"></b-icon>
-                  Create Customer
+                    เพิ่มลูกค้า
                 </a-button>
                 </a-tooltip>
               </div>
@@ -138,9 +138,9 @@
       title="Create Customer"
       @ok="handleOk"
     >
-      <div>
+      <div class="all-about-modal">
         <div class="title-modal">
-          <p>CUSTOMER</p>
+          <p> เพิ่มลูกค้า </p>
         </div>
          <a-alert
           v-if="success"
@@ -192,7 +192,7 @@
                   type="text"
                   v-model="companyName"
                   placeholder="ชื่อบริษัท/ลูกค้า"
-                  style="text-indent: 5%; border: 1px solid rgb(211, 211, 211)"
+                  style="text-indent: 5%; border: 1px solid rgb(211, 211, 0.123)"
                 />
 
                 <div class="error" v-if="$v.companyName.$error">
@@ -211,7 +211,7 @@
                     placeholder="เบอร์สำนักงาน"
                     style="
                       text-indent: 10%;
-                      border: 1px solid rgb(211, 211, 211);
+                      border: 1px solid rgb(211, 211, 0.123);
                     "
                   />
                   <div class="error" v-if="$v.companyNumber.$error">
@@ -235,7 +235,7 @@
                     placeholder="เลขทะเบียนนิติบุคคล"
                     style="
                       text-indent: 4%;
-                      border: 1px solid rgb(211, 211, 211);
+                      border: 1px solid rgb(211, 211, 0.123);
                     "
                   />
                   <div class="error" v-if="$v.taxNumber.$error">
@@ -361,7 +361,7 @@
                   type="text"
                   v-model="Address"
                   placeholder="ที่อยู่"
-                  style="text-indent: 5%"
+                  style="text-indent: 4.5%"
                 />
                 <div class="error" v-if="$v.Address.$error">
                   <template v-if="!$v.Address.$invalid"> </template>
@@ -574,27 +574,27 @@ export default {
           scopedSlots: { customRender: "index" },
         },
         {
-          title: "Customer Name",
+          title: "ชื่อลูกค้า",
           dataIndex: "companyName",
           scopedSlots: { customRender: "companyName" },
         },
         {
-          title: "STATUS",
+          title: "สถานะ",
           dataIndex: "customerstatus",
           scopedSlots: { customRender: "status" },
         },
         {
-          title: "Contact Person",
+          title: "ชื่อผู้ติดต่อ",
           dataIndex: "contactName",
           scopedSlots: { customRender: "contactName" },
         },
         {
-          title: "Tel",
+          title: "เบอร์โทร",
           dataIndex: "contactNumber",
           scopedSlots: { customRender: "contactNumber" },
         },
         {
-          title: "Action",
+          title: " ",
           dataIndex: "customerID",
           scopedSlots: { customRender: "actionSection" },
         },
@@ -799,7 +799,8 @@ export default {
 .form-for-customer {
   font-family: "Mitr", sans-serif;
   align-content: center;
-  width: 60%;
+  width: 90%;
+  font-size: 18px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -814,10 +815,14 @@ export default {
   width: 100%;
 }
 
+.quotation-table >>> .ant-table-column-title{
+  font-size: 18px !important;
+}
+
 #companyName,
 #contactName {
   background-image: url("../assets/images/icons/file-icons/person-circle.svg");
-  opacity: 0.5;
+  opacity: 0.9;
   background-repeat: no-repeat;
   background-position: 8px 50%;
   width: 100%;
@@ -826,18 +831,18 @@ export default {
 #companyNumber,
 #contactNumber {
   background-image: url("../assets/images/icons/file-icons/telephone-fill.svg");
-  opacity: 0.5;
+  opacity: 0.9;
   background-repeat: no-repeat;
   background-position: 8px 50%;
   width: 100%;
 }
 #taxNumber {
-  opacity: 0.5;
+  opacity: 0.9;
   width: 100%;
 }
 #contactEmail {
   background-image: url("../assets/images/icons/file-icons/envelope-fill.svg");
-  opacity: 0.5;
+  opacity: 0.9;
   background-repeat: no-repeat;
   background-position: 8px 50%;
   width: 100%;
@@ -874,7 +879,14 @@ export default {
   display: flex;
   flex-direction: column;
 }
+
+
 /* modal style start here  */
+
+.all-about-modal{
+  font-family: "Mitr", sans-serif;
+}
+
 .title-modal {
   display: flex;
   margin-left: auto;
@@ -889,10 +901,12 @@ export default {
   align-content: center;
 }
 .whole-modal-body {
-  width: 100vw;
+  font-family: "Mitr", sans-serif;
+  width: 50vw;
 }
 .whole-modal-body >>> .ant-modal {
-  width: 70% !important;
+  width: 50% !important;
+  top: 5%;
 }
 .whole-modal-body >>> .ant-modal-content {
   width: 50vw default 0;
@@ -985,6 +999,7 @@ export default {
 }
 
 .autofilladdr >>> .vth-addr-input-size-default[data-v-1f53c317] {
+  font-family: "Mitr", sans-serif;
   border-radius: 14px;
   height: 45px;
 }

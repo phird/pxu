@@ -1,10 +1,18 @@
 <template>
   <div class="whole-site">
     <div>
+      <button @click="window.history.back()" style="font-size:22px">
+        <b-icon icon="chevron-left"></b-icon>
+      </button>
       <div class="title-modal">
         <p>CUSTOMER</p>
       </div>
-      <a-alert v-if="success" message="บันทึกข้อมูลสำเร็จ" type="success" show-icon />
+      <a-alert
+        v-if="success"
+        message="บันทึกข้อมูลสำเร็จ"
+        type="success"
+        show-icon
+      />
       <form @submit.prevent="submitForm(cusid)" class="form-for-customer">
         <div class="toggle-type-customer">
           <div class="radio-selected">
@@ -30,8 +38,8 @@
             <label for="juristic">นิติบุคคล</label>
           </div>
           <div class="error" v-if="$v.status.$error">
-                  <template v-if="!$v.status.$invalid"> </template>
-                  <template v-else style="color: red"> * </template>
+            <template v-if="!$v.status.$invalid"> </template>
+            <template v-else style="color: red"> * </template>
           </div>
         </div>
         <!-- /toggle-type-customer -->
@@ -70,8 +78,18 @@
                 />
                 <div class="error" v-if="$v.companyNumber.$error">
                   <template v-if="!$v.companyNumber.$invalid"> </template>
-                  <template v-else-if="!$v.companyNumber.required"> โปรดใส่เบอร์บริษัท </template>
-                    <template v-else-if="!$v.companyNumber.minLength || !$v.companyNumber.maxLength || !$v.companyNumber.numeric"> เบอร์บริษัทต้องเป็นตัวเลข9-10หลัก </template>
+                  <template v-else-if="!$v.companyNumber.required">
+                    โปรดใส่เบอร์บริษัท
+                  </template>
+                  <template
+                    v-else-if="
+                      !$v.companyNumber.minLength ||
+                      !$v.companyNumber.maxLength ||
+                      !$v.companyNumber.numeric
+                    "
+                  >
+                    เบอร์บริษัทต้องเป็นตัวเลข9-10หลัก
+                  </template>
                 </div>
               </div>
               <!-- /COMPANY TEL. -->
@@ -87,8 +105,12 @@
                 />
                 <div class="error" v-if="$v.taxNumber.$error">
                   <template v-if="!$v.taxNumber.$invalid"> </template>
-                   <template v-else-if="!$v.taxNumber.required"> โปรดใส่หมายเลขกำกับภาษี</template>
-                    <template v-else-if="!$v.taxNumber.validFormat"> หมายเลขกำกับภาษีต้องเป็นตัวเลข13หลัก </template>
+                  <template v-else-if="!$v.taxNumber.required">
+                    โปรดใส่หมายเลขกำกับภาษี</template
+                  >
+                  <template v-else-if="!$v.taxNumber.validFormat">
+                    หมายเลขกำกับภาษีต้องเป็นตัวเลข13หลัก
+                  </template>
                 </div>
               </div>
               <!-- TAX NUM -->
@@ -132,8 +154,12 @@
                 />
                 <div class="error" v-if="$v.contactNumber.$error">
                   <template v-if="!$v.contactNumber.$invalid"> </template>
-                  <template v-else-if="!$v.contactNumber.required"> โปรดใส่เบอร์ผู้ติดต่อ </template>
-                    <template v-else-if="!$v.contactNumber.validFormat"> เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก </template>
+                  <template v-else-if="!$v.contactNumber.required">
+                    โปรดใส่เบอร์ผู้ติดต่อ
+                  </template>
+                  <template v-else-if="!$v.contactNumber.validFormat">
+                    เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก
+                  </template>
                 </div>
               </div>
               <!-- เลขกำกับภาษี -->
@@ -147,8 +173,12 @@
                 />
                 <div class="error" v-if="$v.taxNumber.$error">
                   <template v-if="!$v.taxNumber.$invalid"> </template>
-                  <template v-else-if="!$v.taxNumber.required"> โปรดใส่หมายเลขกำกับภาษี</template>
-                    <template v-else-if="!$v.taxNumber.validFormat"> หมายเลขกำกับภาษีต้องเป็นตัวเลข13หลัก </template>
+                  <template v-else-if="!$v.taxNumber.required">
+                    โปรดใส่หมายเลขกำกับภาษี</template
+                  >
+                  <template v-else-if="!$v.taxNumber.validFormat">
+                    หมายเลขกำกับภาษีต้องเป็นตัวเลข13หลัก
+                  </template>
                 </div>
               </div>
             </div>
@@ -163,8 +193,12 @@
               />
               <div class="error" v-if="$v.contactEmail.$error">
                 <template v-if="!$v.contactEmail.$invalid"> </template>
-                <template v-else-if="!$v.contactEmail.required"> โปรดใส่อีเมล </template>
-                <template v-else-if="!$v.contactEmail.email"> ใส่อีเมลให้ถูกต้อง </template>
+                <template v-else-if="!$v.contactEmail.required">
+                  โปรดใส่อีเมล
+                </template>
+                <template v-else-if="!$v.contactEmail.email">
+                  ใส่อีเมลให้ถูกต้อง
+                </template>
               </div>
             </div>
           </div>
@@ -172,94 +206,94 @@
         <br />
         <!-- / บุคคลธรรมดา -->
         <div class="address-info">
-            <p style="font-size: 18px; font-weight: 500">
-              <b-icon icon="house-door" style="color: #376303"></b-icon>
-              ที่อยู่ผู้ติดต่อ
-            </p>
-            <!-- ที่อยู่ -->
-            <div class="addr-detail-content">
-              <div class="addr-detail maxsize-input">
-                <label for="Address">ที่อยู่</label>
-                <input
-                  id="Address"
-                  class="inputbox"
-                  type="text"
-                  v-model="Address"
-                />
-                <div class="error" v-if="$v.Address.$error">
-                  <template v-if="!$v.Address.$invalid"> </template>
-                  <template v-else> โปรดใส่ที่อยู่ </template>
-                </div>
+          <p style="font-size: 18px; font-weight: 500">
+            <b-icon icon="house-door" style="color: #376303"></b-icon>
+            ที่อยู่ผู้ติดต่อ
+          </p>
+          <!-- ที่อยู่ -->
+          <div class="addr-detail-content">
+            <div class="addr-detail maxsize-input">
+              <label for="Address">ที่อยู่</label>
+              <input
+                id="Address"
+                class="inputbox"
+                type="text"
+                v-model="Address"
+              />
+              <div class="error" v-if="$v.Address.$error">
+                <template v-if="!$v.Address.$invalid"> </template>
+                <template v-else> โปรดใส่ที่อยู่ </template>
               </div>
+            </div>
 
-              <!-- ตำบล -->
-              <div class="addr-detail" id="addr-box">
-                <label for="subdis">ตำบล</label>
-                <ThailandAutoComplete
-                  v-model="subdis"
-                  class="autofilladdr"
-                  id="subdis"
-                  type="district"
-                  @select="select"
-                  placeholder="ตำบล..."
-                />
-                <div class="error" v-if="$v.subdis.$error">
-                  <template v-if="!$v.subdis.$invalid"> </template>
-                  <template v-else> โปรดใส่ตำบล</template>
-                </div>
+            <!-- ตำบล -->
+            <div class="addr-detail" id="addr-box">
+              <label for="subdis">ตำบล</label>
+              <ThailandAutoComplete
+                v-model="subdis"
+                class="autofilladdr"
+                id="subdis"
+                type="district"
+                @select="select"
+                placeholder="ตำบล..."
+              />
+              <div class="error" v-if="$v.subdis.$error">
+                <template v-if="!$v.subdis.$invalid"> </template>
+                <template v-else> โปรดใส่ตำบล</template>
               </div>
-              <!-- อำเภอ -->
-              <div class="addr-detail" id="addr-box">
-                <label for="dis">อำเภอ</label>
-                <ThailandAutoComplete
-                  v-model="dis"
-                  type="amphoe"
-                  class="autofilladdr"
-                  id="subdis"
-                  @select="select"
-                  placeholder="อำเภอ..."
-                />
-                <div class="error" v-if="$v.dis.$error">
-                  <template v-if="!$v.dis.$invalid"> </template>
-                  <template v-else> โปรดใส่อำเภอ</template>
-                </div>
+            </div>
+            <!-- อำเภอ -->
+            <div class="addr-detail" id="addr-box">
+              <label for="dis">อำเภอ</label>
+              <ThailandAutoComplete
+                v-model="dis"
+                type="amphoe"
+                class="autofilladdr"
+                id="subdis"
+                @select="select"
+                placeholder="อำเภอ..."
+              />
+              <div class="error" v-if="$v.dis.$error">
+                <template v-if="!$v.dis.$invalid"> </template>
+                <template v-else> โปรดใส่อำเภอ</template>
               </div>
-              <!-- จังหวัด -->
-              <div class="addr-detail" id="addr-box">
-                <label for="provice">จังหวัด</label>
-                <ThailandAutoComplete
-                  v-model="province"
-                  class="autofilladdr"
-                  type="province"
-                  id="subdis"
-                  @select="select"
-                  color="#35495e"
-                  placeholder="จังหวัด..."
-                />
-                <div class="error" v-if="$v.province.$error">
-                  <template v-if="!$v.province.$invalid"> </template>
-                  <template v-else> โปรดใส่จังหวัด</template>
-                </div>
+            </div>
+            <!-- จังหวัด -->
+            <div class="addr-detail" id="addr-box">
+              <label for="provice">จังหวัด</label>
+              <ThailandAutoComplete
+                v-model="province"
+                class="autofilladdr"
+                type="province"
+                id="subdis"
+                @select="select"
+                color="#35495e"
+                placeholder="จังหวัด..."
+              />
+              <div class="error" v-if="$v.province.$error">
+                <template v-if="!$v.province.$invalid"> </template>
+                <template v-else> โปรดใส่จังหวัด</template>
               </div>
-              <!-- zip code -->
-              <div class="addr-detail" id="addr-box">
-                <label for="postcode">รหัสไปรษณีย์</label>
-                <ThailandAutoComplete
-                  v-model="postcode"
-                  type="zipcode"
-                  id="subddis"
-                  class="autofilladdr"
-                  @select="select"
-                  color="#00a4e4"
-                  placeholder="รหัสไปรษณีย์..."
-                />
-                <div class="error" v-if="$v.postcode.$error">
-                  <template v-if="!$v.postcode.$invalid"> </template>
-                  <template v-else> โปรดใส่รหัสไปรษณีย์</template>
-                </div>
+            </div>
+            <!-- zip code -->
+            <div class="addr-detail" id="addr-box">
+              <label for="postcode">รหัสไปรษณีย์</label>
+              <ThailandAutoComplete
+                v-model="postcode"
+                type="zipcode"
+                id="subddis"
+                class="autofilladdr"
+                @select="select"
+                color="#00a4e4"
+                placeholder="รหัสไปรษณีย์..."
+              />
+              <div class="error" v-if="$v.postcode.$error">
+                <template v-if="!$v.postcode.$invalid"> </template>
+                <template v-else> โปรดใส่รหัสไปรษณีย์</template>
               </div>
             </div>
           </div>
+        </div>
         <br />
         <!-- รายละเอียดผู้ติดต่อ -->
         <div v-if="status == 'นิติบุคคล'">
@@ -283,7 +317,7 @@
             />
             <div class="error" v-if="$v.contactName.$error">
               <template v-if="!$v.contactName.$invalid"> </template>
-              <template v-else>  โปรดระบุชื่อ </template>
+              <template v-else> โปรดระบุชื่อ </template>
             </div>
           </div>
 
@@ -301,10 +335,14 @@
               "
             />
             <div class="error" v-if="$v.contactNumber.$error">
-                <template v-if="!$v.contactNumber.$invalid"> </template>
-                <template v-else-if="!$v.contactNumber.required"> โปรดใส่เบอร์ผู้ติดต่อ </template>
-                <template v-else-if="!$v.contactNumber.validFormat"> เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก </template>
-              </div>
+              <template v-if="!$v.contactNumber.$invalid"> </template>
+              <template v-else-if="!$v.contactNumber.required">
+                โปรดใส่เบอร์ผู้ติดต่อ
+              </template>
+              <template v-else-if="!$v.contactNumber.validFormat">
+                เบอร์ผู้ติดต่อต้องเป็นตัวเลข10หลัก
+              </template>
+            </div>
           </div>
 
           <div class="field">
@@ -321,10 +359,14 @@
               "
             />
             <div class="error" v-if="$v.contactEmail.$error">
-                <template v-if="!$v.contactEmail.$invalid"> </template>
-                <template v-else-if="!$v.contactEmail.required"> โปรดใส่อีเมล </template>
-                <template v-else-if="!$v.contactEmail.email"> ใส่อีเมลให้ถูกต้อง </template>
-              </div>
+              <template v-if="!$v.contactEmail.$invalid"> </template>
+              <template v-else-if="!$v.contactEmail.required">
+                โปรดใส่อีเมล
+              </template>
+              <template v-else-if="!$v.contactEmail.email">
+                ใส่อีเมลให้ถูกต้อง
+              </template>
+            </div>
           </div>
         </div>
         <div v-else></div>
@@ -368,7 +410,7 @@ export default {
       dis: "",
       province: "",
       postcode: "",
-      success:false,
+      success: false,
       // status: this.customer.status,
       // contactName: this.customer.contactName,
       // contactNumber: this.customer.contactNumber,
@@ -387,8 +429,8 @@ export default {
   validations: {
     companyNumber: {
       required,
-      minLength:minLength(9),
-      maxLength:maxLength(10),
+      minLength: minLength(9),
+      maxLength: maxLength(10),
       numeric,
     },
     contactNumber: {
@@ -473,7 +515,7 @@ export default {
             contactEmail: this.contactEmail,
             taxNumber: this.taxNumber,
           })
-          .then(()=> {
+          .then(() => {
             this.success = true;
             setTimeout(() => {
               this.$router.back();
@@ -494,7 +536,7 @@ export default {
         );
         this.customer = response.data[0];
         // console.log(this.customer);
-        this.status= this.customer.customerstatus;
+        this.status = this.customer.customerstatus;
         this.contactName = this.customer.contactName;
         this.contactNumber = this.customer.contactNumber;
         this.companyName = this.customer.companyName;
