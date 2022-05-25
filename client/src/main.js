@@ -29,6 +29,7 @@ Vue.component('jw-pagination', JwPagination);
 
 Vue.use(Vuetify)
 
+let PORT = process.env.PORT || 8080;
 
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
@@ -62,6 +63,8 @@ Vue.config.productionTip = false
 Vue.component("layout-default", DefaultLayout);
 Vue.component("layout-dashboard", DashboardLayout);
 Vue.component("layout-dashboard-rtl", DashboardRTLLayout);
+
+
 
 new Vue({
   router,
