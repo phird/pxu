@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "start": "node main.js",
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "dev": "npm run serve"

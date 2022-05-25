@@ -31,9 +31,6 @@ Vue.use(Vuetify)
 
 
 
-
-
-
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -70,12 +67,3 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')
-
-/* const app = createApp({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
-
-
-app.use(store); */
