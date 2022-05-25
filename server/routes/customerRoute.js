@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
     const contactEmail = req.body.contactEmail
     const taxNumber = req.body.taxNumber
 
-    const sqlInsert = "INSERT INTO customer (companyName,companyNumber,customerstatus,caddress,csubdistrict,cdistrict,cprovince,cpostcode,ctaxNumber,contactName,contactNumber,contactEmail) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);"
+    const sqlInsert = "INSERT INTO customer (companyName,companyNumber,customerstatus,caddress,csubdistrict,cdistrict,cprovince,cpostcode,ctaxNumber,contactName,contactNumber,contactEmail,delstatus) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,'-');"
     db.query(sqlInsert, [companyName,companyNumber,status,address,subdis,dis,province,postcode,taxNumber,contactName,contactNumber,contactEmail], (err,result)=>{
         // console.log(err);
         // console.log(result);

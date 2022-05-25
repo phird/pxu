@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
     const status = req.body.status;
     const image = req.body.img;
 
-    const sqlInsert = "INSERT INTO bank (bankName,bankAccount,accountName,bankstatus,img) VALUES (?,?,?,?,?);"
+    const sqlInsert = "INSERT INTO bank (bankName,bankAccount,accountName,bankstatus,img,delstatus) VALUES (?,?,?,?,?,'-');"
     if(status=='default'){
         const sqlsearch = "UPDATE bank set bankstatus='-' WHERE bankstatus='default';"
         db.query(sqlsearch, (err, research) => {
