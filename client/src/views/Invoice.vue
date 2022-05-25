@@ -9,9 +9,13 @@
       <a-row type="flex" align="middle">
         <router-link
           :to="`/quotations`"
-          style="text-decoration: none; color: black"
+          style="text-decoration: none; color: black; padding: 1em"
+          
         >
-          <b-icon icon="chevron-left"> </b-icon>
+          <a-tooltip>
+            <template slot="title"> กลับ </template>
+            <b-icon icon="chevron-left"> </b-icon>
+          </a-tooltip>
         </router-link>
         <a-col :span="24" :md="12">
           <h5 class="font-semibold m-0" style="margin-left: 2em">ใบวางบิล</h5>
@@ -31,10 +35,21 @@
         <a>งวดที่ {{ installment }}</a>
       </template>
       <template slot="status" slot-scope="status">
-        <a>{{ status }}</a>
+        <a-tooltip>
+          <template slot="title"> สถานะสำเร็จ </template>
+          <a v-if="status == 'COMPLETE'" class="complete-status">{{
+            status
+          }}</a>
+        </a-tooltip>
+        <a-tooltip>
+          <template slot="title"> สถานะไม่สำเร็จ </template>
+          <a v-if="status == 'INCOMPLETE'" class="incomplete-status">{{
+            status
+          }}</a>
+        </a-tooltip>
       </template>
       <template slot="val" slot-scope="val">
-        <a>{{ val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }}</a>
+        <a>{{ val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") }}</a>
       </template>
       <template slot="act-1" slot-scope="row">
         <a-menu-item>
@@ -44,7 +59,10 @@
             target="_blank"
             v-if="row.imgslip != ''"
           >
-            <a style="text-decoration: none">ใบเสร็จ</a>
+            <a-tooltip>
+              <template slot="title"> เปิดดูใบเสร็จ </template>
+              <a style="text-decoration: none">ใบเสร็จ</a>
+            </a-tooltip>
           </router-link>
         </a-menu-item>
       </template>
@@ -54,13 +72,16 @@
           :to="`/createInvoice/${id.invoiceID}`"
           target="_blank"
           style="text-decoration: none"
-          v-if="id.dateinvoice != '' && id.bankID != '0' "
+          v-if="id.dateinvoice != '' && id.bankID != '0'"
         >
-          <b-icon
-            icon="file-earmark-pdf"
-            style="width: 20px; height: 20px; margin: 0px 0.7em 0px 0.5em"
-          >
-          </b-icon>
+          <a-tooltip>
+            <template slot="title"> PDF ของใบวางบิล </template>
+            <b-icon
+              icon="file-earmark-pdf"
+              style="width: 20px; height: 20px; margin: 0px 0.7em 0px 0.5em"
+            >
+            </b-icon>
+          </a-tooltip>
         </router-link>
         <a-dropdown>
           <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
@@ -87,7 +108,7 @@
                 <a style="text-decoration: none">แก้ไขใบวางบิล</a>
               </router-link>
             </a-menu-item>
-            <a-menu-item v-if="id.dateinvoice != '' && id.bankID != '0' ">
+            <a-menu-item v-if="id.dateinvoice != '' && id.bankID != '0'">
               <router-link
                 :to="`/receipt/${id.invoiceID}`"
                 style="text-decoration: none"
@@ -183,7 +204,9 @@ export default {
     async getinv(id) {
       console.log("get-invoice");
       try {
-        const response = await axios.get(`https://pxu-server.herokuapp.com/invoice/${id}`);
+        const response = await axios.get(
+          `https://pxu-server.herokuapp.com/invoice/${id}`
+        );
         this.invoice = response.data;
         console.log(this.invoice);
       } catch (err) {
@@ -220,5 +243,27 @@ export default {
 <style scoped>
 .header-solid {
   font-family: "Mitr", sans-serif;
+}
+.complete-status {
+  display: flex;
+  width: 100px;
+  text-align: center;
+  justify-content: center;
+  text-decoration: none;
+  background-color: rgba(168, 235, 168, 0.644);
+  border-radius: 8px;
+  padding: 0.3em;
+  color: black;
+}
+.incomplete-status {
+  display: flex;
+  width: 100px;
+  text-align: center;
+  justify-content: center;
+  text-decoration: none;
+  background-color: rgba(95, 95, 95, 0.267);
+  border-radius: 8px;
+  padding: 0.3em;
+  color: black;
 }
 </style>

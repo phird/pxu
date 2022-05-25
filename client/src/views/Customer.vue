@@ -44,13 +44,17 @@
                 justify-content: flex-end;
               "
             >
-              <div class="table-upload-btn" style="color:white">
+              <div class="table-upload-btn" style="color: white">
                 <a-tooltip>
-              <template slot="title"> เพิ่มลูกค้า </template>
-                <a-button type="primary" @click="showModal" style="font-size:14px; font-weight: 500;">
-                  <b-icon icon="plus-square-dotted"></b-icon>
+                  <template slot="title"> เพิ่มลูกค้า </template>
+                  <a-button
+                    type="primary"
+                    @click="showModal"
+                    style="font-size: 14px; font-weight: 500"
+                  >
+                    <b-icon icon="plus-square-dotted"></b-icon>
                     เพิ่มลูกค้า
-                </a-button>
+                  </a-button>
                 </a-tooltip>
               </div>
             </a-col>
@@ -140,9 +144,9 @@
     >
       <div class="all-about-modal">
         <div class="title-modal">
-          <p> เพิ่มลูกค้า </p>
+          <p>เพิ่มลูกค้า</p>
         </div>
-         <a-alert
+        <a-alert
           v-if="success"
           message="บันทึกข้อมูลสำเร็จ"
           type="success"
@@ -192,7 +196,10 @@
                   type="text"
                   v-model="companyName"
                   placeholder="ชื่อบริษัท/ลูกค้า"
-                  style="text-indent: 5%; border: 1px solid rgb(211, 211, 0.123)"
+                  style="
+                    text-indent: 5%;
+                    border: 1px solid rgb(211, 211, 0.123);
+                  "
                 />
 
                 <div class="error" v-if="$v.companyName.$error">
@@ -219,7 +226,13 @@
                     <template v-else-if="!$v.companyNumber.required">
                       โปรดใส่เบอร์บริษัท
                     </template>
-                    <template v-else-if="!$v.companyNumber.minLength || !$v.companyNumber.maxLength || !$v.companyNumber.numeric">
+                    <template
+                      v-else-if="
+                        !$v.companyNumber.minLength ||
+                        !$v.companyNumber.maxLength ||
+                        !$v.companyNumber.numeric
+                      "
+                    >
                       เบอร์บริษัทต้องเป็นตัวเลข9-10หลัก
                     </template>
                   </div>
@@ -623,8 +636,8 @@ export default {
   validations: {
     companyNumber: {
       required,
-      minLength:minLength(9),
-      maxLength:maxLength(10),
+      minLength: minLength(9),
+      maxLength: maxLength(10),
       numeric,
     },
     contactNumber: {
@@ -720,8 +733,8 @@ export default {
             contactEmail: this.contactEmail,
             taxNumber: this.taxNumber,
           })
-          .then(()=> {
-            this.success=true;
+          .then(() => {
+            this.success = true;
             setTimeout(() => {
               window.location.reload(false);
             }, 500);
@@ -740,7 +753,9 @@ export default {
     async getcustomer() {
       console.log("get-cus");
       try {
-        const response = await axios.get("https://pxu-server.herokuapp.com/customer");
+        const response = await axios.get(
+          "https://pxu-server.herokuapp.com/customer"
+        );
         this.customer = response.data;
         for (let i = 0; i < response.data.length; i++) {
           this.customer[i].index = i + 1;
@@ -815,8 +830,9 @@ export default {
   width: 100%;
 }
 
-.quotation-table >>> .ant-table-column-title{
+.quotation-table >>> .ant-table-column-title {
   font-size: 18px !important;
+  font-weight: 400;
 }
 
 #companyName,
@@ -880,10 +896,9 @@ export default {
   flex-direction: column;
 }
 
-
 /* modal style start here  */
 
-.all-about-modal{
+.all-about-modal {
   font-family: "Mitr", sans-serif;
 }
 
@@ -1043,17 +1058,17 @@ export default {
     width: 500%;
   }
   .addr-detail-content {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
 
-.addr-detail {
-  display: flex;
-  padding: 1em;
-  flex-direction: column;
-  width: 100%;
-}
+  .addr-detail {
+    display: flex;
+    padding: 1em;
+    flex-direction: column;
+    width: 100%;
+  }
 }
 /* / modal style end here  */
 </style>

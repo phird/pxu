@@ -55,10 +55,30 @@
         <a> {{ qName }}</a>
       </template>
       <template slot="status" slot-scope="status">
-        <a>{{ status }}</a>
+        <a-tooltip>
+          <template slot="title"> สถานะทำสัญญาแล้ว </template>
+          <a v-if="status == 'Contracted'" class="contracted-label">{{
+            status
+          }}</a>
+        </a-tooltip>
+        <a-tooltip>
+          <template slot="title"> สถานะกำลังเจรจา </template>
+          <a v-if="status == 'Negotiation'" class="negotiation-label">{{
+            status
+          }}</a></a-tooltip
+        >
       </template>
       <template slot="statusw" slot-scope="statusw">
-        <a>{{ statusw }}</a>
+        <a-tooltip>
+          <template slot="title"> สถานะโปรเจคเสร็จสิ้น </template>
+          <a v-if="statusw == 'Done'" class="done-status">{{ statusw }}</a>
+        </a-tooltip>
+        <a-tooltip>
+          <template slot="title"> สถานะกำลังดำเนินการ </template>
+          <a v-if="statusw == 'On-Going'" class="ongoing-status">{{
+            statusw
+          }}</a></a-tooltip
+        >
       </template>
       <template slot="val" slot-scope="val">
         <a>{{ val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") }}</a>
@@ -69,7 +89,10 @@
             :to="`/Invoice/${row.quotationID}`"
             style="text-decoration: none"
           >
-            <a style="text-decoration: none">ใบวางบิล</a>
+            <a-tooltip>
+              <template slot="title"> เปิดดูใบวางบิล </template>
+              <a style="text-decoration: none">ใบวางบิล</a>
+            </a-tooltip>
           </router-link>
         </a-menu-item>
       </template>
@@ -77,12 +100,18 @@
         <router-link
           :to="`/createPDFquotation/${quoID.quotationID}`"
           target="_blank"
-          style="text-decoration: none">
+          style="text-decoration: none"
+        >
           <a-tooltip>
-            <template slot="title"> PDF ของใบเสนอราคา  </template>
+            <template slot="title"> PDF ของใบเสนอราคา </template>
             <b-icon
               icon="file-earmark-pdf"
-              style="width: 20px; height: 20px; margin: 0px 0.7em 0px 0.5em; color:red;"
+              style="
+                width: 20px;
+                height: 20px;
+                margin: 0px 0.7em 0px 0.5em;
+                color: red;
+              "
             >
             </b-icon>
           </a-tooltip>
@@ -92,13 +121,13 @@
           target="_blank"
           style="text-decoration: none"
         >
-        <a-tooltip>
-            <template slot="title"> PDF ของรายละเอียดเพิ่มเติม  </template>
-          <b-icon
-            icon="file-earmark-pdf"
-            style="width: 20px; height: 20px; margin: 0px 0.7em 0px 0.5em; "
-          >
-          </b-icon>
+          <a-tooltip>
+            <template slot="title"> PDF ของรายละเอียดเพิ่มเติม </template>
+            <b-icon
+              icon="file-earmark-pdf"
+              style="width: 20px; height: 20px; margin: 0px 0.7em 0px 0.5em"
+            >
+            </b-icon>
           </a-tooltip>
         </router-link>
         <a-dropdown>
@@ -163,27 +192,27 @@ export default {
       type: Array,
       default: () => [
         {
-          title: "#ID",
+          title: "#",
           dataIndex: "quotationID",
           scopedSlots: { customRender: "qID" },
         },
         {
-          title: "PROJECT NAME",
+          title: "ชื่อโปรเจค",
           dataIndex: "quotationName",
           scopedSlots: { customRender: "qName" },
         },
         {
-          title: "STATUS",
+          title: "สภานะการเจรจา",
           dataIndex: "statusquotation",
           scopedSlots: { customRender: "status" },
         },
         {
-          title: "W-STATUS",
+          title: "สถานะของงาน",
           dataIndex: "statuswork",
           scopedSlots: { customRender: "statusw" },
         },
         {
-          title: "Value",
+          title: "มูลค่าโปรเจค",
           dataIndex: "paymentPrice",
           scopedSlots: { customRender: "val" },
         },
@@ -192,7 +221,7 @@ export default {
           scopedSlots: { customRender: "act-1" },
         },
         {
-          title: "Action",
+          title: " ",
 
           scopedSlots: { customRender: "act" },
         },
@@ -218,7 +247,9 @@ export default {
     async getquotation() {
       console.log("get-quo");
       try {
-        const response = await axios.get("https://pxu-server.herokuapp.com/quotation");
+        const response = await axios.get(
+          "https://pxu-server.herokuapp.com/quotation"
+        );
         this.quotation = response.data;
         console.log(this.quotation);
       } catch (err) {
@@ -248,12 +279,64 @@ export default {
 
 
 <style scoped>
+.quotation-table >>> .ant-table-column-title{
+  font-size: 18px !important;
+  font-weight: 400;
+}
 .header-solid {
   font-family: "Mitr", sans-serif;
   padding: 2em;
 }
 .ant-card-body {
   padding: 2em;
+}
+
+.negotiation-label {
+  display: flex;
+  width: 100px;
+  text-align: center;
+  justify-content: center;
+  text-decoration: none;
+  background-color: rgba(250, 149, 149, 0.644);
+  border-radius: 8px;
+  padding: 0.3em;
+  color: black;
+}
+
+.contracted-label {
+  display: flex;
+  width: 100px;
+  text-align: center;
+  justify-content: center;
+  text-decoration: none;
+  background-color: rgba(168, 235, 168, 0.644);
+  border-radius: 8px;
+  padding: 0.3em;
+  color: black;
+}
+
+.done-status {
+  display: flex;
+  width: 100px;
+  text-align: center;
+  justify-content: center;
+  text-decoration: none;
+  background-color: rgba(133, 134, 133, 0.438);
+  border-radius: 8px;
+  padding: 0.3em;
+  color: black;
+}
+
+.ongoing-status {
+  display: flex;
+  width: 100px;
+  text-align: center;
+  justify-content: center;
+  text-decoration: none;
+  background-color: rgba(133, 134, 133, 0.103);
+  border-radius: 8px;
+  padding: 0.3em;
+  color: black;
 }
 
 .quotation-table .ant-table-wrapper {

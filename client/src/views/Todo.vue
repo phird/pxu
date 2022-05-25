@@ -568,6 +568,7 @@ export default {
 
 <style scoped>
 .vatable{
+  display: flex;
   border: 1px solid black;
   padding: .2em;
 }
