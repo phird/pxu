@@ -21,7 +21,7 @@ router.get('/bank', (req, res)=> {
 
 router.get('/count', (req, res)=> {
     const sqlSelectcus = "SELECT COUNT(*) as ccus FROM `customer`"
-    const sqlSelectquo = "SELECT COUNT(*) as cquo,SUM(paymentPrice) as p FROM `quotation`"
+    const sqlSelectquo = "SELECT COUNT(*) as cquo,SUM(paymentPrice) as p FROM `quotation` WHERE statusquotation='Contracted'"
     db.query(sqlSelectcus, (err, result1) => {
         // console.log(result);
         db.query(sqlSelectquo, (err, result2) => {
