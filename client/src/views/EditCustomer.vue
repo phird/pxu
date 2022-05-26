@@ -483,6 +483,7 @@ export default {
   height: 5%;
 }
 
+
 .header-solid {
   font-family: "Mitr", sans-serif;
 }
@@ -512,6 +513,7 @@ export default {
   background-position: 8px 50%;
   width: 100%;
 }
+
 
 #companyNumber,
 #contactNumber {

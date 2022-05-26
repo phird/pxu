@@ -865,6 +865,9 @@ export default {
                   "ราคาหลังภาษีมูลค่าเพิ่ม 7% :",
                   "รวมเงินสุทธิ :",
                 ],
+
+
+
                 style: {
                   lineHeight: 1.2,
                   bold: false,
@@ -872,6 +875,7 @@ export default {
                 },
               },
               {
+                
                 width: "auto",
                 alignment: "right",
                 fontSize: 10,
