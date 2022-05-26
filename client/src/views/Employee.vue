@@ -6,6 +6,17 @@
       class="header-solid h-full ph"
       :bodyStyle="{ padding: 0 }"
     >
+    <div v-if="modalconfirm">
+    คุณแน่ใจว่าจะลบพนักงานคนนี้นี้ใช่หรือไม่
+    <button @click="deleteEmp(eID)">ยืนยัน</button>
+    <button @click="modalconfirm=false">ยกเลิก</button>
+  </div>
+  <a-alert
+          v-if="nerror"
+          message="ลบพนักงานสำเร็จ"
+          type="error"
+          show-icon
+        />
       <template #title>
         <a-row type="flex" align="middle">
           <a-col :span="24" :md="12">
@@ -109,7 +120,7 @@
                 </router-link>
               </a-menu-item>
               <a-menu-item>
-                <a style="text-decoration: none" @click="deleteEmp(empID)">
+                <a style="text-decoration: none" @click="eID=empID;modalconfirm=true;">
                   ลบ
                 </a>
               </a-menu-item>
@@ -294,6 +305,9 @@ export default {
       employeeNumber: "",
       employeeEmail: null,
       success:false,
+      modalconfirm:false,
+      nerror:false,
+      eID:'',
     };
   },
   created() {
@@ -366,10 +380,12 @@ export default {
     },
     deleteEmp(id) {
       console.log(id);
-      if (window.confirm("คุณต้องการจะลบพนักงานคนนี้ใช่หรือไม่ ?")) {
+      
         axios.delete(`https://pxu-server.herokuapp.com/employee/${id}`);
-        window.location.reload(false);
-      }
+        this.modalconfirm=false;
+        this.nerror=true;
+        setTimeout(()=>{window.location.reload(false);},400);
+     
     },
   },
 };
