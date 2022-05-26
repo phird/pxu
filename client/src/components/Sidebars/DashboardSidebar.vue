@@ -247,7 +247,7 @@ export default {
   },
   methods: {
     async getweb() {
-      const response = await axios.get(`https://pxu-server.herokuapp.com/website/img`);
+      const response = await axios.get(`http://128.199.187.173:5000/website/img`);
       this.name = response.data[0].websiteName;
       this.logo = response.data[0].logo;
       console.log(this.logo);
@@ -287,9 +287,6 @@ export default {
   margin: 0;
   font-weight: 500;
   margin-left: -10px;
-}
-
-#phi >>> .ant-menu-item-group-list {
 }
 
 #ph[data-v-e9978e80].ant-menu-item-group-list a {
