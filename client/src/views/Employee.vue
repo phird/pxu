@@ -249,32 +249,32 @@ export default {
           scopedSlots: { customRender: "index" },
         },
         {
-          title: "Name",
+          title: "ชื่อพนักกงาน",
           dataIndex: "employeeName",
           scopedSlots: { customRender: "emName" },
         },
         {
-          title: "E-mail",
+          title: "อีเมล",
           dataIndex: "employeeEmail",
           scopedSlots: { customRender: "emEmail" },
         },
         {
-          title: "Tel.",
+          title: "เบอร์โทรศัพท์",
           dataIndex: "employeeNumber",
           scopedSlots: { customRender: "emTel" },
         },
         {
-          title: "Role",
+          title: "หน้าที่",
           dataIndex: "role",
           scopedSlots: { customRender: "role" },
         },
         {
-          title: "",
+          title: " ",
           dataIndex: "employeestatus",
           scopedSlots: { customRender: "status" },
         },
         {
-          title: "Action",
+          title: " ",
           dataIndex: "employeeID",
           scopedSlots: { customRender: "actionSection" },
         },
@@ -377,6 +377,13 @@ export default {
 
 
 <style scoped>
+
+
+.quotation-table >>> .ant-table-column-title{
+  font-size: 18px !important;
+  font-weight: 400;
+}
+
 .font-inhere {
   font-family: "Mitr", sans-serif;
   padding: 4em;
