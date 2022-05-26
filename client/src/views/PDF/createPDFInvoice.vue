@@ -33,6 +33,15 @@ export default {
       invoice: [],
       invoiceDetail: [],
       invDate:"",
+      qaddress: "",
+      qsubdistrict: "",
+      qdistrict: "",
+      qprovince: "",
+      qpostcode: "",
+      qwcompanyNumber: "",
+      qtaxNumber: "",
+      qemployeeEmail: "",
+
       price: 0,
       totalprice: 0,
       netprice: 0,
@@ -86,7 +95,27 @@ export default {
         console.log(this.invoice);
         console.log(this.invoiceDetail);
         this.invDate =  this.invoice.dateinvoice;
-
+        if (
+          this.invoice.caddress != "" ||
+          this.invoice.csubdistrict != ""
+        ) {
+          this.qaddress = "\n" + "ที่อยู่: " + this.invoice.caddress;
+          this.qsubdistrict = " ต. " + this.invoice.csubdistrict;
+          this.qdistrict = " อ. " + this.invoice.cdistrict;
+          this.qprovince = "\n" + " จ. " + this.invoice.cprovince;
+          this.qpostcode = this.invoice.cpostcode;
+        }
+        if (this.invoice.contactNumber != "") {
+          this.qwcompanyNumber =
+            ",  เบอร์โทร: " + this.invoice.contactNumber;
+        }
+        if (this.invoice.ctaxNumber != "") {
+          this.qtaxNumber =
+            "\n" + "หมายเลขผู้เสียภาษี: " + this.invoice.ctaxNumber;
+        }
+        if (this.invoice.contactEmail != "") {
+          this.qemployeeEmail = "\n" + "อีเมล: " + this.invoice.contactEmail;
+        }
 
         if (this.invoice.customerstatus == "นิติบุคคล" && this.invoice.vatstatus == "vatนอก") {
           console.log("niti outvat");
@@ -249,27 +278,19 @@ export default {
                     text: this.invoice.companyName,
                   },
                   {
-                    text: "\nที่อยู่: ",
-                    bold: true,
-                  },
-                  {
                     text:
-                      this.invoice.caddress +
-                      " ต." +
-                      this.invoice.csubdistrict +
-                      " อ." +
-                      this.invoice.cdistrict +
-                      " จ." +
-                      this.invoice.cprovince +
+                      this.qaddress +
                       " " +
-                      this.invoice.cpostcode,
-                  },
-                  {
-                    text: "\nเลขทะเบียนนิติบุคคล: ",
-                    bold: true,
-                  },
-                  {
-                    text: this.invoice.ctaxNumber,
+                      this.qsubdistrict +
+                      " " +
+                      this.qdistrict +
+                      this.qprovince +
+                      "   " +
+                      this.qpostcode +
+                      "  " +
+                      this.qwcompanyNumber +
+                      this.qemployeeEmail +
+                      this.qtaxNumber,
                   },
                 ],
               },
@@ -639,27 +660,19 @@ export default {
                     text: this.invoice.companyName,
                   },
                   {
-                    text: "\nที่อยู่: ",
-                    bold: true,
-                  },
-                  {
                     text:
-                      this.invoice.caddress +
-                      " ต." +
-                      this.invoice.csubdistrict +
-                      " อ." +
-                      this.invoice.cdistrict +
-                      " จ." +
-                      this.invoice.cprovince +
+                      this.qaddress +
                       " " +
-                      this.invoice.cpostcode,
-                  },
-                  {
-                    text: "\nเลขทะเบียนนิติบุคคล: ",
-                    bold: true,
-                  },
-                  {
-                    text: this.invoice.ctaxNumber,
+                      this.qsubdistrict +
+                      " " +
+                      this.qdistrict +
+                      this.qprovince +
+                      "   " +
+                      this.qpostcode +
+                      "  " +
+                      this.qwcompanyNumber +
+                      this.qemployeeEmail +
+                      this.qtaxNumber,
                   },
                 ],
               },

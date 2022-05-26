@@ -212,7 +212,7 @@ export default {
             this.success=true;
             setTimeout(() => {
                this.$router.back();
-            }, 500);
+            }, 300);
           });
     },
     submit() {
@@ -282,9 +282,11 @@ export default {
           "http://128.199.187.173:5000/quotation/qid",
           { to: tous }
         );
-        if (response.data[0].num == "0") {
+        if (response.data[0].num == 0) {
           this.qID = tous + "001";
-        } else {
+        } else if(response.data[0].num >= 10){
+          this.qID = tous + "0" + (response.data[0].num + 1);
+        }else{
           this.qID = tous + "00" + (response.data[0].num + 1);
         }
       

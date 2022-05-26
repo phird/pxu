@@ -94,30 +94,33 @@ export default {
         /*      console.log("data from response");
         console.log(this.quotation.wcompanyName); */
         this.quoDate = this.quotation.datequotation;
-        if (this.quotation.caddress != "" ) {
-            this.qaddress = "ที่อยู่: " + this.quotation.caddress;
-            this.qsubdistrict = " ต. " + this.quotation.csubdistrict;
-            this.qdistrict = " อ. " + this.quotation.cdistrict;
-            this.qprovince = " จ. " + this.quotation.cprovince;
-            this.qpostcode = this.quotation.cpostcode;
-          }
-          if (this.quotation.contactNumber != "") {
-            this.qwcompanyNumber = "เบอร์โทร: " + this.quotation.contactNumber;
-          }
-          if (this.quotation.ctaxNumber != "") {
-            this.qtaxNumber =
-              "หมายเลขผู้เสียภาษี: " + this.quotation.ctaxNumber;
-          }
-          if (this.quotation.contactEmail != "") {
-            this.qemployeeEmail = "อีเมล: " + this.quotation.contactEmail;
-          }
+        if (
+          this.quotation.caddress != "" ||
+          this.quotation.csubdistrict != ""
+        ) {
+          this.qaddress = "\n" + "ที่อยู่: " + this.quotation.caddress;
+          this.qsubdistrict = " ต. " + this.quotation.csubdistrict;
+          this.qdistrict = " อ. " + this.quotation.cdistrict;
+          this.qprovince = "\n" + " จ. " + this.quotation.cprovince;
+          this.qpostcode = this.quotation.cpostcode;
+        }
+        if (this.quotation.contactNumber != "") {
+          this.qwcompanyNumber =
+            ",  เบอร์โทร: " + this.quotation.contactNumber;
+        }
+        if (this.quotation.ctaxNumber != "") {
+          this.qtaxNumber =
+            "\n" + "หมายเลขผู้เสียภาษี: " + this.quotation.ctaxNumber;
+        }
+        if (this.quotation.contactEmail != "") {
+          this.qemployeeEmail = "\n" + "อีเมล: " + this.quotation.contactEmail;
+        }
         /* นิติบุคคคล */
         if (
           this.quotation.customerstatus == "นิติบุคคล" &&
           this.quotation.vatstatus == "vatนอก"
         ) {
           console.log("niti outvat");
-          
 
           this.price = this.quotation.totalpricequo;
           this.totalprice = this.price;
@@ -224,8 +227,8 @@ export default {
                 fontSize: 10,
                 bold: false,
                 text: [
-                    this.quotation.wcompanyName +
-                   "\nที่อยู่: " +
+                  this.quotation.wcompanyName +
+                    "\nที่อยู่: " +
                     this.quotation.address +
                     "ต." +
                     this.quotation.subdistrict +
@@ -283,14 +286,18 @@ export default {
                   },
                   {
                     text:
-                    "\n" +
-                    this.qaddress + " " + this.qsubdistrict + " "+ this.qdistrict +
-                    "\n" +
-                    this.qprovince + "   " +  this.qpostcode + "  " +
-                    this.qwcompanyNumber +
-                    "\n" +
-                    this.qemployeeEmail + "\n" + 
-                    this.qtaxNumber,
+                      this.qaddress +
+                      " " +
+                      this.qsubdistrict +
+                      " " +
+                      this.qdistrict +
+                      this.qprovince +
+                      "   " +
+                      this.qpostcode +
+                      "  " +
+                      this.qwcompanyNumber +
+                      this.qemployeeEmail +
+                      this.qtaxNumber,
                   },
                 ],
               },
@@ -424,7 +431,7 @@ export default {
                   },
                   {
                     alignment: "center",
-                    text: "\n\n" + "note: " + this.quotation.notequotation,
+                    text: "\n\n" + "หมายเหตุ: " + this.quotation.notequotation,
                   },
                 ],
               },
@@ -640,8 +647,8 @@ export default {
                 fontSize: 10,
                 bold: false,
                 text: [
-                    this.quotation.wcompanyName +
-                   "\nที่อยู่: " +
+                  this.quotation.wcompanyName +
+                    "\nที่อยู่: " +
                     this.quotation.address +
                     "ต." +
                     this.quotation.subdistrict +
@@ -689,7 +696,7 @@ export default {
                 alignment: "left",
                 fontSize: 10,
                 bold: false,
-                                text: [
+                text: [
                   {
                     text: "ลูกค้า: ",
                     bold: true,
@@ -699,14 +706,18 @@ export default {
                   },
                   {
                     text:
-                    "\n" +
-                    this.qaddress + " " + this.qsubdistrict + " "+ this.qdistrict +
-                    "\n" +
-                    this.qprovince + "   " +  this.qpostcode + "  " +
-                    this.qwcompanyNumber +
-                    "\n" +
-                    this.qemployeeEmail + "\n" + 
-                    this.qtaxNumber,
+                      this.qaddress +
+                      " " +
+                      this.qsubdistrict +
+                      " " +
+                      this.qdistrict +
+                      this.qprovince +
+                      "   " +
+                      this.qpostcode +
+                      "  " +
+                      this.qwcompanyNumber +
+                      this.qemployeeEmail +
+                      this.qtaxNumber,
                   },
                 ],
               },
@@ -839,7 +850,7 @@ export default {
                   },
                   {
                     alignment: "center",
-                    text: "\n\n" + "note: " + this.quotation.notequotation,
+                    text: "\n\n" + "หมายเหตุ: " + this.quotation.notequotation,
                   },
                 ],
               },
