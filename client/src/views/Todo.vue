@@ -25,7 +25,7 @@
           <a-select
             id="customer-select"
             v-model="sumtodo.customerID"
-            style="width: 120px"
+            
             @change="auth(), calc(sumtodo.statusvat)"
           >
             <a-select-option value="" disable> เลือกลูกค้า </a-select-option>
@@ -44,7 +44,6 @@
           <a-select
             id="customer-select"
             v-model="sumtodo.customerID"
-            style="width: 120px"
             @change="auth(), calc(statusvat)"
             disabled
           >
@@ -69,12 +68,11 @@
             </div>
             <div class="date-section hbox">
               <span>วันที่ </span>
-              <span
-                >
+              <span>
                 <date-picker
                   v-model="sumtodo.dateq"
                   valueType="format"
-                  :format = "thFormat"
+                  :format="thFormat"
                 ></date-picker>
               </span>
             </div>
@@ -85,7 +83,6 @@
                   id="customer-select"
                   v-model="sumtodo.employeeID"
                   @change="auth()"
-                  style="width: 120px"
                   default-value="5"
                 >
                   <a-select-option value="" disable>
@@ -201,7 +198,7 @@
               <td class="cbox">
                 <div class="d-flex justify-content-start align-items-center">
                   <div>
-                    {{ todo.price  }}
+                    {{ todo.price }}
                   </div>
                 </div>
               </td>
@@ -217,7 +214,10 @@
                   <div class="" @click="editTodo(index)">
                     <i class="fa fa-edit"></i>
                   </div>
-                  <div class="" @click="deleteTodo(index), calc(sumtodo.statusvat)">
+                  <div
+                    class=""
+                    @click="deleteTodo(index), calc(sumtodo.statusvat)"
+                  >
                     <i class="fa fa-close"></i>
                   </div>
                 </div>
@@ -254,7 +254,7 @@
         <div class="installment-box">
           <span> รูปแบบการชำระเงิน </span>
           <div class="installment-box-sl">
-            <a-tabs v-model="sumtodo.qIN" @change="auth(),changeofin();">
+            <a-tabs v-model="sumtodo.qIN" @change="auth(), changeofin()">
               <a-tab-pane key="1" value="1" tab="ชำระเต็มจำนวน"> </a-tab-pane>
               <a-tab-pane key="2" value="2" tab="ผ่อนจ่าย 2 งวด" force-render>
                 <div>
@@ -321,19 +321,42 @@
         </div>
       </div>
       <div class="sum-payment-right-section">
-        <div>
+        <div style="display:flex; gap:1em">
           รวมเป็นเงิน (ก่อนคิดภาษี)
-          <select class="vatalbe" v-model="sumtodo.statusvat" @change="calc(sumtodo.statusvat)">
-            <option value="vatใน">vatใน</option>
-            <option value="vatนอก">vatนอก</option>
-          </select>
-          : {{ this.sumtodo.totalnow.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท
+          <div class="vatable-box" style="display:flex;">
+            <select
+              class="vatalbe"
+              v-model="sumtodo.statusvat"
+              @change="calc(sumtodo.statusvat)"
+            >
+              <option value="vatใน">vatใน</option>
+              <option value="vatนอก">vatนอก</option>
+            </select>
+          </div>
+
+          :
+          {{
+            this.sumtodo.totalnow.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
+          }}
+          บาท
         </div>
-        <div step="0.01">vat 7% : {{ this.sumtodo.vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</div>
+        <div step="0.01">
+          vat 7% :
+          {{ this.sumtodo.vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") }}
+          บาท
+        </div>
         <div v-if="sumtodo.cusstatus == 'นิติบุคคล'" step="0.01">
-          ภาษี ณ ที่จ่าย 3% : {{ this.sumtodo.tax3.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท
+          ภาษี ณ ที่จ่าย 3% :
+          {{ this.sumtodo.tax3.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") }}
+          บาท
         </div>
-        <div step="0.01">รวมเป็นเงิน : {{ this.sumtodo.payment.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  }} บาท</div>
+        <div step="0.01">
+          รวมเป็นเงิน :
+          {{
+            this.sumtodo.payment.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
+          }}
+          บาท
+        </div>
       </div>
     </div>
 
@@ -349,7 +372,12 @@
     <div class="note-section">
       <div class="note-container">
         <span>หมายเหตุ </span>
-        <input v-model="sumtodo.noteq" @change="auth()" class="note-box" type="text" />
+        <input
+          v-model="sumtodo.noteq"
+          @change="auth()"
+          class="note-box"
+          type="text"
+        />
       </div>
     </div>
 
@@ -365,24 +393,27 @@ import axios from "axios";
 import moment from "moment";
 export default {
   name: "ToDo",
-  props: ["todos", "sumtodo", "qID", "inv","changein"],
+  props: ["todos", "sumtodo", "qID", "inv", "changein"],
   data() {
     return {
       thFormat: {
         stringify: (date) => {
-          return date ? moment(date).add(543, 'year').format('DD/MM/YYYY') : null
+          return date
+            ? moment(date).add(543, "year").format("DD/MM/YYYY")
+            : null;
         },
         parse: (dateqq) => {
-
-          return dateqq ? moment(dateqq, 'DD-MM-YYYY').subtract(543, 'year').toDate() : null
-        }
-      }, 
+          return dateqq
+            ? moment(dateqq, "DD-MM-YYYY").subtract(543, "year").toDate()
+            : null;
+        },
+      },
       //   statusvat:'1',
       //   totalnow: 0,
       //   total: 0,
       //   vat7: 0,
       //   payment: 0,
-      dateqq: '',
+      dateqq: "",
       newprice: 0,
       newquantity: 1,
       newTodo: "",
@@ -395,9 +426,9 @@ export default {
       //
       employee: [],
       //
-  IN1:100,
-  IN2:0,
-  IN3:0,
+      IN1: 100,
+      IN2: 0,
+      IN3: 0,
       //
     };
   },
@@ -407,38 +438,48 @@ export default {
     // this.dateqq = this.sumtodo.dateq;
   },
   methods: {
-    keepdate(){
+    keepdate() {
       // this.sumtodo.dateq = this.dateqq
     },
     invpush(e) {
       console.log(e.data.value);
     },
     auth() {
-      if(this.sumtodo.qIN=='1'){
-        this.inv.IN1=100
-        this.inv.IN2=0;
-        this.inv.IN3=0;
-      }else if(this.sumtodo.qIN=='2' && this.inv.IN1!=this.IN1){
-        this.inv.IN2=100-this.inv.IN1;
-        this.inv.IN3=0;
-      }else if(this.sumtodo.qIN=='2' && this.inv.IN2!=this.IN2){
-        this.inv.IN1=100-this.inv.IN2;
-        this.inv.IN3=0;
-      }else if(this.sumtodo.qIN=='3' && this.inv.IN2!=this.IN2 || this.inv.IN1!=this.IN1){
-        this.inv.IN3=100-this.inv.IN2-this.inv.IN1;
-      }else if(this.sumtodo.qIN=='3' && this.inv.IN3!=this.IN3 || this.inv.IN1!=this.IN1){
-        this.inv.IN2=100-this.inv.IN1-this.inv.IN3;
-      }else if(this.sumtodo.qIN=='3' && this.inv.IN3!=this.IN3 || this.inv.IN2!=this.IN2){
-        this.inv.IN1=100-this.inv.IN2-this.inv.IN3;
+      if (this.sumtodo.qIN == "1") {
+        this.inv.IN1 = 100;
+        this.inv.IN2 = 0;
+        this.inv.IN3 = 0;
+      } else if (this.sumtodo.qIN == "2" && this.inv.IN1 != this.IN1) {
+        this.inv.IN2 = 100 - this.inv.IN1;
+        this.inv.IN3 = 0;
+      } else if (this.sumtodo.qIN == "2" && this.inv.IN2 != this.IN2) {
+        this.inv.IN1 = 100 - this.inv.IN2;
+        this.inv.IN3 = 0;
+      } else if (
+        (this.sumtodo.qIN == "3" && this.inv.IN2 != this.IN2) ||
+        this.inv.IN1 != this.IN1
+      ) {
+        this.inv.IN3 = 100 - this.inv.IN2 - this.inv.IN1;
+      } else if (
+        (this.sumtodo.qIN == "3" && this.inv.IN3 != this.IN3) ||
+        this.inv.IN1 != this.IN1
+      ) {
+        this.inv.IN2 = 100 - this.inv.IN1 - this.inv.IN3;
+      } else if (
+        (this.sumtodo.qIN == "3" && this.inv.IN3 != this.IN3) ||
+        this.inv.IN2 != this.IN2
+      ) {
+        this.inv.IN1 = 100 - this.inv.IN2 - this.inv.IN3;
       }
-      this.IN1=this.inv.IN1;
-      this.IN2=this.inv.IN2;
-      this.IN3=this.inv.IN3;
+      this.IN1 = this.inv.IN1;
+      this.IN2 = this.inv.IN2;
+      this.IN3 = this.inv.IN3;
     },
     totalprice() {
       this.sumtodo.total = 0;
       for (let i = 0; i < this.todos.length; i++) {
-        this.sumtodo.total = this.sumtodo.total + this.todos[i].quantity * this.todos[i].price;
+        this.sumtodo.total =
+          this.sumtodo.total + this.todos[i].quantity * this.todos[i].price;
       }
     },
     calc(statusvat) {
@@ -447,12 +488,13 @@ export default {
           this.sumtodo.totalnow = this.sumtodo.total;
           this.sumtodo.vat7 = this.sumtodo.total * 0.07;
           this.sumtodo.tax3 = this.sumtodo.total * 0.03;
-          this.sumtodo.payment = this.sumtodo.total + this.sumtodo.vat7 - this.sumtodo.tax3;
+          this.sumtodo.payment =
+            this.sumtodo.total + this.sumtodo.vat7 - this.sumtodo.tax3;
         } else if (statusvat == "vatใน") {
-          this.sumtodo.totalnow = (this.sumtodo.total * 100)/107;
+          this.sumtodo.totalnow = (this.sumtodo.total * 100) / 107;
           this.sumtodo.tax3 = this.sumtodo.totalnow * 0.03;
           this.sumtodo.vat7 = this.sumtodo.total - this.sumtodo.totalnow;
-          this.sumtodo.payment = this.sumtodo.total-this.sumtodo.tax3;
+          this.sumtodo.payment = this.sumtodo.total - this.sumtodo.tax3;
         }
       } else {
         if (statusvat == "vatนอก") {
@@ -461,7 +503,7 @@ export default {
           this.sumtodo.payment = this.sumtodo.total + this.sumtodo.vat7;
           this.sumtodo.tax3 = 0;
         } else if (statusvat == "vatใน") {
-          this.sumtodo.totalnow = (this.sumtodo.total * 100)/107;
+          this.sumtodo.totalnow = (this.sumtodo.total * 100) / 107;
           this.sumtodo.vat7 = this.sumtodo.total - this.sumtodo.totalnow;
           this.sumtodo.payment = this.sumtodo.total;
           this.sumtodo.tax3 = 0;
@@ -501,7 +543,8 @@ export default {
       this.newTodo = this.todos[index].name;
       this.newquantity = this.todos[index].quantity;
       this.newprice = this.todos[index].price;
-      this.sumtodo.total = this.sumtodo.total - this.newquantity * this.newprice;
+      this.sumtodo.total =
+        this.sumtodo.total - this.newquantity * this.newprice;
       this.todos.splice(index, 1);
       this.newTodo = "";
       this.newquantity = 1;
@@ -535,14 +578,16 @@ export default {
       this.todos[index + 1].price = this.temppriceTodo;
       this.changeofin();
     },
-    changeofin(){
-      this.changein=true;
-      this.$emit("updatechan",this.changein);
+    changeofin() {
+      this.changein = true;
+      this.$emit("updatechan", this.changein);
     },
     async getcus() {
       console.log("get-cus");
       try {
-        const response = await axios.get("https://pxu-server.herokuapp.com/customer/name");
+        const response = await axios.get(
+          "https://pxu-server.herokuapp.com/customer/name"
+        );
         this.customer = response.data;
         console.log(this.customer);
       } catch (err) {
@@ -552,10 +597,12 @@ export default {
     async getem() {
       console.log("get-em");
       try {
-        const response = await axios.get("https://pxu-server.herokuapp.com/employee/name");
+        const response = await axios.get(
+          "https://pxu-server.herokuapp.com/employee/name"
+        );
         this.employee = response.data;
-        if(!this.sumtodo.checkedit){
-             this.sumtodo.employeeID=this.employee[0].employeeID;
+        if (!this.sumtodo.checkedit) {
+          this.sumtodo.employeeID = this.employee[0].employeeID;
         }
         console.log(this.employee);
       } catch (err) {
@@ -567,10 +614,10 @@ export default {
 </script>
 
 <style scoped>
-.vatable{
+.vatable {
   display: flex;
   border: 1px solid black;
-  padding: .2em;
+  padding: 0.2em;
 }
 /* header  */
 .header {
@@ -605,11 +652,13 @@ export default {
   height: 35px;
   border: 1px solid rgba(151, 148, 148, 0.459);
   border-radius: 14px;
+  text-indent: 4%;
 }
 
 #customer-select >>> .ant-select-selection--single {
   height: 40px;
   border-radius: 14px;
+  width: 200px;
 }
 
 .header-right-section {
@@ -723,6 +772,8 @@ export default {
   justify-content: space-around;
 }
 
+
+
 .todo-finished {
   font-style: italic;
   text-decoration: line-through;
@@ -764,6 +815,24 @@ export default {
 /* ==========================================
 sum payment
 ========================================== */
+
+.vatable-box{
+  background-color: rgba(119, 118, 118, 0.303);
+  text-align: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: .1em;
+}
+
+.vatable-box select{
+  width: 80px;
+  text-align-last:center;
+}
+.vatable-box option{
+  width: 80px;
+  text-align-last:center;
+}
+
 .sum-payment {
   width: 100%;
   padding: 2em;
@@ -813,6 +882,7 @@ sum payment
   width: 50%;
   flex-direction: column;
   text-align: end;
+  align-items: flex-end;
 }
 /* ==========================================
 /sum payment

@@ -78,33 +78,10 @@
     <div class="right-layout">
       <div class="right-layout-panel">
         <div class="container-panel">
-          <button type="button" class="btn btn-outline-primary" disabled>
-            <!-- <b-icon icon="file-earmark-pdf" style="color: blue; font-size:24px;"></b-icon> -->
-            ดาวน์โหลดเป็น PDF
-          </button>
           <button
-            v-if="check == '2'"
             type="button"
             class="btn btn-outline-success"
             @click="submit"
-          >
-            <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
-            บันทึก
-          </button>
-          <button
-            v-if="check == '1'"
-            type="button"
-            class="btn btn-outline-success"
-            disabled
-          >
-            <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
-            บันทึก
-          </button>
-          <button
-            v-if="check == '0'"
-            type="button"
-            class="btn btn-outline-success"
-            disabled
           >
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก

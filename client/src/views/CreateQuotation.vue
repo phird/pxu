@@ -69,10 +69,6 @@
     <div class="right-layout">
       <div class="right-layout-panel">
         <div class="container-panel">
-          <button type="button" class="btn btn-outline-primary" disabled>
-            <!-- <b-icon icon="file-earmark-pdf" style="color: blue; font-size:24px;"></b-icon> -->
-            ดาวน์โหลดเป็น PDF
-          </button>
           <button v-if="check=='0'" type="button" class="btn btn-outline-success" disabled>
             <!-- <b-icon icon="save" style="color: green; font-size:24px;"></b-icon> -->
             บันทึก
@@ -294,7 +290,6 @@ export default {
       
           var today = new Date();
           this.sumtodo.dateq = String(moment(today).add(543, 'year').format('DD/MM/YYYY'));
-          alert(this.sumtodo.dateq)
       } catch (err) {
         console.log(err);
       }

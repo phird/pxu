@@ -80,9 +80,12 @@
           </a-space>
 
           <template slot="status" slot-scope="status">
-            <h6 class="m-0">
+            <p v-if="status == 'บุคคลธรรมดา'" class="m-0 normal-label">
               {{ status }}
-            </h6>
+            </p>
+            <p v-if="status == 'นิติบุคคล'" class="m-0 niti-label">
+              {{ status }}
+            </p>
           </template>
 
           <template slot="contactName" slot-scope="contactName">
@@ -1016,6 +1019,18 @@ export default {
   font-family: "Mitr", sans-serif;
   border-radius: 14px;
   height: 45px;
+}
+
+.normal-label, .niti-label{
+  display: flex;
+  width: 100px;
+  text-align: center;
+  justify-content: center;
+  text-decoration: none;
+  background-color: rgba(133, 134, 133, 0.438);
+  border-radius: 8px;
+  padding: 0.3em;
+  color: black;
 }
 
 @media only screen and (max-width: 991px) {

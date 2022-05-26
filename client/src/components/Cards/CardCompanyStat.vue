@@ -135,7 +135,7 @@ export default {
   display: flex;
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 252px;
   border-radius: 12px;
 }
 
