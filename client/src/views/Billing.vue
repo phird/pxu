@@ -93,11 +93,6 @@ export default {
           dataIndex: "paymentPrice",
           scopedSlots: { customRender: "val" },
         },
-        {
-          title: "Action",
-		  dataIndex:"quotationID",
-          scopedSlots: { customRender: "act" },
-        },
       ],
     },
   },

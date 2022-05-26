@@ -5,6 +5,18 @@
     class="header-solid h-full"
     :bodyStyle="{ padding: 0 }"
   >
+  <a-alert
+          v-if="success"
+          message="ทำสัญญาสำเร็จ"
+          type="success"
+          show-icon
+        />
+        <a-alert
+          v-if="nerror"
+          message="ยกเลิกสัญญาสำเร็จ"
+          type="error"
+          show-icon
+        />
     <template #title>
       <a-row type="flex" align="middle">
         <a-col :span="24" :md="12">
@@ -234,6 +246,8 @@ export default {
       projectHeaderBtns: "all",
       quotation: [],
       contract: "",
+      success:false,
+      nerror:false,
     };
   },
   created() {
@@ -258,11 +272,12 @@ export default {
     },
     rescindingquo(id) {
       console.log(id);
-      if (window.confirm("คุณต้องการจะลบลูกค้าคนนี้ใช่หรือไม่ ?")) {
+      if (window.confirm("คุณต้องการจะยกเลิกสัญญากับลูกค้าคนนี้ใช่หรือไม่ ?")) {
         axios.put(`https://pxu-server.herokuapp.com/quotation/${id}`, {
           quostatus: "Rescinding",
         });
-        window.location.reload(false);
+        this.nerror=true;
+        setTimeout(()=>{window.location.reload(false);},400);
       }
     },
     contractedquo(id) {
@@ -270,8 +285,8 @@ export default {
       axios.put(`https://pxu-server.herokuapp.com/quotation/${id}`, {
         quostatus: "Contracted",
       });
-      this.isContracted = true;
-      window.location.reload(false);
+      this.success=true;
+      setTimeout(()=>{window.location.reload(false);},400);
     },
   },
 };
