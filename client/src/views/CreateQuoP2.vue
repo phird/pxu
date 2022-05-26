@@ -7,7 +7,7 @@
         </div>
         <div class="centent-section">
           <div class="boxs">
-            <div class="cusname">Mr.phirachat</div>
+            <div class="cusname">...</div>
             <div class="sign-box">
               <div class="sign"></div>
               <label>ผู้ว่าจ้าง</label>
@@ -34,7 +34,7 @@
             <div class="boxs">
               <div class="employName">
                 <span style="opacity: 60%; font-size: 14px">ในนามของ</span>
-                Mr'Seller
+                ...
               </div>
               <div class="sign-box">
                 <div class="sign">
@@ -60,39 +60,7 @@
           <a-col :span="8">
             <div class="boxs-1">
               <div class="radio-selected">
-                <!-- <input
-                  v-model="estatus"
-                  id="esign"
-                  type="checkbox"
-                  value="showpic"
-                  @change="resetImage(),addtext()"
-                /> -->
-                <!-- e-signature -->
-                <!-- <label for="esign" style="margin-left: 10px">
-                  e-signature
-                </label> -->
-                <!-- <div v-if="estatus == true">
-                  <form>
-                    <div class="form-group">
-                      <label class="upload-sign" for="my-file">
-                        <br />
-                        <br />
-                        + upload
-                      </label>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        @change="previewImage"
-                        class="form-control-file"
-                        id="my-file"
-                        style="display: none"
-                      />
-                    </div>
-                  </form>
-                </div>
-                <div v-else>
-                  <div v-if="estatus == false"></div>
-                </div> -->
+
            </div> 
             </div>
           </a-col>

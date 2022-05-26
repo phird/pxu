@@ -27,6 +27,15 @@ export default {
       quoDate: "",
       quotation: [],
       quoDetail: [],
+      qaddress: "",
+      qsubdistrict: "",
+      qdistrict: "",
+      qprovince: "",
+      qpostcode: "",
+      qwcompanyNumber: "",
+      qtaxNumber: "",
+      qemployeeEmail: "",
+
       price: 0,
       totalprice: 0,
       netprice: 0,
@@ -40,13 +49,13 @@ export default {
   },
 
   mounted() {
-    this.getBase64FromUrl(
-      "http://128.199.187.173:5000/stamp/stamp.png"
-    ).then(function (data) {
-      /* alert(data) */
-      imgText = data;
-      /* alert(data) */
-    });
+    this.getBase64FromUrl("http://128.199.187.173:5000/stamp/stamp.png").then(
+      function (data) {
+        /* alert(data) */
+        imgText = data;
+        /* alert(data) */
+      }
+    );
     this.export();
   },
   methods: {
@@ -85,12 +94,31 @@ export default {
         /*      console.log("data from response");
         console.log(this.quotation.wcompanyName); */
         this.quoDate = this.quotation.datequotation;
+        if (this.quotation.caddress != "" ) {
+            this.qaddress = "ที่อยู่: " + this.quotation.caddress;
+            this.qsubdistrict = " ต. " + this.quotation.csubdistrict;
+            this.qdistrict = " อ. " + this.quotation.cdistrict;
+            this.qprovince = " จ. " + this.quotation.cprovince;
+            this.qpostcode = this.quotation.cpostcode;
+          }
+          if (this.quotation.contactNumber != "") {
+            this.qwcompanyNumber = "เบอร์โทร: " + this.quotation.contactNumber;
+          }
+          if (this.quotation.ctaxNumber != "") {
+            this.qtaxNumber =
+              "หมายเลขผู้เสียภาษี: " + this.quotation.ctaxNumber;
+          }
+          if (this.quotation.contactEmail != "") {
+            this.qemployeeEmail = "อีเมล: " + this.quotation.contactEmail;
+          }
         /* นิติบุคคคล */
         if (
           this.quotation.customerstatus == "นิติบุคคล" &&
           this.quotation.vatstatus == "vatนอก"
         ) {
           console.log("niti outvat");
+          
+
           this.price = this.quotation.totalpricequo;
           this.totalprice = this.price;
           this.vat7 = this.totalprice * 0.07;
@@ -196,9 +224,9 @@ export default {
                 fontSize: 10,
                 bold: false,
                 text: [
-                  this.quotation.wcompanyName +
-                    "\nที่อยู่: " +
-                     this.quotation.address +
+                    this.quotation.wcompanyName +
+                   "\nที่อยู่: " +
+                    this.quotation.address +
                     "ต." +
                     this.quotation.subdistrict +
                     "อ." +
@@ -254,27 +282,15 @@ export default {
                     text: this.quotation.companyName,
                   },
                   {
-                    text: "\nที่อยู่: ",
-                    bold: true,
-                  },
-                  {
                     text:
-                      this.quotation.caddress +
-                      " ต." +
-                      this.quotation.csubdistrict +
-                      " อ." +
-                      this.quotation.cdistrict +
-                      " จ." +
-                      this.quotation.cprovince +
-                      " " +
-                      this.quotation.cpostcode,
-                  },
-                  {
-                    text: "\nเลขทะเบียนนิติบุคคล: ",
-                    bold: true,
-                  },
-                  {
-                    text: this.quotation.ctaxNumber,
+                    "\n" +
+                    this.qaddress + " " + this.qsubdistrict + " "+ this.qdistrict +
+                    "\n" +
+                    this.qprovince + "   " +  this.qpostcode + "  " +
+                    this.qwcompanyNumber +
+                    "\n" +
+                    this.qemployeeEmail + "\n" + 
+                    this.qtaxNumber,
                   },
                 ],
               },
@@ -402,8 +418,14 @@ export default {
                 fontSize: 10,
                 bold: false,
                 text: [
-                  {text: " ( " + this.ThaiBaht(this.totalprice.toFixed(2)) + " ) "},
-                  {alignment:"center",text: "\n\n"+ "note: " + this.quotation.notequotation },
+                  {
+                    text:
+                      " ( " + this.ThaiBaht(this.totalprice.toFixed(2)) + " ) ",
+                  },
+                  {
+                    alignment: "center",
+                    text: "\n\n" + "note: " + this.quotation.notequotation,
+                  },
                 ],
               },
               {
@@ -416,7 +438,7 @@ export default {
                 fontSize: 10,
                 type: "none",
                 ol: [
-                  "ราคาก่อนภาษี :" ,
+                  "ราคาก่อนภาษี :",
                   "ภาษี 7% :",
                   "ราคาหลังภาษีมูลค่าเพิ่ม 7% :",
                   "หัก ณ ที่จ่าย 3% :",
@@ -434,12 +456,20 @@ export default {
                 fontSize: 10,
                 type: "none",
                 ol: [
-                  this.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +" บาท",
-                  this.vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +" บาท",
-                  this.priceAfter7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +" บาท",
+                  this.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +
+                    " บาท",
+                  this.vat7.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +
+                    " บาท",
+                  this.priceAfter7
+                    .toFixed(2)
+                    .replace(/\d(?=(\d{3})+\.)/g, "$&,") + " บาท",
                   ,
-                  this.withholding3.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +" บาท",
-                  this.totalprice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +" บาท",
+                  this.withholding3
+                    .toFixed(2)
+                    .replace(/\d(?=(\d{3})+\.)/g, "$&,") + " บาท",
+                  this.totalprice
+                    .toFixed(2)
+                    .replace(/\d(?=(\d{3})+\.)/g, "$&,") + " บาท",
                 ],
                 style: {
                   lineHeight: 1.2,
@@ -610,8 +640,8 @@ export default {
                 fontSize: 10,
                 bold: false,
                 text: [
-                  this.quotation.wcompanyName +
-                    "\nที่อยู่: " +
+                    this.quotation.wcompanyName +
+                   "\nที่อยู่: " +
                     this.quotation.address +
                     "ต." +
                     this.quotation.subdistrict +
@@ -640,8 +670,7 @@ export default {
                 type: "none",
                 ol: [
                   "เลขที่: " + "QA" + this.quotation.quotationID,
-                  "วันที่: " +
-                    this.quotation.datequotation,
+                  "วันที่: " + this.quotation.datequotation,
                   "ผู้ขาย: " + this.quotation.employeeName,
                   "เบอร์: " + this.quotation.employeeNumber,
                 ],
@@ -660,7 +689,7 @@ export default {
                 alignment: "left",
                 fontSize: 10,
                 bold: false,
-                text: [
+                                text: [
                   {
                     text: "ลูกค้า: ",
                     bold: true,
@@ -669,27 +698,15 @@ export default {
                     text: this.quotation.companyName,
                   },
                   {
-                    text: "\nที่อยู่: ",
-                    bold: true,
-                  },
-                  {
                     text:
-                      this.quotation.caddress +
-                      " ต." +
-                      this.quotation.csubdistrict +
-                      " อ." +
-                      this.quotation.cdistrict +
-                      " จ." +
-                      this.quotation.cprovince +
-                      " " +
-                      this.quotation.cpostcode,
-                  },
-                  {
-                    text: "\nเลขทะเบียนนิติบุคคล: ",
-                    bold: true,
-                  },
-                  {
-                    text: this.quotation.ctaxNumber,
+                    "\n" +
+                    this.qaddress + " " + this.qsubdistrict + " "+ this.qdistrict +
+                    "\n" +
+                    this.qprovince + "   " +  this.qpostcode + "  " +
+                    this.qwcompanyNumber +
+                    "\n" +
+                    this.qemployeeEmail + "\n" + 
+                    this.qtaxNumber,
                   },
                 ],
               },
@@ -815,9 +832,15 @@ export default {
                 alignment: "center",
                 fontSize: 10,
                 bold: false,
-               text: [
-                  {text: " ( " + this.ThaiBaht(this.totalprice.toFixed(2)) + " ) "},
-                  {alignment:"center",text: "\n\n"+ "note: " + this.quotation.notequotation },
+                text: [
+                  {
+                    text:
+                      " ( " + this.ThaiBaht(this.totalprice.toFixed(2)) + " ) ",
+                  },
+                  {
+                    alignment: "center",
+                    text: "\n\n" + "note: " + this.quotation.notequotation,
+                  },
                 ],
               },
               {
@@ -894,10 +917,7 @@ export default {
                     bold: true,
                   },
                   {
-                    text:
-                      "\n" +
-                      this.quotation.datequotation
-                      
+                    text: "\n" + this.quotation.datequotation,
                   },
                 ],
               },
@@ -928,9 +948,7 @@ export default {
                     bold: true,
                   },
                   {
-                    text:
-                      "\n" +
-                    this.quotation.datequotation
+                    text: "\n" + this.quotation.datequotation,
                   },
                 ],
                 style: {

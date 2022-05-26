@@ -1,167 +1,182 @@
 <template>
-  <div class="whole-site">
-     <div v-if="modalconfirm">
-    คุณแน่ใจว่าจะลบธนาคารนี้นี้ใช่หรือไม่
-    <button @click="deletebank(bID)">ยืนยัน</button>
-    <button @click="modalconfirm=false">ยกเลิก</button>
-  </div>
-  <a-alert
-          v-if="nerror"
-          message="ลบพนักงานสำเร็จ"
-          type="error"
-          show-icon
-        />
-    <form @submit.prevent="submitForm(bID)">
-      <div
-        class="header-site"
-        style="display: flex; flex-direction: row; gap: 1em"
-      >
-        <button @click="history.back()" style="font-size:22px">
-          <b-icon icon="chevron-left"></b-icon>
-        </button>
-        <span>แก้ไขธนาคาร</span>
-        
+  <div class="wholenewsite">
+        <div class="alert">
+      <div v-if="modalconfirm" class="modal-confirmation">
+        <span style="margin-bottom: 2em">
+          <b-icon icon="trash" font-scale="5" ></b-icon>
+        </span>
+        <p id="confirm-text">คุณแน่ใจว่าจะลบธนาคารนี้นี้ใช่หรือไม่</p>
+        <div class="button-section">
+          <div>
+            <button @click="deletebank(bID)" class="confirm-butt-alert">
+              ยืนยัน
+            </button>
+          </div>
+          <div>
+            <button @click="modalconfirm = false" class="cancle-butt-alert">
+              ยกเลิก
+            </button>
+          </div>
+        </div>
       </div>
-       <a-alert
+    </div>
+    <div class="whole-site" :class="{ isNotModalconfirm: modalconfirm }">
+      <a-alert v-if="nerror" message="ลบพนักงานสำเร็จ" type="error" show-icon />
+      <form @submit.prevent="submitForm(bID)">
+        <div
+          class="header-site"
+          style="display: flex; flex-direction: row; gap: 1em"
+        >
+          <button @click="history.back()" style="font-size: 22px">
+            <b-icon icon="chevron-left"></b-icon>
+          </button>
+          <span>แก้ไขธนาคาร</span>
+        </div>
+        <a-alert
           v-if="success"
           message="บันทึกข้อมูลสำเร็จ"
           type="success"
           show-icon
         />
-      <div class="wrapper">
-        <div class="left-wrapper">
-          <div class="bank-box">
-            <div class="form-group">
-              <div class="upload-here">
-                <img
-                  :src="`http://128.199.187.173:5000/bank/${imageName}`"
-                  class="img-fluid"
-                />
-                <input
-                  type="file"
-                  accept="image/*"
-                  class="form-control-file"
-                  id="my-file"
-                  style="display: none"
-                />
+        <div class="wrapper">
+          <div class="left-wrapper">
+            <div class="bank-box">
+              <div class="form-group">
+                <div class="upload-here">
+                  <img
+                    :src="`http://128.199.187.173:5000/bank/${imageName}`"
+                    class="img-fluid"
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    class="form-control-file"
+                    id="my-file"
+                    style="display: none"
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
-          <!--               <div>
+            <!--               <div>
                 <input type="file" @change="uploadFile" />
               </div> -->
-        </div>
-        <div class="right-wrapper">
-          <div class="info-box">
-            <div class="field">
-              <label for="bankName"> ชื่อธนาคาร</label>
-              <select
-                id="bankName"
-                type="text"
-                v-model="bankNameau"
-                @change="checkname()"
-                style="text-indent: 3%"
-              >
-                <option value="" style="text-indent: 3%" disabled>
-                  โปรดเลือกธนาคาร
-                </option>
-                <option value="ธนาคารกรุงเทพ" style="text-indent: 3%">
-                  ธนาคารกรุงเทพ
-                </option>
-                <option value="ธนาคารกสิกรไทย" style="text-indent: 3%">
-                  ธนาคารกสิกรไทย
-                </option>
-                <option value="ธนาคารกรุงไทย" style="text-indent: 3%">
-                  ธนาคารกรุงไทย
-                </option>
-                <option value="ธนาคารไทยพาณิชย์" style="text-indent: 3%">
-                  ธนาคารไทยพาณิชย์
-                </option>
-                <option value="ธนาคารทหารไทยธนชาต" style="text-indent: 3%">
-                  ธนาคารทหารไทยธนชาต
-                </option>
-                <option value="ธนาคารกรุงศรีอยุธยา" style="text-indent: 3%">
-                  ธนาคารกรุงศรีอยุธยา
-                </option>
-                <option value="ธนาคารออมสิน" style="text-indent: 3%">
-                  ธนาคารออมสิน
-                </option>
-                <option value="ธนาคารยูโอบี" style="text-indent: 3%">
-                  ธนาคารยูโอบี
-                </option>
-                <option value="อื่นๆ" style="text-indent: 3%">อื่นๆ</option>
-              </select>
-              <div v-if="bankNameau == 'อื่นๆ'">
-                <input
+          </div>
+          <div class="right-wrapper">
+            <div class="info-box">
+              <div class="field">
+                <label for="bankName"> ชื่อธนาคาร</label>
+                <select
                   id="bankName"
                   type="text"
-                  v-model="bankName"
+                  v-model="bankNameau"
+                  @change="checkname()"
+                  style="text-indent: 3%"
+                >
+                  <option value="" style="text-indent: 3%" disabled>
+                    โปรดเลือกธนาคาร
+                  </option>
+                  <option value="ธนาคารกรุงเทพ" style="text-indent: 3%">
+                    ธนาคารกรุงเทพ
+                  </option>
+                  <option value="ธนาคารกสิกรไทย" style="text-indent: 3%">
+                    ธนาคารกสิกรไทย
+                  </option>
+                  <option value="ธนาคารกรุงไทย" style="text-indent: 3%">
+                    ธนาคารกรุงไทย
+                  </option>
+                  <option value="ธนาคารไทยพาณิชย์" style="text-indent: 3%">
+                    ธนาคารไทยพาณิชย์
+                  </option>
+                  <option value="ธนาคารทหารไทยธนชาต" style="text-indent: 3%">
+                    ธนาคารทหารไทยธนชาต
+                  </option>
+                  <option value="ธนาคารกรุงศรีอยุธยา" style="text-indent: 3%">
+                    ธนาคารกรุงศรีอยุธยา
+                  </option>
+                  <option value="ธนาคารออมสิน" style="text-indent: 3%">
+                    ธนาคารออมสิน
+                  </option>
+                  <option value="ธนาคารยูโอบี" style="text-indent: 3%">
+                    ธนาคารยูโอบี
+                  </option>
+                  <option value="อื่นๆ" style="text-indent: 3%">อื่นๆ</option>
+                </select>
+                <div v-if="bankNameau == 'อื่นๆ'">
+                  <input
+                    id="bankName"
+                    type="text"
+                    v-model="bankName"
+                    style="text-indent: 3%"
+                  />
+                </div>
+                <div class="error" v-if="$v.bankName.$error">
+                  <template v-if="!$v.bankName.$invalid"> </template>
+                  <template v-else> โปรดระบุธนาคาร </template>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="accountName"> accountName</label>
+                <input
+                  id="accountName"
+                  type="text"
+                  v-model="accountName"
                   style="text-indent: 3%"
                 />
+                <div class="error" v-if="$v.accountName.$error">
+                  <template v-if="!$v.accountName.$invalid"> </template>
+                  <template v-else> โปรดใส่ชื่อบัญชีธนาคาร </template>
+                </div>
               </div>
-              <div class="error" v-if="$v.bankName.$error">
-                <template v-if="!$v.bankName.$invalid"> </template>
-                <template v-else> โปรดระบุธนาคาร </template>
+
+              <div class="field">
+                <label for="bankAccount"> เลขธนาคาร</label>
+                <input
+                  id="bankAccount"
+                  type="text"
+                  v-model="bankAccount"
+                  style="text-indent: 3%"
+                />
+                <div class="error" v-if="$v.bankAccount.$error">
+                  <template v-if="!$v.bankAccount.$invalid"> </template>
+                  <template v-else-if="!$v.bankAccount.required">
+                    โปรดใส่เลขบัญชีธนาคาร
+                  </template>
+                  <template v-else-if="!$v.bankAccount.validFormat">
+                    เลขบัญชีธนาคารต้องเป็นตัวเลข10-12หลัก
+                  </template>
+                </div>
+              </div>
+
+              <div>
+                <a-checkbox v-if="statustest == 'default'" checked>
+                  Set Default
+                </a-checkbox>
+                <a-checkbox v-else v-model="checked" @change="checkstatus()">
+                  Set Default
+                </a-checkbox>
               </div>
             </div>
-
-            <div class="field">
-              <label for="accountName"> accountName</label>
-              <input
-                id="accountName"
-                type="text"
-                v-model="accountName"
-                style="text-indent: 3%"
-              />
-              <div class="error" v-if="$v.accountName.$error">
-                <template v-if="!$v.accountName.$invalid"> </template>
-                <template v-else> โปรดใส่ชื่อบัญชีธนาคาร </template>
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="bankAccount"> เลขธนาคาร</label>
-              <input
-                id="bankAccount"
-                type="text"
-                v-model="bankAccount"
-                style="text-indent: 3%"
-              />
-              <div class="error" v-if="$v.bankAccount.$error">
-                <template v-if="!$v.bankAccount.$invalid"> </template>
-                <template v-else-if="!$v.bankAccount.required">
-                  โปรดใส่เลขบัญชีธนาคาร
-                </template>
-                <template v-else-if="!$v.bankAccount.validFormat">
-                  เลขบัญชีธนาคารต้องเป็นตัวเลข10-12หลัก
-                </template>
-              </div>
-            </div>
-
+          </div>
+        </div>
+        <div class="buttom-section">
+          <div class="submit-but-section">
             <div>
-              <a-checkbox v-if="statustest == 'default'" checked>
-                Set Default
-              </a-checkbox>
-              <a-checkbox v-else v-model="checked" @change="checkstatus()">
-                Set Default
-              </a-checkbox>
+              <button class="submit-button" type="submit">บันทึกข้อมูล</button>
             </div>
           </div>
         </div>
+      </form>
+      <div class="delete-section">
+        <button
+          class="delete-button"
+          type="delete"
+          @click="modalconfirm = true"
+        >
+          ลบ
+        </button>
       </div>
-      <div class="buttom-section">
-        <div class="submit-but-section">
-          <div>
-            <button class="submit-button" type="submit">บันทึกข้อมูล</button>
-          </div>
-        </div>
-      </div>
-    </form>
-    <div class="delete-section">
-      <button class="delete-button" type="delete" @click="modalconfirm=true;">
-        ลบ
-      </button>
     </div>
   </div>
 </template>
@@ -189,8 +204,8 @@ export default {
       statustest: "",
       bank: [],
       imageName: "default.png",
-      nerror:false,
-      modalconfirm:false,
+      nerror: false,
+      modalconfirm: false,
     };
   },
   validations: {
@@ -285,7 +300,9 @@ export default {
     async getbank(bID) {
       console.log("get-bank");
       try {
-        const response = await axios.get(`http://128.199.187.173:5000/bank/${bID}`);
+        const response = await axios.get(
+          `http://128.199.187.173:5000/bank/${bID}`
+        );
         this.bankName = response.data[0].bankName;
         this.bankNameau = this.bankName;
         this.bankAccount = response.data[0].bankAccount;
@@ -300,20 +317,88 @@ export default {
       }
     },
     deletebank(bID) {
-    
-        axios.delete(`http://128.199.187.173:5000/bank/${bID}`);
-        this.modalconfirm=false;
-        this.nerror=true;
-        setTimeout(() => {
+      axios.delete(`http://128.199.187.173:5000/bank/${bID}`);
+      this.modalconfirm = false;
+      this.nerror = true;
+      setTimeout(() => {
         history.back();
-         }, 500);
-      
+      }, 500);
     },
   },
 };
 </script>
 
 <style scoped>
+/* conformation start here  */
+
+.alert {
+  display: flex;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+}
+.modal-confirmation {
+  background-color: rgb(255, 255, 255);
+  padding: 3em;
+  width: 50%;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  -webkit-box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  -webkit-transition: all 0.3s ease-in-out, background 0s, color 0s,
+    border-color 0s;
+  transition: all 0.3s ease-in-out, background 0s, color 0s, border-color 0s;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.button-section {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  margin-left: auto;
+  margin-right: 0;
+  text-align: end;
+}
+.button-section div {
+  display: flex;
+}
+#confirm-text {
+  font-size: 24px;
+}
+.wholenewsite {
+  position: relative;
+}
+
+.isNotModalconfirm {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.confirm-butt-alert{
+  display: inline-block;
+  background-color: green;
+  padding: .6em;
+  width: 100px;
+  color: white;
+  border-radius: 14px;
+}
+.cancle-butt-alert{
+  display: inline-block;
+  background-color: rgb(212, 37, 110);
+  padding: .6em;
+  width: 100px;
+  color: white;
+  border-radius: 14px;
+}
+
+/* confirmation end here */
 .whole-site {
   position: relative;
   font-family: "Mitr", sans-serif;

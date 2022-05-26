@@ -59,13 +59,10 @@
                   type="text"
                   v-model="companyName"
                   placeholder="ชื่อบริษัท/ลูกค้า"
+                  title="โปรดกรอกชื่อบริษัท/ลูกค้า"
                   style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
+                  required
                 />
-
-                <div class="error" v-if="$v.companyName.$error">
-                  <template v-if="!$v.companyName.$invalid"> </template>
-                  <template v-else style="color: red"> โปรดระบุชื่อ </template>
-                </div>
               </div>
               <!-- /Name of company -->
               <div class="contact-person-section-buttom">
@@ -74,8 +71,12 @@
                   <input
                     id="companyNumber"
                     type="tel"
+                pattern="[0-9]{10}"
+                minlength="9"
+                maxlength="10"
                     v-model="companyNumber"
                     placeholder="เบอร์สำนักงาน"
+                    title="โปรดกรอกเบอร์โทรศัพท์ให้ถูกต้อง"
                     style="
                       text-indent: 8%;
                       border: 1px solid rgb(211, 211, 211);
@@ -91,6 +92,10 @@
                     id="taxNumber"
                     type="text"
                     v-model="taxNumber"
+                    maxlength="13"
+                    minlength="13"
+                    pattern="[0-9]{13}"
+                    title="ควรเป็นตัวเลขจำนวน 13 หลักเท่านั้น"
                     placeholder="เลขทะเบียนนิติบุคคล"
                     style="
                       text-indent: 4%;
@@ -119,12 +124,10 @@
                   type="text"
                   v-model="contactName"
                   placeholder="ชื่อบริษัท/ลูกค้า"
+                  title="โปรดกรอกชื่อบริษัท/ลูกค้า"
                   style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
+                  required
                 />
-                <div class="error" v-if="$v.contactName.$error">
-                  <template v-if="!$v.contactName.$invalid"> </template>
-                  <template v-else> โปรดระบุชื่อ </template>
-                </div>
               </div>
 
               <div class="contact-person-section-buttom">
@@ -134,6 +137,10 @@
                   <input
                     id="contactNumber"
                     type="tel"
+                pattern="[0-9]{10}"
+                minlength="9"
+                maxlength="10"
+                    title="กรุณากรอกเบอร์โทรให้ถูกต้อง"
                     v-model="contactNumber"
                     style="
                       text-indent: 8%;
@@ -149,7 +156,11 @@
                     id="taxNumber"
                     type="text"
                     v-model="taxNumber"
+                    pattern="[0-9]{13}"
+                    minlength="13"
+                    maxlength="13"
                     placeholder="เลขผู้เสียภาษี"
+                    title="ควรเป็นตัวเลขจำนวน 13 หลักเท่านั้น"
                     style="
                       text-indent: 4%;
                       border: 1px solid rgb(211, 211, 211);
@@ -164,6 +175,8 @@
                   id="contactEmail"
                   type="text"
                   v-model="contactEmail"
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                  title="โปรดกรอกอีเมลให้ถูกต้อง"
                   placeholder="อีเมล"
                   style="text-indent: 4%; border: 1px solid rgb(211, 211, 211)"
                 />
@@ -268,10 +281,6 @@
                   opacity: 0.5;
                 "
               />
-              <div class="error" v-if="$v.contactName.$error">
-                <template v-if="!$v.contactName.$invalid"> </template>
-                <template v-else> โปรดระบุชื่อ </template>
-              </div>
             </div>
 
             <div class="field">
@@ -280,7 +289,11 @@
                 id="contactNumber"
                 type="text"
                 v-model="contactNumber"
+                pattern="[0-9]{10}"
+                minlength="9"
+                maxlength="10"
                 placeholder="เบอร์โทร"
+                title="โปรดกรอกเบอร์โทรให้ถูกต้อง"
                 style="
                   text-indent: 4%;
                   border: 1px solid rgb(211, 211, 211);
@@ -296,6 +309,8 @@
                 id="contactEmail"
                 type="text"
                 v-model="contactEmail"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                title="โปรดกรอกอีเมลให้ถูกต้อง"
                 placeholder="อีเมล"
                 style="
                   text-indent: 4%;
@@ -349,72 +364,15 @@ export default {
       province: "",
       postcode: "",
       success: false,
-      // status: this.customer.status,
-      // contactName: this.customer.contactName,
-      // contactNumber: this.customer.contactNumber,
-      // companyName: this.customer.companyName,
-      // companyNumber: this.customer.companyNumber,
-      // taxNumber: this.customer.taxNumber,
-      // contactEmail: this.customer.contactEmail,
-      // Address: this.customer.address,
-      // subdis: this.customer.subdistrict,
-      // dis: this.customer.district,
-      // province: this.customer.province,
-      // postcode: this.customer.postcode,
+
     };
   },
 
   validations: {
-    // companyNumber: {
-    //   required,
-    //   minLength: minLength(9),
-    //   maxLength: maxLength(10),
-    //   numeric,
-    // },
-    // contactNumber: {
-    //   required,
-    //   validFormat: (val) => /^\d{10}$/.test(val),
-    // },
-    // taxNumber: {
-    //   required,
-    //   validFormat: (val) => /^\d{13}$/.test(val),
-    // },
-    // postcode: {
-    //   required,
-    //   validFormat: (val) => /^\d{5}$/.test(val),
-    // },
-    // contactEmail: {
-    //   required,
-    //   email,
-    // },
-    contactName: {
-      required,
-    },
-    companyName: {
-      required,
-    },
-    // Address: {
-    //   required,
-    // },
     status: {
       required,
     },
-    // subdis: {
-    //   required,
-    // },
-    // dis: {
-    //   required,
-    // },
-    // province: {
-    //   required,
-    // },
-    // postcode: {
-    //   required,
-    // },
-    // passportDate: {
-    //   required,
-    //   validDate: (val) => moment(val, "DD.MM.YYYY", true).isValid(),
-    // },
+ 
   },
   created() {
     this.cusid = this.$route.params.id;
