@@ -1,5 +1,16 @@
 <template>
   <div class="whole-site">
+     <div v-if="modalconfirm">
+    คุณแน่ใจว่าจะลบธนาคารนี้นี้ใช่หรือไม่
+    <button @click="deletebank(bID)">ยืนยัน</button>
+    <button @click="modalconfirm=false">ยกเลิก</button>
+  </div>
+  <a-alert
+          v-if="nerror"
+          message="ลบพนักงานสำเร็จ"
+          type="error"
+          show-icon
+        />
     <form @submit.prevent="submitForm(bID)">
       <div
         class="header-site"
@@ -148,7 +159,7 @@
       </div>
     </form>
     <div class="delete-section">
-      <button class="delete-button" type="delete" @click="deletebank(bID)">
+      <button class="delete-button" type="delete" @click="modalconfirm=true;">
         ลบ
       </button>
     </div>
@@ -178,6 +189,8 @@ export default {
       statustest: "",
       bank: [],
       imageName: "default.png",
+      nerror:false,
+      modalconfirm:false,
     };
   },
   validations: {
@@ -287,12 +300,14 @@ export default {
       }
     },
     deletebank(bID) {
-      if (window.confirm("คุณต้องการลบธนาคารนี้ใช่หรือไม่ ?")) {
+    
         axios.delete(`https://pxu-server.herokuapp.com/bank/${bID}`);
+        this.modalconfirm=false;
+        this.nerror=true;
         setTimeout(() => {
         history.back();
          }, 500);
-      }
+      
     },
   },
 };

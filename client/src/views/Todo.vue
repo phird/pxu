@@ -512,7 +512,7 @@ export default {
       this.auth();
     },
     addTodo() {
-      if (this.newTodo.length === 0) return;
+      if (this.newTodo.length === 0 || this.newprice == 0) return;
       if (this.indexEditTodo === null) {
         this.todos.push({
           name: this.newTodo,

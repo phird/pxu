@@ -1,6 +1,17 @@
 <template>
   <!-- Projects Table Column -->
   <div class="pagebody">
+     <div v-if="modalconfirm">
+    คุณแน่ใจว่าจะลบลูกค้าคนนี้นี้ใช่หรือไม่
+    <button @click="deletecus(cID)">ยืนยัน</button>
+    <button @click="modalconfirm=false">ยกเลิก</button>
+  </div>
+  <a-alert
+          v-if="nerror"
+          message="ลบลูกค้าสำเร็จ"
+          type="error"
+          show-icon
+        />
     <div class="pagebody-upper">
       <!-- Counter Widgets -->
       <!-- Charts -->
@@ -125,7 +136,7 @@
                 <a-menu-item>
                   <a
                     style="text-decoration: none"
-                    @click="deletecus(customerID)"
+                    @click="cID=customerID;modalconfirm=true;"
                   >
                     ลบ
                   </a>
@@ -634,6 +645,9 @@ export default {
       province: "",
       postcode: "",
       success: false,
+      cID:'',
+      nerror:false,
+      modalconfirm:false,
     };
   },
   validations: {
@@ -701,11 +715,11 @@ export default {
       this.postcode = address.zipcode;
     },
     deletecus(id) {
-      console.log(id);
-      if (window.confirm("คุณต้องการจะลบลูกค้าคนนี้ใช่หรือไม่ ?")) {
+   
         axios.delete(`https://pxu-server.herokuapp.com/customer/${id}`);
-        window.location.reload(false);
-      }
+         this.modalconfirm=false;
+        this.nerror=true;
+        setTimeout(()=>{window.location.reload(false);},400);
     },
     async submitForm() {
       console.log(this.companyName);

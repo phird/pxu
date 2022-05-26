@@ -5,6 +5,11 @@
     class="header-solid h-full"
     :bodyStyle="{ padding: 0 }"
   >
+  <div v-if="modalconfirm">
+    คุณแน่ใจว่าจะยกเลิกสัญญาใบเสนอราคานี้ใช่หรือไม่
+    <button @click="rescindingquo(qID)">ยืนยัน</button>
+    <button @click="modalconfirm=false">ยกเลิก</button>
+  </div>
   <a-alert
           v-if="success"
           message="ทำสัญญาสำเร็จ"
@@ -182,7 +187,7 @@
             <a-menu-item>
               <a
                 style="text-decoration: none"
-                @click="rescindingquo(quoID.quotationID)"
+                @click="modalconfirm=true; qID=quoID.quotationID;"
               >
                 ยกเลิกสัญญา
               </a>
@@ -248,6 +253,8 @@ export default {
       contract: "",
       success:false,
       nerror:false,
+      modalconfirm:false,
+      qID:'',
     };
   },
   created() {
@@ -272,13 +279,14 @@ export default {
     },
     rescindingquo(id) {
       console.log(id);
-      if (window.confirm("คุณต้องการจะยกเลิกสัญญากับลูกค้าคนนี้ใช่หรือไม่ ?")) {
+    
         axios.put(`https://pxu-server.herokuapp.com/quotation/${id}`, {
           quostatus: "Rescinding",
         });
+        this.modalconfirm=false;
         this.nerror=true;
         setTimeout(()=>{window.location.reload(false);},400);
-      }
+      
     },
     contractedquo(id) {
       console.log(id);
