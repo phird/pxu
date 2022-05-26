@@ -348,7 +348,7 @@ export default {
     async getemployee() {
       console.log("get-em");
       try {
-        const response = await axios.get("http://localhost:5000/employee");
+        const response = await axios.get("https://pxu-server.herokuapp.com/employee");
         this.employee = response.data;
         for (let i = 0; i < response.data.length; i++) {
           this.employee[i].index = i + 1;
