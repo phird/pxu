@@ -42,7 +42,7 @@
                     <img :src="preview" class="img-fluid" />
                   </template>
                   <template v-if="!preview && estatus">
-                    <img src="https://pxu-server.herokuapp.com/esignature/esignature.png" class="img-fluid" />
+                    <img src="http://128.199.187.173:5000/esignature/esignature.png" class="img-fluid" />
                   </template>
                   <template v-else>
                     <div></div>
@@ -125,7 +125,7 @@ export default {
       this.file = e.target.files[0];
       let formData = new FormData();
       formData.append("files", this.file);
-      axios.post("https://pxu-server.herokuapp.com/uploadesignature", formData, {});
+      axios.post("http://128.199.187.173:5000/uploadesignature", formData, {});
       if (input.files) {
         var reader = new FileReader();
         reader.onload = (e) => {

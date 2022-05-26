@@ -439,7 +439,7 @@ export default {
         alert("can't submit");
       } else {
         await axios
-          .post(`https://pxu-server.herokuapp.com/customer/${id}`, {
+          .post(`http://128.199.187.173:5000/customer/${id}`, {
             companyName: this.companyName,
             companyNumber: this.companyNumber,
             status: this.status,
@@ -470,7 +470,7 @@ export default {
     async getcustomer(cusid) {
       try {
         const response = await axios.get(
-          `https://pxu-server.herokuapp.com/customer/${cusid}`
+          `http://128.199.187.173:5000/customer/${cusid}`
         );
         this.customer = response.data[0];
         // console.log(this.customer);

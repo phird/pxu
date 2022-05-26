@@ -344,7 +344,7 @@ export default {
         alert("can't submit");
       } else {
         await axios
-          .post("https://pxu-server.herokuapp.com/employee", {
+          .post("http://128.199.187.173:5000/employee", {
             role: this.role,
             employeeName: this.employeeName,
             employeeNumber: this.employeeNumber,
@@ -362,7 +362,7 @@ export default {
     async getemployee() {
       console.log("get-em");
       try {
-        const response = await axios.get("https://pxu-server.herokuapp.com/employee");
+        const response = await axios.get("http://128.199.187.173:5000/employee");
         this.employee = response.data;
         for (let i = 0; i < response.data.length; i++) {
           this.employee[i].index = i + 1;
@@ -381,7 +381,7 @@ export default {
     deleteEmp(id) {
       console.log(id);
       
-        axios.delete(`https://pxu-server.herokuapp.com/employee/${id}`);
+        axios.delete(`http://128.199.187.173:5000/employee/${id}`);
         this.modalconfirm=false;
         this.nerror=true;
         setTimeout(()=>{window.location.reload(false);},400);

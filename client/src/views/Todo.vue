@@ -586,7 +586,7 @@ export default {
       console.log("get-cus");
       try {
         const response = await axios.get(
-          "https://pxu-server.herokuapp.com/customer/name"
+          "http://128.199.187.173:5000/customer/name"
         );
         this.customer = response.data;
         console.log(this.customer);
@@ -598,7 +598,7 @@ export default {
       console.log("get-em");
       try {
         const response = await axios.get(
-          "https://pxu-server.herokuapp.com/employee/name"
+          "http://128.199.187.173:5000/employee/name"
         );
         this.employee = response.data;
         if (!this.sumtodo.checkedit) {

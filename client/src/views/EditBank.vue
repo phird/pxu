@@ -34,7 +34,7 @@
             <div class="form-group">
               <div class="upload-here">
                 <img
-                  :src="`https://pxu-server.herokuapp.com/bank/${imageName}`"
+                  :src="`http://128.199.187.173:5000/bank/${imageName}`"
                   class="img-fluid"
                 />
                 <input
@@ -267,7 +267,7 @@ export default {
         alert("can't submit");
       } else {
         await axios
-          .post(`https://pxu-server.herokuapp.com/bank/${bID}`, {
+          .post(`http://128.199.187.173:5000/bank/${bID}`, {
             bankName: this.bankName,
             bankAccount: this.bankAccount,
             accountName: this.accountName,
@@ -285,7 +285,7 @@ export default {
     async getbank(bID) {
       console.log("get-bank");
       try {
-        const response = await axios.get(`https://pxu-server.herokuapp.com/bank/${bID}`);
+        const response = await axios.get(`http://128.199.187.173:5000/bank/${bID}`);
         this.bankName = response.data[0].bankName;
         this.bankNameau = this.bankName;
         this.bankAccount = response.data[0].bankAccount;
@@ -301,7 +301,7 @@ export default {
     },
     deletebank(bID) {
     
-        axios.delete(`https://pxu-server.herokuapp.com/bank/${bID}`);
+        axios.delete(`http://128.199.187.173:5000/bank/${bID}`);
         this.modalconfirm=false;
         this.nerror=true;
         setTimeout(() => {

@@ -19,7 +19,7 @@
   >
     <div class="brand">
       <div class="brand-pic">
-        <img :src="`https://pxu-server.herokuapp.com/logo/logo.png`" alt="" />
+        <img :src="`http://128.199.187.173:5000/logo/logo.png`" alt="" />
       </div>
       <div class="brand-name">
         <span style="font-size: 20px; margin-left: auto; margin-right: auto">

@@ -154,7 +154,7 @@ export default {
         alert("can't submit");
       } else {
         await axios
-          .post(`https://pxu-server.herokuapp.com/employee/${id}`, {
+          .post(`http://128.199.187.173:5000/employee/${id}`, {
             role: this.role,
             employeeName: this.employeeName,
             employeeNumber: this.employeeNumber,
@@ -172,7 +172,7 @@ export default {
     async getemployee(empid) {
       try {
         const response = await axios.get(
-          `https://pxu-server.herokuapp.com/employee/${empid}`
+          `http://128.199.187.173:5000/employee/${empid}`
         );
         this.employee = response.data[0];
         this.role = this.employee.role;

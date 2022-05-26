@@ -269,7 +269,7 @@ export default {
       console.log("get-quo");
       try {
         const response = await axios.get(
-          "https://pxu-server.herokuapp.com/quotation"
+          "http://128.199.187.173:5000/quotation"
         );
         this.quotation = response.data;
         console.log(this.quotation);
@@ -280,7 +280,7 @@ export default {
     rescindingquo(id) {
       console.log(id);
     
-        axios.put(`https://pxu-server.herokuapp.com/quotation/${id}`, {
+        axios.put(`http://128.199.187.173:5000/quotation/${id}`, {
           quostatus: "Rescinding",
         });
         this.modalconfirm=false;
@@ -290,7 +290,7 @@ export default {
     },
     contractedquo(id) {
       console.log(id);
-      axios.put(`https://pxu-server.herokuapp.com/quotation/${id}`, {
+      axios.put(`http://128.199.187.173:5000/quotation/${id}`, {
         quostatus: "Contracted",
       });
       this.success=true;

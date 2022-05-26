@@ -4,7 +4,7 @@
     <div class="card-profile-section">
       <div class="profile-banner">
         <img
-          :src="`https://pxu-server.herokuapp.com/bank/${bank.img}`"
+          :src="`http://128.199.187.173:5000/bank/${bank.img}`"
           alt="Bank Cover Photo"
         />
       </div>
@@ -37,7 +37,7 @@ export default {
   methods: {
     getbank() {
       axios
-        .get("https://pxu-server.herokuapp.com/carddash/bank", {})
+        .get("http://128.199.187.173:5000/carddash/bank", {})
         .then((res) => {
           this.bank = res.data[0];
           console.log(this.bank);
