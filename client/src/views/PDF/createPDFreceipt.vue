@@ -298,9 +298,9 @@ export default {
                       "   " +
                       this.qpostcode +
                       "  " +
-                      this.qwcompanyNumber +
+                      this.qwcompanyNumber + this.qnamecontact +
                       this.qemployeeEmail +
-                      this.qtaxNumber+ this.qnamecontact
+                      this.qtaxNumber
                   },
                 ],
               },
