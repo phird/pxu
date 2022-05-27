@@ -185,7 +185,7 @@ export default {
     },
     submitquo() {
       axios
-        .post("http://128.199.187.173:3000/quotation", {
+        .post("https://pxu-server.herokuapp.com/quotation", {
           qID: this.qID,
           cID: this.sumtodo.customerID,
           eID: this.sumtodo.employeeID,
@@ -239,7 +239,7 @@ export default {
           } else if (this.sumtodo.qIN == 3 && i == 3) {
             test = this.inv.IN3 / 100;
           }
-          requestone[i - 1] = axios.post("http://128.199.187.173:3000/invoice", {
+          requestone[i - 1] = axios.post("https://pxu-server.herokuapp.com/invoice", {
             inID: this.inID,
             qID: this.qID,
             cID: this.sumtodo.customerID,
@@ -263,7 +263,7 @@ export default {
           console.log(j);
         }
         for (let i = 0; i < this.todos.length; i++) {
-          requestone[j + i] = axios.post("http://128.199.187.173:3000/scope", {
+          requestone[j + i] = axios.post("https://pxu-server.herokuapp.com/scope", {
             qID: this.qID,
             name: this.todos[i].name,
             price: this.todos[i].price,
@@ -279,7 +279,7 @@ export default {
     async getid() {
       try {
         const response = await axios.put(
-          "http://128.199.187.173:3000/quotation/qid",
+          "https://pxu-server.herokuapp.com/quotation/qid",
           { to: tous }
         );
         if (response.data[0].num == 0) {
@@ -298,7 +298,7 @@ export default {
     },
     async getwebsite() {
       try {
-        const response = await axios.get("http://128.199.187.173:3000/website");
+        const response = await axios.get("https://pxu-server.herokuapp.com/website");
         this.web = response.data[0];
         console.log(this.web);
       } catch (err) {

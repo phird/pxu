@@ -116,7 +116,7 @@ export default {
   },
   methods: {
     async getcount() {
-      axios.get("http://128.199.187.173:3000/carddash/count", {}).then((res) => {
+      axios.get("https://pxu-server.herokuapp.com/carddash/count", {}).then((res) => {
         this.customer = res.data[0][0].ccus;
         this.project = res.data[1][0].cquo;
         this.payment = res.data[1][0].p;

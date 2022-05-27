@@ -21,7 +21,7 @@
           <div class="header-top">
             <div class="ht-left">
               <img
-                src="http://128.199.187.173:3000/stamp/stamp.png"
+                src="https://pxu-server.herokuapp.com/stamp/stamp.png"
                 alt=""
                 style="width: 140px"
               />
@@ -517,7 +517,7 @@ export default {
     },
     subinv() {
       axios
-        .post(`http://128.199.187.173:3000/invoice/${this.inID}`, {
+        .post(`https://pxu-server.herokuapp.com/invoice/${this.inID}`, {
           bankID: this.bankID,
           dateinv: this.dateinv,
         })
@@ -535,12 +535,12 @@ export default {
       } else {
         if (this.changein) {
           await axios.delete(
-            `http://128.199.187.173:3000/scope/${this.inID}`
+            `https://pxu-server.herokuapp.com/scope/${this.inID}`
           );
           const requestone = [];
           for (let i = 0; i < this.todos.length; i++) {
             requestone[i] = axios.post(
-              "http://128.199.187.173:3000/scope",
+              "https://pxu-server.herokuapp.com/scope",
               {
                 qID: this.inID,
                 name: this.todos[i].name,
@@ -558,7 +558,7 @@ export default {
     async getinv(id) {
       try {
         const response = await axios.get(
-          `http://128.199.187.173:3000/invoice/in/${id}`
+          `https://pxu-server.herokuapp.com/invoice/in/${id}`
         );
         this.invoice = response.data[0];
         if (this.invoice.customerstatus == "นิติบุคคล") {
@@ -611,7 +611,7 @@ export default {
     async getbank() {
       try {
         const response = await axios.get(
-          `http://128.199.187.173:3000/bank`
+          `https://pxu-server.herokuapp.com/bank`
         );
         this.bank = response.data;
         console.log(this.bank);
@@ -622,7 +622,7 @@ export default {
     async getscope(id) {
       try {
         const response = await axios.get(
-          `http://128.199.187.173:3000/scope/${id}`
+          `https://pxu-server.herokuapp.com/scope/${id}`
         );
         this.todos = response.data;
         if (this.todos.length != 0) {
@@ -637,7 +637,7 @@ export default {
     async getbankid(id) {
       try {
         const response = await axios.get(
-          `http://128.199.187.173:3000/bank/${id}`
+          `https://pxu-server.herokuapp.com/bank/${id}`
         );
         this.bankch.bname = response.data[0].bankName;
         this.bankch.accname = response.data[0].accountName;

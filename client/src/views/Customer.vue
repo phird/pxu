@@ -622,7 +622,7 @@ export default {
       this.postcode = address.zipcode;
     },
     deletecus(id) {
-      axios.delete(`http://128.199.187.173:3000/customer/${id}`);
+      axios.delete(`https://pxu-server.herokuapp.com/customer/${id}`);
       this.modalconfirm = false;
       this.nerror = true;
       setTimeout(() => {
@@ -644,7 +644,7 @@ export default {
         alert("can't submit");
       } else {
         await axios
-          .post("http://128.199.187.173:3000/customer", {
+          .post("https://pxu-server.herokuapp.com/customer", {
             companyName: this.companyName,
             companyNumber: this.companyNumber,
             status: this.status,
@@ -678,7 +678,7 @@ export default {
       console.log("get-cus");
       try {
         const response = await axios.get(
-          "http://128.199.187.173:3000/customer"
+          "https://pxu-server.herokuapp.com/customer"
         );
         this.customer = response.data;
         for (let i = 0; i < response.data.length; i++) {

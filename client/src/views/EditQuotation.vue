@@ -193,7 +193,7 @@ export default {
       console.log("payment");
       console.log(this.sumtodo.payment);
       axios
-        .post(`http://128.199.187.173:3000/quotation/${this.qID}`, {
+        .post(`https://pxu-server.herokuapp.com/quotation/${this.qID}`, {
           eID: this.sumtodo.employeeID,
           date: this.sumtodo.dateq,
           noteq: this.sumtodo.noteq,
@@ -215,8 +215,8 @@ export default {
 
     async submit() {
       if (this.changein) {
-        await axios.delete(`http://128.199.187.173:3000/scope/${this.qID}`);
-        await axios.delete(`http://128.199.187.173:3000/invoice/${this.qID}`);
+        await axios.delete(`https://pxu-server.herokuapp.com/scope/${this.qID}`);
+        await axios.delete(`https://pxu-server.herokuapp.com/invoice/${this.qID}`);
         const requestone = [];
         console.log(this.todos);
         for (let i = 1; i <= this.sumtodo.qIN; i++) {
@@ -235,7 +235,7 @@ export default {
           } else if (this.sumtodo.qIN == 3 && i == 3) {
             test = this.inv.IN3 / 100;
           }
-          requestone[i - 1] = axios.post("http://128.199.187.173:3000/invoice", {
+          requestone[i - 1] = axios.post("https://pxu-server.herokuapp.com/invoice", {
             inID: this.inID,
             qID: this.qID,
             cID: this.sumtodo.customerID,
@@ -258,7 +258,7 @@ export default {
         }
         const requesttwo = [];
         for (let i = 0; i < this.todos.length; i++) {
-          requesttwo[i] = axios.post("http://128.199.187.173:3000/scope", {
+          requesttwo[i] = axios.post("https://pxu-server.herokuapp.com/scope", {
             qID: this.qID,
             name: this.todos[i].name,
             price: this.todos[i].price,
@@ -275,7 +275,7 @@ export default {
     async getid(id) {
       try {
         const response = await axios.get(
-          `http://128.199.187.173:3000/quotation/${id}`
+          `https://pxu-server.herokuapp.com/quotation/${id}`
         );
         this.quotation = response.data[0];
         this.sumtodo.quoname = this.quotation.quotationName;
@@ -324,7 +324,7 @@ export default {
     },
     async getscope(id) {
       try {
-        const response = await axios.get(`http://128.199.187.173:3000/scope/${id}`);
+        const response = await axios.get(`https://pxu-server.herokuapp.com/scope/${id}`);
         this.todos = response.data;
         console.log(this.todos);
       } catch (err) {

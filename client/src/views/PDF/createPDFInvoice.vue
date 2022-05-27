@@ -55,7 +55,7 @@ export default {
     this.inID = this.$route.params.id;
   },
   mounted() {
-        this.getBase64FromUrl('http://128.199.187.173:3000/stamp/stamp.png').then(
+        this.getBase64FromUrl('https://pxu-server.herokuapp.com/stamp/stamp.png').then(
       function(data){
         /* alert(data) */
         imgText = data;
@@ -88,7 +88,7 @@ export default {
       console.log("get-quotation-pdf")
       try{
         console.log("now im trying");
-        const response = await axios.get(`http://128.199.187.173:3000/invoice/createInvoicePDF/${this.inID}`);
+        const response = await axios.get(`https://pxu-server.herokuapp.com/invoice/createInvoicePDF/${this.inID}`);
         const response2 = await axios.get(`http://128.199.187.173:5000/invoice/createInvoicePDF/detail/${this.inID}`)
         console.log(response.data[0]);
         this.invoice = response.data[0];

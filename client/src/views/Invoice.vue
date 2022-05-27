@@ -205,7 +205,7 @@ export default {
       console.log("get-invoice");
       try {
         const response = await axios.get(
-          `http://128.199.187.173:3000/invoice/${id}`
+          `https://pxu-server.herokuapp.com/invoice/${id}`
         );
         this.invoice = response.data;
         console.log(this.invoice);
@@ -217,7 +217,7 @@ export default {
       console.log("get-invoice");
       try {
         await axios
-          .get(`http://128.199.187.173:3000/invoice/status/${id}`)
+          .get(`https://pxu-server.herokuapp.com/invoice/status/${id}`)
           .then((response) => {
             this.cc = response.data[0][0].cc;
             this.qin = response.data[1][0].qin;
@@ -227,7 +227,7 @@ export default {
             if (this.cc == this.qin) {
               console.log("putstatus");
               axios.post(
-                `http://128.199.187.173:3000/invoice/quostatus/${this.inID}`
+                `https://pxu-server.herokuapp.com/invoice/quostatus/${this.inID}`
               );
             }
           });

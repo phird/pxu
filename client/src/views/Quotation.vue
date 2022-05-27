@@ -253,7 +253,7 @@ export default {
           scopedSlots: { customRender: "statusw" },
         },
         {
-          title: "มูลค่าโปรเจค",
+          title: "มูลค่าของงาน",
           dataIndex: "paymentPrice",
           scopedSlots: { customRender: "val" },
         },
@@ -293,7 +293,7 @@ export default {
       console.log("get-quo");
       try {
         const response = await axios.get(
-          "http://128.199.187.173:3000/quotation"
+          "https://pxu-server.herokuapp.com/quotation"
         );
         this.quotation = response.data;
         console.log(this.quotation);
@@ -304,7 +304,7 @@ export default {
     rescindingquo(id) {
       console.log(id);
 
-      axios.put(`http://128.199.187.173:3000/quotation/${id}`, {
+      axios.put(`https://pxu-server.herokuapp.com/quotation/${id}`, {
         quostatus: "Rescinding",
       });
       this.modalconfirm = false;
@@ -315,7 +315,7 @@ export default {
     },
     contractedquo(id) {
       console.log(id);
-      axios.put(`http://128.199.187.173:3000/quotation/${id}`, {
+      axios.put(`https://pxu-server.herokuapp.com/quotation/${id}`, {
         quostatus: "Contracted",
       });
       this.success = true;
