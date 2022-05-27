@@ -1,0 +1,72 @@
+[debug] [2022-05-27T04:16:56.196Z] ----------------------------------------------------------------------
+[debug] [2022-05-27T04:16:56.198Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2022-05-27T04:16:56.199Z] CLI Version:   11.0.1
+[debug] [2022-05-27T04:16:56.199Z] Platform:      win32
+[debug] [2022-05-27T04:16:56.199Z] Node Version:  v16.13.0
+[debug] [2022-05-27T04:16:56.200Z] Time:          Fri May 27 2022 11:16:56 GMT+0700 (Indochina Time)
+[debug] [2022-05-27T04:16:56.201Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-05-27T04:16:56.276Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-05-27T04:16:56.276Z] > authorizing via signed-in user (iamphird@gmail.com)
+[debug] [2022-05-27T04:16:56.277Z] [iam] checking project fir-pux-server for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2022-05-27T04:16:56.279Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-pux-server:testIamPermissions [none]
+[debug] [2022-05-27T04:16:56.279Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-pux-server:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2022-05-27T04:16:57.579Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-pux-server:testIamPermissions 200
+[debug] [2022-05-27T04:16:57.579Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-pux-server:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2022-05-27T04:16:57.580Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/fir-pux-server/serviceAccounts/fir-pux-server@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2022-05-27T04:16:57.580Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/fir-pux-server/serviceAccounts/fir-pux-server@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2022-05-27T04:16:58.869Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/fir-pux-server/serviceAccounts/fir-pux-server@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2022-05-27T04:16:58.869Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/fir-pux-server/serviceAccounts/fir-pux-server@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'fir-pux-server'...
+[info] 
+[info] i  deploying functions 
+[debug] [2022-05-27T04:16:59.142Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at new NodeError (node:internal/errors:371:5)
+    at validateString (node:internal/validators:119:11)
+    at Object.join (node:path:429:7)
+    at Config.path (C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\config.js:122:45)
+    at getChildEnvironment (C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\lifecycleHooks.js:50:49)
+    at runTargetCommands (C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\lifecycleHooks.js:71:14)
+    at C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\lifecycleHooks.js:122:24
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async chain (C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:33:9)
+    at async deploy (C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:67:5)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2022-05-27T04:18:03.776Z] ----------------------------------------------------------------------
+[debug] [2022-05-27T04:18:03.778Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2022-05-27T04:18:03.779Z] CLI Version:   11.0.1
+[debug] [2022-05-27T04:18:03.779Z] Platform:      win32
+[debug] [2022-05-27T04:18:03.779Z] Node Version:  v16.13.0
+[debug] [2022-05-27T04:18:03.780Z] Time:          Fri May 27 2022 11:18:03 GMT+0700 (Indochina Time)
+[debug] [2022-05-27T04:18:03.781Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-05-27T04:18:03.852Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-05-27T04:18:03.852Z] > authorizing via signed-in user (iamphird@gmail.com)
+[debug] [2022-05-27T04:18:03.853Z] [iam] checking project fir-pux-server for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2022-05-27T04:18:03.855Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-pux-server:testIamPermissions [none]
+[debug] [2022-05-27T04:18:03.855Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-pux-server:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2022-05-27T04:18:05.118Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-pux-server:testIamPermissions 200
+[debug] [2022-05-27T04:18:05.118Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-pux-server:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2022-05-27T04:18:05.119Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/fir-pux-server/serviceAccounts/fir-pux-server@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2022-05-27T04:18:05.119Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/fir-pux-server/serviceAccounts/fir-pux-server@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2022-05-27T04:18:06.318Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/fir-pux-server/serviceAccounts/fir-pux-server@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2022-05-27T04:18:06.318Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/fir-pux-server/serviceAccounts/fir-pux-server@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'fir-pux-server'...
+[info] 
+[info] i  deploying functions 
+[debug] [2022-05-27T04:18:06.476Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at new NodeError (node:internal/errors:371:5)
+    at validateString (node:internal/validators:119:11)
+    at Object.join (node:path:429:7)
+    at Config.path (C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\config.js:122:45)
+    at getChildEnvironment (C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\lifecycleHooks.js:50:49)
+    at runTargetCommands (C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\lifecycleHooks.js:71:14)
+    at C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\lifecycleHooks.js:122:24
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async chain (C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:33:9)
+    at async deploy (C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:67:5)
+[error] 
+[error] Error: An unexpected error has occurred.

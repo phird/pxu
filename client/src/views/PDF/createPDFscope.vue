@@ -13,8 +13,9 @@
 </template>
 
 <script>
-import pdfMake from "pdfmake";
-import pdfFonts from "../../assets/custom-fonts.js";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import axios from "axios";
 let Textimg = "";
 
