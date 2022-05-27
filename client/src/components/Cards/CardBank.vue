@@ -4,7 +4,7 @@
     <div class="card-profile-section">
       <div class="profile-banner">
         <img
-          :src="`http://128.199.187.173:5000/bank/${bank.img}`"
+          :src="`http://128.199.187.173:3000/bank/${bank.img}`"
           alt="Bank Cover Photo"
         />
       </div>
@@ -37,7 +37,7 @@ export default {
   methods: {
     getbank() {
       axios
-        .get("http://128.199.187.173:5000/carddash/bank", {})
+        .get("http://128.199.187.173:3000/carddash/bank", {})
         .then((res) => {
           this.bank = res.data[0];
           console.log(this.bank);

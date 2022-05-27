@@ -39,7 +39,7 @@ export default {
   methods:{
     getcus(){
       console.log('get-ja');
-      axios.put("http://128.199.187.173:5000/cardcustomer",{
+      axios.put("http://128.199.187.173:3000/cardcustomer",{
 
       }).then((res)=>{
           console.log(res.data);

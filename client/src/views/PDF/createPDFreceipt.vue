@@ -40,6 +40,7 @@ export default {
       qwcompanyNumber: "",
       qtaxNumber: "",
       qemployeeEmail: "",
+      qnamecontact:"",
 
       price: 0,
       totalprice: 0,
@@ -53,7 +54,7 @@ export default {
     this.inID = this.$route.params.id;
   },
   mounted() {
-    this.getBase64FromUrl('http://128.199.187.173:5000/stamp/stamp.png').then(
+    this.getBase64FromUrl('http://128.199.187.173:3000/stamp/stamp.png').then(
     function(data){
       /* alert(data) */
       imgText = data;
@@ -85,9 +86,9 @@ export default {
       console.log("get-quotation-pdf")
       try{
         console.log("now im trying");
-        const response = await axios.get(`http://128.199.187.173:5000/invoice/createInvoicePDF/${this.inID}`);
-        const response2 = await axios.get(`http://128.199.187.173:5000/invoice/createInvoicePDF/detail/${this.inID}`)
-        const dataReceipt = await axios.get(`http://128.199.187.173:5000/invoice/receipt/${this.inID}`)
+        const response = await axios.get(`http://128.199.187.173:3000/invoice/createInvoicePDF/${this.inID}`);
+        const response2 = await axios.get(`http://128.199.187.173:3000/invoice/createInvoicePDF/detail/${this.inID}`)
+        const dataReceipt = await axios.get(`http://128.199.187.173:3000/invoice/receipt/${this.inID}`)
         console.log(response.data[0]);
         this.invoice = response.data[0];
         this.invoiceDetail = response2.data;
@@ -107,7 +108,11 @@ export default {
         }
         if (this.invoice.contactNumber != "") {
           this.qwcompanyNumber =
-            ",  เบอร์โทร: " + this.invoice.contactNumber;
+            ",  เบอร์โทร: " + this.invoice.companyNumber;
+        }
+        if (this.invoice.companyName != this.invoice.contactName) {
+          this.qnamecontact =
+              "(" + this.invoice.contactName + ")";
         }
         if (this.invoice.ctaxNumber != "") {
           this.qtaxNumber =
@@ -295,7 +300,7 @@ export default {
                       "  " +
                       this.qwcompanyNumber +
                       this.qemployeeEmail +
-                      this.qtaxNumber,
+                      this.qtaxNumber+ this.qnamecontact
                   },
                 ],
               },

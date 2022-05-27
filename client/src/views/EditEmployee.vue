@@ -154,7 +154,7 @@ export default {
         alert("can't submit");
       } else {
         await axios
-          .post(`http://128.199.187.173:5000/employee/${id}`, {
+          .post(`http://128.199.187.173:3000/employee/${id}`, {
             role: this.role,
             employeeName: this.employeeName,
             employeeNumber: this.employeeNumber,
@@ -172,7 +172,7 @@ export default {
     async getemployee(empid) {
       try {
         const response = await axios.get(
-          `http://128.199.187.173:5000/employee/${empid}`
+          `http://128.199.187.173:3000/employee/${empid}`
         );
         this.employee = response.data[0];
         this.role = this.employee.role;

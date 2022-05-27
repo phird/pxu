@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     getem() {
-      axios.get("http://128.199.187.173:5000/carddash", {}).then((res) => {
+      axios.get("http://128.199.187.173:3000/carddash", {}).then((res) => {
         this.em = res.data[0];
       });
     },

@@ -17,7 +17,7 @@
         </div>
         <div v-else>
           <img
-            :src="`http://128.199.187.173:5000/slip/${imgslip}`"
+            :src="`http://128.199.187.173:3000/slip/${imgslip}`"
             alt=""
             class="imagePreviewWrapper"
           />
@@ -89,10 +89,10 @@ export default {
       }else{
         let formData = new FormData();
       formData.append("files", this.fileimg);
-      axios.post("http://128.199.187.173:5000/uploadslip", formData, {});
-      axios.post(`http://128.199.187.173:5000/invoice/re/changestatus/${this.inID}`);
+      axios.post("http://128.199.187.173:3000/uploadslip", formData, {});
+      axios.post(`http://128.199.187.173:3000/invoice/re/changestatus/${this.inID}`);
       axios
-        .post(`http://128.199.187.173:5000/invoice/re/${this.inID}`, {
+        .post(`http://128.199.187.173:3000/invoice/re/${this.inID}`, {
           imgslip: this.imgslip,
           daterec: this.daterec,
         })
@@ -126,7 +126,7 @@ export default {
     async getimg(id) {
       try {
         const response = await axios.get(
-          `http://128.199.187.173:5000/invoice/re/${id}`
+          `http://128.199.187.173:3000/invoice/re/${id}`
         );
         if (response.data[0].datereceipt == '') {
           var today = new Date();

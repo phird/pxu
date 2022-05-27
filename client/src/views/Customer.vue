@@ -622,7 +622,7 @@ export default {
       this.postcode = address.zipcode;
     },
     deletecus(id) {
-      axios.delete(`http://128.199.187.173:5000/customer/${id}`);
+      axios.delete(`http://128.199.187.173:3000/customer/${id}`);
       this.modalconfirm = false;
       this.nerror = true;
       setTimeout(() => {
@@ -634,7 +634,7 @@ export default {
       console.log(this.conpanyNumber);
       if (this.status == "บุคคลธรรมดา") {
         this.companyName = this.contactName;
-        this.conpanyNumber = this.contactNumber;
+        this.companyNumber = this.contactNumber;
         /* console.log(this.companyName);
         console.log(this.conpanyNumber); */
       }
@@ -644,7 +644,7 @@ export default {
         alert("can't submit");
       } else {
         await axios
-          .post("http://128.199.187.173:5000/customer", {
+          .post("http://128.199.187.173:3000/customer", {
             companyName: this.companyName,
             companyNumber: this.companyNumber,
             status: this.status,
@@ -668,8 +668,7 @@ export default {
     },
     checkcompany(status) {
       if (status == "บุคคลธรรมดา") {
-        this.companyName = "test";
-        this.companyNumber = "1111111111";
+        
       } else {
         this.companyName = "";
         this.companyNumber = "";
@@ -679,7 +678,7 @@ export default {
       console.log("get-cus");
       try {
         const response = await axios.get(
-          "http://128.199.187.173:5000/customer"
+          "http://128.199.187.173:3000/customer"
         );
         this.customer = response.data;
         for (let i = 0; i < response.data.length; i++) {

@@ -75,7 +75,7 @@
                     </div>
                     <div v-else></div>
                     <img
-                      :src="`http://128.199.187.173:5000/bank/${item.img}`"
+                      :src="`http://128.199.187.173:3000/bank/${item.img}`"
                       alt="bank"
                     />
                     <figcaption>
@@ -123,7 +123,7 @@
                 <div class="form-group">
                   <div class="upload-here">
                     <img
-                      :src="`http://128.199.187.173:5000/bank/${imageName}`"
+                      :src="`http://128.199.187.173:3000/bank/${imageName}`"
                       class="img-fluid"
                     />
                   </div>
@@ -351,7 +351,7 @@ export default {
         alert("can't submit");
       } else {
         await axios
-          .post("http://128.199.187.173:5000/bank", {
+          .post("http://128.199.187.173:3000/bank", {
             bankName: this.bankName,
             bankAccount: this.bankAccount,
             accountName: this.accountName,
@@ -370,7 +370,7 @@ export default {
     async getbank() {
       console.log("get-bank");
       try {
-        const response = await axios.get("http://128.199.187.173:5000/bank");
+        const response = await axios.get("http://128.199.187.173:3000/bank");
         this.bank = response.data;
         console.log(this.bank);
       } catch (err) {
