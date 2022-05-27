@@ -71,7 +71,7 @@
                   <input
                     id="companyNumber"
                     type="tel"
-                pattern="[0-9]{10}"
+                pattern="[0-9]{9,}"
                 minlength="9"
                 maxlength="10"
                     v-model="companyNumber"
@@ -137,7 +137,7 @@
                   <input
                     id="contactNumber"
                     type="tel"
-                pattern="[0-9]{10}"
+                pattern="[0-9]{9,}"
                 minlength="9"
                 maxlength="10"
                     title="กรุณากรอกเบอร์โทรให้ถูกต้อง"
@@ -289,7 +289,7 @@
                 id="contactNumber"
                 type="text"
                 v-model="contactNumber"
-                pattern="[0-9]{10}"
+                pattern="[0-9]{9,}"
                 minlength="9"
                 maxlength="10"
                 placeholder="เบอร์โทร"

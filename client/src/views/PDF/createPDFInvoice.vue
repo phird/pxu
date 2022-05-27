@@ -89,7 +89,7 @@ export default {
       try{
         console.log("now im trying");
         const response = await axios.get(`https://pxu-server.herokuapp.com/invoice/createInvoicePDF/${this.inID}`);
-        const response2 = await axios.get(`http://128.199.187.173:5000/invoice/createInvoicePDF/detail/${this.inID}`)
+        const response2 = await axios.get(`https://pxu-server.herokuapp.com/invoice/createInvoicePDF/detail/${this.inID}`)
         console.log(response.data[0]);
         this.invoice = response.data[0];
         this.invoiceDetail = response2.data;
