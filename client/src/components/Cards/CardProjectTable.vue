@@ -136,7 +136,7 @@ export default {
     async getquotationall() {
       console.log("get-quo");
       try {
-        const response = await axios.get("http://128.199.187.173:5000/quotation");
+        const response = await axios.get("https://pxu-server.herokuapp.com/quotation");
         this.quotationall = response.data;
         console.log(this.quotationall);
       } catch (err) {
@@ -146,7 +146,7 @@ export default {
     async getquotationongoing() {
       console.log("get-quo");
       try {
-        const response = await axios.get("http://128.199.187.173:5000/quotation/ongoing");
+        const response = await axios.get("https://pxu-server.herokuapp.com/quotation/ongoing");
         this.quotationongoing = response.data;
         console.log(this.quotationongoing);
       } catch (err) {
@@ -156,7 +156,7 @@ export default {
     async getquotationdone() {
       console.log("get-quo");
       try {
-        const response = await axios.get("http://128.199.187.173:5000/quotation/done");
+        const response = await axios.get("https://pxu-server.herokuapp.com/quotation/done");
         this.quotationdone = response.data;
         console.log(this.quotationdone);
       } catch (err) {

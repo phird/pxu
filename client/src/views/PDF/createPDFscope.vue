@@ -6,15 +6,17 @@
         font-size: 40px;
         text-align: center;
         justify-content: center;
-      ">
+      "
+    >
       LOADING ....
     </div>
   </div>
 </template>
 
 <script>
-import pdfMake from "pdfmake";
+import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "../../assets/custom-fonts.js";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import axios from "axios";
 let Textimg = "";
 
@@ -32,14 +34,14 @@ export default {
   },
 
   mounted() {
-    this.getBase64FromUrl("http://128.199.187.173:5000/stamp/stamp.png").then(
-        function (data) {
-
-            Textimg = data;
-
-        }
-        );
-    setTimeout(()=>{this.export()},500)
+    this.getBase64FromUrl(
+      "https://pxu-server.herokuapp.com/stamp/stamp.png"
+    ).then(function (data) {
+      Textimg = data;
+    });
+    setTimeout(() => {
+      this.export();
+    }, 500);
   },
   methods: {
     async getBase64FromUrl(url) {
@@ -52,7 +54,7 @@ export default {
           reader.onloadend = () => {
             const base64data = reader.result;
             resolve(base64data);
-          }
+          };
         });
       } catch (err) {
         console.log(err);
@@ -62,7 +64,7 @@ export default {
       this.scID = this.$route.params.id;
       try {
         const response = await axios.get(
-          `http://128.199.187.173:5000/quotation/quoScope/${this.scID}`
+          `https://pxu-server.herokuapp.com/quotation/quoScope/${this.scID}`
         );
         this.scopeArr = response.data[0];
         /* console.log("response.data[0]"); */
@@ -72,9 +74,28 @@ export default {
       } catch (err) {
         console.log(err);
       }
-      pdfMake.vfs = pdfFonts.pdfMake.vfs;
-      var val = htmlToPdfmake(this.htmlText);
 
+      var val = htmlToPdfmake(this.htmlText);
+      pdfMake.vfs = pdfFonts.pdfMake.vfs;
+      pdfMake.fonts = {
+        // download default Roboto font from cdnjs.com
+        Roboto: {
+          normal:
+            "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Regular.ttf",
+          bold: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Medium.ttf",
+          italics:
+            "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Italic.ttf",
+          bolditalics:
+            "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-MediumItalic.ttf",
+        },
+        Kanit: {
+          // 3. set Kanit font
+          normal: "Kanit-Regular.ttf",
+          bold: "Kanit-Medium.ttf",
+          italics: "Kanit-Italic.ttf",
+          bolditalics: "Kanit-MediumItalic.ttf",
+        },
+      };
 
       const dd = {
         pageSize: "A4",
@@ -90,10 +111,13 @@ export default {
         images: {
           stamp: Textimg,
         },
+        defaultStyle: {
+          font: "Kanit",
+          // alignment: 'justify'
+        },
       };
       pdfMake.createPdf(dd).open({}, window);
     },
-        
   },
 };
 </script>

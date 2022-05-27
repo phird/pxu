@@ -41,6 +41,7 @@ export default {
       qwcompanyNumber: "",
       qtaxNumber: "",
       qemployeeEmail: "",
+      qnamecontact:"",
 
       price: 0,
       totalprice: 0,
@@ -54,7 +55,7 @@ export default {
     this.inID = this.$route.params.id;
   },
   mounted() {
-        this.getBase64FromUrl('http://128.199.187.173:5000/stamp/stamp.png').then(
+        this.getBase64FromUrl('https://pxu-server.herokuapp.com/stamp/stamp.png').then(
       function(data){
         /* alert(data) */
         imgText = data;
@@ -87,7 +88,7 @@ export default {
       console.log("get-quotation-pdf")
       try{
         console.log("now im trying");
-        const response = await axios.get(`http://128.199.187.173:5000/invoice/createInvoicePDF/${this.inID}`);
+        const response = await axios.get(`https://pxu-server.herokuapp.com/invoice/createInvoicePDF/${this.inID}`);
         const response2 = await axios.get(`http://128.199.187.173:5000/invoice/createInvoicePDF/detail/${this.inID}`)
         console.log(response.data[0]);
         this.invoice = response.data[0];
@@ -107,7 +108,11 @@ export default {
         }
         if (this.invoice.contactNumber != "") {
           this.qwcompanyNumber =
-            ",  เบอร์โทร: " + this.invoice.contactNumber;
+            ",  เบอร์โทร: " + this.invoice.companyNumber;
+        }
+        if (this.invoice.companyName != this.invoice.contactName) {
+          this.qnamecontact =
+              "(" + this.invoice.contactName + ")";
         }
         if (this.invoice.ctaxNumber != "") {
           this.qtaxNumber =
@@ -288,9 +293,9 @@ export default {
                       "   " +
                       this.qpostcode +
                       "  " +
-                      this.qwcompanyNumber +
+                      this.qwcompanyNumber + this.qnamecontact +
                       this.qemployeeEmail +
-                      this.qtaxNumber,
+                      this.qtaxNumber
                   },
                 ],
               },

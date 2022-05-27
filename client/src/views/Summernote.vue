@@ -2,6 +2,7 @@
   <div class="hello">
     <div>
       <quill-editor
+      class="myLang"
         v-model="sumnote"
         ref="myQuillEditor"
         :options="editorOption"
@@ -44,42 +45,9 @@ function getFontName(font) {
   return font.toLowerCase().replace(/\s/g, "-");
 }
 // Specify Quill fonts
-const fontList = [
-  "Arial",  
-  "Kanit",
-];
-const fontNames = fontList.map((font) => getFontName(font));
-const fonts = Quill.import("formats/font");
-fonts.whitelist = fontNames;
-Quill.register(fonts, true);
+
 // Add fonts to CSS style
-let fontStyles = "";
-fontList.forEach(function (font) {
-  let fontName = getFontName(font);
-  fontStyles +=
-    ".ql-snow .ql-picker.ql-font .ql-picker-label[data-value=" +
-    fontName +
-    "]::before, .ql-snow .ql-picker.ql-font .ql-picker-item[data-value=" +
-    fontName +
-    "]::before {" +
-    "content: '" +
-    font +
-    "';" +
-    "font-family: '" +
-    font +
-    "', sans-serif;" +
-    "}" +
-    ".ql-font-" +
-    fontName +
-    "{" +
-    " font-family: '" +
-    font +
-    "', sans-serif;" +
-    "}";
-});
-const node = document.createElement("style");
-node.innerHTML = fontStyles;
-document.body.appendChild(node);
+
 export default {
   name: "Summernote",
   components: {
@@ -147,7 +115,6 @@ export default {
               ],
               ["link", "image"],
               ["clean"],
-              [{ font: fonts.whitelist }],
             ],
             handlers: {
               // image: function() {
@@ -178,6 +145,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.myLang{
+  font-family: "Mitr", sans-serif;
+}
+.myLang >>> .ql-toolbar.ql-snow + .ql-container.ql-snow {
+    font-family: "Mitr", sans-serif;
+    border-top: 0px;
+}
 .note-editable{ 
     font-family: 'Kanit', sans-serif;
     font-size: 15px !important; 

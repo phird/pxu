@@ -35,6 +35,8 @@ export default {
       qwcompanyNumber: "",
       qtaxNumber: "",
       qemployeeEmail: "",
+      qnamecontact:"",
+
 
       price: 0,
       totalprice: 0,
@@ -49,7 +51,7 @@ export default {
   },
 
   mounted() {
-    this.getBase64FromUrl("http://128.199.187.173:5000/stamp/stamp.png").then(
+    this.getBase64FromUrl("https://pxu-server.herokuapp.com/stamp/stamp.png").then(
       function (data) {
         /* alert(data) */
         imgText = data;
@@ -82,10 +84,10 @@ export default {
       try {
         console.log("now im try");
         const response = await axios.get(
-          `http://128.199.187.173:5000/quotation/quo/${this.quoID}`
+          `https://pxu-server.herokuapp.com/quotation/quo/${this.quoID}`
         );
         const response2 = await axios.get(
-          `http://128.199.187.173:5000/quotation/quo/detail/${this.quoID}`
+          `https://pxu-server.herokuapp.com/quotation/quo/detail/${this.quoID}`
         );
         console.log(response.data[0]);
         this.quotation = response.data[0];
@@ -104,13 +106,17 @@ export default {
           this.qprovince = "\n" + " จ. " + this.quotation.cprovince;
           this.qpostcode = this.quotation.cpostcode;
         }
-        if (this.quotation.contactNumber != "") {
+        if (this.quotation.contactNumber != "" ) {
           this.qwcompanyNumber =
-            ",  เบอร์โทร: " + this.quotation.contactNumber;
+            ",  เบอร์โทร: " + this.quotation.companyNumber;
         }
         if (this.quotation.ctaxNumber != "") {
           this.qtaxNumber =
             "\n" + "หมายเลขผู้เสียภาษี: " + this.quotation.ctaxNumber;
+        }
+        if (this.quotation.companyName != this.quotation.contactName) {
+          this.qnamecontact =
+              "(" + this.quotation.contactName + ")";
         }
         if (this.quotation.contactEmail != "") {
           this.qemployeeEmail = "\n" + "อีเมล: " + this.quotation.contactEmail;
@@ -295,9 +301,9 @@ export default {
                       "   " +
                       this.qpostcode +
                       "  " +
-                      this.qwcompanyNumber +
+                      this.qwcompanyNumber + this.qnamecontact +
                       this.qemployeeEmail +
-                      this.qtaxNumber,
+                      this.qtaxNumber 
                   },
                 ],
               },
